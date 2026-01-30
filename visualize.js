@@ -1,6 +1,5 @@
 const fs = require('fs');
-// Ensure this path is correct for your project structure
-const rgaaMasterMapping = require('./constants/rgaaMapping.js'); 
+const { rgaaFlatMapping } = require('./constants/rgaaMapping.complete.js'); 
 
 // Escape HTML to prevent injection and layout breaking
 function escapeHtml(text) {
@@ -107,7 +106,14 @@ function generateProReport(results, co2Data, url) {
             
             <div class="space-y-6">
                 ${results.violations.map(v => {
-                    const mapping = rgaaMasterMapping[v.id] || { article: "Général", brand: "Risque de plainte usager et exclusion.", fix: "Vérifier la sémantique HTML." };
+                    // Find the RGAA criterion that contains this axe rule
+                    let mapping = { article: "Général", brand: "Risque de plainte usager et exclusion.", fix: "Vérifier la sémantique HTML." };
+                    for (const [article, criterion] of Object.entries(rgaaFlatMapping)) {
+                        if (criterion.axeRules && criterion.axeRules.includes(v.id)) {
+                            mapping = { article, brand: criterion.brand, fix: criterion.fix };
+                            break;
+                        }
+                    }
                     return `
                     <div class="group bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow overflow-hidden">
                         <div class="p-6">

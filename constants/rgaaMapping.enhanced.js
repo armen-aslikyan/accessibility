@@ -1,16 +1,10 @@
 /**
  * RGAA 4.1 Enhanced Mapping to axe-core rules
  * Maximizes automated coverage of RGAA criteria
- * Generated: 2026-01-30T09:43:38.826Z
+ * Generated: 2026-01-30T09:27:42.379Z
  * 
  * Coverage: 61 axe-core rules
  * Automatable RGAA criteria: 70/106 (66%)
- * 
- * Test Method Values:
- * - "axe-core": Fully automatable with axe-core (presence/structure validation)
- * - "axe-core,ai": Automatable with axe-core + AI can enhance quality checks
- * - "manual": Requires human judgment (not in this mapping, see RGAA structure)
- * - "ai": Potentially testable with AI vision/language models (not in this mapping)
  */
 
 const rgaaTheme1Images = {
@@ -20,8 +14,7 @@ const rgaaTheme1Images = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Excludes visually impaired users. Direct SEO penalty.",
-      "fix": "Images must have alternative text",
-      "testMethod": "axe-core,ai"
+      "fix": "Images must have alternative text"
   },
   "input-image-alt": {
       "article": "1.1",
@@ -29,8 +22,7 @@ const rgaaTheme1Images = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Excludes visually impaired users. Direct SEO penalty.",
-      "fix": "Image buttons must have alternative text",
-      "testMethod": "axe-core,ai"
+      "fix": "Image buttons must have alternative text"
   },
   "area-alt": {
       "article": "1.1",
@@ -38,8 +30,7 @@ const rgaaTheme1Images = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Excludes visually impaired users. Direct SEO penalty.",
-      "fix": "Active <area> elements must have alternative text",
-      "testMethod": "axe-core,ai"
+      "fix": "Active <area> elements must have alternative text"
   },
   "svg-img-alt": {
       "article": "1.1",
@@ -47,8 +38,7 @@ const rgaaTheme1Images = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Excludes visually impaired users. Direct SEO penalty.",
-      "fix": "<svg> elements with an img role must have alternative text",
-      "testMethod": "axe-core,ai"
+      "fix": "<svg> elements with an img role must have alternative text"
   },
   "object-alt": {
       "article": "1.1",
@@ -56,8 +46,7 @@ const rgaaTheme1Images = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Excludes visually impaired users. Direct SEO penalty.",
-      "fix": "<object> elements must have alternative text",
-      "testMethod": "axe-core,ai"
+      "fix": "<object> elements must have alternative text"
   },
   "video-caption": {
       "article": "1.1",
@@ -65,8 +54,7 @@ const rgaaTheme1Images = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Excludes visually impaired users. Direct SEO penalty.",
-      "fix": "<video> elements must have captions",
-      "testMethod": "axe-core,ai"
+      "fix": "<video> elements must have captions"
   },
   "audio-caption": {
       "article": "1.1",
@@ -74,8 +62,7 @@ const rgaaTheme1Images = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Excludes visually impaired users. Direct SEO penalty.",
-      "fix": "<audio> elements must have a captions track",
-      "testMethod": "axe-core,ai"
+      "fix": "<audio> elements must have a captions track"
   }
 };
 
@@ -86,8 +73,7 @@ const rgaaTheme2Frames = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Confusing UX: Screen readers cannot identify frame content.",
-      "fix": "Elements must only use supported ARIA attributes",
-      "testMethod": "axe-core"
+      "fix": "Elements must only use supported ARIA attributes"
   },
   "aria-command-name": {
       "article": "2.1",
@@ -95,8 +81,7 @@ const rgaaTheme2Frames = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Confusing UX: Screen readers cannot identify frame content.",
-      "fix": "ARIA commands must have an accessible name",
-      "testMethod": "axe-core,ai"
+      "fix": "ARIA commands must have an accessible name"
   },
   "aria-hidden-body": {
       "article": "2.1",
@@ -104,8 +89,7 @@ const rgaaTheme2Frames = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Confusing UX: Screen readers cannot identify frame content.",
-      "fix": "aria-hidden=\"true\" must not be present on the document body",
-      "testMethod": "axe-core"
+      "fix": "aria-hidden=\"true\" must not be present on the document body"
   },
   "aria-input-field-name": {
       "article": "2.1",
@@ -113,8 +97,7 @@ const rgaaTheme2Frames = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Confusing UX: Screen readers cannot identify frame content.",
-      "fix": "ARIA input fields must have an accessible name",
-      "testMethod": "axe-core,ai"
+      "fix": "ARIA input fields must have an accessible name"
   },
   "aria-meter-name": {
       "article": "2.1",
@@ -122,8 +105,7 @@ const rgaaTheme2Frames = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Confusing UX: Screen readers cannot identify frame content.",
-      "fix": "ARIA meter nodes must have an accessible name",
-      "testMethod": "axe-core,ai"
+      "fix": "ARIA meter nodes must have an accessible name"
   },
   "aria-progressbar-name": {
       "article": "2.1",
@@ -131,8 +113,7 @@ const rgaaTheme2Frames = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Confusing UX: Screen readers cannot identify frame content.",
-      "fix": "ARIA progressbar nodes must have an accessible name",
-      "testMethod": "axe-core,ai"
+      "fix": "ARIA progressbar nodes must have an accessible name"
   },
   "aria-required-attr": {
       "article": "2.1",
@@ -140,8 +121,7 @@ const rgaaTheme2Frames = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Confusing UX: Screen readers cannot identify frame content.",
-      "fix": "Required ARIA attributes must be provided",
-      "testMethod": "axe-core"
+      "fix": "Required ARIA attributes must be provided"
   },
   "aria-required-children": {
       "article": "2.1",
@@ -149,8 +129,7 @@ const rgaaTheme2Frames = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Confusing UX: Screen readers cannot identify frame content.",
-      "fix": "Certain ARIA roles must contain particular children",
-      "testMethod": "axe-core"
+      "fix": "Certain ARIA roles must contain particular children"
   },
   "aria-required-parent": {
       "article": "2.1",
@@ -158,8 +137,7 @@ const rgaaTheme2Frames = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Confusing UX: Screen readers cannot identify frame content.",
-      "fix": "Certain ARIA roles must be contained by particular parents",
-      "testMethod": "axe-core"
+      "fix": "Certain ARIA roles must be contained by particular parents"
   },
   "aria-roledescription": {
       "article": "2.1",
@@ -167,8 +145,7 @@ const rgaaTheme2Frames = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Confusing UX: Screen readers cannot identify frame content.",
-      "fix": "aria-roledescription must be on elements with a semantic role",
-      "testMethod": "axe-core"
+      "fix": "aria-roledescription must be on elements with a semantic role"
   },
   "aria-roles": {
       "article": "2.1",
@@ -176,8 +153,7 @@ const rgaaTheme2Frames = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Confusing UX: Screen readers cannot identify frame content.",
-      "fix": "ARIA roles used must conform to valid values",
-      "testMethod": "axe-core"
+      "fix": "ARIA roles used must conform to valid values"
   },
   "aria-toggle-field-name": {
       "article": "2.1",
@@ -185,8 +161,7 @@ const rgaaTheme2Frames = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Confusing UX: Screen readers cannot identify frame content.",
-      "fix": "ARIA toggle fields must have an accessible name",
-      "testMethod": "axe-core,ai"
+      "fix": "ARIA toggle fields must have an accessible name"
   },
   "aria-valid-attr-value": {
       "article": "2.1",
@@ -194,8 +169,7 @@ const rgaaTheme2Frames = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Confusing UX: Screen readers cannot identify frame content.",
-      "fix": "ARIA attributes must conform to valid values",
-      "testMethod": "axe-core"
+      "fix": "ARIA attributes must conform to valid values"
   },
   "aria-valid-attr": {
       "article": "2.1",
@@ -203,8 +177,7 @@ const rgaaTheme2Frames = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Confusing UX: Screen readers cannot identify frame content.",
-      "fix": "ARIA attributes must conform to valid names",
-      "testMethod": "axe-core"
+      "fix": "ARIA attributes must conform to valid names"
   },
   "button-name": {
       "article": "2.1",
@@ -212,8 +185,7 @@ const rgaaTheme2Frames = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Confusing UX: Screen readers cannot identify frame content.",
-      "fix": "Buttons must have discernible text",
-      "testMethod": "axe-core,ai"
+      "fix": "Buttons must have discernible text"
   },
   "frame-title": {
       "article": "2.1",
@@ -221,8 +193,7 @@ const rgaaTheme2Frames = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Confusing UX: Screen readers cannot identify frame content.",
-      "fix": "Frames must have an accessible name",
-      "testMethod": "axe-core,ai"
+      "fix": "Frames must have an accessible name"
   },
   "input-button-name": {
       "article": "2.1",
@@ -230,8 +201,7 @@ const rgaaTheme2Frames = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Confusing UX: Screen readers cannot identify frame content.",
-      "fix": "Input buttons must have discernible text",
-      "testMethod": "axe-core,ai"
+      "fix": "Input buttons must have discernible text"
   },
   "label": {
       "article": "2.1",
@@ -239,8 +209,7 @@ const rgaaTheme2Frames = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Confusing UX: Screen readers cannot identify frame content.",
-      "fix": "Form elements must have labels",
-      "testMethod": "axe-core,ai"
+      "fix": "Form elements must have labels"
   },
   "role-img-alt": {
       "article": "2.1",
@@ -248,8 +217,7 @@ const rgaaTheme2Frames = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Confusing UX: Screen readers cannot identify frame content.",
-      "fix": "[role=\"img\"] elements must have alternative text",
-      "testMethod": "axe-core,ai"
+      "fix": "[role=\"img\"] elements must have alternative text"
   },
   "select-name": {
       "article": "2.1",
@@ -257,8 +225,7 @@ const rgaaTheme2Frames = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Confusing UX: Screen readers cannot identify frame content.",
-      "fix": "Select element must have an accessible name",
-      "testMethod": "axe-core,ai"
+      "fix": "Select element must have an accessible name"
   }
 };
 
@@ -269,8 +236,7 @@ const rgaaTheme3Colors = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Excludes colorblind users (8% of men) and users in poor lighting.",
-      "fix": "Links must be distinguishable without relying on color",
-      "testMethod": "axe-core,ai"
+      "fix": "Links must be distinguishable without relying on color"
   },
   "color-contrast": {
       "article": "3.2",
@@ -278,8 +244,7 @@ const rgaaTheme3Colors = {
       "risk": "High",
       "financial": "€25,000 - €50,000 fine. Significant compliance risk.",
       "brand": "Excludes colorblind users (8% of men) and users in poor lighting.",
-      "fix": "Elements must meet minimum color contrast ratio thresholds",
-      "testMethod": "axe-core"
+      "fix": "Elements must meet minimum color contrast ratio thresholds"
   }
 };
 
@@ -294,8 +259,7 @@ const rgaaTheme5Tables = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Data becomes unnavigable for screen reader users.",
-      "fix": "<dl> elements must only directly contain properly-ordered <dt> and <dd> groups, <script>, <template> or <div> elements",
-      "testMethod": "axe-core"
+      "fix": "<dl> elements must only directly contain properly-ordered <dt> and <dd> groups, <script>, <template> or <div> elements"
   },
   "dlitem": {
       "article": "5.1",
@@ -303,8 +267,7 @@ const rgaaTheme5Tables = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Data becomes unnavigable for screen reader users.",
-      "fix": "<dt> and <dd> elements must be contained by a <dl>",
-      "testMethod": "axe-core"
+      "fix": "<dt> and <dd> elements must be contained by a <dl>"
   },
   "list": {
       "article": "5.1",
@@ -312,8 +275,7 @@ const rgaaTheme5Tables = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Data becomes unnavigable for screen reader users.",
-      "fix": "<ul> and <ol> must only directly contain <li>, <script> or <template> elements",
-      "testMethod": "axe-core"
+      "fix": "<ul> and <ol> must only directly contain <li>, <script> or <template> elements"
   },
   "listitem": {
       "article": "5.1",
@@ -321,8 +283,7 @@ const rgaaTheme5Tables = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Data becomes unnavigable for screen reader users.",
-      "fix": "<li> elements must be contained in a <ul> or <ol>",
-      "testMethod": "axe-core"
+      "fix": "<li> elements must be contained in a <ul> or <ol>"
   },
   "th-has-data-cells": {
       "article": "5.1",
@@ -330,8 +291,7 @@ const rgaaTheme5Tables = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Data becomes unnavigable for screen reader users.",
-      "fix": "Table headers in a data table must refer to data cells",
-      "testMethod": "axe-core"
+      "fix": "Table headers in a data table must refer to data cells"
   },
   "td-headers-attr": {
       "article": "5.1",
@@ -339,8 +299,7 @@ const rgaaTheme5Tables = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Data becomes unnavigable for screen reader users.",
-      "fix": "Table cell headers attributes must refer to other <th> elements in the same table",
-      "testMethod": "axe-core"
+      "fix": "Table cell headers attributes must refer to other <th> elements in the same table"
   },
   "scope-attr-valid": {
       "article": "5.1",
@@ -348,8 +307,7 @@ const rgaaTheme5Tables = {
       "risk": "Medium",
       "financial": "Compliance deduction. Contributes to non-compliant status.",
       "brand": "Data becomes unnavigable for screen reader users.",
-      "fix": "scope attribute should be used correctly",
-      "testMethod": "axe-core"
+      "fix": "scope attribute should be used correctly"
   },
   "table-duplicate-name": {
       "article": "5.1",
@@ -357,8 +315,7 @@ const rgaaTheme5Tables = {
       "risk": "High",
       "financial": "€25,000 - €50,000 fine. Significant compliance risk.",
       "brand": "Data becomes unnavigable for screen reader users.",
-      "fix": "Tables should not have the same summary and caption",
-      "testMethod": "axe-core,ai"
+      "fix": "Tables should not have the same summary and caption"
   },
   "form-field-multiple-labels": {
       "article": "5.1",
@@ -366,8 +323,7 @@ const rgaaTheme5Tables = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Data becomes unnavigable for screen reader users.",
-      "fix": "Form field must not have multiple label elements",
-      "testMethod": "axe-core,ai"
+      "fix": "Form field must not have multiple label elements"
   },
   "landmark-unique": {
       "article": "5.1",
@@ -375,8 +331,7 @@ const rgaaTheme5Tables = {
       "risk": "Medium",
       "financial": "Compliance deduction. Contributes to non-compliant status.",
       "brand": "Data becomes unnavigable for screen reader users.",
-      "fix": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
-      "testMethod": "axe-core"
+      "fix": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination"
   }
 };
 
@@ -387,8 +342,7 @@ const rgaaTheme6Links = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Total failure: Users cannot understand link destination.",
-      "fix": "Links must have discernible text",
-      "testMethod": "axe-core,ai"
+      "fix": "Links must have discernible text"
   }
 };
 
@@ -399,8 +353,7 @@ const rgaaTheme7Scripts = {
       "risk": "Medium",
       "financial": "Compliance deduction. Contributes to non-compliant status.",
       "brand": "Functional block: Interactive elements invisible to assistive tech.",
-      "fix": "accesskey attribute value should be unique",
-      "testMethod": "axe-core"
+      "fix": "accesskey attribute value should be unique"
   },
   "tabindex": {
       "article": "7.3",
@@ -408,8 +361,7 @@ const rgaaTheme7Scripts = {
       "risk": "Medium",
       "financial": "Compliance deduction. Contributes to non-compliant status.",
       "brand": "Functional block: Interactive elements invisible to assistive tech.",
-      "fix": "Elements should not have tabindex greater than zero",
-      "testMethod": "axe-core"
+      "fix": "Elements should not have tabindex greater than zero"
   }
 };
 
@@ -420,8 +372,7 @@ const rgaaTheme8Mandatory = {
       "risk": "Medium",
       "financial": "Compliance deduction. Contributes to non-compliant status.",
       "brand": "Fundamental compliance failure. Automated bots flag immediately.",
-      "fix": "id attribute value must be unique",
-      "testMethod": "axe-core"
+      "fix": "id attribute value must be unique"
   },
   "duplicate-id-active": {
       "article": "8.1",
@@ -429,8 +380,7 @@ const rgaaTheme8Mandatory = {
       "risk": "Medium",
       "financial": "Compliance deduction. Contributes to non-compliant status.",
       "brand": "Fundamental compliance failure. Automated bots flag immediately.",
-      "fix": "IDs of active elements must be unique",
-      "testMethod": "axe-core"
+      "fix": "IDs of active elements must be unique"
   },
   "duplicate-id-aria": {
       "article": "8.1",
@@ -438,8 +388,7 @@ const rgaaTheme8Mandatory = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Fundamental compliance failure. Automated bots flag immediately.",
-      "fix": "IDs used in ARIA and labels must be unique",
-      "testMethod": "axe-core"
+      "fix": "IDs used in ARIA and labels must be unique"
   },
   "html-has-lang": {
       "article": "8.3",
@@ -447,8 +396,7 @@ const rgaaTheme8Mandatory = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Fundamental compliance failure. Automated bots flag immediately.",
-      "fix": "<html> element must have a lang attribute",
-      "testMethod": "axe-core"
+      "fix": "<html> element must have a lang attribute"
   },
   "html-lang-valid": {
       "article": "8.3",
@@ -456,8 +404,7 @@ const rgaaTheme8Mandatory = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Fundamental compliance failure. Automated bots flag immediately.",
-      "fix": "<html> element must have a valid value for the lang attribute",
-      "testMethod": "axe-core"
+      "fix": "<html> element must have a valid value for the lang attribute"
   },
   "document-title": {
       "article": "8.5",
@@ -465,8 +412,7 @@ const rgaaTheme8Mandatory = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Fundamental compliance failure. Automated bots flag immediately.",
-      "fix": "Documents must have <title> element to aid in navigation",
-      "testMethod": "axe-core,ai"
+      "fix": "Documents must have <title> element to aid in navigation"
   },
   "valid-lang": {
       "article": "8.7",
@@ -474,8 +420,7 @@ const rgaaTheme8Mandatory = {
       "risk": "High",
       "financial": "€25,000 - €50,000 fine. Significant compliance risk.",
       "brand": "Fundamental compliance failure. Automated bots flag immediately.",
-      "fix": "lang attribute must have a valid value",
-      "testMethod": "axe-core"
+      "fix": "lang attribute must have a valid value"
   }
 };
 
@@ -486,8 +431,7 @@ const rgaaTheme9Structure = {
       "risk": "Medium",
       "financial": "Compliance deduction. Contributes to non-compliant status.",
       "brand": "Poor SEO. Screen readers cannot navigate efficiently.",
-      "fix": "Headings should not be empty",
-      "testMethod": "axe-core,ai"
+      "fix": "Headings should not be empty"
   },
   "heading-order": {
       "article": "9.1",
@@ -495,8 +439,7 @@ const rgaaTheme9Structure = {
       "risk": "Medium",
       "financial": "Compliance deduction. Contributes to non-compliant status.",
       "brand": "Poor SEO. Screen readers cannot navigate efficiently.",
-      "fix": "Heading levels should only increase by one",
-      "testMethod": "axe-core,ai"
+      "fix": "Heading levels should only increase by one"
   },
   "bypass": {
       "article": "9.2",
@@ -504,8 +447,7 @@ const rgaaTheme9Structure = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Poor SEO. Screen readers cannot navigate efficiently.",
-      "fix": "Page must have means to bypass repeated blocks",
-      "testMethod": "axe-core"
+      "fix": "Page must have means to bypass repeated blocks"
   },
   "skip-link": {
       "article": "9.2",
@@ -513,8 +455,7 @@ const rgaaTheme9Structure = {
       "risk": "High",
       "financial": "€25,000 - €50,000 fine. Significant compliance risk.",
       "brand": "Poor SEO. Screen readers cannot navigate efficiently.",
-      "fix": "The skip-link target should exist and be focusable",
-      "testMethod": "axe-core,ai"
+      "fix": "The skip-link target should exist and be focusable"
   },
   "region": {
       "article": "9.2",
@@ -522,8 +463,7 @@ const rgaaTheme9Structure = {
       "risk": "High",
       "financial": "€25,000 - €50,000 fine. Significant compliance risk.",
       "brand": "Poor SEO. Screen readers cannot navigate efficiently.",
-      "fix": "All page content should be contained by landmarks",
-      "testMethod": "axe-core"
+      "fix": "All page content should be contained by landmarks"
   },
   "landmark-one-main": {
       "article": "9.2",
@@ -531,8 +471,7 @@ const rgaaTheme9Structure = {
       "risk": "Medium",
       "financial": "Compliance deduction. Contributes to non-compliant status.",
       "brand": "Poor SEO. Screen readers cannot navigate efficiently.",
-      "fix": "Document should have one main landmark",
-      "testMethod": "axe-core"
+      "fix": "Document should have one main landmark"
   }
 };
 
@@ -543,8 +482,7 @@ const rgaaTheme10Presentation = {
       "risk": "High",
       "financial": "€25,000 - €50,000 fine. Significant compliance risk.",
       "brand": "Cognitive overload. Poor readability for all users.",
-      "fix": "Zooming and scaling must not be disabled",
-      "testMethod": "axe-core"
+      "fix": "Zooming and scaling must not be disabled"
   },
   "meta-viewport-large": {
       "article": "10.11",
@@ -552,8 +490,7 @@ const rgaaTheme10Presentation = {
       "risk": "Medium",
       "financial": "Compliance deduction. Contributes to non-compliant status.",
       "brand": "Cognitive overload. Poor readability for all users.",
-      "fix": "Users should be able to zoom and scale the text up to 500%",
-      "testMethod": "axe-core"
+      "fix": "Users should be able to zoom and scale the text up to 500%"
   }
 };
 
@@ -564,8 +501,7 @@ const rgaaTheme11Forms = {
       "risk": "High",
       "financial": "€25,000 - €50,000 fine. Significant compliance risk.",
       "brand": "Transaction failure: Users cannot complete forms or purchases.",
-      "fix": "autocomplete attribute must be used correctly",
-      "testMethod": "axe-core"
+      "fix": "autocomplete attribute must be used correctly"
   }
 };
 
@@ -576,8 +512,7 @@ const rgaaTheme12Navigation = {
       "risk": "High",
       "financial": "€25,000 - €50,000 fine. Significant compliance risk.",
       "brand": "Efficiency loss: Keyboard users must tab through entire page.",
-      "fix": "Elements in the focus order should have an appropriate role",
-      "testMethod": "axe-core,ai"
+      "fix": "Elements in the focus order should have an appropriate role"
   }
 };
 
@@ -588,8 +523,7 @@ const rgaaTheme13Consultation = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Frustrating UX: Users lose control of content.",
-      "fix": "Delayed refresh under 20 hours must not be used",
-      "testMethod": "axe-core"
+      "fix": "Delayed refresh under 20 hours must not be used"
   },
   "blink": {
       "article": "13.8",
@@ -597,8 +531,7 @@ const rgaaTheme13Consultation = {
       "risk": "Critical",
       "financial": "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
       "brand": "Frustrating UX: Users lose control of content.",
-      "fix": "<blink> elements are deprecated and must not be used",
-      "testMethod": "axe-core,ai"
+      "fix": "<blink> elements are deprecated and must not be used"
   }
 };
 

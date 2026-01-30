@@ -1,0 +1,5 @@
+- make sure we utilize current free tools as much as possible. Currently it says 85 should be checked manually. try to make that number less.
+    -- for each rgaa rule wirte if it is manual or can be checked or can be checked but then needs a human verification
+    -- then run and if axe-core is not sufficient, add other library that can check other rules
+    -- then add AI to check the rest
+    -- then have a solution for manual checks

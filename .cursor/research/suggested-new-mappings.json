@@ -1,0 +1,162 @@
+{
+  "aria-required-attr": {
+    "article": "2.1",
+    "desc": "Chaque cadre a-t-il un titre de cadre ?",
+    "risk": "Critical",
+    "financial": "To be determined based on specific violation",
+    "brand": "To be determined based on specific violation",
+    "fix": "Required ARIA attributes must be provided"
+  },
+  "aria-required-children": {
+    "article": "2.1",
+    "desc": "Chaque cadre a-t-il un titre de cadre ?",
+    "risk": "Critical",
+    "financial": "To be determined based on specific violation",
+    "brand": "To be determined based on specific violation",
+    "fix": "Certain ARIA roles must contain particular children"
+  },
+  "aria-required-parent": {
+    "article": "2.1",
+    "desc": "Chaque cadre a-t-il un titre de cadre ?",
+    "risk": "Critical",
+    "financial": "To be determined based on specific violation",
+    "brand": "To be determined based on specific violation",
+    "fix": "Certain ARIA roles must be contained by particular parents"
+  },
+  "aria-roles": {
+    "article": "2.1",
+    "desc": "Chaque cadre a-t-il un titre de cadre ?",
+    "risk": "Critical",
+    "financial": "To be determined based on specific violation",
+    "brand": "To be determined based on specific violation",
+    "fix": "ARIA roles used must conform to valid values"
+  },
+  "aria-valid-attr-value": {
+    "article": "2.1",
+    "desc": "Chaque cadre a-t-il un titre de cadre ?",
+    "risk": "Critical",
+    "financial": "To be determined based on specific violation",
+    "brand": "To be determined based on specific violation",
+    "fix": "ARIA attributes must conform to valid values"
+  },
+  "aria-valid-attr": {
+    "article": "2.1",
+    "desc": "Chaque cadre a-t-il un titre de cadre ?",
+    "risk": "Critical",
+    "financial": "To be determined based on specific violation",
+    "brand": "To be determined based on specific violation",
+    "fix": "ARIA attributes must conform to valid names"
+  },
+  "form-field-multiple-labels": {
+    "article": "5.1",
+    "desc": "Chaque tableau de données complexe a-t-il un résumé ?",
+    "risk": "Critical",
+    "financial": "To be determined based on specific violation",
+    "brand": "To be determined based on specific violation",
+    "fix": "Form field must not have multiple label elements"
+  },
+  "definition-list": {
+    "article": "5.1",
+    "desc": "Chaque tableau de données complexe a-t-il un résumé ?",
+    "risk": "Critical",
+    "financial": "To be determined based on specific violation",
+    "brand": "To be determined based on specific violation",
+    "fix": "<dl> elements must only directly contain properly-ordered <dt> and <dd> groups, <script>, <template> or <div> elements"
+  },
+  "dlitem": {
+    "article": "5.1",
+    "desc": "Chaque tableau de données complexe a-t-il un résumé ?",
+    "risk": "Critical",
+    "financial": "To be determined based on specific violation",
+    "brand": "To be determined based on specific violation",
+    "fix": "<dt> and <dd> elements must be contained by a <dl>"
+  },
+  "listitem": {
+    "article": "5.1",
+    "desc": "Chaque tableau de données complexe a-t-il un résumé ?",
+    "risk": "Critical",
+    "financial": "To be determined based on specific violation",
+    "brand": "To be determined based on specific violation",
+    "fix": "<li> elements must be contained in a <ul> or <ol>"
+  },
+  "th-has-data-cells": {
+    "article": "5.1",
+    "desc": "Chaque tableau de données complexe a-t-il un résumé ?",
+    "risk": "Critical",
+    "financial": "To be determined based on specific violation",
+    "brand": "To be determined based on specific violation",
+    "fix": "Table headers in a data table must refer to data cells"
+  },
+  "input-image-alt": {
+    "article": "1.1",
+    "desc": "Chaque image porteuse d'information a-t-elle une alternative textuelle ?",
+    "risk": "Critical",
+    "financial": "To be determined based on specific violation",
+    "brand": "To be determined based on specific violation",
+    "fix": "Image buttons must have alternative text"
+  },
+  "aria-input-field-name": {
+    "article": "2.1",
+    "desc": "Chaque cadre a-t-il un titre de cadre ?",
+    "risk": "Critical",
+    "financial": "To be determined based on specific violation",
+    "brand": "To be determined based on specific violation",
+    "fix": "ARIA input fields must have an accessible name"
+  },
+  "aria-command-name": {
+    "article": "2.1",
+    "desc": "Chaque cadre a-t-il un titre de cadre ?",
+    "risk": "Critical",
+    "financial": "To be determined based on specific violation",
+    "brand": "To be determined based on specific violation",
+    "fix": "ARIA commands must have an accessible name"
+  },
+  "aria-hidden-body": {
+    "article": "2.1",
+    "desc": "Chaque cadre a-t-il un titre de cadre ?",
+    "risk": "Critical",
+    "financial": "To be determined based on specific violation",
+    "brand": "To be determined based on specific violation",
+    "fix": "aria-hidden=\"true\" must not be present on the document body"
+  },
+  "aria-meter-name": {
+    "article": "2.1",
+    "desc": "Chaque cadre a-t-il un titre de cadre ?",
+    "risk": "Critical",
+    "financial": "To be determined based on specific violation",
+    "brand": "To be determined based on specific violation",
+    "fix": "ARIA meter nodes must have an accessible name"
+  },
+  "aria-progressbar-name": {
+    "article": "2.1",
+    "desc": "Chaque cadre a-t-il un titre de cadre ?",
+    "risk": "Critical",
+    "financial": "To be determined based on specific violation",
+    "brand": "To be determined based on specific violation",
+    "fix": "ARIA progressbar nodes must have an accessible name"
+  },
+  "aria-roledescription": {
+    "article": "2.1",
+    "desc": "Chaque cadre a-t-il un titre de cadre ?",
+    "risk": "Critical",
+    "financial": "To be determined based on specific violation",
+    "brand": "To be determined based on specific violation",
+    "fix": "aria-roledescription must be on elements with a semantic role"
+  },
+  "aria-toggle-field-name": {
+    "article": "2.1",
+    "desc": "Chaque cadre a-t-il un titre de cadre ?",
+    "risk": "Critical",
+    "financial": "To be determined based on specific violation",
+    "brand": "To be determined based on specific violation",
+    "fix": "ARIA toggle fields must have an accessible name"
+  },
+  "select-name": {
+    "article": "2.1",
+    "desc": "Chaque cadre a-t-il un titre de cadre ?",
+    "risk": "Critical",
+    "financial": "To be determined based on specific violation",
+    "brand": "To be determined based on specific violation",
+    "fix": "Select element must have an accessible name"
+  }
+}

@@ -1,6 +1,5 @@
 const fs = require('fs');
-const rgaaStructure = require('./rgaaStructure.js');
-const rgaaMasterMapping = require('./constants/rgaaMapping.js');
+const { rgaaFlatMapping, rgaaCompleteMapping } = require('./constants/rgaaMapping.complete.js');
 
 function escapeHtml(text) {
     if (!text) return '';
@@ -20,87 +19,100 @@ function escapeHtml(text) {
 function analyzeRGAACompliance(results) {
     const rgaaStatus = {};
 
-    // Create a reverse mapping: RGAA article -> axe rule IDs
-    const articleToRules = {};
-    Object.entries(rgaaMasterMapping).forEach(([ruleId, mapping]) => {
-        if (mapping.article) {
-            if (!articleToRules[mapping.article]) {
-                articleToRules[mapping.article] = [];
-            }
-            articleToRules[mapping.article].push(ruleId);
-        }
-    });
+    // Process each RGAA criterion from the complete mapping
+    Object.entries(rgaaFlatMapping).forEach(([article, criterion]) => {
+        const relatedRules = criterion.axeRules || [];
+        const testMethod = criterion.testMethod;
 
-    // For each theme and criterion in RGAA structure
-    Object.values(rgaaStructure.themes).forEach(theme => {
-        theme.criteria.forEach(criterion => {
-            const criterionNumber = criterion.number;
-            const relatedRules = articleToRules[criterionNumber] || [];
+        // Find violations, passes, incomplete, and inapplicable for this criterion's rules
+        const violations = results.violations.filter(v => relatedRules.includes(v.id));
+        const passes = results.passes.filter(p => relatedRules.includes(p.id));
+        const incomplete = results.incomplete.filter(i => relatedRules.includes(i.id));
+        const inapplicable = results.inapplicable.filter(i => relatedRules.includes(i.id));
 
-            // Find violations, passes, incomplete, and inapplicable for this criterion's rules
-            const violations = results.violations.filter(v => relatedRules.includes(v.id));
-            const passes = results.passes.filter(p => relatedRules.includes(p.id));
-            const incomplete = results.incomplete.filter(i => relatedRules.includes(i.id));
-            const inapplicable = results.inapplicable.filter(i => relatedRules.includes(i.id));
+        let status = 'not-tested';
+        let details = [];
+        let failedRules = [];
+        let passedRules = [];
+        let inapplicableRules = [];
 
-            let status = 'not-tested';
-            let details = [];
-            let failedRules = [];
-            let passedRules = [];
-            let inapplicableRules = [];
-
-            if (relatedRules.length === 0) {
-                // No automated rules available - requires manual check
-                status = 'manual';
-                details.push('Test manuel requis - aucune règle automatisée disponible');
-            } else {
-                // Check if any rules failed
-                if (violations.length > 0) {
-                    status = 'fail';
-                    violations.forEach(v => {
-                        const mapping = rgaaMasterMapping[v.id];
-                        failedRules.push({
-                            id: v.id,
-                            help: v.help,
-                            impact: v.impact,
-                            nodeCount: v.nodes.length,
-                            nodes: v.nodes,
-                            financial: mapping?.financial || 'Non spécifié',
-                            brand: mapping?.brand || 'Non spécifié',
-                            fix: mapping?.fix || 'Consulter la documentation RGAA'
-                        });
+        // Determine status based on testMethod and axe results
+        if (testMethod === 'manual') {
+            // Manual testing required
+            status = 'manual';
+            details.push('Test manuel requis - aucune règle automatisée disponible');
+        } else if (testMethod === 'ai') {
+            // AI-assisted testing recommended
+            status = 'manual';
+            details.push('Test manuel recommandé - AI peut aider à l\'évaluation');
+        } else if (relatedRules.length === 0) {
+            // No rules mapped even though testMethod is axe-core or axe-core,ai or axe-core,manual
+            status = 'manual';
+            details.push('Test manuel requis - mapping incomplet');
+        } else {
+            // Has axe-core rules (testMethod is 'axe-core', 'axe-core,ai', or 'axe-core,manual')
+            if (violations.length > 0) {
+                status = 'fail';
+                violations.forEach(v => {
+                    failedRules.push({
+                        id: v.id,
+                        help: v.help,
+                        impact: v.impact,
+                        nodeCount: v.nodes.length,
+                        nodes: v.nodes,
+                        financial: criterion.financial || 'Non spécifié',
+                        brand: criterion.brand || 'Non spécifié',
+                        fix: criterion.fix || 'Consulter la documentation RGAA'
                     });
-                } else if (incomplete.length > 0) {
-                    status = 'incomplete';
-                    details = incomplete.map(i => `${i.id}: ${i.description}`);
-                } else if (passes.length > 0) {
-                    status = 'pass';
-                    passedRules = passes.map(p => p.id);
-                } else if (inapplicable.length > 0) {
-                    // Rules exist but weren't applicable to this page (no matching elements found)
-                    status = 'not-applicable';
-                    inapplicableRules = inapplicable.map(i => i.id);
-                    details.push(`Non applicable: Les éléments vérifiés par ces règles (${inapplicableRules.join(', ')}) n'existent pas sur cette page`);
-                } else {
-                    // Rules exist but didn't run for some reason
-                    status = 'not-tested';
-                    details.push('Les règles existent mais n\'ont pas été exécutées');
+                });
+            } else if (incomplete.length > 0) {
+                status = 'incomplete';
+                details = incomplete.map(i => `${i.id}: ${i.description}`);
+            } else if (passes.length > 0) {
+                status = 'pass';
+                passedRules = passes.map(p => p.id);
+                // Add note if this also needs human verification
+                if (testMethod === 'axe-core,ai') {
+                    details.push('Tests automatisés réussis mais vérification humaine recommandée pour la qualité');
+                } else if (testMethod === 'axe-core,manual') {
+                    details.push('Tests automatisés réussis mais vérification manuelle requise pour aspects non-automatisables');
                 }
+            } else if (inapplicable.length > 0) {
+                // Rules exist but weren't applicable to this page (no matching elements found)
+                status = 'not-applicable';
+                inapplicableRules = inapplicable.map(i => i.id);
+                details.push(`Non applicable: Les éléments vérifiés par ces règles (${inapplicableRules.join(', ')}) n'existent pas sur cette page`);
+            } else {
+                // Rules exist but didn't run for some reason
+                status = 'not-tested';
+                details.push('Les règles existent mais n\'ont pas été exécutées');
             }
+        }
 
-            rgaaStatus[criterionNumber] = {
-                ...criterion,
-                theme: theme.number,
-                themeName: theme.name,
-                status,
-                failedRules,
-                passedRules,
-                inapplicableRules,
-                details,
-                incompleteCount: incomplete.length,
-                relatedAxeRules: relatedRules
-            };
-        });
+        // Extract theme info from the article number (e.g., "1.1" -> theme 1)
+        const themeNumber = parseInt(article.split('.')[0]);
+        const themeNames = {
+            1: 'Images', 2: 'Cadres', 3: 'Couleurs', 4: 'Multimédia',
+            5: 'Tableaux', 6: 'Liens', 7: 'Scripts', 8: 'Éléments obligatoires',
+            9: 'Structuration de l\'information', 10: 'Présentation de l\'information',
+            11: 'Formulaires', 12: 'Navigation', 13: 'Consultation'
+        };
+
+        rgaaStatus[article] = {
+            number: article,
+            title: criterion.desc,
+            level: criterion.level,
+            theme: themeNumber,
+            themeName: themeNames[themeNumber],
+            testMethod,
+            status,
+            failedRules,
+            passedRules,
+            inapplicableRules,
+            details,
+            incompleteCount: incomplete.length,
+            relatedAxeRules: relatedRules
+        };
     });
 
     return rgaaStatus;
@@ -126,15 +138,27 @@ function generateRGAAReport(results, url) {
     };
 
     // Initialize theme stats
-    Object.values(rgaaStructure.themes).forEach(theme => {
-        stats.byTheme[theme.number] = {
-            name: theme.name,
-            total: theme.criteria.length,
+    const themeNames = {
+        1: 'Images', 2: 'Cadres', 3: 'Couleurs', 4: 'Multimédia',
+        5: 'Tableaux', 6: 'Liens', 7: 'Scripts', 8: 'Éléments obligatoires',
+        9: 'Structuration de l\'information', 10: 'Présentation de l\'information',
+        11: 'Formulaires', 12: 'Navigation', 13: 'Consultation'
+    };
+    
+    for (let i = 1; i <= 13; i++) {
+        stats.byTheme[i] = {
+            name: themeNames[i],
+            total: 0,
             passed: 0,
             failed: 0,
             manual: 0,
             notApplicable: 0
         };
+    }
+    
+    // Count criteria per theme
+    Object.values(rgaaStatus).forEach(criterion => {
+        stats.byTheme[criterion.theme].total++;
     });
 
     // Calculate statistics
@@ -305,23 +329,29 @@ function generateRGAAReport(results, url) {
             </div>
 
             <!-- RGAA Themes -->
-            ${Object.values(rgaaStructure.themes).map(theme => {
-                const themeStats = stats.byTheme[theme.number];
-                const themeCriteria = Object.values(rgaaStatus).filter(c => c.theme === theme.number);
+            ${Object.entries(stats.byTheme).map(([themeNum, themeStats]) => {
+                const themeNumber = parseInt(themeNum);
+                const themeCriteria = Object.values(rgaaStatus).filter(c => c.theme === themeNumber);
+                const themeNamesEn = {
+                    1: 'Images', 2: 'Frames', 3: 'Colors', 4: 'Multimedia',
+                    5: 'Tables', 6: 'Links', 7: 'Scripts', 8: 'Mandatory elements',
+                    9: 'Information structure', 10: 'Information presentation',
+                    11: 'Forms', 12: 'Navigation', 13: 'Consultation'
+                };
                 
                 return `
                 <div class="mb-12">
                     <div class="bg-gradient-to-r from-indigo-600 to-indigo-500 rounded-t-xl p-6 text-white">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-4">
-                                <span class="bg-white text-indigo-600 w-12 h-12 rounded-full flex items-center justify-center text-xl font-black">${theme.number}</span>
+                                <span class="bg-white text-indigo-600 w-12 h-12 rounded-full flex items-center justify-center text-xl font-black">${themeNumber}</span>
                                 <div>
-                                    <h2 class="text-2xl font-black">${theme.name}</h2>
-                                    <p class="text-indigo-100 text-sm">${theme.nameEn}</p>
+                                    <h2 class="text-2xl font-black">${themeStats.name}</h2>
+                                    <p class="text-indigo-100 text-sm">${themeNamesEn[themeNumber]}</p>
                                 </div>
                             </div>
                             <div class="text-right">
-                                <div class="text-sm opacity-90">${theme.criteria.length} critères</div>
+                                <div class="text-sm opacity-90">${themeStats.total} critères</div>
                                 <div class="flex gap-3 mt-1 text-xs">
                                     <span class="bg-green-500 px-2 py-1 rounded">✓ ${themeStats.passed}</span>
                                     <span class="bg-red-500 px-2 py-1 rounded">✗ ${themeStats.failed}</span>
@@ -354,8 +384,16 @@ function generateRGAAReport(results, url) {
                                     ${criterion.status === 'fail' && criterion.failedRules.length > 0 ? `
                                         <div class="bg-red-50 border border-red-200 rounded-lg p-4 mt-4">
                                             <h4 class="text-xs font-bold text-red-900 uppercase tracking-wider mb-3">
-                                                ⚠️ Règles en échec (${criterion.failedRules.length})
+                                                ⚠️ Règles en échec (${criterion.failedRules.length})${criterion.testMethod === 'axe-core,manual' ? ' - VÉRIFICATION HUMAINE REQUISE' : ''}
                                             </h4>
+                                            ${criterion.testMethod === 'axe-core,manual' ? `
+                                                <div class="bg-orange-100 border-l-4 border-orange-500 p-3 mb-3">
+                                                    <p class="text-xs text-orange-900 font-bold">
+                                                        👤 IMPORTANT: Ce critère nécessite une vérification manuelle complète en plus des tests automatisés.
+                                                        Les tests axe-core détectent certains problèmes mais une validation humaine est obligatoire pour la conformité totale.
+                                                    </p>
+                                                </div>
+                                            ` : ''}
                                             <div class="space-y-4">
                                                 ${criterion.failedRules.map(rule => `
                                                     <div class="border-l-4 border-red-500 pl-4">
@@ -392,6 +430,13 @@ function generateRGAAReport(results, url) {
                                             <p class="text-xs text-green-700">
                                                 <span class="font-bold">✓ Tests automatisés réussis :</span> ${criterion.passedRules.join(', ')}
                                             </p>
+                                            ${criterion.testMethod === 'axe-core,manual' ? `
+                                                <div class="bg-orange-100 border-l-4 border-orange-500 p-2 mt-2">
+                                                    <p class="text-xs text-orange-900 font-bold">
+                                                        👤 IMPORTANT: Tests automatisés réussis, mais vérification manuelle obligatoire pour conformité complète.
+                                                    </p>
+                                                </div>
+                                            ` : ''}
                                         </div>
                                     ` : ''}
                                     

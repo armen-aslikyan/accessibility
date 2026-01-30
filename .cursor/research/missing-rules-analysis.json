@@ -1,0 +1,3509 @@
+{
+  "summary": {
+    "totalMissing": 40,
+    "critical": 27,
+    "high": 7,
+    "medium": 5
+  },
+  "quickWins": [
+    {
+      "ruleId": "aria-required-attr",
+      "reason": "WCAG Level A rule affecting 30 RGAA criteria",
+      "suggestedRGAAArticles": [
+        "2.1",
+        "2.2",
+        "5.1",
+        "5.2",
+        "5.3",
+        "5.4",
+        "5.5",
+        "5.6",
+        "5.7",
+        "5.8",
+        "6.2",
+        "7.1",
+        "7.2",
+        "8.9",
+        "9.1",
+        "9.2",
+        "9.3",
+        "9.4",
+        "10.1",
+        "10.2",
+        "10.3",
+        "10.8",
+        "10.10",
+        "11.5",
+        "11.6",
+        "11.7",
+        "11.8",
+        "11.9",
+        "13.3",
+        "13.4"
+      ]
+    },
+    {
+      "ruleId": "aria-required-children",
+      "reason": "WCAG Level A rule affecting 30 RGAA criteria",
+      "suggestedRGAAArticles": [
+        "2.1",
+        "2.2",
+        "5.1",
+        "5.2",
+        "5.3",
+        "5.4",
+        "5.5",
+        "5.6",
+        "5.7",
+        "5.8",
+        "6.2",
+        "7.1",
+        "7.2",
+        "8.9",
+        "9.1",
+        "9.2",
+        "9.3",
+        "9.4",
+        "10.1",
+        "10.2",
+        "10.3",
+        "10.8",
+        "10.10",
+        "11.5",
+        "11.6",
+        "11.7",
+        "11.8",
+        "11.9",
+        "13.3",
+        "13.4"
+      ]
+    },
+    {
+      "ruleId": "aria-required-parent",
+      "reason": "WCAG Level A rule affecting 30 RGAA criteria",
+      "suggestedRGAAArticles": [
+        "2.1",
+        "2.2",
+        "5.1",
+        "5.2",
+        "5.3",
+        "5.4",
+        "5.5",
+        "5.6",
+        "5.7",
+        "5.8",
+        "6.2",
+        "7.1",
+        "7.2",
+        "8.9",
+        "9.1",
+        "9.2",
+        "9.3",
+        "9.4",
+        "10.1",
+        "10.2",
+        "10.3",
+        "10.8",
+        "10.10",
+        "11.5",
+        "11.6",
+        "11.7",
+        "11.8",
+        "11.9",
+        "13.3",
+        "13.4"
+      ]
+    },
+    {
+      "ruleId": "aria-roles",
+      "reason": "WCAG Level A rule affecting 30 RGAA criteria",
+      "suggestedRGAAArticles": [
+        "2.1",
+        "2.2",
+        "5.1",
+        "5.2",
+        "5.3",
+        "5.4",
+        "5.5",
+        "5.6",
+        "5.7",
+        "5.8",
+        "6.2",
+        "7.1",
+        "7.2",
+        "8.9",
+        "9.1",
+        "9.2",
+        "9.3",
+        "9.4",
+        "10.1",
+        "10.2",
+        "10.3",
+        "10.8",
+        "10.10",
+        "11.5",
+        "11.6",
+        "11.7",
+        "11.8",
+        "11.9",
+        "13.3",
+        "13.4"
+      ]
+    },
+    {
+      "ruleId": "aria-valid-attr-value",
+      "reason": "WCAG Level A rule affecting 30 RGAA criteria",
+      "suggestedRGAAArticles": [
+        "2.1",
+        "2.2",
+        "5.1",
+        "5.2",
+        "5.3",
+        "5.4",
+        "5.5",
+        "5.6",
+        "5.7",
+        "5.8",
+        "6.2",
+        "7.1",
+        "7.2",
+        "8.9",
+        "9.1",
+        "9.2",
+        "9.3",
+        "9.4",
+        "10.1",
+        "10.2",
+        "10.3",
+        "10.8",
+        "10.10",
+        "11.5",
+        "11.6",
+        "11.7",
+        "11.8",
+        "11.9",
+        "13.3",
+        "13.4"
+      ]
+    },
+    {
+      "ruleId": "aria-valid-attr",
+      "reason": "WCAG Level A rule affecting 30 RGAA criteria",
+      "suggestedRGAAArticles": [
+        "2.1",
+        "2.2",
+        "5.1",
+        "5.2",
+        "5.3",
+        "5.4",
+        "5.5",
+        "5.6",
+        "5.7",
+        "5.8",
+        "6.2",
+        "7.1",
+        "7.2",
+        "8.9",
+        "9.1",
+        "9.2",
+        "9.3",
+        "9.4",
+        "10.1",
+        "10.2",
+        "10.3",
+        "10.8",
+        "10.10",
+        "11.5",
+        "11.6",
+        "11.7",
+        "11.8",
+        "11.9",
+        "13.3",
+        "13.4"
+      ]
+    },
+    {
+      "ruleId": "form-field-multiple-labels",
+      "reason": "WCAG Level A rule affecting 24 RGAA criteria",
+      "suggestedRGAAArticles": [
+        "5.1",
+        "5.2",
+        "5.3",
+        "5.4",
+        "5.5",
+        "5.6",
+        "5.7",
+        "5.8",
+        "8.9",
+        "9.1",
+        "9.2",
+        "9.3",
+        "9.4",
+        "10.1",
+        "10.2",
+        "10.3",
+        "10.10",
+        "11.1",
+        "11.2",
+        "11.4",
+        "11.5",
+        "11.6",
+        "11.7",
+        "11.8"
+      ]
+    },
+    {
+      "ruleId": "definition-list",
+      "reason": "WCAG Level A rule affecting 21 RGAA criteria",
+      "suggestedRGAAArticles": [
+        "5.1",
+        "5.2",
+        "5.3",
+        "5.4",
+        "5.5",
+        "5.6",
+        "5.7",
+        "5.8",
+        "8.9",
+        "9.1",
+        "9.2",
+        "9.3",
+        "9.4",
+        "10.1",
+        "10.2",
+        "10.3",
+        "10.10",
+        "11.5",
+        "11.6",
+        "11.7",
+        "11.8"
+      ]
+    },
+    {
+      "ruleId": "dlitem",
+      "reason": "WCAG Level A rule affecting 21 RGAA criteria",
+      "suggestedRGAAArticles": [
+        "5.1",
+        "5.2",
+        "5.3",
+        "5.4",
+        "5.5",
+        "5.6",
+        "5.7",
+        "5.8",
+        "8.9",
+        "9.1",
+        "9.2",
+        "9.3",
+        "9.4",
+        "10.1",
+        "10.2",
+        "10.3",
+        "10.10",
+        "11.5",
+        "11.6",
+        "11.7",
+        "11.8"
+      ]
+    },
+    {
+      "ruleId": "listitem",
+      "reason": "WCAG Level A rule affecting 21 RGAA criteria",
+      "suggestedRGAAArticles": [
+        "5.1",
+        "5.2",
+        "5.3",
+        "5.4",
+        "5.5",
+        "5.6",
+        "5.7",
+        "5.8",
+        "8.9",
+        "9.1",
+        "9.2",
+        "9.3",
+        "9.4",
+        "10.1",
+        "10.2",
+        "10.3",
+        "10.10",
+        "11.5",
+        "11.6",
+        "11.7",
+        "11.8"
+      ]
+    }
+  ],
+  "allGaps": [
+    {
+      "ruleId": "aria-required-attr",
+      "priority": "critical",
+      "description": "Ensure elements with ARIA roles have all required ARIA attributes",
+      "help": "Required ARIA attributes must be provided",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/aria-required-attr?application=axeAPI",
+      "tags": [
+        "cat.aria",
+        "wcag2a",
+        "wcag412",
+        "EN-301-549",
+        "EN-9.4.1.2",
+        "RGAAv4",
+        "RGAA-7.1.1"
+      ],
+      "criteriaCount": 30,
+      "affectedCriteria": [
+        {
+          "number": "2.1",
+          "title": "Chaque cadre a-t-il un titre de cadre ?",
+          "theme": "Cadres"
+        },
+        {
+          "number": "2.2",
+          "title": "Pour chaque cadre ayant un titre de cadre, ce titre de cadre est-il pertinent ?",
+          "theme": "Cadres"
+        },
+        {
+          "number": "5.1",
+          "title": "Chaque tableau de données complexe a-t-il un résumé ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.2",
+          "title": "Pour chaque tableau de données complexe ayant un résumé, celui-ci est-il pertinent ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.3",
+          "title": "Pour chaque tableau de mise en forme, le contenu linéarisé reste-t-il compréhensible ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.4",
+          "title": "Pour chaque tableau de données ayant un titre, le titre est-il correctement associé au tableau de données ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.5",
+          "title": "Pour chaque tableau de données ayant un titre, celui-ci est-il pertinent ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.6",
+          "title": "Pour chaque tableau de données, chaque en-tête de colonnes et chaque en-tête de lignes sont-ils correctement déclarés ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.7",
+          "title": "Pour chaque tableau de données, la technique appropriée permettant d'associer chaque cellule avec ses en-têtes est-elle utilisée ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.8",
+          "title": "Chaque tableau de mise en forme ne doit pas utiliser d'éléments propres aux tableaux de données. Cette règle est-elle respectée ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "6.2",
+          "title": "Dans chaque page web, chaque lien a-t-il un intitulé ?",
+          "theme": "Liens"
+        },
+        {
+          "number": "7.1",
+          "title": "Chaque script est-il, si nécessaire, compatible avec les technologies d'assistance ?",
+          "theme": "Scripts"
+        },
+        {
+          "number": "7.2",
+          "title": "Pour chaque script ayant une alternative, cette alternative est-elle pertinente ?",
+          "theme": "Scripts"
+        },
+        {
+          "number": "8.9",
+          "title": "Dans chaque page web, les balises ne doivent pas être utilisées uniquement à des fins de présentation. Cette règle est-elle respectée ?",
+          "theme": "Éléments obligatoires"
+        },
+        {
+          "number": "9.1",
+          "title": "Dans chaque page web, l'information est-elle structurée par l'utilisation appropriée de titres ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "9.2",
+          "title": "Dans chaque page web, la structure du document est-elle cohérente ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "9.3",
+          "title": "Dans chaque page web, chaque liste est-elle correctement structurée ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "9.4",
+          "title": "Dans chaque page web, chaque citation est-elle correctement indiquée ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "10.1",
+          "title": "Dans le site web, des feuilles de styles sont-elles utilisées pour contrôler la présentation de l'information ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.2",
+          "title": "Dans chaque page web, le contenu visible porteur d'information reste-t-il présent lorsque les feuilles de styles sont désactivées ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.3",
+          "title": "Dans chaque page web, l'information reste-t-elle compréhensible lorsque les feuilles de styles sont désactivées ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.8",
+          "title": "Pour chaque page web, les contenus cachés ont-ils vocation à être ignorés par les technologies d'assistance ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.10",
+          "title": "Dans chaque page web, l'information reste-t-elle compréhensible lorsqu'elle est affichée sans les feuilles de styles ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "11.5",
+          "title": "Dans chaque formulaire, les champs de même nature sont-ils regroupés, si nécessaire ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.6",
+          "title": "Dans chaque formulaire, chaque regroupement de champs de même nature a-t-il une légende ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.7",
+          "title": "Dans chaque formulaire, chaque légende associée à un regroupement de champs de même nature est-elle pertinente ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.8",
+          "title": "Dans chaque formulaire, les items de même nature d'une liste de choix sont-ils regroupés de manière pertinente ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.9",
+          "title": "Dans chaque formulaire, l'intitulé de chaque bouton est-il pertinent ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "13.3",
+          "title": "Dans chaque page web, chaque document bureautique en téléchargement possède-t-il, si nécessaire, une version accessible ?",
+          "theme": "Consultation"
+        },
+        {
+          "number": "13.4",
+          "title": "Pour chaque document bureautique ayant une version accessible, cette version offre-t-elle la même information ?",
+          "theme": "Consultation"
+        }
+      ],
+      "isRGAATagged": true
+    },
+    {
+      "ruleId": "aria-required-children",
+      "priority": "critical",
+      "description": "Ensure elements with an ARIA role that require child roles contain them",
+      "help": "Certain ARIA roles must contain particular children",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/aria-required-children?application=axeAPI",
+      "tags": [
+        "cat.aria",
+        "wcag2a",
+        "wcag131",
+        "EN-301-549",
+        "EN-9.1.3.1",
+        "RGAAv4",
+        "RGAA-9.3.1"
+      ],
+      "criteriaCount": 30,
+      "affectedCriteria": [
+        {
+          "number": "2.1",
+          "title": "Chaque cadre a-t-il un titre de cadre ?",
+          "theme": "Cadres"
+        },
+        {
+          "number": "2.2",
+          "title": "Pour chaque cadre ayant un titre de cadre, ce titre de cadre est-il pertinent ?",
+          "theme": "Cadres"
+        },
+        {
+          "number": "5.1",
+          "title": "Chaque tableau de données complexe a-t-il un résumé ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.2",
+          "title": "Pour chaque tableau de données complexe ayant un résumé, celui-ci est-il pertinent ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.3",
+          "title": "Pour chaque tableau de mise en forme, le contenu linéarisé reste-t-il compréhensible ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.4",
+          "title": "Pour chaque tableau de données ayant un titre, le titre est-il correctement associé au tableau de données ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.5",
+          "title": "Pour chaque tableau de données ayant un titre, celui-ci est-il pertinent ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.6",
+          "title": "Pour chaque tableau de données, chaque en-tête de colonnes et chaque en-tête de lignes sont-ils correctement déclarés ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.7",
+          "title": "Pour chaque tableau de données, la technique appropriée permettant d'associer chaque cellule avec ses en-têtes est-elle utilisée ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.8",
+          "title": "Chaque tableau de mise en forme ne doit pas utiliser d'éléments propres aux tableaux de données. Cette règle est-elle respectée ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "6.2",
+          "title": "Dans chaque page web, chaque lien a-t-il un intitulé ?",
+          "theme": "Liens"
+        },
+        {
+          "number": "7.1",
+          "title": "Chaque script est-il, si nécessaire, compatible avec les technologies d'assistance ?",
+          "theme": "Scripts"
+        },
+        {
+          "number": "7.2",
+          "title": "Pour chaque script ayant une alternative, cette alternative est-elle pertinente ?",
+          "theme": "Scripts"
+        },
+        {
+          "number": "8.9",
+          "title": "Dans chaque page web, les balises ne doivent pas être utilisées uniquement à des fins de présentation. Cette règle est-elle respectée ?",
+          "theme": "Éléments obligatoires"
+        },
+        {
+          "number": "9.1",
+          "title": "Dans chaque page web, l'information est-elle structurée par l'utilisation appropriée de titres ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "9.2",
+          "title": "Dans chaque page web, la structure du document est-elle cohérente ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "9.3",
+          "title": "Dans chaque page web, chaque liste est-elle correctement structurée ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "9.4",
+          "title": "Dans chaque page web, chaque citation est-elle correctement indiquée ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "10.1",
+          "title": "Dans le site web, des feuilles de styles sont-elles utilisées pour contrôler la présentation de l'information ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.2",
+          "title": "Dans chaque page web, le contenu visible porteur d'information reste-t-il présent lorsque les feuilles de styles sont désactivées ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.3",
+          "title": "Dans chaque page web, l'information reste-t-elle compréhensible lorsque les feuilles de styles sont désactivées ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.8",
+          "title": "Pour chaque page web, les contenus cachés ont-ils vocation à être ignorés par les technologies d'assistance ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.10",
+          "title": "Dans chaque page web, l'information reste-t-elle compréhensible lorsqu'elle est affichée sans les feuilles de styles ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "11.5",
+          "title": "Dans chaque formulaire, les champs de même nature sont-ils regroupés, si nécessaire ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.6",
+          "title": "Dans chaque formulaire, chaque regroupement de champs de même nature a-t-il une légende ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.7",
+          "title": "Dans chaque formulaire, chaque légende associée à un regroupement de champs de même nature est-elle pertinente ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.8",
+          "title": "Dans chaque formulaire, les items de même nature d'une liste de choix sont-ils regroupés de manière pertinente ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.9",
+          "title": "Dans chaque formulaire, l'intitulé de chaque bouton est-il pertinent ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "13.3",
+          "title": "Dans chaque page web, chaque document bureautique en téléchargement possède-t-il, si nécessaire, une version accessible ?",
+          "theme": "Consultation"
+        },
+        {
+          "number": "13.4",
+          "title": "Pour chaque document bureautique ayant une version accessible, cette version offre-t-elle la même information ?",
+          "theme": "Consultation"
+        }
+      ],
+      "isRGAATagged": true
+    },
+    {
+      "ruleId": "aria-required-parent",
+      "priority": "critical",
+      "description": "Ensure elements with an ARIA role that require parent roles are contained by them",
+      "help": "Certain ARIA roles must be contained by particular parents",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/aria-required-parent?application=axeAPI",
+      "tags": [
+        "cat.aria",
+        "wcag2a",
+        "wcag131",
+        "EN-301-549",
+        "EN-9.1.3.1",
+        "RGAAv4",
+        "RGAA-9.3.1"
+      ],
+      "criteriaCount": 30,
+      "affectedCriteria": [
+        {
+          "number": "2.1",
+          "title": "Chaque cadre a-t-il un titre de cadre ?",
+          "theme": "Cadres"
+        },
+        {
+          "number": "2.2",
+          "title": "Pour chaque cadre ayant un titre de cadre, ce titre de cadre est-il pertinent ?",
+          "theme": "Cadres"
+        },
+        {
+          "number": "5.1",
+          "title": "Chaque tableau de données complexe a-t-il un résumé ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.2",
+          "title": "Pour chaque tableau de données complexe ayant un résumé, celui-ci est-il pertinent ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.3",
+          "title": "Pour chaque tableau de mise en forme, le contenu linéarisé reste-t-il compréhensible ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.4",
+          "title": "Pour chaque tableau de données ayant un titre, le titre est-il correctement associé au tableau de données ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.5",
+          "title": "Pour chaque tableau de données ayant un titre, celui-ci est-il pertinent ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.6",
+          "title": "Pour chaque tableau de données, chaque en-tête de colonnes et chaque en-tête de lignes sont-ils correctement déclarés ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.7",
+          "title": "Pour chaque tableau de données, la technique appropriée permettant d'associer chaque cellule avec ses en-têtes est-elle utilisée ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.8",
+          "title": "Chaque tableau de mise en forme ne doit pas utiliser d'éléments propres aux tableaux de données. Cette règle est-elle respectée ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "6.2",
+          "title": "Dans chaque page web, chaque lien a-t-il un intitulé ?",
+          "theme": "Liens"
+        },
+        {
+          "number": "7.1",
+          "title": "Chaque script est-il, si nécessaire, compatible avec les technologies d'assistance ?",
+          "theme": "Scripts"
+        },
+        {
+          "number": "7.2",
+          "title": "Pour chaque script ayant une alternative, cette alternative est-elle pertinente ?",
+          "theme": "Scripts"
+        },
+        {
+          "number": "8.9",
+          "title": "Dans chaque page web, les balises ne doivent pas être utilisées uniquement à des fins de présentation. Cette règle est-elle respectée ?",
+          "theme": "Éléments obligatoires"
+        },
+        {
+          "number": "9.1",
+          "title": "Dans chaque page web, l'information est-elle structurée par l'utilisation appropriée de titres ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "9.2",
+          "title": "Dans chaque page web, la structure du document est-elle cohérente ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "9.3",
+          "title": "Dans chaque page web, chaque liste est-elle correctement structurée ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "9.4",
+          "title": "Dans chaque page web, chaque citation est-elle correctement indiquée ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "10.1",
+          "title": "Dans le site web, des feuilles de styles sont-elles utilisées pour contrôler la présentation de l'information ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.2",
+          "title": "Dans chaque page web, le contenu visible porteur d'information reste-t-il présent lorsque les feuilles de styles sont désactivées ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.3",
+          "title": "Dans chaque page web, l'information reste-t-elle compréhensible lorsque les feuilles de styles sont désactivées ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.8",
+          "title": "Pour chaque page web, les contenus cachés ont-ils vocation à être ignorés par les technologies d'assistance ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.10",
+          "title": "Dans chaque page web, l'information reste-t-elle compréhensible lorsqu'elle est affichée sans les feuilles de styles ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "11.5",
+          "title": "Dans chaque formulaire, les champs de même nature sont-ils regroupés, si nécessaire ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.6",
+          "title": "Dans chaque formulaire, chaque regroupement de champs de même nature a-t-il une légende ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.7",
+          "title": "Dans chaque formulaire, chaque légende associée à un regroupement de champs de même nature est-elle pertinente ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.8",
+          "title": "Dans chaque formulaire, les items de même nature d'une liste de choix sont-ils regroupés de manière pertinente ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.9",
+          "title": "Dans chaque formulaire, l'intitulé de chaque bouton est-il pertinent ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "13.3",
+          "title": "Dans chaque page web, chaque document bureautique en téléchargement possède-t-il, si nécessaire, une version accessible ?",
+          "theme": "Consultation"
+        },
+        {
+          "number": "13.4",
+          "title": "Pour chaque document bureautique ayant une version accessible, cette version offre-t-elle la même information ?",
+          "theme": "Consultation"
+        }
+      ],
+      "isRGAATagged": true
+    },
+    {
+      "ruleId": "aria-roles",
+      "priority": "critical",
+      "description": "Ensure all elements with a role attribute use a valid value",
+      "help": "ARIA roles used must conform to valid values",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/aria-roles?application=axeAPI",
+      "tags": [
+        "cat.aria",
+        "wcag2a",
+        "wcag412",
+        "EN-301-549",
+        "EN-9.4.1.2",
+        "RGAAv4",
+        "RGAA-7.1.1"
+      ],
+      "criteriaCount": 30,
+      "affectedCriteria": [
+        {
+          "number": "2.1",
+          "title": "Chaque cadre a-t-il un titre de cadre ?",
+          "theme": "Cadres"
+        },
+        {
+          "number": "2.2",
+          "title": "Pour chaque cadre ayant un titre de cadre, ce titre de cadre est-il pertinent ?",
+          "theme": "Cadres"
+        },
+        {
+          "number": "5.1",
+          "title": "Chaque tableau de données complexe a-t-il un résumé ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.2",
+          "title": "Pour chaque tableau de données complexe ayant un résumé, celui-ci est-il pertinent ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.3",
+          "title": "Pour chaque tableau de mise en forme, le contenu linéarisé reste-t-il compréhensible ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.4",
+          "title": "Pour chaque tableau de données ayant un titre, le titre est-il correctement associé au tableau de données ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.5",
+          "title": "Pour chaque tableau de données ayant un titre, celui-ci est-il pertinent ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.6",
+          "title": "Pour chaque tableau de données, chaque en-tête de colonnes et chaque en-tête de lignes sont-ils correctement déclarés ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.7",
+          "title": "Pour chaque tableau de données, la technique appropriée permettant d'associer chaque cellule avec ses en-têtes est-elle utilisée ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.8",
+          "title": "Chaque tableau de mise en forme ne doit pas utiliser d'éléments propres aux tableaux de données. Cette règle est-elle respectée ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "6.2",
+          "title": "Dans chaque page web, chaque lien a-t-il un intitulé ?",
+          "theme": "Liens"
+        },
+        {
+          "number": "7.1",
+          "title": "Chaque script est-il, si nécessaire, compatible avec les technologies d'assistance ?",
+          "theme": "Scripts"
+        },
+        {
+          "number": "7.2",
+          "title": "Pour chaque script ayant une alternative, cette alternative est-elle pertinente ?",
+          "theme": "Scripts"
+        },
+        {
+          "number": "8.9",
+          "title": "Dans chaque page web, les balises ne doivent pas être utilisées uniquement à des fins de présentation. Cette règle est-elle respectée ?",
+          "theme": "Éléments obligatoires"
+        },
+        {
+          "number": "9.1",
+          "title": "Dans chaque page web, l'information est-elle structurée par l'utilisation appropriée de titres ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "9.2",
+          "title": "Dans chaque page web, la structure du document est-elle cohérente ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "9.3",
+          "title": "Dans chaque page web, chaque liste est-elle correctement structurée ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "9.4",
+          "title": "Dans chaque page web, chaque citation est-elle correctement indiquée ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "10.1",
+          "title": "Dans le site web, des feuilles de styles sont-elles utilisées pour contrôler la présentation de l'information ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.2",
+          "title": "Dans chaque page web, le contenu visible porteur d'information reste-t-il présent lorsque les feuilles de styles sont désactivées ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.3",
+          "title": "Dans chaque page web, l'information reste-t-elle compréhensible lorsque les feuilles de styles sont désactivées ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.8",
+          "title": "Pour chaque page web, les contenus cachés ont-ils vocation à être ignorés par les technologies d'assistance ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.10",
+          "title": "Dans chaque page web, l'information reste-t-elle compréhensible lorsqu'elle est affichée sans les feuilles de styles ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "11.5",
+          "title": "Dans chaque formulaire, les champs de même nature sont-ils regroupés, si nécessaire ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.6",
+          "title": "Dans chaque formulaire, chaque regroupement de champs de même nature a-t-il une légende ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.7",
+          "title": "Dans chaque formulaire, chaque légende associée à un regroupement de champs de même nature est-elle pertinente ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.8",
+          "title": "Dans chaque formulaire, les items de même nature d'une liste de choix sont-ils regroupés de manière pertinente ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.9",
+          "title": "Dans chaque formulaire, l'intitulé de chaque bouton est-il pertinent ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "13.3",
+          "title": "Dans chaque page web, chaque document bureautique en téléchargement possède-t-il, si nécessaire, une version accessible ?",
+          "theme": "Consultation"
+        },
+        {
+          "number": "13.4",
+          "title": "Pour chaque document bureautique ayant une version accessible, cette version offre-t-elle la même information ?",
+          "theme": "Consultation"
+        }
+      ],
+      "isRGAATagged": true
+    },
+    {
+      "ruleId": "aria-valid-attr-value",
+      "priority": "critical",
+      "description": "Ensure all ARIA attributes have valid values",
+      "help": "ARIA attributes must conform to valid values",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/aria-valid-attr-value?application=axeAPI",
+      "tags": [
+        "cat.aria",
+        "wcag2a",
+        "wcag412",
+        "EN-301-549",
+        "EN-9.4.1.2",
+        "RGAAv4",
+        "RGAA-7.1.1"
+      ],
+      "criteriaCount": 30,
+      "affectedCriteria": [
+        {
+          "number": "2.1",
+          "title": "Chaque cadre a-t-il un titre de cadre ?",
+          "theme": "Cadres"
+        },
+        {
+          "number": "2.2",
+          "title": "Pour chaque cadre ayant un titre de cadre, ce titre de cadre est-il pertinent ?",
+          "theme": "Cadres"
+        },
+        {
+          "number": "5.1",
+          "title": "Chaque tableau de données complexe a-t-il un résumé ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.2",
+          "title": "Pour chaque tableau de données complexe ayant un résumé, celui-ci est-il pertinent ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.3",
+          "title": "Pour chaque tableau de mise en forme, le contenu linéarisé reste-t-il compréhensible ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.4",
+          "title": "Pour chaque tableau de données ayant un titre, le titre est-il correctement associé au tableau de données ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.5",
+          "title": "Pour chaque tableau de données ayant un titre, celui-ci est-il pertinent ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.6",
+          "title": "Pour chaque tableau de données, chaque en-tête de colonnes et chaque en-tête de lignes sont-ils correctement déclarés ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.7",
+          "title": "Pour chaque tableau de données, la technique appropriée permettant d'associer chaque cellule avec ses en-têtes est-elle utilisée ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.8",
+          "title": "Chaque tableau de mise en forme ne doit pas utiliser d'éléments propres aux tableaux de données. Cette règle est-elle respectée ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "6.2",
+          "title": "Dans chaque page web, chaque lien a-t-il un intitulé ?",
+          "theme": "Liens"
+        },
+        {
+          "number": "7.1",
+          "title": "Chaque script est-il, si nécessaire, compatible avec les technologies d'assistance ?",
+          "theme": "Scripts"
+        },
+        {
+          "number": "7.2",
+          "title": "Pour chaque script ayant une alternative, cette alternative est-elle pertinente ?",
+          "theme": "Scripts"
+        },
+        {
+          "number": "8.9",
+          "title": "Dans chaque page web, les balises ne doivent pas être utilisées uniquement à des fins de présentation. Cette règle est-elle respectée ?",
+          "theme": "Éléments obligatoires"
+        },
+        {
+          "number": "9.1",
+          "title": "Dans chaque page web, l'information est-elle structurée par l'utilisation appropriée de titres ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "9.2",
+          "title": "Dans chaque page web, la structure du document est-elle cohérente ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "9.3",
+          "title": "Dans chaque page web, chaque liste est-elle correctement structurée ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "9.4",
+          "title": "Dans chaque page web, chaque citation est-elle correctement indiquée ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "10.1",
+          "title": "Dans le site web, des feuilles de styles sont-elles utilisées pour contrôler la présentation de l'information ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.2",
+          "title": "Dans chaque page web, le contenu visible porteur d'information reste-t-il présent lorsque les feuilles de styles sont désactivées ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.3",
+          "title": "Dans chaque page web, l'information reste-t-elle compréhensible lorsque les feuilles de styles sont désactivées ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.8",
+          "title": "Pour chaque page web, les contenus cachés ont-ils vocation à être ignorés par les technologies d'assistance ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.10",
+          "title": "Dans chaque page web, l'information reste-t-elle compréhensible lorsqu'elle est affichée sans les feuilles de styles ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "11.5",
+          "title": "Dans chaque formulaire, les champs de même nature sont-ils regroupés, si nécessaire ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.6",
+          "title": "Dans chaque formulaire, chaque regroupement de champs de même nature a-t-il une légende ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.7",
+          "title": "Dans chaque formulaire, chaque légende associée à un regroupement de champs de même nature est-elle pertinente ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.8",
+          "title": "Dans chaque formulaire, les items de même nature d'une liste de choix sont-ils regroupés de manière pertinente ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.9",
+          "title": "Dans chaque formulaire, l'intitulé de chaque bouton est-il pertinent ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "13.3",
+          "title": "Dans chaque page web, chaque document bureautique en téléchargement possède-t-il, si nécessaire, une version accessible ?",
+          "theme": "Consultation"
+        },
+        {
+          "number": "13.4",
+          "title": "Pour chaque document bureautique ayant une version accessible, cette version offre-t-elle la même information ?",
+          "theme": "Consultation"
+        }
+      ],
+      "isRGAATagged": true
+    },
+    {
+      "ruleId": "aria-valid-attr",
+      "priority": "critical",
+      "description": "Ensure attributes that begin with aria- are valid ARIA attributes",
+      "help": "ARIA attributes must conform to valid names",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/aria-valid-attr?application=axeAPI",
+      "tags": [
+        "cat.aria",
+        "wcag2a",
+        "wcag412",
+        "EN-301-549",
+        "EN-9.4.1.2",
+        "RGAAv4",
+        "RGAA-7.1.1"
+      ],
+      "criteriaCount": 30,
+      "affectedCriteria": [
+        {
+          "number": "2.1",
+          "title": "Chaque cadre a-t-il un titre de cadre ?",
+          "theme": "Cadres"
+        },
+        {
+          "number": "2.2",
+          "title": "Pour chaque cadre ayant un titre de cadre, ce titre de cadre est-il pertinent ?",
+          "theme": "Cadres"
+        },
+        {
+          "number": "5.1",
+          "title": "Chaque tableau de données complexe a-t-il un résumé ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.2",
+          "title": "Pour chaque tableau de données complexe ayant un résumé, celui-ci est-il pertinent ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.3",
+          "title": "Pour chaque tableau de mise en forme, le contenu linéarisé reste-t-il compréhensible ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.4",
+          "title": "Pour chaque tableau de données ayant un titre, le titre est-il correctement associé au tableau de données ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.5",
+          "title": "Pour chaque tableau de données ayant un titre, celui-ci est-il pertinent ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.6",
+          "title": "Pour chaque tableau de données, chaque en-tête de colonnes et chaque en-tête de lignes sont-ils correctement déclarés ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.7",
+          "title": "Pour chaque tableau de données, la technique appropriée permettant d'associer chaque cellule avec ses en-têtes est-elle utilisée ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.8",
+          "title": "Chaque tableau de mise en forme ne doit pas utiliser d'éléments propres aux tableaux de données. Cette règle est-elle respectée ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "6.2",
+          "title": "Dans chaque page web, chaque lien a-t-il un intitulé ?",
+          "theme": "Liens"
+        },
+        {
+          "number": "7.1",
+          "title": "Chaque script est-il, si nécessaire, compatible avec les technologies d'assistance ?",
+          "theme": "Scripts"
+        },
+        {
+          "number": "7.2",
+          "title": "Pour chaque script ayant une alternative, cette alternative est-elle pertinente ?",
+          "theme": "Scripts"
+        },
+        {
+          "number": "8.9",
+          "title": "Dans chaque page web, les balises ne doivent pas être utilisées uniquement à des fins de présentation. Cette règle est-elle respectée ?",
+          "theme": "Éléments obligatoires"
+        },
+        {
+          "number": "9.1",
+          "title": "Dans chaque page web, l'information est-elle structurée par l'utilisation appropriée de titres ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "9.2",
+          "title": "Dans chaque page web, la structure du document est-elle cohérente ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "9.3",
+          "title": "Dans chaque page web, chaque liste est-elle correctement structurée ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "9.4",
+          "title": "Dans chaque page web, chaque citation est-elle correctement indiquée ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "10.1",
+          "title": "Dans le site web, des feuilles de styles sont-elles utilisées pour contrôler la présentation de l'information ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.2",
+          "title": "Dans chaque page web, le contenu visible porteur d'information reste-t-il présent lorsque les feuilles de styles sont désactivées ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.3",
+          "title": "Dans chaque page web, l'information reste-t-elle compréhensible lorsque les feuilles de styles sont désactivées ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.8",
+          "title": "Pour chaque page web, les contenus cachés ont-ils vocation à être ignorés par les technologies d'assistance ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.10",
+          "title": "Dans chaque page web, l'information reste-t-elle compréhensible lorsqu'elle est affichée sans les feuilles de styles ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "11.5",
+          "title": "Dans chaque formulaire, les champs de même nature sont-ils regroupés, si nécessaire ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.6",
+          "title": "Dans chaque formulaire, chaque regroupement de champs de même nature a-t-il une légende ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.7",
+          "title": "Dans chaque formulaire, chaque légende associée à un regroupement de champs de même nature est-elle pertinente ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.8",
+          "title": "Dans chaque formulaire, les items de même nature d'une liste de choix sont-ils regroupés de manière pertinente ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.9",
+          "title": "Dans chaque formulaire, l'intitulé de chaque bouton est-il pertinent ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "13.3",
+          "title": "Dans chaque page web, chaque document bureautique en téléchargement possède-t-il, si nécessaire, une version accessible ?",
+          "theme": "Consultation"
+        },
+        {
+          "number": "13.4",
+          "title": "Pour chaque document bureautique ayant une version accessible, cette version offre-t-elle la même information ?",
+          "theme": "Consultation"
+        }
+      ],
+      "isRGAATagged": true
+    },
+    {
+      "ruleId": "form-field-multiple-labels",
+      "priority": "critical",
+      "description": "Ensure form field does not have multiple label elements",
+      "help": "Form field must not have multiple label elements",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/form-field-multiple-labels?application=axeAPI",
+      "tags": [
+        "cat.forms",
+        "wcag2a",
+        "wcag332",
+        "TTv5",
+        "TT5.c",
+        "EN-301-549",
+        "EN-9.3.3.2",
+        "RGAAv4",
+        "RGAA-11.2.1"
+      ],
+      "criteriaCount": 24,
+      "affectedCriteria": [
+        {
+          "number": "5.1",
+          "title": "Chaque tableau de données complexe a-t-il un résumé ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.2",
+          "title": "Pour chaque tableau de données complexe ayant un résumé, celui-ci est-il pertinent ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.3",
+          "title": "Pour chaque tableau de mise en forme, le contenu linéarisé reste-t-il compréhensible ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.4",
+          "title": "Pour chaque tableau de données ayant un titre, le titre est-il correctement associé au tableau de données ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.5",
+          "title": "Pour chaque tableau de données ayant un titre, celui-ci est-il pertinent ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.6",
+          "title": "Pour chaque tableau de données, chaque en-tête de colonnes et chaque en-tête de lignes sont-ils correctement déclarés ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.7",
+          "title": "Pour chaque tableau de données, la technique appropriée permettant d'associer chaque cellule avec ses en-têtes est-elle utilisée ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.8",
+          "title": "Chaque tableau de mise en forme ne doit pas utiliser d'éléments propres aux tableaux de données. Cette règle est-elle respectée ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "8.9",
+          "title": "Dans chaque page web, les balises ne doivent pas être utilisées uniquement à des fins de présentation. Cette règle est-elle respectée ?",
+          "theme": "Éléments obligatoires"
+        },
+        {
+          "number": "9.1",
+          "title": "Dans chaque page web, l'information est-elle structurée par l'utilisation appropriée de titres ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "9.2",
+          "title": "Dans chaque page web, la structure du document est-elle cohérente ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "9.3",
+          "title": "Dans chaque page web, chaque liste est-elle correctement structurée ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "9.4",
+          "title": "Dans chaque page web, chaque citation est-elle correctement indiquée ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "10.1",
+          "title": "Dans le site web, des feuilles de styles sont-elles utilisées pour contrôler la présentation de l'information ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.2",
+          "title": "Dans chaque page web, le contenu visible porteur d'information reste-t-il présent lorsque les feuilles de styles sont désactivées ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.3",
+          "title": "Dans chaque page web, l'information reste-t-elle compréhensible lorsque les feuilles de styles sont désactivées ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.10",
+          "title": "Dans chaque page web, l'information reste-t-elle compréhensible lorsqu'elle est affichée sans les feuilles de styles ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "11.1",
+          "title": "Chaque champ de formulaire a-t-il une étiquette ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.2",
+          "title": "Chaque étiquette associée à un champ de formulaire est-elle pertinente ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.4",
+          "title": "Dans chaque formulaire, chaque étiquette de champ et son champ associé sont-ils accolés ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.5",
+          "title": "Dans chaque formulaire, les champs de même nature sont-ils regroupés, si nécessaire ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.6",
+          "title": "Dans chaque formulaire, chaque regroupement de champs de même nature a-t-il une légende ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.7",
+          "title": "Dans chaque formulaire, chaque légende associée à un regroupement de champs de même nature est-elle pertinente ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.8",
+          "title": "Dans chaque formulaire, les items de même nature d'une liste de choix sont-ils regroupés de manière pertinente ?",
+          "theme": "Formulaires"
+        }
+      ],
+      "isRGAATagged": true
+    },
+    {
+      "ruleId": "definition-list",
+      "priority": "critical",
+      "description": "Ensure <dl> elements are structured correctly",
+      "help": "<dl> elements must only directly contain properly-ordered <dt> and <dd> groups, <script>, <template> or <div> elements",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/definition-list?application=axeAPI",
+      "tags": [
+        "cat.structure",
+        "wcag2a",
+        "wcag131",
+        "EN-301-549",
+        "EN-9.1.3.1",
+        "RGAAv4",
+        "RGAA-9.3.3"
+      ],
+      "criteriaCount": 21,
+      "affectedCriteria": [
+        {
+          "number": "5.1",
+          "title": "Chaque tableau de données complexe a-t-il un résumé ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.2",
+          "title": "Pour chaque tableau de données complexe ayant un résumé, celui-ci est-il pertinent ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.3",
+          "title": "Pour chaque tableau de mise en forme, le contenu linéarisé reste-t-il compréhensible ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.4",
+          "title": "Pour chaque tableau de données ayant un titre, le titre est-il correctement associé au tableau de données ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.5",
+          "title": "Pour chaque tableau de données ayant un titre, celui-ci est-il pertinent ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.6",
+          "title": "Pour chaque tableau de données, chaque en-tête de colonnes et chaque en-tête de lignes sont-ils correctement déclarés ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.7",
+          "title": "Pour chaque tableau de données, la technique appropriée permettant d'associer chaque cellule avec ses en-têtes est-elle utilisée ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.8",
+          "title": "Chaque tableau de mise en forme ne doit pas utiliser d'éléments propres aux tableaux de données. Cette règle est-elle respectée ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "8.9",
+          "title": "Dans chaque page web, les balises ne doivent pas être utilisées uniquement à des fins de présentation. Cette règle est-elle respectée ?",
+          "theme": "Éléments obligatoires"
+        },
+        {
+          "number": "9.1",
+          "title": "Dans chaque page web, l'information est-elle structurée par l'utilisation appropriée de titres ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "9.2",
+          "title": "Dans chaque page web, la structure du document est-elle cohérente ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "9.3",
+          "title": "Dans chaque page web, chaque liste est-elle correctement structurée ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "9.4",
+          "title": "Dans chaque page web, chaque citation est-elle correctement indiquée ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "10.1",
+          "title": "Dans le site web, des feuilles de styles sont-elles utilisées pour contrôler la présentation de l'information ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.2",
+          "title": "Dans chaque page web, le contenu visible porteur d'information reste-t-il présent lorsque les feuilles de styles sont désactivées ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.3",
+          "title": "Dans chaque page web, l'information reste-t-elle compréhensible lorsque les feuilles de styles sont désactivées ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.10",
+          "title": "Dans chaque page web, l'information reste-t-elle compréhensible lorsqu'elle est affichée sans les feuilles de styles ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "11.5",
+          "title": "Dans chaque formulaire, les champs de même nature sont-ils regroupés, si nécessaire ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.6",
+          "title": "Dans chaque formulaire, chaque regroupement de champs de même nature a-t-il une légende ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.7",
+          "title": "Dans chaque formulaire, chaque légende associée à un regroupement de champs de même nature est-elle pertinente ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.8",
+          "title": "Dans chaque formulaire, les items de même nature d'une liste de choix sont-ils regroupés de manière pertinente ?",
+          "theme": "Formulaires"
+        }
+      ],
+      "isRGAATagged": true
+    },
+    {
+      "ruleId": "dlitem",
+      "priority": "critical",
+      "description": "Ensure <dt> and <dd> elements are contained by a <dl>",
+      "help": "<dt> and <dd> elements must be contained by a <dl>",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/dlitem?application=axeAPI",
+      "tags": [
+        "cat.structure",
+        "wcag2a",
+        "wcag131",
+        "EN-301-549",
+        "EN-9.1.3.1",
+        "RGAAv4",
+        "RGAA-9.3.3"
+      ],
+      "criteriaCount": 21,
+      "affectedCriteria": [
+        {
+          "number": "5.1",
+          "title": "Chaque tableau de données complexe a-t-il un résumé ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.2",
+          "title": "Pour chaque tableau de données complexe ayant un résumé, celui-ci est-il pertinent ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.3",
+          "title": "Pour chaque tableau de mise en forme, le contenu linéarisé reste-t-il compréhensible ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.4",
+          "title": "Pour chaque tableau de données ayant un titre, le titre est-il correctement associé au tableau de données ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.5",
+          "title": "Pour chaque tableau de données ayant un titre, celui-ci est-il pertinent ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.6",
+          "title": "Pour chaque tableau de données, chaque en-tête de colonnes et chaque en-tête de lignes sont-ils correctement déclarés ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.7",
+          "title": "Pour chaque tableau de données, la technique appropriée permettant d'associer chaque cellule avec ses en-têtes est-elle utilisée ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.8",
+          "title": "Chaque tableau de mise en forme ne doit pas utiliser d'éléments propres aux tableaux de données. Cette règle est-elle respectée ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "8.9",
+          "title": "Dans chaque page web, les balises ne doivent pas être utilisées uniquement à des fins de présentation. Cette règle est-elle respectée ?",
+          "theme": "Éléments obligatoires"
+        },
+        {
+          "number": "9.1",
+          "title": "Dans chaque page web, l'information est-elle structurée par l'utilisation appropriée de titres ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "9.2",
+          "title": "Dans chaque page web, la structure du document est-elle cohérente ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "9.3",
+          "title": "Dans chaque page web, chaque liste est-elle correctement structurée ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "9.4",
+          "title": "Dans chaque page web, chaque citation est-elle correctement indiquée ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "10.1",
+          "title": "Dans le site web, des feuilles de styles sont-elles utilisées pour contrôler la présentation de l'information ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.2",
+          "title": "Dans chaque page web, le contenu visible porteur d'information reste-t-il présent lorsque les feuilles de styles sont désactivées ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.3",
+          "title": "Dans chaque page web, l'information reste-t-elle compréhensible lorsque les feuilles de styles sont désactivées ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.10",
+          "title": "Dans chaque page web, l'information reste-t-elle compréhensible lorsqu'elle est affichée sans les feuilles de styles ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "11.5",
+          "title": "Dans chaque formulaire, les champs de même nature sont-ils regroupés, si nécessaire ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.6",
+          "title": "Dans chaque formulaire, chaque regroupement de champs de même nature a-t-il une légende ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.7",
+          "title": "Dans chaque formulaire, chaque légende associée à un regroupement de champs de même nature est-elle pertinente ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.8",
+          "title": "Dans chaque formulaire, les items de même nature d'une liste de choix sont-ils regroupés de manière pertinente ?",
+          "theme": "Formulaires"
+        }
+      ],
+      "isRGAATagged": true
+    },
+    {
+      "ruleId": "listitem",
+      "priority": "critical",
+      "description": "Ensure <li> elements are used semantically",
+      "help": "<li> elements must be contained in a <ul> or <ol>",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/listitem?application=axeAPI",
+      "tags": [
+        "cat.structure",
+        "wcag2a",
+        "wcag131",
+        "EN-301-549",
+        "EN-9.1.3.1",
+        "RGAAv4",
+        "RGAA-9.3.1"
+      ],
+      "criteriaCount": 21,
+      "affectedCriteria": [
+        {
+          "number": "5.1",
+          "title": "Chaque tableau de données complexe a-t-il un résumé ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.2",
+          "title": "Pour chaque tableau de données complexe ayant un résumé, celui-ci est-il pertinent ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.3",
+          "title": "Pour chaque tableau de mise en forme, le contenu linéarisé reste-t-il compréhensible ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.4",
+          "title": "Pour chaque tableau de données ayant un titre, le titre est-il correctement associé au tableau de données ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.5",
+          "title": "Pour chaque tableau de données ayant un titre, celui-ci est-il pertinent ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.6",
+          "title": "Pour chaque tableau de données, chaque en-tête de colonnes et chaque en-tête de lignes sont-ils correctement déclarés ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.7",
+          "title": "Pour chaque tableau de données, la technique appropriée permettant d'associer chaque cellule avec ses en-têtes est-elle utilisée ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.8",
+          "title": "Chaque tableau de mise en forme ne doit pas utiliser d'éléments propres aux tableaux de données. Cette règle est-elle respectée ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "8.9",
+          "title": "Dans chaque page web, les balises ne doivent pas être utilisées uniquement à des fins de présentation. Cette règle est-elle respectée ?",
+          "theme": "Éléments obligatoires"
+        },
+        {
+          "number": "9.1",
+          "title": "Dans chaque page web, l'information est-elle structurée par l'utilisation appropriée de titres ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "9.2",
+          "title": "Dans chaque page web, la structure du document est-elle cohérente ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "9.3",
+          "title": "Dans chaque page web, chaque liste est-elle correctement structurée ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "9.4",
+          "title": "Dans chaque page web, chaque citation est-elle correctement indiquée ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "10.1",
+          "title": "Dans le site web, des feuilles de styles sont-elles utilisées pour contrôler la présentation de l'information ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.2",
+          "title": "Dans chaque page web, le contenu visible porteur d'information reste-t-il présent lorsque les feuilles de styles sont désactivées ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.3",
+          "title": "Dans chaque page web, l'information reste-t-elle compréhensible lorsque les feuilles de styles sont désactivées ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.10",
+          "title": "Dans chaque page web, l'information reste-t-elle compréhensible lorsqu'elle est affichée sans les feuilles de styles ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "11.5",
+          "title": "Dans chaque formulaire, les champs de même nature sont-ils regroupés, si nécessaire ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.6",
+          "title": "Dans chaque formulaire, chaque regroupement de champs de même nature a-t-il une légende ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.7",
+          "title": "Dans chaque formulaire, chaque légende associée à un regroupement de champs de même nature est-elle pertinente ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.8",
+          "title": "Dans chaque formulaire, les items de même nature d'une liste de choix sont-ils regroupés de manière pertinente ?",
+          "theme": "Formulaires"
+        }
+      ],
+      "isRGAATagged": true
+    },
+    {
+      "ruleId": "th-has-data-cells",
+      "priority": "critical",
+      "description": "Ensure that <th> elements and elements with role=columnheader/rowheader have data cells they describe",
+      "help": "Table headers in a data table must refer to data cells",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/th-has-data-cells?application=axeAPI",
+      "tags": [
+        "cat.tables",
+        "wcag2a",
+        "wcag131",
+        "section508",
+        "section508.22.g",
+        "TTv5",
+        "TT14.b",
+        "EN-301-549",
+        "EN-9.1.3.1",
+        "RGAAv4",
+        "RGAA-5.7.1"
+      ],
+      "criteriaCount": 21,
+      "affectedCriteria": [
+        {
+          "number": "5.1",
+          "title": "Chaque tableau de données complexe a-t-il un résumé ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.2",
+          "title": "Pour chaque tableau de données complexe ayant un résumé, celui-ci est-il pertinent ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.3",
+          "title": "Pour chaque tableau de mise en forme, le contenu linéarisé reste-t-il compréhensible ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.4",
+          "title": "Pour chaque tableau de données ayant un titre, le titre est-il correctement associé au tableau de données ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.5",
+          "title": "Pour chaque tableau de données ayant un titre, celui-ci est-il pertinent ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.6",
+          "title": "Pour chaque tableau de données, chaque en-tête de colonnes et chaque en-tête de lignes sont-ils correctement déclarés ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.7",
+          "title": "Pour chaque tableau de données, la technique appropriée permettant d'associer chaque cellule avec ses en-têtes est-elle utilisée ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.8",
+          "title": "Chaque tableau de mise en forme ne doit pas utiliser d'éléments propres aux tableaux de données. Cette règle est-elle respectée ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "8.9",
+          "title": "Dans chaque page web, les balises ne doivent pas être utilisées uniquement à des fins de présentation. Cette règle est-elle respectée ?",
+          "theme": "Éléments obligatoires"
+        },
+        {
+          "number": "9.1",
+          "title": "Dans chaque page web, l'information est-elle structurée par l'utilisation appropriée de titres ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "9.2",
+          "title": "Dans chaque page web, la structure du document est-elle cohérente ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "9.3",
+          "title": "Dans chaque page web, chaque liste est-elle correctement structurée ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "9.4",
+          "title": "Dans chaque page web, chaque citation est-elle correctement indiquée ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "10.1",
+          "title": "Dans le site web, des feuilles de styles sont-elles utilisées pour contrôler la présentation de l'information ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.2",
+          "title": "Dans chaque page web, le contenu visible porteur d'information reste-t-il présent lorsque les feuilles de styles sont désactivées ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.3",
+          "title": "Dans chaque page web, l'information reste-t-elle compréhensible lorsque les feuilles de styles sont désactivées ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.10",
+          "title": "Dans chaque page web, l'information reste-t-elle compréhensible lorsqu'elle est affichée sans les feuilles de styles ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "11.5",
+          "title": "Dans chaque formulaire, les champs de même nature sont-ils regroupés, si nécessaire ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.6",
+          "title": "Dans chaque formulaire, chaque regroupement de champs de même nature a-t-il une légende ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.7",
+          "title": "Dans chaque formulaire, chaque légende associée à un regroupement de champs de même nature est-elle pertinente ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.8",
+          "title": "Dans chaque formulaire, les items de même nature d'une liste de choix sont-ils regroupés de manière pertinente ?",
+          "theme": "Formulaires"
+        }
+      ],
+      "isRGAATagged": true
+    },
+    {
+      "ruleId": "input-image-alt",
+      "priority": "critical",
+      "description": "Ensure <input type=\"image\"> elements have alternative text",
+      "help": "Image buttons must have alternative text",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/input-image-alt?application=axeAPI",
+      "tags": [
+        "cat.text-alternatives",
+        "wcag2a",
+        "wcag111",
+        "wcag412",
+        "section508",
+        "section508.22.a",
+        "TTv5",
+        "TT7.a",
+        "EN-301-549",
+        "EN-9.1.1.1",
+        "EN-9.4.1.2",
+        "ACT",
+        "RGAAv4",
+        "RGAA-1.1.3"
+      ],
+      "criteriaCount": 17,
+      "affectedCriteria": [
+        {
+          "number": "1.1",
+          "title": "Chaque image porteuse d'information a-t-elle une alternative textuelle ?",
+          "theme": "Images"
+        },
+        {
+          "number": "1.2",
+          "title": "Chaque image de décoration est-elle correctement ignorée par les technologies d'assistance ?",
+          "theme": "Images"
+        },
+        {
+          "number": "1.3",
+          "title": "Pour chaque image porteuse d'information ayant une alternative textuelle, cette alternative est-elle pertinente ?",
+          "theme": "Images"
+        },
+        {
+          "number": "1.4",
+          "title": "Pour chaque image utilisée comme CAPTCHA ou comme image-test, ayant une alternative textuelle, cette alternative permet-elle d'identifier la nature et la fonction de l'image ?",
+          "theme": "Images"
+        },
+        {
+          "number": "1.5",
+          "title": "Pour chaque image utilisée comme CAPTCHA, une solution d'accès alternatif au contenu ou à la fonction du CAPTCHA est-elle présente ?",
+          "theme": "Images"
+        },
+        {
+          "number": "1.6",
+          "title": "Chaque image porteuse d'information a-t-elle, si nécessaire, une description détaillée ?",
+          "theme": "Images"
+        },
+        {
+          "number": "1.7",
+          "title": "Pour chaque image porteuse d'information ayant une description détaillée, cette description est-elle pertinente ?",
+          "theme": "Images"
+        },
+        {
+          "number": "1.9",
+          "title": "Chaque légende d'image est-elle, si nécessaire, correctement reliée à l'image correspondante ?",
+          "theme": "Images"
+        },
+        {
+          "number": "2.1",
+          "title": "Chaque cadre a-t-il un titre de cadre ?",
+          "theme": "Cadres"
+        },
+        {
+          "number": "2.2",
+          "title": "Pour chaque cadre ayant un titre de cadre, ce titre de cadre est-il pertinent ?",
+          "theme": "Cadres"
+        },
+        {
+          "number": "6.2",
+          "title": "Dans chaque page web, chaque lien a-t-il un intitulé ?",
+          "theme": "Liens"
+        },
+        {
+          "number": "7.1",
+          "title": "Chaque script est-il, si nécessaire, compatible avec les technologies d'assistance ?",
+          "theme": "Scripts"
+        },
+        {
+          "number": "7.2",
+          "title": "Pour chaque script ayant une alternative, cette alternative est-elle pertinente ?",
+          "theme": "Scripts"
+        },
+        {
+          "number": "10.8",
+          "title": "Pour chaque page web, les contenus cachés ont-ils vocation à être ignorés par les technologies d'assistance ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "11.9",
+          "title": "Dans chaque formulaire, l'intitulé de chaque bouton est-il pertinent ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "13.3",
+          "title": "Dans chaque page web, chaque document bureautique en téléchargement possède-t-il, si nécessaire, une version accessible ?",
+          "theme": "Consultation"
+        },
+        {
+          "number": "13.4",
+          "title": "Pour chaque document bureautique ayant une version accessible, cette version offre-t-elle la même information ?",
+          "theme": "Consultation"
+        }
+      ],
+      "isRGAATagged": true
+    },
+    {
+      "ruleId": "aria-input-field-name",
+      "priority": "critical",
+      "description": "Ensure every ARIA input field has an accessible name",
+      "help": "ARIA input fields must have an accessible name",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/aria-input-field-name?application=axeAPI",
+      "tags": [
+        "cat.aria",
+        "wcag2a",
+        "wcag412",
+        "TTv5",
+        "TT5.c",
+        "EN-301-549",
+        "EN-9.4.1.2",
+        "ACT",
+        "RGAAv4",
+        "RGAA-11.1.1"
+      ],
+      "criteriaCount": 10,
+      "affectedCriteria": [
+        {
+          "number": "2.1",
+          "title": "Chaque cadre a-t-il un titre de cadre ?",
+          "theme": "Cadres"
+        },
+        {
+          "number": "2.2",
+          "title": "Pour chaque cadre ayant un titre de cadre, ce titre de cadre est-il pertinent ?",
+          "theme": "Cadres"
+        },
+        {
+          "number": "6.2",
+          "title": "Dans chaque page web, chaque lien a-t-il un intitulé ?",
+          "theme": "Liens"
+        },
+        {
+          "number": "7.1",
+          "title": "Chaque script est-il, si nécessaire, compatible avec les technologies d'assistance ?",
+          "theme": "Scripts"
+        },
+        {
+          "number": "7.2",
+          "title": "Pour chaque script ayant une alternative, cette alternative est-elle pertinente ?",
+          "theme": "Scripts"
+        },
+        {
+          "number": "10.8",
+          "title": "Pour chaque page web, les contenus cachés ont-ils vocation à être ignorés par les technologies d'assistance ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "11.9",
+          "title": "Dans chaque formulaire, l'intitulé de chaque bouton est-il pertinent ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.10",
+          "title": "Dans chaque formulaire, le contrôle de saisie est-il utilisé de manière pertinente ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "13.3",
+          "title": "Dans chaque page web, chaque document bureautique en téléchargement possède-t-il, si nécessaire, une version accessible ?",
+          "theme": "Consultation"
+        },
+        {
+          "number": "13.4",
+          "title": "Pour chaque document bureautique ayant une version accessible, cette version offre-t-elle la même information ?",
+          "theme": "Consultation"
+        }
+      ],
+      "isRGAATagged": true
+    },
+    {
+      "ruleId": "aria-command-name",
+      "priority": "critical",
+      "description": "Ensure every ARIA button, link and menuitem has an accessible name",
+      "help": "ARIA commands must have an accessible name",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/aria-command-name?application=axeAPI",
+      "tags": [
+        "cat.aria",
+        "wcag2a",
+        "wcag412",
+        "TTv5",
+        "TT6.a",
+        "EN-301-549",
+        "EN-9.4.1.2",
+        "ACT",
+        "RGAAv4",
+        "RGAA-11.9.1"
+      ],
+      "criteriaCount": 9,
+      "affectedCriteria": [
+        {
+          "number": "2.1",
+          "title": "Chaque cadre a-t-il un titre de cadre ?",
+          "theme": "Cadres"
+        },
+        {
+          "number": "2.2",
+          "title": "Pour chaque cadre ayant un titre de cadre, ce titre de cadre est-il pertinent ?",
+          "theme": "Cadres"
+        },
+        {
+          "number": "6.2",
+          "title": "Dans chaque page web, chaque lien a-t-il un intitulé ?",
+          "theme": "Liens"
+        },
+        {
+          "number": "7.1",
+          "title": "Chaque script est-il, si nécessaire, compatible avec les technologies d'assistance ?",
+          "theme": "Scripts"
+        },
+        {
+          "number": "7.2",
+          "title": "Pour chaque script ayant une alternative, cette alternative est-elle pertinente ?",
+          "theme": "Scripts"
+        },
+        {
+          "number": "10.8",
+          "title": "Pour chaque page web, les contenus cachés ont-ils vocation à être ignorés par les technologies d'assistance ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "11.9",
+          "title": "Dans chaque formulaire, l'intitulé de chaque bouton est-il pertinent ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "13.3",
+          "title": "Dans chaque page web, chaque document bureautique en téléchargement possède-t-il, si nécessaire, une version accessible ?",
+          "theme": "Consultation"
+        },
+        {
+          "number": "13.4",
+          "title": "Pour chaque document bureautique ayant une version accessible, cette version offre-t-elle la même information ?",
+          "theme": "Consultation"
+        }
+      ],
+      "isRGAATagged": true
+    },
+    {
+      "ruleId": "aria-hidden-body",
+      "priority": "critical",
+      "description": "Ensure aria-hidden=\"true\" is not present on the document body.",
+      "help": "aria-hidden=\"true\" must not be present on the document body",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/aria-hidden-body?application=axeAPI",
+      "tags": [
+        "cat.aria",
+        "wcag2a",
+        "wcag131",
+        "wcag412",
+        "EN-301-549",
+        "EN-9.1.3.1",
+        "EN-9.4.1.2",
+        "RGAAv4",
+        "RGAA-10.8.1"
+      ],
+      "criteriaCount": 9,
+      "affectedCriteria": [
+        {
+          "number": "2.1",
+          "title": "Chaque cadre a-t-il un titre de cadre ?",
+          "theme": "Cadres"
+        },
+        {
+          "number": "2.2",
+          "title": "Pour chaque cadre ayant un titre de cadre, ce titre de cadre est-il pertinent ?",
+          "theme": "Cadres"
+        },
+        {
+          "number": "6.2",
+          "title": "Dans chaque page web, chaque lien a-t-il un intitulé ?",
+          "theme": "Liens"
+        },
+        {
+          "number": "7.1",
+          "title": "Chaque script est-il, si nécessaire, compatible avec les technologies d'assistance ?",
+          "theme": "Scripts"
+        },
+        {
+          "number": "7.2",
+          "title": "Pour chaque script ayant une alternative, cette alternative est-elle pertinente ?",
+          "theme": "Scripts"
+        },
+        {
+          "number": "10.8",
+          "title": "Pour chaque page web, les contenus cachés ont-ils vocation à être ignorés par les technologies d'assistance ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "11.9",
+          "title": "Dans chaque formulaire, l'intitulé de chaque bouton est-il pertinent ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "13.3",
+          "title": "Dans chaque page web, chaque document bureautique en téléchargement possède-t-il, si nécessaire, une version accessible ?",
+          "theme": "Consultation"
+        },
+        {
+          "number": "13.4",
+          "title": "Pour chaque document bureautique ayant une version accessible, cette version offre-t-elle la même information ?",
+          "theme": "Consultation"
+        }
+      ],
+      "isRGAATagged": true
+    },
+    {
+      "ruleId": "aria-meter-name",
+      "priority": "critical",
+      "description": "Ensure every ARIA meter node has an accessible name",
+      "help": "ARIA meter nodes must have an accessible name",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/aria-meter-name?application=axeAPI",
+      "tags": [
+        "cat.aria",
+        "wcag2a",
+        "wcag111",
+        "EN-301-549",
+        "EN-9.1.1.1",
+        "RGAAv4",
+        "RGAA-11.1.1"
+      ],
+      "criteriaCount": 9,
+      "affectedCriteria": [
+        {
+          "number": "2.1",
+          "title": "Chaque cadre a-t-il un titre de cadre ?",
+          "theme": "Cadres"
+        },
+        {
+          "number": "2.2",
+          "title": "Pour chaque cadre ayant un titre de cadre, ce titre de cadre est-il pertinent ?",
+          "theme": "Cadres"
+        },
+        {
+          "number": "6.2",
+          "title": "Dans chaque page web, chaque lien a-t-il un intitulé ?",
+          "theme": "Liens"
+        },
+        {
+          "number": "7.1",
+          "title": "Chaque script est-il, si nécessaire, compatible avec les technologies d'assistance ?",
+          "theme": "Scripts"
+        },
+        {
+          "number": "7.2",
+          "title": "Pour chaque script ayant une alternative, cette alternative est-elle pertinente ?",
+          "theme": "Scripts"
+        },
+        {
+          "number": "10.8",
+          "title": "Pour chaque page web, les contenus cachés ont-ils vocation à être ignorés par les technologies d'assistance ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "11.9",
+          "title": "Dans chaque formulaire, l'intitulé de chaque bouton est-il pertinent ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "13.3",
+          "title": "Dans chaque page web, chaque document bureautique en téléchargement possède-t-il, si nécessaire, une version accessible ?",
+          "theme": "Consultation"
+        },
+        {
+          "number": "13.4",
+          "title": "Pour chaque document bureautique ayant une version accessible, cette version offre-t-elle la même information ?",
+          "theme": "Consultation"
+        }
+      ],
+      "isRGAATagged": true
+    },
+    {
+      "ruleId": "aria-progressbar-name",
+      "priority": "critical",
+      "description": "Ensure every ARIA progressbar node has an accessible name",
+      "help": "ARIA progressbar nodes must have an accessible name",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/aria-progressbar-name?application=axeAPI",
+      "tags": [
+        "cat.aria",
+        "wcag2a",
+        "wcag111",
+        "EN-301-549",
+        "EN-9.1.1.1",
+        "RGAAv4",
+        "RGAA-11.1.1"
+      ],
+      "criteriaCount": 9,
+      "affectedCriteria": [
+        {
+          "number": "2.1",
+          "title": "Chaque cadre a-t-il un titre de cadre ?",
+          "theme": "Cadres"
+        },
+        {
+          "number": "2.2",
+          "title": "Pour chaque cadre ayant un titre de cadre, ce titre de cadre est-il pertinent ?",
+          "theme": "Cadres"
+        },
+        {
+          "number": "6.2",
+          "title": "Dans chaque page web, chaque lien a-t-il un intitulé ?",
+          "theme": "Liens"
+        },
+        {
+          "number": "7.1",
+          "title": "Chaque script est-il, si nécessaire, compatible avec les technologies d'assistance ?",
+          "theme": "Scripts"
+        },
+        {
+          "number": "7.2",
+          "title": "Pour chaque script ayant une alternative, cette alternative est-elle pertinente ?",
+          "theme": "Scripts"
+        },
+        {
+          "number": "10.8",
+          "title": "Pour chaque page web, les contenus cachés ont-ils vocation à être ignorés par les technologies d'assistance ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "11.9",
+          "title": "Dans chaque formulaire, l'intitulé de chaque bouton est-il pertinent ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "13.3",
+          "title": "Dans chaque page web, chaque document bureautique en téléchargement possède-t-il, si nécessaire, une version accessible ?",
+          "theme": "Consultation"
+        },
+        {
+          "number": "13.4",
+          "title": "Pour chaque document bureautique ayant une version accessible, cette version offre-t-elle la même information ?",
+          "theme": "Consultation"
+        }
+      ],
+      "isRGAATagged": true
+    },
+    {
+      "ruleId": "aria-roledescription",
+      "priority": "critical",
+      "description": "Ensure aria-roledescription is only used on elements with an implicit or explicit role",
+      "help": "aria-roledescription must be on elements with a semantic role",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/aria-roledescription?application=axeAPI",
+      "tags": [
+        "cat.aria",
+        "wcag2a",
+        "wcag412",
+        "EN-301-549",
+        "EN-9.4.1.2",
+        "deprecated"
+      ],
+      "criteriaCount": 9,
+      "affectedCriteria": [
+        {
+          "number": "2.1",
+          "title": "Chaque cadre a-t-il un titre de cadre ?",
+          "theme": "Cadres"
+        },
+        {
+          "number": "2.2",
+          "title": "Pour chaque cadre ayant un titre de cadre, ce titre de cadre est-il pertinent ?",
+          "theme": "Cadres"
+        },
+        {
+          "number": "6.2",
+          "title": "Dans chaque page web, chaque lien a-t-il un intitulé ?",
+          "theme": "Liens"
+        },
+        {
+          "number": "7.1",
+          "title": "Chaque script est-il, si nécessaire, compatible avec les technologies d'assistance ?",
+          "theme": "Scripts"
+        },
+        {
+          "number": "7.2",
+          "title": "Pour chaque script ayant une alternative, cette alternative est-elle pertinente ?",
+          "theme": "Scripts"
+        },
+        {
+          "number": "10.8",
+          "title": "Pour chaque page web, les contenus cachés ont-ils vocation à être ignorés par les technologies d'assistance ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "11.9",
+          "title": "Dans chaque formulaire, l'intitulé de chaque bouton est-il pertinent ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "13.3",
+          "title": "Dans chaque page web, chaque document bureautique en téléchargement possède-t-il, si nécessaire, une version accessible ?",
+          "theme": "Consultation"
+        },
+        {
+          "number": "13.4",
+          "title": "Pour chaque document bureautique ayant une version accessible, cette version offre-t-elle la même information ?",
+          "theme": "Consultation"
+        }
+      ],
+      "isRGAATagged": false
+    },
+    {
+      "ruleId": "aria-toggle-field-name",
+      "priority": "critical",
+      "description": "Ensure every ARIA toggle field has an accessible name",
+      "help": "ARIA toggle fields must have an accessible name",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/aria-toggle-field-name?application=axeAPI",
+      "tags": [
+        "cat.aria",
+        "wcag2a",
+        "wcag412",
+        "TTv5",
+        "TT5.c",
+        "EN-301-549",
+        "EN-9.4.1.2",
+        "ACT",
+        "RGAAv4",
+        "RGAA-7.1.1"
+      ],
+      "criteriaCount": 9,
+      "affectedCriteria": [
+        {
+          "number": "2.1",
+          "title": "Chaque cadre a-t-il un titre de cadre ?",
+          "theme": "Cadres"
+        },
+        {
+          "number": "2.2",
+          "title": "Pour chaque cadre ayant un titre de cadre, ce titre de cadre est-il pertinent ?",
+          "theme": "Cadres"
+        },
+        {
+          "number": "6.2",
+          "title": "Dans chaque page web, chaque lien a-t-il un intitulé ?",
+          "theme": "Liens"
+        },
+        {
+          "number": "7.1",
+          "title": "Chaque script est-il, si nécessaire, compatible avec les technologies d'assistance ?",
+          "theme": "Scripts"
+        },
+        {
+          "number": "7.2",
+          "title": "Pour chaque script ayant une alternative, cette alternative est-elle pertinente ?",
+          "theme": "Scripts"
+        },
+        {
+          "number": "10.8",
+          "title": "Pour chaque page web, les contenus cachés ont-ils vocation à être ignorés par les technologies d'assistance ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "11.9",
+          "title": "Dans chaque formulaire, l'intitulé de chaque bouton est-il pertinent ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "13.3",
+          "title": "Dans chaque page web, chaque document bureautique en téléchargement possède-t-il, si nécessaire, une version accessible ?",
+          "theme": "Consultation"
+        },
+        {
+          "number": "13.4",
+          "title": "Pour chaque document bureautique ayant une version accessible, cette version offre-t-elle la même information ?",
+          "theme": "Consultation"
+        }
+      ],
+      "isRGAATagged": true
+    },
+    {
+      "ruleId": "select-name",
+      "priority": "critical",
+      "description": "Ensure select element has an accessible name",
+      "help": "Select element must have an accessible name",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/select-name?application=axeAPI",
+      "tags": [
+        "cat.forms",
+        "wcag2a",
+        "wcag412",
+        "section508",
+        "section508.22.n",
+        "TTv5",
+        "TT5.c",
+        "EN-301-549",
+        "EN-9.4.1.2",
+        "ACT",
+        "RGAAv4",
+        "RGAA-11.1.1"
+      ],
+      "criteriaCount": 9,
+      "affectedCriteria": [
+        {
+          "number": "2.1",
+          "title": "Chaque cadre a-t-il un titre de cadre ?",
+          "theme": "Cadres"
+        },
+        {
+          "number": "2.2",
+          "title": "Pour chaque cadre ayant un titre de cadre, ce titre de cadre est-il pertinent ?",
+          "theme": "Cadres"
+        },
+        {
+          "number": "6.2",
+          "title": "Dans chaque page web, chaque lien a-t-il un intitulé ?",
+          "theme": "Liens"
+        },
+        {
+          "number": "7.1",
+          "title": "Chaque script est-il, si nécessaire, compatible avec les technologies d'assistance ?",
+          "theme": "Scripts"
+        },
+        {
+          "number": "7.2",
+          "title": "Pour chaque script ayant une alternative, cette alternative est-elle pertinente ?",
+          "theme": "Scripts"
+        },
+        {
+          "number": "10.8",
+          "title": "Pour chaque page web, les contenus cachés ont-ils vocation à être ignorés par les technologies d'assistance ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "11.9",
+          "title": "Dans chaque formulaire, l'intitulé de chaque bouton est-il pertinent ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "13.3",
+          "title": "Dans chaque page web, chaque document bureautique en téléchargement possède-t-il, si nécessaire, une version accessible ?",
+          "theme": "Consultation"
+        },
+        {
+          "number": "13.4",
+          "title": "Pour chaque document bureautique ayant une version accessible, cette version offre-t-elle la même information ?",
+          "theme": "Consultation"
+        }
+      ],
+      "isRGAATagged": true
+    },
+    {
+      "ruleId": "area-alt",
+      "priority": "critical",
+      "description": "Ensure <area> elements of image maps have alternative text",
+      "help": "Active <area> elements must have alternative text",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/area-alt?application=axeAPI",
+      "tags": [
+        "cat.text-alternatives",
+        "wcag2a",
+        "wcag244",
+        "wcag412",
+        "section508",
+        "section508.22.a",
+        "TTv5",
+        "TT6.a",
+        "EN-301-549",
+        "EN-9.2.4.4",
+        "EN-9.4.1.2",
+        "ACT",
+        "RGAAv4",
+        "RGAA-1.1.2"
+      ],
+      "criteriaCount": 8,
+      "affectedCriteria": [
+        {
+          "number": "1.1",
+          "title": "Chaque image porteuse d'information a-t-elle une alternative textuelle ?",
+          "theme": "Images"
+        },
+        {
+          "number": "1.2",
+          "title": "Chaque image de décoration est-elle correctement ignorée par les technologies d'assistance ?",
+          "theme": "Images"
+        },
+        {
+          "number": "1.3",
+          "title": "Pour chaque image porteuse d'information ayant une alternative textuelle, cette alternative est-elle pertinente ?",
+          "theme": "Images"
+        },
+        {
+          "number": "1.4",
+          "title": "Pour chaque image utilisée comme CAPTCHA ou comme image-test, ayant une alternative textuelle, cette alternative permet-elle d'identifier la nature et la fonction de l'image ?",
+          "theme": "Images"
+        },
+        {
+          "number": "1.5",
+          "title": "Pour chaque image utilisée comme CAPTCHA, une solution d'accès alternatif au contenu ou à la fonction du CAPTCHA est-elle présente ?",
+          "theme": "Images"
+        },
+        {
+          "number": "1.6",
+          "title": "Chaque image porteuse d'information a-t-elle, si nécessaire, une description détaillée ?",
+          "theme": "Images"
+        },
+        {
+          "number": "1.7",
+          "title": "Pour chaque image porteuse d'information ayant une description détaillée, cette description est-elle pertinente ?",
+          "theme": "Images"
+        },
+        {
+          "number": "1.9",
+          "title": "Chaque légende d'image est-elle, si nécessaire, correctement reliée à l'image correspondante ?",
+          "theme": "Images"
+        }
+      ],
+      "isRGAATagged": true
+    },
+    {
+      "ruleId": "svg-img-alt",
+      "priority": "critical",
+      "description": "Ensure <svg> elements with an img, graphics-document or graphics-symbol role have accessible text",
+      "help": "<svg> elements with an img role must have alternative text",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/svg-img-alt?application=axeAPI",
+      "tags": [
+        "cat.text-alternatives",
+        "wcag2a",
+        "wcag111",
+        "section508",
+        "section508.22.a",
+        "TTv5",
+        "TT7.a",
+        "EN-301-549",
+        "EN-9.1.1.1",
+        "ACT",
+        "RGAAv4",
+        "RGAA-1.1.5"
+      ],
+      "criteriaCount": 8,
+      "affectedCriteria": [
+        {
+          "number": "1.1",
+          "title": "Chaque image porteuse d'information a-t-elle une alternative textuelle ?",
+          "theme": "Images"
+        },
+        {
+          "number": "1.2",
+          "title": "Chaque image de décoration est-elle correctement ignorée par les technologies d'assistance ?",
+          "theme": "Images"
+        },
+        {
+          "number": "1.3",
+          "title": "Pour chaque image porteuse d'information ayant une alternative textuelle, cette alternative est-elle pertinente ?",
+          "theme": "Images"
+        },
+        {
+          "number": "1.4",
+          "title": "Pour chaque image utilisée comme CAPTCHA ou comme image-test, ayant une alternative textuelle, cette alternative permet-elle d'identifier la nature et la fonction de l'image ?",
+          "theme": "Images"
+        },
+        {
+          "number": "1.5",
+          "title": "Pour chaque image utilisée comme CAPTCHA, une solution d'accès alternatif au contenu ou à la fonction du CAPTCHA est-elle présente ?",
+          "theme": "Images"
+        },
+        {
+          "number": "1.6",
+          "title": "Chaque image porteuse d'information a-t-elle, si nécessaire, une description détaillée ?",
+          "theme": "Images"
+        },
+        {
+          "number": "1.7",
+          "title": "Pour chaque image porteuse d'information ayant une description détaillée, cette description est-elle pertinente ?",
+          "theme": "Images"
+        },
+        {
+          "number": "1.9",
+          "title": "Chaque légende d'image est-elle, si nécessaire, correctement reliée à l'image correspondante ?",
+          "theme": "Images"
+        }
+      ],
+      "isRGAATagged": true
+    },
+    {
+      "ruleId": "object-alt",
+      "priority": "critical",
+      "description": "Ensure <object> elements have alternative text",
+      "help": "<object> elements must have alternative text",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/object-alt?application=axeAPI",
+      "tags": [
+        "cat.text-alternatives",
+        "wcag2a",
+        "wcag111",
+        "section508",
+        "section508.22.a",
+        "EN-301-549",
+        "EN-9.1.1.1",
+        "RGAAv4",
+        "RGAA-1.1.6"
+      ],
+      "criteriaCount": 8,
+      "affectedCriteria": [
+        {
+          "number": "1.1",
+          "title": "Chaque image porteuse d'information a-t-elle une alternative textuelle ?",
+          "theme": "Images"
+        },
+        {
+          "number": "1.2",
+          "title": "Chaque image de décoration est-elle correctement ignorée par les technologies d'assistance ?",
+          "theme": "Images"
+        },
+        {
+          "number": "1.3",
+          "title": "Pour chaque image porteuse d'information ayant une alternative textuelle, cette alternative est-elle pertinente ?",
+          "theme": "Images"
+        },
+        {
+          "number": "1.4",
+          "title": "Pour chaque image utilisée comme CAPTCHA ou comme image-test, ayant une alternative textuelle, cette alternative permet-elle d'identifier la nature et la fonction de l'image ?",
+          "theme": "Images"
+        },
+        {
+          "number": "1.5",
+          "title": "Pour chaque image utilisée comme CAPTCHA, une solution d'accès alternatif au contenu ou à la fonction du CAPTCHA est-elle présente ?",
+          "theme": "Images"
+        },
+        {
+          "number": "1.6",
+          "title": "Chaque image porteuse d'information a-t-elle, si nécessaire, une description détaillée ?",
+          "theme": "Images"
+        },
+        {
+          "number": "1.7",
+          "title": "Pour chaque image porteuse d'information ayant une description détaillée, cette description est-elle pertinente ?",
+          "theme": "Images"
+        },
+        {
+          "number": "1.9",
+          "title": "Chaque légende d'image est-elle, si nécessaire, correctement reliée à l'image correspondante ?",
+          "theme": "Images"
+        }
+      ],
+      "isRGAATagged": true
+    },
+    {
+      "ruleId": "audio-caption",
+      "priority": "critical",
+      "description": "Ensure <audio> elements have captions",
+      "help": "<audio> elements must have a captions track",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/audio-caption?application=axeAPI",
+      "tags": [
+        "cat.time-and-media",
+        "wcag2a",
+        "wcag121",
+        "EN-301-549",
+        "EN-9.1.2.1",
+        "section508",
+        "section508.22.a",
+        "deprecated"
+      ],
+      "criteriaCount": 8,
+      "affectedCriteria": [
+        {
+          "number": "1.1",
+          "title": "Chaque image porteuse d'information a-t-elle une alternative textuelle ?",
+          "theme": "Images"
+        },
+        {
+          "number": "1.2",
+          "title": "Chaque image de décoration est-elle correctement ignorée par les technologies d'assistance ?",
+          "theme": "Images"
+        },
+        {
+          "number": "1.3",
+          "title": "Pour chaque image porteuse d'information ayant une alternative textuelle, cette alternative est-elle pertinente ?",
+          "theme": "Images"
+        },
+        {
+          "number": "1.4",
+          "title": "Pour chaque image utilisée comme CAPTCHA ou comme image-test, ayant une alternative textuelle, cette alternative permet-elle d'identifier la nature et la fonction de l'image ?",
+          "theme": "Images"
+        },
+        {
+          "number": "1.5",
+          "title": "Pour chaque image utilisée comme CAPTCHA, une solution d'accès alternatif au contenu ou à la fonction du CAPTCHA est-elle présente ?",
+          "theme": "Images"
+        },
+        {
+          "number": "1.6",
+          "title": "Chaque image porteuse d'information a-t-elle, si nécessaire, une description détaillée ?",
+          "theme": "Images"
+        },
+        {
+          "number": "1.7",
+          "title": "Pour chaque image porteuse d'information ayant une description détaillée, cette description est-elle pertinente ?",
+          "theme": "Images"
+        },
+        {
+          "number": "1.9",
+          "title": "Chaque légende d'image est-elle, si nécessaire, correctement reliée à l'image correspondante ?",
+          "theme": "Images"
+        }
+      ],
+      "isRGAATagged": false
+    },
+    {
+      "ruleId": "bypass",
+      "priority": "critical",
+      "description": "Ensure each page has at least one mechanism for a user to bypass navigation and jump straight to the content",
+      "help": "Page must have means to bypass repeated blocks",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/bypass?application=axeAPI",
+      "tags": [
+        "cat.keyboard",
+        "wcag2a",
+        "wcag241",
+        "section508",
+        "section508.22.o",
+        "TTv5",
+        "TT9.a",
+        "EN-301-549",
+        "EN-9.2.4.1",
+        "RGAAv4",
+        "RGAA-12.7.1"
+      ],
+      "criteriaCount": 3,
+      "affectedCriteria": [
+        {
+          "number": "9.2",
+          "title": "Dans chaque page web, la structure du document est-elle cohérente ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "12.6",
+          "title": "Les zones de regroupement de contenus présentes dans plusieurs pages web (zones d'en-tête, de navigation principale, de contenu principal, de pied de page et de moteur de recherche) peuvent-elles être atteintes ou évitées ?",
+          "theme": "Navigation"
+        },
+        {
+          "number": "12.7",
+          "title": "Dans chaque page web, un lien d'évitement ou d'accès rapide à la zone de contenu principal est-il présent ?",
+          "theme": "Navigation"
+        }
+      ],
+      "isRGAATagged": true
+    },
+    {
+      "ruleId": "duplicate-id-aria",
+      "priority": "critical",
+      "description": "Ensure every id attribute value used in ARIA and in labels is unique",
+      "help": "IDs used in ARIA and labels must be unique",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/duplicate-id-aria?application=axeAPI",
+      "tags": [
+        "cat.parsing",
+        "wcag2a",
+        "wcag412",
+        "EN-301-549",
+        "EN-9.4.1.2",
+        "RGAAv4",
+        "RGAA-8.2.1"
+      ],
+      "criteriaCount": 2,
+      "affectedCriteria": [
+        {
+          "number": "8.1",
+          "title": "Chaque page web est-elle définie par un type de document ?",
+          "theme": "Éléments obligatoires"
+        },
+        {
+          "number": "8.2",
+          "title": "Pour chaque page web, le code source généré est-il valide selon le type de document spécifié ?",
+          "theme": "Éléments obligatoires"
+        }
+      ],
+      "isRGAATagged": true
+    },
+    {
+      "ruleId": "blink",
+      "priority": "critical",
+      "description": "Ensure <blink> elements are not used",
+      "help": "<blink> elements are deprecated and must not be used",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/blink?application=axeAPI",
+      "tags": [
+        "cat.time-and-media",
+        "wcag2a",
+        "wcag222",
+        "section508",
+        "section508.22.j",
+        "TTv5",
+        "TT2.b",
+        "EN-301-549",
+        "EN-9.2.2.2",
+        "RGAAv4",
+        "RGAA-13.8.1"
+      ],
+      "criteriaCount": 1,
+      "affectedCriteria": [
+        {
+          "number": "13.8",
+          "title": "Dans chaque page web, chaque contenu en mouvement ou clignotant est-il contrôlable par l'utilisateur ?",
+          "theme": "Consultation"
+        }
+      ],
+      "isRGAATagged": true
+    },
+    {
+      "ruleId": "table-duplicate-name",
+      "priority": "high",
+      "description": "Ensure the <caption> element does not contain the same text as the summary attribute",
+      "help": "Tables should not have the same summary and caption",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/table-duplicate-name?application=axeAPI",
+      "tags": [
+        "cat.tables",
+        "best-practice",
+        "RGAAv4",
+        "RGAA-5.2.1"
+      ],
+      "criteriaCount": 21,
+      "affectedCriteria": [
+        {
+          "number": "5.1",
+          "title": "Chaque tableau de données complexe a-t-il un résumé ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.2",
+          "title": "Pour chaque tableau de données complexe ayant un résumé, celui-ci est-il pertinent ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.3",
+          "title": "Pour chaque tableau de mise en forme, le contenu linéarisé reste-t-il compréhensible ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.4",
+          "title": "Pour chaque tableau de données ayant un titre, le titre est-il correctement associé au tableau de données ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.5",
+          "title": "Pour chaque tableau de données ayant un titre, celui-ci est-il pertinent ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.6",
+          "title": "Pour chaque tableau de données, chaque en-tête de colonnes et chaque en-tête de lignes sont-ils correctement déclarés ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.7",
+          "title": "Pour chaque tableau de données, la technique appropriée permettant d'associer chaque cellule avec ses en-têtes est-elle utilisée ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.8",
+          "title": "Chaque tableau de mise en forme ne doit pas utiliser d'éléments propres aux tableaux de données. Cette règle est-elle respectée ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "8.9",
+          "title": "Dans chaque page web, les balises ne doivent pas être utilisées uniquement à des fins de présentation. Cette règle est-elle respectée ?",
+          "theme": "Éléments obligatoires"
+        },
+        {
+          "number": "9.1",
+          "title": "Dans chaque page web, l'information est-elle structurée par l'utilisation appropriée de titres ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "9.2",
+          "title": "Dans chaque page web, la structure du document est-elle cohérente ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "9.3",
+          "title": "Dans chaque page web, chaque liste est-elle correctement structurée ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "9.4",
+          "title": "Dans chaque page web, chaque citation est-elle correctement indiquée ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "10.1",
+          "title": "Dans le site web, des feuilles de styles sont-elles utilisées pour contrôler la présentation de l'information ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.2",
+          "title": "Dans chaque page web, le contenu visible porteur d'information reste-t-il présent lorsque les feuilles de styles sont désactivées ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.3",
+          "title": "Dans chaque page web, l'information reste-t-elle compréhensible lorsque les feuilles de styles sont désactivées ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.10",
+          "title": "Dans chaque page web, l'information reste-t-elle compréhensible lorsqu'elle est affichée sans les feuilles de styles ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "11.5",
+          "title": "Dans chaque formulaire, les champs de même nature sont-ils regroupés, si nécessaire ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.6",
+          "title": "Dans chaque formulaire, chaque regroupement de champs de même nature a-t-il une légende ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.7",
+          "title": "Dans chaque formulaire, chaque légende associée à un regroupement de champs de même nature est-elle pertinente ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.8",
+          "title": "Dans chaque formulaire, les items de même nature d'une liste de choix sont-ils regroupés de manière pertinente ?",
+          "theme": "Formulaires"
+        }
+      ],
+      "isRGAATagged": true
+    },
+    {
+      "ruleId": "landmark-unique",
+      "priority": "high",
+      "description": "Ensure landmarks are unique",
+      "help": "Landmarks should have a unique role or role/label/title (i.e. accessible name) combination",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/landmark-unique?application=axeAPI",
+      "tags": [
+        "cat.semantics",
+        "best-practice"
+      ],
+      "criteriaCount": 21,
+      "affectedCriteria": [
+        {
+          "number": "5.1",
+          "title": "Chaque tableau de données complexe a-t-il un résumé ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.2",
+          "title": "Pour chaque tableau de données complexe ayant un résumé, celui-ci est-il pertinent ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.3",
+          "title": "Pour chaque tableau de mise en forme, le contenu linéarisé reste-t-il compréhensible ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.4",
+          "title": "Pour chaque tableau de données ayant un titre, le titre est-il correctement associé au tableau de données ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.5",
+          "title": "Pour chaque tableau de données ayant un titre, celui-ci est-il pertinent ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.6",
+          "title": "Pour chaque tableau de données, chaque en-tête de colonnes et chaque en-tête de lignes sont-ils correctement déclarés ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.7",
+          "title": "Pour chaque tableau de données, la technique appropriée permettant d'associer chaque cellule avec ses en-têtes est-elle utilisée ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "5.8",
+          "title": "Chaque tableau de mise en forme ne doit pas utiliser d'éléments propres aux tableaux de données. Cette règle est-elle respectée ?",
+          "theme": "Tableaux"
+        },
+        {
+          "number": "8.9",
+          "title": "Dans chaque page web, les balises ne doivent pas être utilisées uniquement à des fins de présentation. Cette règle est-elle respectée ?",
+          "theme": "Éléments obligatoires"
+        },
+        {
+          "number": "9.1",
+          "title": "Dans chaque page web, l'information est-elle structurée par l'utilisation appropriée de titres ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "9.2",
+          "title": "Dans chaque page web, la structure du document est-elle cohérente ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "9.3",
+          "title": "Dans chaque page web, chaque liste est-elle correctement structurée ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "9.4",
+          "title": "Dans chaque page web, chaque citation est-elle correctement indiquée ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "10.1",
+          "title": "Dans le site web, des feuilles de styles sont-elles utilisées pour contrôler la présentation de l'information ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.2",
+          "title": "Dans chaque page web, le contenu visible porteur d'information reste-t-il présent lorsque les feuilles de styles sont désactivées ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.3",
+          "title": "Dans chaque page web, l'information reste-t-elle compréhensible lorsque les feuilles de styles sont désactivées ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "10.10",
+          "title": "Dans chaque page web, l'information reste-t-elle compréhensible lorsqu'elle est affichée sans les feuilles de styles ?",
+          "theme": "Présentation de l'information"
+        },
+        {
+          "number": "11.5",
+          "title": "Dans chaque formulaire, les champs de même nature sont-ils regroupés, si nécessaire ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.6",
+          "title": "Dans chaque formulaire, chaque regroupement de champs de même nature a-t-il une légende ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.7",
+          "title": "Dans chaque formulaire, chaque légende associée à un regroupement de champs de même nature est-elle pertinente ?",
+          "theme": "Formulaires"
+        },
+        {
+          "number": "11.8",
+          "title": "Dans chaque formulaire, les items de même nature d'une liste de choix sont-ils regroupés de manière pertinente ?",
+          "theme": "Formulaires"
+        }
+      ],
+      "isRGAATagged": false
+    },
+    {
+      "ruleId": "landmark-one-main",
+      "priority": "high",
+      "description": "Ensure the document has a main landmark",
+      "help": "Document should have one main landmark",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/landmark-one-main?application=axeAPI",
+      "tags": [
+        "cat.semantics",
+        "best-practice"
+      ],
+      "criteriaCount": 3,
+      "affectedCriteria": [
+        {
+          "number": "9.2",
+          "title": "Dans chaque page web, la structure du document est-elle cohérente ?",
+          "theme": "Structuration de l'information"
+        },
+        {
+          "number": "12.6",
+          "title": "Les zones de regroupement de contenus présentes dans plusieurs pages web (zones d'en-tête, de navigation principale, de contenu principal, de pied de page et de moteur de recherche) peuvent-elles être atteintes ou évitées ?",
+          "theme": "Navigation"
+        },
+        {
+          "number": "12.7",
+          "title": "Dans chaque page web, un lien d'évitement ou d'accès rapide à la zone de contenu principal est-il présent ?",
+          "theme": "Navigation"
+        }
+      ],
+      "isRGAATagged": false
+    },
+    {
+      "ruleId": "valid-lang",
+      "priority": "high",
+      "description": "Ensure lang attributes have valid values",
+      "help": "lang attribute must have a valid value",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/valid-lang?application=axeAPI",
+      "tags": [
+        "cat.language",
+        "wcag2aa",
+        "wcag312",
+        "TTv5",
+        "TT11.b",
+        "EN-301-549",
+        "EN-9.3.1.2",
+        "ACT",
+        "RGAAv4",
+        "RGAA-8.8.1"
+      ],
+      "criteriaCount": 2,
+      "affectedCriteria": [
+        {
+          "number": "8.7",
+          "title": "Dans chaque page web, chaque changement de langue est-il indiqué dans le code source ?",
+          "theme": "Éléments obligatoires"
+        },
+        {
+          "number": "8.8",
+          "title": "Dans chaque page web, le code de langue de chaque changement de langue est-il valide ?",
+          "theme": "Éléments obligatoires"
+        }
+      ],
+      "isRGAATagged": true
+    },
+    {
+      "ruleId": "focus-order-semantics",
+      "priority": "high",
+      "description": "Ensure elements in the focus order have a role appropriate for interactive content",
+      "help": "Elements in the focus order should have an appropriate role",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/focus-order-semantics?application=axeAPI",
+      "tags": [
+        "cat.keyboard",
+        "best-practice",
+        "RGAAv4",
+        "RGAA-12.8.1",
+        "experimental"
+      ],
+      "criteriaCount": 2,
+      "affectedCriteria": [
+        {
+          "number": "12.8",
+          "title": "Dans chaque page web, l'ordre de tabulation est-il cohérent ?",
+          "theme": "Navigation"
+        },
+        {
+          "number": "12.9",
+          "title": "Dans chaque page web, la navigation ne doit pas contenir de piège au clavier. Cette règle est-elle respectée ?",
+          "theme": "Navigation"
+        }
+      ],
+      "isRGAATagged": true
+    },
+    {
+      "ruleId": "meta-viewport",
+      "priority": "high",
+      "description": "Ensure <meta name=\"viewport\"> does not disable text scaling and zooming",
+      "help": "Zooming and scaling must not be disabled",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/meta-viewport?application=axeAPI",
+      "tags": [
+        "cat.sensory-and-visual-cues",
+        "wcag2aa",
+        "wcag144",
+        "EN-301-549",
+        "EN-9.1.4.4",
+        "ACT",
+        "RGAAv4",
+        "RGAA-10.4.2"
+      ],
+      "criteriaCount": 1,
+      "affectedCriteria": [
+        {
+          "number": "10.4",
+          "title": "Dans chaque page web, le texte reste-t-il lisible lorsque la taille des caractères est augmentée jusqu'à 200% ?",
+          "theme": "Présentation de l'information"
+        }
+      ],
+      "isRGAATagged": true
+    },
+    {
+      "ruleId": "autocomplete-valid",
+      "priority": "high",
+      "description": "Ensure the autocomplete attribute is correct and suitable for the form field",
+      "help": "autocomplete attribute must be used correctly",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/autocomplete-valid?application=axeAPI",
+      "tags": [
+        "cat.forms",
+        "wcag21aa",
+        "wcag135",
+        "EN-301-549",
+        "EN-9.1.3.5",
+        "ACT",
+        "RGAAv4",
+        "RGAA-11.13.1"
+      ],
+      "criteriaCount": 1,
+      "affectedCriteria": [
+        {
+          "number": "11.13",
+          "title": "La finalité d'un champ de saisie peut-elle être déduite pour faciliter le remplissage automatique des champs avec les données de l'utilisateur ?",
+          "theme": "Formulaires"
+        }
+      ],
+      "isRGAATagged": true
+    },
+    {
+      "ruleId": "duplicate-id",
+      "priority": "medium",
+      "description": "Ensure every id attribute value is unique",
+      "help": "id attribute value must be unique",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/duplicate-id?application=axeAPI",
+      "tags": [
+        "cat.parsing",
+        "wcag2a-obsolete",
+        "wcag411",
+        "deprecated"
+      ],
+      "criteriaCount": 2,
+      "affectedCriteria": [
+        {
+          "number": "8.1",
+          "title": "Chaque page web est-elle définie par un type de document ?",
+          "theme": "Éléments obligatoires"
+        },
+        {
+          "number": "8.2",
+          "title": "Pour chaque page web, le code source généré est-il valide selon le type de document spécifié ?",
+          "theme": "Éléments obligatoires"
+        }
+      ],
+      "isRGAATagged": false
+    },
+    {
+      "ruleId": "duplicate-id-active",
+      "priority": "medium",
+      "description": "Ensure every id attribute value of active elements is unique",
+      "help": "IDs of active elements must be unique",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/duplicate-id-active?application=axeAPI",
+      "tags": [
+        "cat.parsing",
+        "wcag2a-obsolete",
+        "wcag411",
+        "deprecated"
+      ],
+      "criteriaCount": 2,
+      "affectedCriteria": [
+        {
+          "number": "8.1",
+          "title": "Chaque page web est-elle définie par un type de document ?",
+          "theme": "Éléments obligatoires"
+        },
+        {
+          "number": "8.2",
+          "title": "Pour chaque page web, le code source généré est-il valide selon le type de document spécifié ?",
+          "theme": "Éléments obligatoires"
+        }
+      ],
+      "isRGAATagged": false
+    },
+    {
+      "ruleId": "accesskeys",
+      "priority": "medium",
+      "description": "Ensure every accesskey attribute value is unique",
+      "help": "accesskey attribute value should be unique",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/accesskeys?application=axeAPI",
+      "tags": [
+        "cat.keyboard",
+        "best-practice"
+      ],
+      "criteriaCount": 1,
+      "affectedCriteria": [
+        {
+          "number": "7.3",
+          "title": "Chaque script est-il contrôlable par le clavier et par tout dispositif de pointage ?",
+          "theme": "Scripts"
+        }
+      ],
+      "isRGAATagged": false
+    },
+    {
+      "ruleId": "empty-heading",
+      "priority": "medium",
+      "description": "Ensure headings have discernible text",
+      "help": "Headings should not be empty",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/empty-heading?application=axeAPI",
+      "tags": [
+        "cat.name-role-value",
+        "best-practice"
+      ],
+      "criteriaCount": 1,
+      "affectedCriteria": [
+        {
+          "number": "9.1",
+          "title": "Dans chaque page web, l'information est-elle structurée par l'utilisation appropriée de titres ?",
+          "theme": "Structuration de l'information"
+        }
+      ],
+      "isRGAATagged": false
+    },
+    {
+      "ruleId": "meta-viewport-large",
+      "priority": "medium",
+      "description": "Ensure <meta name=\"viewport\"> can scale a significant amount",
+      "help": "Users should be able to zoom and scale the text up to 500%",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/meta-viewport-large?application=axeAPI",
+      "tags": [
+        "cat.sensory-and-visual-cues",
+        "best-practice"
+      ],
+      "criteriaCount": 1,
+      "affectedCriteria": [
+        {
+          "number": "10.11",
+          "title": "Pour chaque page web, les contenus peuvent-ils être présentés sans avoir recours à un défilement vertical pour une fenêtre ayant une hauteur de 256px ?",
+          "theme": "Présentation de l'information"
+        }
+      ],
+      "isRGAATagged": false
+    }
+  ]
+}

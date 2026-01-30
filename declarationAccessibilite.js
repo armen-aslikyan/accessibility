@@ -44,7 +44,8 @@ function generateDeclarationAccessibilite(results, url, options = {}) {
                     criterion: criterion.number,
                     title: criterion.title,
                     help: rule.help,
-                    impact: rule.impact
+                    impact: rule.impact,
+                    testMethod: criterion.testMethod
                 });
             });
         }
@@ -255,6 +256,13 @@ function generateDeclarationAccessibilite(results, url, options = {}) {
                                 <p class="text-xs text-slate-500 mt-1">
                                     Impact : <span class="uppercase font-bold">${v.impact}</span>
                                 </p>
+                                ${v.testMethod === 'axe-core,manual' ? `
+                                    <div class="bg-orange-100 border-l-2 border-orange-500 p-2 mt-2">
+                                        <p class="text-xs text-orange-900 font-medium">
+                                            👤 Vérification manuelle requise : Ce critère nécessite une validation humaine complète en plus des tests automatisés.
+                                        </p>
+                                    </div>
+                                ` : ''}
                             </li>
                         `).join('')}
                     </ul>
