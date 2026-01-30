@@ -1,0 +1,8 @@
+---
+description: USE WHEN starting a new feature or complex bug fix
+alwaysApply: false
+---
+# THE SPEC-FIRST RULE
+- **Plan Mode First:** Before writing code, you MUST provide a "Step-by-Step Implementation Plan."
+- **Verification:** For every step in your plan, state how you will verify it works (e.g., "I will run this test" or "I will check this log").
+- **Question Everything:** If a request is ambiguous or would break an existing pattern, ask for clarification before editing.

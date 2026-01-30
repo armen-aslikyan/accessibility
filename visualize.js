@@ -1,6 +1,6 @@
 const fs = require('fs');
 // Ensure this path is correct for your project structure
-const rgaaMasterMapping = require('./rgaaMapping.js'); 
+const rgaaMasterMapping = require('./constants/rgaaMapping.js'); 
 
 // Escape HTML to prevent injection and layout breaking
 function escapeHtml(text) {
@@ -146,8 +146,8 @@ function generateProReport(results, co2Data, url) {
     </html>
     `;
 
-    fs.writeFileSync('Rapport_Audit.html', htmlContent);
-    console.log("\n🚀 RAPPORT STRATÉGIQUE GÉNÉRÉ : Rapport_Audit.html");
+    fs.writeFileSync('reports/Rapport_Audit.html', htmlContent);
+    console.log("\n🚀 RAPPORT STRATÉGIQUE GÉNÉRÉ : reports/Rapport_Audit.html");
     console.log("💰 Risque financier identifié : €" + totalExposure.toLocaleString());
 }
 

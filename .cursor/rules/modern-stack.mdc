@@ -1,0 +1,9 @@
+---
+globs: *.tsx,*.js,*.jsx,*.ts,*.html,*.json
+alwaysApply: false
+---
+# MODERN STANDARDS
+- **No 'any':** Use strict TypeScript types. If unknown, use `unknown`.
+- **Early Returns:** Use guard clauses to keep functions flat (avoid deep nesting).
+- **Functional Over Imperative:** Prefer `map`, `filter`, and `reduce` over `for` loops where readable.
+- **Composition over Inheritance:** Build small, reusable components rather than large, complex ones.

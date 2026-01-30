@@ -1,8 +1,11 @@
 const { chromium } = require('playwright');
 const AxeBuilder = require('@axe-core/playwright').default;
 const { co2 } = require("@tgwf/co2");
-const rgaaMasterMapping = require('./rgaaMapping.js');
+const rgaaMasterMapping = require('./constants/rgaaMapping.js');
 const { generateProReport } = require('./visualize.js');
+const { generateWCAGReport } = require('./wcagReport.js');
+const { generateRGAAReport } = require('./rgaaReport.js');
+const { generateDeclarationAccessibilite } = require('./declarationAccessibilite.js');
 
 async function runAudit(url) {
     const browser = await chromium.launch();
@@ -68,7 +71,26 @@ async function runAudit(url) {
     console.log(`\n[ GREEN IMPACT REPORT ]`);
     console.log(`Page Size: ${(totalBytes / 1024 / 1024).toFixed(2)} MB`);
     console.log(`Carbon per Visit: ${estimate.toFixed(3)}g CO2`);
+    
+    // Generate all reports
     generateProReport(results, estimate, url);
+    generateWCAGReport(results, url);
+    generateRGAAReport(results, url);
+    
+    // Generate official French accessibility declaration
+    generateDeclarationAccessibilite(results, url, {
+        entityName: 'Vivatech',
+        siteName: 'Vivatech',
+        email: 'contact@vivatechnology.com',
+        contactForm: 'https://vivatechnology.com/contact',
+        schemaUrl: '[Lien vers le document]',
+        actionPlanUrl: '[Lien vers le document]',
+        testedPages: [
+            { name: 'Accueil', url: 'https://vivatechnology.com' },
+            // { name: 'À propos', url: 'https://vivatechnology.com/about' },
+            // { name: 'Actualités', url: 'https://vivatechnology.com/news' }
+        ]
+    });
 
     await browser.close();
 }

@@ -1,0 +1,8 @@
+---
+alwaysApply: true
+---
+# PRECISE EXECUTION
+- **Smallest Possible Change:** Aim for the minimal code diff. Do not refactor unrelated code.
+- **No Style Changes:** Do not "fix" formatting or naming in unrelated lines unless explicitly asked.
+- **Preserve Patterns:** Match the existing coding style of the file you are editing perfectly.
+- **Search Before Create:** Always search the codebase for existing utilities/components before creating new ones.

@@ -1,0 +1,8 @@
+---
+alwaysApply: true
+---
+# HOUSEKEEPING STANDARDS
+- **Dead Code Removal:** If you replace a function or variable, delete the old one. Do not comment it out.
+- **Import Hygiene:** Automatically remove unused imports in modified files.
+- **No Production Logs:** Ensure `console.log` or debug print statements are removed before finalizing.
+- **Dependency Check:** If you suggest a new library, check if a similar one is already in `package.json`.
