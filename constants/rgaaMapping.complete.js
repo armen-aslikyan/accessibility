@@ -24,6 +24,7 @@
 const rgaaTheme1Images = {
   "1.1": {
     desc: "Chaque image porteuse d'information a-t-elle une alternative textuelle ?",
+    descEn: "Does each information-carrying image have a text alternative?",
     level: "A",
     risk: "Critical",
     financial: "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
@@ -35,6 +36,7 @@ const rgaaTheme1Images = {
   },
   "1.2": {
     desc: "Chaque image de décoration est-elle correctement ignorée par les technologies d'assistance ?",
+    descEn: "Is each decorative image correctly ignored by assistive technologies?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -46,6 +48,7 @@ const rgaaTheme1Images = {
   },
   "1.3": {
     desc: "Pour chaque image porteuse d'information ayant une alternative textuelle, cette alternative est-elle pertinente (hors cas particuliers) ?",
+    descEn: "For each information-carrying image with a text alternative, is this alternative relevant (except in special cases)?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -57,6 +60,7 @@ const rgaaTheme1Images = {
   },
   "1.4": {
     desc: "Pour chaque image utilisée comme CAPTCHA ou comme image-test, ayant une alternative textuelle, cette alternative permet-elle d'identifier la nature et la fonction de l'image ?",
+    descEn: "For each image used as a CAPTCHA or test image with a text alternative, does this alternative identify the nature and function of the image?",
     level: "A",
     risk: "Critical",
     financial: "€50,000 renewable fine. Users cannot complete essential tasks.",
@@ -80,6 +84,7 @@ List each CAPTCHA found with its alt text and your assessment.`
   },
   "1.5": {
     desc: "Pour chaque image utilisée comme CAPTCHA, une solution d'accès alternatif au contenu ou à la fonction du CAPTCHA est-elle présente ?",
+    descEn: "For each image used as a CAPTCHA, is an alternative access solution to the content or function of the CAPTCHA provided?",
     level: "A",
     risk: "Critical",
     financial: "€50,000 renewable fine. Users cannot complete essential tasks.",
@@ -103,6 +108,7 @@ List each CAPTCHA found and describe what alternative access methods are availab
   },
   "1.6": {
     desc: "Chaque image porteuse d'information a-t-elle, si nécessaire, une description détaillée ?",
+    descEn: "Does each information-carrying image have, if necessary, a detailed description?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine for complex informative images.",
@@ -136,6 +142,7 @@ List each complex image found and whether it has adequate detailed description.`
   },
   "1.7": {
     desc: "Pour chaque image porteuse d'information ayant une description détaillée, cette description est-elle pertinente ?",
+    descEn: "For each information-carrying image with a detailed description, is this description relevant?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine if description is inadequate.",
@@ -147,6 +154,7 @@ List each complex image found and whether it has adequate detailed description.`
   },
   "1.8": {
     desc: "Chaque image texte porteuse d'information, en l'absence d'un mécanisme de remplacement, doit si possible être remplacée par du texte stylé. Cette règle est-elle respectée (hors cas particuliers) ?",
+    descEn: "Each information-carrying text image, in the absence of a replacement mechanism, should if possible be replaced with styled text. Is this rule respected (except in special cases)?",
     level: "AA",
     risk: "Medium",
     financial: "Compliance deduction. Contributes to non-compliant status.",
@@ -177,6 +185,7 @@ List each text image found and explain whether it could be replaced with styled 
   },
   "1.9": {
     desc: "Chaque légende d'image est-elle, si nécessaire, correctement reliée à l'image correspondante ?",
+    descEn: "Is each image caption, if necessary, correctly linked to the corresponding image?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -211,6 +220,7 @@ List each image with caption found and describe how (or if) the caption is assoc
 const rgaaTheme2Frames = {
   "2.1": {
     desc: "Chaque cadre a-t-il un titre de cadre ?",
+    descEn: "Does each frame have a frame title?",
     level: "A",
     risk: "Critical",
     financial: "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
@@ -222,6 +232,7 @@ const rgaaTheme2Frames = {
   },
   "2.2": {
     desc: "Pour chaque cadre ayant un titre de cadre, ce titre de cadre est-il pertinent ?",
+    descEn: "For each frame with a frame title, is this frame title relevant?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -236,6 +247,7 @@ const rgaaTheme2Frames = {
 const rgaaTheme3Colors = {
   "3.1": {
     desc: "Dans chaque page web, l'information ne doit pas être donnée uniquement par la couleur. Cette règle est-elle respectée ?",
+    descEn: "On each web page, information must not be conveyed by color alone. Is this rule respected?",
     level: "A",
     risk: "Critical",
     financial: "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
@@ -267,6 +279,7 @@ List each instance where color conveys information and whether it has adequate n
   },
   "3.2": {
     desc: "Dans chaque page web, le contraste entre la couleur du texte et la couleur de son arrière-plan est-il suffisamment élevé (hors cas particuliers) ?",
+    descEn: "On each web page, is the contrast between text color and background color sufficiently high (except in special cases)?",
     level: "AA",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -278,6 +291,7 @@ List each instance where color conveys information and whether it has adequate n
   },
   "3.3": {
     desc: "Dans chaque page web, les couleurs utilisées dans les composants d'interface ou les éléments graphiques porteurs d'informations sont-elles suffisamment contrastées (hors cas particuliers) ?",
+    descEn: "On each web page, are the colors used in interface components or information-carrying graphic elements sufficiently contrasted (except in special cases)?",
     level: "AA",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -292,6 +306,7 @@ List each instance where color conveys information and whether it has adequate n
 const rgaaTheme4Multimedia = {
   "4.1": {
     desc: "Chaque média temporel pré-enregistré a-t-il, si nécessaire, une transcription textuelle ou une audiodescription (hors cas particuliers) ?",
+    descEn: "Does each pre-recorded time-based media have, if necessary, a text transcript or audio description (except in special cases)?",
     level: "A",
     risk: "Critical",
     financial: "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
@@ -325,6 +340,7 @@ List each media element found and whether it has the required alternative.`
   },
   "4.2": {
     desc: "Pour chaque média temporel pré-enregistré ayant une transcription textuelle ou une audiodescription synchronisée, celles-ci sont-elles pertinentes (hors cas particuliers) ?",
+    descEn: "For each pre-recorded time-based media with a text transcript or synchronized audio description, are these relevant (except in special cases)?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine if transcripts are inadequate.",
@@ -356,6 +372,7 @@ For each transcript found, note any quality issues or missing information.`
   },
   "4.3": {
     desc: "Chaque média temporel synchronisé pré-enregistré a-t-il, si nécessaire, des sous-titres synchronisés (hors cas particuliers) ?",
+    descEn: "Does each pre-recorded synchronized time-based media have, if necessary, synchronized captions (except in special cases)?",
     level: "A",
     risk: "Critical",
     financial: "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
@@ -385,6 +402,7 @@ List each video found and whether captions are available.`
   },
   "4.4": {
     desc: "Pour chaque média temporel synchronisé pré-enregistré ayant des sous-titres synchronisés, ces sous-titres sont-ils pertinents ?",
+    descEn: "For each pre-recorded synchronized time-based media with synchronized captions, are these captions relevant?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine if captions are inadequate.",
@@ -419,6 +437,7 @@ Note specific quality issues found in captions.`
   },
   "4.5": {
     desc: "Chaque média temporel pré-enregistré a-t-il, si nécessaire, une audiodescription synchronisée (hors cas particuliers) ?",
+    descEn: "Does each pre-recorded time-based media have, if necessary, a synchronized audio description (except in special cases)?",
     level: "AA",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -455,6 +474,7 @@ List each video and whether audio description is needed and available.`
   },
   "4.6": {
     desc: "Pour chaque média temporel pré-enregistré ayant une audiodescription synchronisée, celle-ci est-elle pertinente ?",
+    descEn: "For each pre-recorded time-based media with a synchronized audio description, is this description relevant?",
     level: "AA",
     risk: "Medium",
     financial: "Compliance deduction if audio description is inadequate.",
@@ -489,6 +509,7 @@ Note specific quality issues found in audio descriptions.`
   },
   "4.7": {
     desc: "Chaque média temporel est-il clairement identifiable (hors cas particuliers) ?",
+    descEn: "Is each time-based media clearly identifiable (except in special cases)?",
     level: "A",
     risk: "Medium",
     financial: "Compliance deduction. Contributes to non-compliant status.",
@@ -519,6 +540,7 @@ List each media element found and how it is identified (or note if identificatio
   },
   "4.8": {
     desc: "Chaque média non temporel a-t-il, si nécessaire, une alternative (hors cas particuliers) ?",
+    descEn: "Does each non-time-based media have, if necessary, an alternative (except in special cases)?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -552,6 +574,7 @@ List each non-temporal media element and whether it has an adequate alternative.
   },
   "4.9": {
     desc: "Pour chaque média non temporel ayant une alternative, cette alternative est-elle pertinente ?",
+    descEn: "For each non-time-based media with an alternative, is this alternative relevant?",
     level: "A",
     risk: "Medium",
     financial: "Compliance deduction if alternative is inadequate.",
@@ -583,6 +606,7 @@ Note specific gaps between original media and its alternative.`
   },
   "4.10": {
     desc: "Chaque son déclenché automatiquement est-il contrôlable par l'utilisateur ?",
+    descEn: "Is each automatically triggered sound controllable by the user?",
     level: "A",
     risk: "Critical",
     financial: "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
@@ -613,6 +637,7 @@ List each auto-playing audio source and available controls (or lack thereof).`
   },
   "4.11": {
     desc: "La consultation de chaque média temporel est-elle, si nécessaire, contrôlable par le clavier et tout dispositif de pointage ?",
+    descEn: "Is the viewing of each time-based media, if necessary, controllable by keyboard and any pointing device?",
     level: "A",
     risk: "Critical",
     financial: "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
@@ -647,6 +672,7 @@ List each media player and which controls are keyboard accessible/inaccessible.`
   },
   "4.12": {
     desc: "La consultation de chaque média non temporel est-elle contrôlable par le clavier et tout dispositif de pointage ?",
+    descEn: "Is the viewing of each non-time-based media controllable by keyboard and any pointing device?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -679,6 +705,7 @@ List each non-temporal media and keyboard accessibility status of its interactiv
   },
   "4.13": {
     desc: "Chaque média temporel et non temporel est-il compatible avec les technologies d'assistance (hors cas particuliers) ?",
+    descEn: "Is each time-based and non-time-based media compatible with assistive technologies (except in special cases)?",
     level: "A",
     risk: "Critical",
     financial: "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
@@ -714,6 +741,7 @@ List each media player control and its ARIA implementation status.`
 const rgaaTheme5Tables = {
   "5.1": {
     desc: "Chaque tableau de données complexe a-t-il un résumé ?",
+    descEn: "Does each complex data table have a summary?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -748,6 +776,7 @@ List each complex table found and whether it has an adequate summary.`
   },
   "5.2": {
     desc: "Pour chaque tableau de données complexe ayant un résumé, celui-ci est-il pertinent ?",
+    descEn: "For each complex data table with a summary, is this summary relevant?",
     level: "A",
     risk: "Medium",
     financial: "Compliance deduction if summary is inadequate.",
@@ -778,6 +807,7 @@ For each complex table with a summary, evaluate the summary quality and note any
   },
   "5.3": {
     desc: "Pour chaque tableau de mise en forme, le contenu linéarisé reste-t-il compréhensible ?",
+    descEn: "For each layout table, does the linearized content remain understandable?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -812,6 +842,7 @@ List each layout table and describe how content flows when linearized.`
   },
   "5.4": {
     desc: "Pour chaque tableau de données ayant un titre, le titre est-il correctement associé au tableau de données ?",
+    descEn: "For each data table with a title, is the title correctly associated with the data table?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -843,6 +874,7 @@ List each data table with a visible title and how the title is (or isn't) associ
   },
   "5.5": {
     desc: "Pour chaque tableau de données ayant un titre, celui-ci est-il pertinent ?",
+    descEn: "For each data table with a title, is this title relevant?",
     level: "A",
     risk: "Medium",
     financial: "Compliance deduction if title is inadequate.",
@@ -854,6 +886,7 @@ List each data table with a visible title and how the title is (or isn't) associ
   },
   "5.6": {
     desc: "Pour chaque tableau de données, chaque en-tête de colonne et chaque en-tête de ligne sont-ils correctement déclarés ?",
+    descEn: "For each data table, are all column headers and row headers correctly declared?",
     level: "A",
     risk: "Critical",
     financial: "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
@@ -865,6 +898,7 @@ List each data table with a visible title and how the title is (or isn't) associ
   },
   "5.7": {
     desc: "Pour chaque tableau de données, la technique appropriée permettant d'associer chaque cellule avec ses en-têtes est-elle utilisée (hors cas particuliers) ?",
+    descEn: "For each data table, is the appropriate technique for associating each cell with its headers used (except in special cases)?",
     level: "A",
     risk: "Critical",
     financial: "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
@@ -876,6 +910,7 @@ List each data table with a visible title and how the title is (or isn't) associ
   },
   "5.8": {
     desc: "Chaque tableau de mise en forme ne doit pas utiliser d'éléments propres aux tableaux de données. Cette règle est-elle respectée ?",
+    descEn: "Each layout table must not use elements specific to data tables. Is this rule respected?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -917,6 +952,7 @@ List each layout table and any data table elements incorrectly used.`
 const rgaaTheme6Links = {
   "6.1": {
     desc: "Chaque lien est-il explicite (hors cas particuliers) ?",
+    descEn: "Is each link explicit (except in special cases)?",
     level: "A",
     risk: "Critical",
     financial: "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
@@ -928,6 +964,7 @@ const rgaaTheme6Links = {
   },
   "6.2": {
     desc: "Dans chaque page web, chaque lien a-t-il un intitulé ?",
+    descEn: "On each web page, does each link have a label?",
     level: "A",
     risk: "Critical",
     financial: "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
@@ -942,6 +979,7 @@ const rgaaTheme6Links = {
 const rgaaTheme7Scripts = {
   "7.1": {
     desc: "Chaque script est-il, si nécessaire, compatible avec les technologies d'assistance ?",
+    descEn: "Is each script, if necessary, compatible with assistive technologies?",
     level: "A",
     risk: "Critical",
     financial: "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
@@ -985,6 +1023,7 @@ List each custom component and its ARIA implementation status.`
   },
   "7.2": {
     desc: "Pour chaque script ayant une alternative, cette alternative est-elle pertinente ?",
+    descEn: "For each script with an alternative, is this alternative relevant?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine if alternative is inadequate.",
@@ -1021,6 +1060,7 @@ List each script with alternative and assess the alternative's equivalence.`
   },
   "7.3": {
     desc: "Chaque script est-il contrôlable par le clavier et par tout dispositif de pointage (hors cas particuliers) ?",
+    descEn: "Is each script controllable by keyboard and any pointing device (except in special cases)?",
     level: "A",
     risk: "Critical",
     financial: "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
@@ -1066,6 +1106,7 @@ List each interactive element and its keyboard accessibility status.`
   },
   "7.4": {
     desc: "Pour chaque script qui initie un changement de contexte, l'utilisateur est-il averti ou en a-t-il le contrôle ?",
+    descEn: "For each script that initiates a context change, is the user warned or given control?",
     level: "A",
     risk: "Critical",
     financial: "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
@@ -1106,6 +1147,7 @@ List each context change and whether users are adequately warned.`
   },
   "7.5": {
     desc: "Dans chaque page web, les messages de statut sont-ils correctement restitués par les technologies d'assistance ?",
+    descEn: "On each web page, are status messages correctly conveyed by assistive technologies?",
     level: "AA",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -1150,6 +1192,7 @@ List each status message type found and its ARIA live region implementation.`
 const rgaaTheme8Mandatory = {
   "8.1": {
     desc: "Chaque page web est-elle définie par un type de document ?",
+    descEn: "Is each web page defined by a document type?",
     level: "A",
     risk: "Medium",
     financial: "Compliance deduction. Contributes to non-compliant status.",
@@ -1184,6 +1227,7 @@ State which DOCTYPE is used and whether it is valid.`
   },
   "8.2": {
     desc: "Pour chaque page web, le code source généré est-il valide selon le type de document spécifié ?",
+    descEn: "For each web page, is the generated source code valid according to the specified document type?",
     level: "A",
     risk: "Medium",
     financial: "Compliance deduction. Contributes to non-compliant status.",
@@ -1195,6 +1239,7 @@ State which DOCTYPE is used and whether it is valid.`
   },
   "8.3": {
     desc: "Dans chaque page web, la langue par défaut est-elle présente ?",
+    descEn: "On each web page, is the default language specified?",
     level: "A",
     risk: "Critical",
     financial: "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
@@ -1206,6 +1251,7 @@ State which DOCTYPE is used and whether it is valid.`
   },
   "8.4": {
     desc: "Pour chaque page web ayant une langue par défaut, le code de langue est-il pertinent ?",
+    descEn: "For each web page with a default language, is the language code relevant?",
     level: "A",
     risk: "Critical",
     financial: "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
@@ -1217,6 +1263,7 @@ State which DOCTYPE is used and whether it is valid.`
   },
   "8.5": {
     desc: "Chaque page web a-t-elle un titre de page ?",
+    descEn: "Does each web page have a page title?",
     level: "A",
     risk: "Critical",
     financial: "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
@@ -1228,6 +1275,7 @@ State which DOCTYPE is used and whether it is valid.`
   },
   "8.6": {
     desc: "Pour chaque page web ayant un titre de page, ce titre est-il pertinent ?",
+    descEn: "For each web page with a page title, is this title relevant?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -1239,6 +1287,7 @@ State which DOCTYPE is used and whether it is valid.`
   },
   "8.7": {
     desc: "Dans chaque page web, chaque changement de langue est-il indiqué dans le code source (hors cas particuliers) ?",
+    descEn: "On each web page, is each language change indicated in the source code (except in special cases)?",
     level: "AA",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -1273,6 +1322,7 @@ List each foreign language text found and whether it is properly marked.`
   },
   "8.8": {
     desc: "Dans chaque page web, le code de langue de chaque changement de langue est-il valide et pertinent ?",
+    descEn: "On each web page, is the language code for each language change valid and relevant?",
     level: "AA",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -1306,6 +1356,7 @@ List each lang attribute found and verify code validity and appropriateness.`
   },
   "8.9": {
     desc: "Dans chaque page web, les balises ne doivent pas être utilisées uniquement à des fins de présentation. Cette règle est-elle respectée ?",
+    descEn: "On each web page, tags must not be used solely for presentation purposes. Is this rule respected?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -1340,6 +1391,7 @@ List each misused semantic element and explain the correct alternative.`
   },
   "8.10": {
     desc: "Dans chaque page web, les changements du sens de lecture sont-ils signalés ?",
+    descEn: "On each web page, are changes in reading direction indicated?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -1383,6 +1435,7 @@ List each RTL text section and whether direction is properly indicated.`
 const rgaaTheme9Structure = {
   "9.1": {
     desc: "Dans chaque page web, l'information est-elle structurée par l'utilisation appropriée de titres ?",
+    descEn: "On each web page, is information structured through appropriate use of headings?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -1394,6 +1447,7 @@ const rgaaTheme9Structure = {
   },
   "9.2": {
     desc: "Dans chaque page web, la structure du document est-elle cohérente (hors cas particuliers) ?",
+    descEn: "On each web page, is the document structure coherent (except in special cases)?",
     level: "A",
     risk: "Critical",
     financial: "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
@@ -1405,6 +1459,7 @@ const rgaaTheme9Structure = {
   },
   "9.3": {
     desc: "Dans chaque page web, chaque liste est-elle correctement structurée ?",
+    descEn: "On each web page, is each list correctly structured?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -1416,6 +1471,7 @@ const rgaaTheme9Structure = {
   },
   "9.4": {
     desc: "Dans chaque page web, chaque citation est-elle correctement indiquée ?",
+    descEn: "On each web page, is each quotation correctly indicated?",
     level: "A",
     risk: "Medium",
     financial: "Compliance deduction. Contributes to non-compliant status.",
@@ -1459,6 +1515,7 @@ List each quotation found and whether it is properly marked up.`
 const rgaaTheme10Presentation = {
   "10.1": {
     desc: "Dans le site web, des feuilles de styles sont-elles utilisées pour contrôler la présentation de l'information ?",
+    descEn: "On the website, are stylesheets used to control the presentation of information?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -1502,6 +1559,7 @@ List each deprecated presentational element/attribute found.`
   },
   "10.2": {
     desc: "Dans chaque page web, le contenu visible porteur d'information reste-t-il présent lorsque les feuilles de styles sont désactivées ?",
+    descEn: "On each web page, does the visible information-carrying content remain present when stylesheets are disabled?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -1539,6 +1597,7 @@ List each CSS-generated content that carries information.`
   },
   "10.3": {
     desc: "Dans chaque page web, l'information reste-t-elle compréhensible lorsque les feuilles de styles sont désactivées ?",
+    descEn: "On each web page, does the information remain understandable when stylesheets are disabled?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -1578,6 +1637,7 @@ Describe the DOM order and any significant differences from visual order.`
   },
   "10.4": {
     desc: "Dans chaque page web, le texte reste-t-il lisible lorsque la taille des caractères est augmentée jusqu'à 200 %, au moins (hors cas particuliers) ?",
+    descEn: "On each web page, does text remain readable when font size is increased up to 200%, at least (except in special cases)?",
     level: "AA",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -1620,6 +1680,7 @@ List any CSS/HTML that would prevent proper text resizing.`
   },
   "10.5": {
     desc: "Dans chaque page web, les déclarations CSS de couleurs de fond d'élément et de police sont-elles correctement utilisées ?",
+    descEn: "On each web page, are CSS declarations for background colors and font colors correctly used?",
     level: "AA",
     risk: "Medium",
     financial: "Compliance deduction. Contributes to non-compliant status.",
@@ -1659,6 +1720,7 @@ List elements with unpaired color declarations.`
   },
   "10.6": {
     desc: "Dans chaque page web, chaque lien dont la nature n'est pas évidente est-il visible par rapport au texte environnant ?",
+    descEn: "On each web page, is each link whose nature is not obvious visible relative to the surrounding text?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -1670,6 +1732,7 @@ List elements with unpaired color declarations.`
   },
   "10.7": {
     desc: "Dans chaque page web, pour chaque élément recevant le focus, la prise de focus est-elle visible ?",
+    descEn: "On each web page, for each element receiving focus, is the focus visible?",
     level: "AA",
     risk: "Critical",
     financial: "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
@@ -1714,6 +1777,7 @@ List each focusable element type and describe its focus indicator (or note if mi
   },
   "10.8": {
     desc: "Pour chaque page web, les contenus cachés ont-ils vocation à être ignorés par les technologies d'assistance ?",
+    descEn: "On each web page, is hidden content intended to be ignored by assistive technologies?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -1757,6 +1821,7 @@ List each hidden content pattern and whether it's correctly implemented.`
   },
   "10.9": {
     desc: "Dans chaque page web, l'information ne doit pas être donnée uniquement par la forme, taille ou position. Cette règle est-elle respectée ?",
+    descEn: "On each web page, information must not be conveyed solely by shape, size, or position. Is this rule respected?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -1807,6 +1872,7 @@ List each instance where visual characteristics convey information.`
   },
   "10.10": {
     desc: "Dans chaque page web, l'information ne doit pas être donnée par la forme, taille ou position uniquement. Cette règle est-elle implémentée de façon pertinente ?",
+    descEn: "On each web page, information must not be conveyed solely by shape, size, or position. Is this rule implemented in a relevant manner?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -1851,6 +1917,7 @@ List each visual cue and evaluate its text alternative's accuracy.`
   },
   "10.11": {
     desc: "Pour chaque page web, les contenus peuvent-ils être présentés sans perte d'information ou de fonctionnalité et sans avoir recours soit à un défilement vertical pour une fenêtre ayant une hauteur de 256 px, soit à un défilement horizontal pour une fenêtre ayant une largeur de 320 px (hors cas particuliers) ?",
+    descEn: "On each web page, can content be presented without loss of information or functionality and without requiring either vertical scrolling for a window with a height of 256px, or horizontal scrolling for a window with a width of 320px (except in special cases)?",
     level: "AA",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -1899,6 +1966,7 @@ Describe the responsive behavior and any issues found.`
   },
   "10.12": {
     desc: "Dans chaque page web, les propriétés d'espacement du texte peuvent-elles être redéfinies par l'utilisateur sans perte de contenu ou de fonctionnalité (hors cas particuliers) ?",
+    descEn: "On each web page, can text spacing properties be redefined by the user without loss of content or functionality (except in special cases)?",
     level: "AA",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -1940,6 +2008,7 @@ Describe any containers that would fail text spacing adjustments.`
   },
   "10.13": {
     desc: "Dans chaque page web, les contenus additionnels apparaissant à la prise de focus ou au survol d'un composant d'interface sont-ils contrôlables par l'utilisateur (hors cas particuliers) ?",
+    descEn: "On each web page, is additional content appearing on focus or hover of an interface component controllable by the user (except in special cases)?",
     level: "AA",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -1986,6 +2055,7 @@ List each hover/focus triggered component and its compliance with all three crit
   },
   "10.14": {
     desc: "Dans chaque page web, les contenus additionnels apparaissant via les styles CSS uniquement peuvent-ils être rendus visibles au clavier et par tout dispositif de pointage ?",
+    descEn: "On each web page, can additional content appearing via CSS styles only be made visible by keyboard and any pointing device?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -2034,6 +2104,7 @@ List each hover-revealed content and whether :focus support exists.`
 const rgaaTheme11Forms = {
   "11.1": {
     desc: "Chaque champ de formulaire a-t-il une étiquette ?",
+    descEn: "Does each form field have a label?",
     level: "A",
     risk: "Critical",
     financial: "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
@@ -2045,6 +2116,7 @@ const rgaaTheme11Forms = {
   },
   "11.2": {
     desc: "Chaque étiquette associée à un champ de formulaire est-elle pertinente (hors cas particuliers) ?",
+    descEn: "Is each label associated with a form field relevant (except in special cases)?",
     level: "A",
     risk: "Critical",
     financial: "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
@@ -2056,6 +2128,7 @@ const rgaaTheme11Forms = {
   },
   "11.3": {
     desc: "Dans chaque formulaire, chaque étiquette associée à un champ de formulaire ayant la même fonction et répétée plusieurs fois dans une même page ou dans un ensemble de pages est-elle cohérente ?",
+    descEn: "In each form, is each label associated with a form field having the same function and repeated multiple times on the same page or across a set of pages consistent?",
     level: "AA",
     risk: "Medium",
     financial: "Compliance deduction. Contributes to non-compliant status.",
@@ -2091,6 +2164,7 @@ List any inconsistent labeling found for same-purpose fields.`
   },
   "11.4": {
     desc: "Dans chaque formulaire, chaque étiquette de champ et son champ associé sont-ils accolés (hors cas particuliers) ?",
+    descEn: "In each form, are each field label and its associated field adjacent (except in special cases)?",
     level: "A",
     risk: "Medium",
     financial: "Compliance deduction. Contributes to non-compliant status.",
@@ -2131,6 +2205,7 @@ List each form field and describe its label positioning.`
   },
   "11.5": {
     desc: "Dans chaque formulaire, les champs de même nature sont-ils regroupés, si nécessaire ?",
+    descEn: "In each form, are fields of the same nature grouped together, if necessary?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -2174,6 +2249,7 @@ List each group of related fields and whether they are properly grouped.`
   },
   "11.6": {
     desc: "Dans chaque formulaire, chaque regroupement de champs de même nature a-t-il une légende ?",
+    descEn: "In each form, does each grouping of fields of the same nature have a legend?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -2220,6 +2296,7 @@ List each field group and its legend (or note if missing).`
   },
   "11.7": {
     desc: "Dans chaque formulaire, chaque légende associée à un regroupement de champs de même nature est-elle pertinente ?",
+    descEn: "In each form, is each legend associated with a grouping of fields of the same nature relevant?",
     level: "A",
     risk: "Medium",
     financial: "Compliance deduction. Contributes to non-compliant status.",
@@ -2231,6 +2308,7 @@ List each field group and its legend (or note if missing).`
   },
   "11.8": {
     desc: "Dans chaque formulaire, les items de même nature d'une liste de choix sont-ils regroupés de manière pertinente ?",
+    descEn: "In each form, are items of the same nature in a choice list grouped in a relevant manner?",
     level: "A",
     risk: "Medium",
     financial: "Compliance deduction. Contributes to non-compliant status.",
@@ -2279,6 +2357,7 @@ List each <select> and whether grouping is appropriately used or needed.`
   },
   "11.9": {
     desc: "Dans chaque formulaire, l'intitulé de chaque bouton est-il pertinent (hors cas particuliers) ?",
+    descEn: "In each form, is the label of each button relevant (except in special cases)?",
     level: "A",
     risk: "Critical",
     financial: "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
@@ -2290,6 +2369,7 @@ List each <select> and whether grouping is appropriately used or needed.`
   },
   "11.10": {
     desc: "Dans chaque formulaire, le contrôle de saisie est-il utilisé de manière pertinente (hors cas particuliers) ?",
+    descEn: "In each form, is input validation used in a relevant manner (except in special cases)?",
     level: "A",
     risk: "Critical",
     financial: "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
@@ -2335,6 +2415,7 @@ List each form and evaluate its validation accessibility.`
   },
   "11.11": {
     desc: "Dans chaque formulaire, le contrôle de saisie est-il accompagné, si nécessaire, de suggestions facilitant la correction des erreurs de saisie ?",
+    descEn: "In each form, is input validation accompanied, if necessary, by suggestions to help correct input errors?",
     level: "AA",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -2381,6 +2462,7 @@ List each error message type found and evaluate if suggestions are provided.`
   },
   "11.12": {
     desc: "Pour chaque formulaire qui modifie ou supprime des données, ou qui transmet des réponses à un test ou à un examen, ou dont la validation a des conséquences financières ou juridiques, les données saisies peuvent-elles être modifiées, mises à jour ou récupérées par l'utilisateur ?",
+    descEn: "For each form that modifies or deletes data, or that submits responses to a test or exam, or whose validation has financial or legal consequences, can the entered data be modified, updated, or recovered by the user?",
     level: "AA",
     risk: "Critical",
     financial: "€50,000 renewable fine. Legal liability for irreversible financial transactions.",
@@ -2430,6 +2512,7 @@ List each high-consequence form and describe what protection mechanisms exist.`
   },
   "11.13": {
     desc: "La finalité d'un champ de saisie peut-elle être déduite pour faciliter le remplissage automatique des champs avec les données de l'utilisateur ?",
+    descEn: "Can the purpose of an input field be determined to facilitate automatic form filling with user data?",
     level: "AA",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -2444,6 +2527,7 @@ List each high-consequence form and describe what protection mechanisms exist.`
 const rgaaTheme12Navigation = {
   "12.1": {
     desc: "Chaque ensemble de pages dispose-t-il de deux systèmes de navigation différents, au moins (hors cas particuliers) ?",
+    descEn: "Does each set of pages have at least two different navigation systems (except in special cases)?",
     level: "AA",
     risk: "Medium",
     financial: "Compliance deduction. Contributes to non-compliant status.",
@@ -2486,6 +2570,7 @@ List each navigation mechanism found on the site.`
   },
   "12.2": {
     desc: "Dans chaque ensemble de pages, le menu et les barres de navigation sont-ils toujours à la même place (hors cas particuliers) ?",
+    descEn: "In each set of pages, are the menu and navigation bars always in the same location (except in special cases)?",
     level: "AA",
     risk: "Medium",
     financial: "Compliance deduction. Contributes to non-compliant status.",
@@ -2538,6 +2623,7 @@ Describe the navigation layout and any inconsistencies found.`
   },
   "12.3": {
     desc: "La page « plan du site » est-elle pertinente ?",
+    descEn: "Is the sitemap page relevant?",
     level: "AA",
     risk: "Medium",
     financial: "Compliance deduction if sitemap is inadequate.",
@@ -2590,6 +2676,7 @@ If no sitemap exists, note that one of the other navigation mechanisms should be
   },
   "12.4": {
     desc: "Dans chaque ensemble de pages, la page « plan du site » est-elle accessible à partir d'une fonctionnalité identique ?",
+    descEn: "In each set of pages, is the sitemap page accessible from an identical feature?",
     level: "AA",
     risk: "Medium",
     financial: "Compliance deduction. Contributes to non-compliant status.",
@@ -2636,6 +2723,7 @@ If no sitemap exists, this criterion is not applicable.`
   },
   "12.5": {
     desc: "Dans chaque ensemble de pages, le moteur de recherche est-il atteignable de manière identique ?",
+    descEn: "In each set of pages, is the search engine accessible in an identical manner?",
     level: "AA",
     risk: "Medium",
     financial: "Compliance deduction. Contributes to non-compliant status.",
@@ -2686,6 +2774,7 @@ If no search exists, this criterion is not applicable, but verify one of the oth
   },
   "12.6": {
     desc: "Les zones de regroupement de contenus présentes dans plusieurs pages web (zones d'en-tête, de navigation principale, de contenu principal, de pied de page et de moteur de recherche) peuvent-elles être atteintes ou évitées ?",
+    descEn: "Can content grouping areas present on multiple web pages (header, main navigation, main content, footer, and search engine areas) be reached or bypassed?",
     level: "A",
     risk: "Critical",
     financial: "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
@@ -2697,6 +2786,7 @@ If no search exists, this criterion is not applicable, but verify one of the oth
   },
   "12.7": {
     desc: "Dans chaque page web, un lien d'évitement ou d'accès rapide à la zone de contenu principal est-il présent (hors cas particuliers) ?",
+    descEn: "On each web page, is a skip link or quick access link to the main content area present (except in special cases)?",
     level: "A",
     risk: "Critical",
     financial: "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
@@ -2708,6 +2798,7 @@ If no search exists, this criterion is not applicable, but verify one of the oth
   },
   "12.8": {
     desc: "Dans chaque page web, l'ordre de tabulation est-il cohérent ?",
+    descEn: "On each web page, is the tab order coherent?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -2759,6 +2850,7 @@ Describe the tab order and any issues found.`
   },
   "12.9": {
     desc: "Dans chaque page web, la navigation ne doit pas contenir de piège au clavier. Cette règle est-elle respectée ?",
+    descEn: "On each web page, navigation must not contain a keyboard trap. Is this rule respected?",
     level: "A",
     risk: "Critical",
     financial: "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
@@ -2815,6 +2907,7 @@ List any keyboard traps found and which component causes them.`
   },
   "12.10": {
     desc: "Dans chaque page web, les raccourcis clavier n'utilisant qu'une seule touche (lettre minuscule ou majuscule, ponctuation, chiffre ou symbole) sont-ils contrôlables par l'utilisateur ?",
+    descEn: "On each web page, are keyboard shortcuts using only a single key (lowercase or uppercase letter, punctuation, number, or symbol) controllable by the user?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -2869,6 +2962,7 @@ List each single-key shortcut found and its user control mechanism.`
   },
   "12.11": {
     desc: "Dans chaque page web, les contenus additionnels apparaissant au survol, à la prise de focus ou à l'activation d'un composant d'interface sont-ils si nécessaire atteignables au clavier ?",
+    descEn: "On each web page, is additional content appearing on hover, focus, or activation of an interface component, if necessary, reachable by keyboard?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -2924,6 +3018,7 @@ List each popup with interactive content and keyboard accessibility status.`
 const rgaaTheme13Consultation = {
   "13.1": {
     desc: "Pour chaque page web, l'utilisateur a-t-il le contrôle de chaque limite de temps modifiant le contenu (hors cas particuliers) ?",
+    descEn: "On each web page, does the user have control over each time limit that modifies content (except in special cases)?",
     level: "A",
     risk: "Critical",
     financial: "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
@@ -2975,6 +3070,7 @@ List each time limit found and its user control options.`
   },
   "13.2": {
     desc: "Dans chaque page web, l'ouverture d'une nouvelle fenêtre ne doit pas être déclenchée sans action de l'utilisateur. Cette règle est-elle respectée ?",
+    descEn: "On each web page, opening a new window must not be triggered without user action. Is this rule respected?",
     level: "A",
     risk: "Critical",
     financial: "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
@@ -3026,6 +3122,7 @@ List any automatic window opening found.`
   },
   "13.3": {
     desc: "Dans chaque page web, chaque document bureautique en téléchargement possède-t-il, si nécessaire, une version accessible (hors cas particuliers) ?",
+    descEn: "On each web page, does each downloadable office document have, if necessary, an accessible version (except in special cases)?",
     level: "A",
     risk: "Critical",
     financial: "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
@@ -3080,6 +3177,7 @@ List each downloadable document and its accessibility status/alternatives.`
   },
   "13.4": {
     desc: "Pour chaque document bureautique ayant une version accessible, cette version offre-t-elle la même information ?",
+    descEn: "For each office document with an accessible version, does this version offer the same information?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine if alternative is inadequate.",
@@ -3133,6 +3231,7 @@ Compare each accessible version to its original and note any missing content.`
   },
   "13.5": {
     desc: "Dans chaque page web, chaque contenu cryptique (art ASCII, émoticône, syntaxe cryptique) a-t-il une alternative ?",
+    descEn: "On each web page, does each cryptic content (ASCII art, emoticon, cryptic syntax) have an alternative?",
     level: "A",
     risk: "Medium",
     financial: "Compliance deduction. Contributes to non-compliant status.",
@@ -3188,6 +3287,7 @@ List each cryptic content found and whether it has an alternative.`
   },
   "13.6": {
     desc: "Dans chaque page web, pour chaque contenu cryptique (art ASCII, émoticône, syntaxe cryptique) ayant une alternative, cette alternative est-elle pertinente ?",
+    descEn: "On each web page, for each cryptic content (ASCII art, emoticon, cryptic syntax) with an alternative, is this alternative relevant?",
     level: "A",
     risk: "Medium",
     financial: "Compliance deduction. Contributes to non-compliant status.",
@@ -3239,6 +3339,7 @@ Evaluate each cryptic content alternative for accuracy and appropriateness.`
   },
   "13.7": {
     desc: "Dans chaque page web, les changements brusques de luminosité ou les effets de flash sont-ils correctement utilisés ?",
+    descEn: "On each web page, are sudden changes in brightness or flash effects correctly used?",
     level: "A",
     risk: "Critical",
     financial: "€50,000 renewable fine. LIFE-THREATENING: Can trigger seizures.",
@@ -3294,6 +3395,7 @@ List all potentially flashing content and evaluate against safety thresholds.`
   },
   "13.8": {
     desc: "Dans chaque page web, chaque contenu en mouvement ou clignotant est-il contrôlable par l'utilisateur ?",
+    descEn: "On each web page, is each moving or blinking content controllable by the user?",
     level: "A",
     risk: "Critical",
     financial: "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
@@ -3349,6 +3451,7 @@ List each moving/blinking element and its duration or control mechanism.`
   },
   "13.9": {
     desc: "Dans chaque page web, le contenu proposé est-il consultable quelle que soit l'orientation de l'écran (portrait ou paysage) (hors cas particuliers) ?",
+    descEn: "On each web page, is the content accessible regardless of screen orientation (portrait or landscape) (except in special cases)?",
     level: "AA",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -3401,6 +3504,7 @@ Describe how the page behaves in both orientations.`
   },
   "13.10": {
     desc: "Dans chaque page web, les fonctionnalités utilisables ou disponibles au moyen d'un geste complexe peuvent-elles être également disponibles au moyen d'un geste simple (hors cas particuliers) ?",
+    descEn: "On each web page, can functionalities available through a complex gesture also be available through a simple gesture (except in special cases)?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -3457,6 +3561,7 @@ List each complex gesture and its simple alternative (or note if missing).`
   },
   "13.11": {
     desc: "Dans chaque page web, les actions déclenchées au moyen d'un dispositif de pointage sur un point unique de l'écran peuvent-elles faire l'objet d'une annulation (hors cas particuliers) ?",
+    descEn: "On each web page, can actions triggered by a pointing device on a single point of the screen be cancelled (except in special cases)?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -3510,6 +3615,7 @@ List each pointer-activated element and how it handles activation/cancellation.`
   },
   "13.12": {
     desc: "Dans chaque page web, les fonctionnalités qui impliquent un mouvement de l'appareil ou vers l'appareil peuvent-elles être satisfaites de manière alternative (hors cas particuliers) ?",
+    descEn: "On each web page, can functionalities that involve device motion or motion towards the device be satisfied through an alternative method (except in special cases)?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
