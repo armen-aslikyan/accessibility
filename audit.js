@@ -1,29 +1,63 @@
 const { chromium } = require('playwright');
 const AxeBuilder = require('@axe-core/playwright').default;
 const { co2 } = require("@tgwf/co2");
+const path = require('path');
 const { rgaaFlatMapping } = require('./constants/rgaaMapping.complete.js');
 const { generateProReport } = require('./visualize.js');
 const { generateWCAGReport } = require('./wcagReport.js');
 const { generateRGAAReport, analyzeRGAACompliance } = require('./rgaaReport.js');
 const { generateDeclarationAccessibilite } = require('./declarationAccessibilite.js');
 const { generateDetailedRGAAReport } = require('./rgaaDetailedReport.js');
+const llmClient = require('./utils/llmClient.js');
+
+// TESTING MODE: Limit to first 5 total analyses
+const TEST_LIMIT = 5;
 
 async function runAudit(url) {
-    const browser = await chromium.launch();
-    const context = await browser.newContext();
-    const page = await context.newPage();
+    let browser;
+    try {
+        browser = await chromium.launch({
+            headless: true,
+            timeout: 60000
+        });
+        const context = await browser.newContext({
+            userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36',
+            viewport: { width: 1920, height: 1080 }
+        });
+        const page = await context.newPage();
+        page.setDefaultTimeout(60000); // Set default timeout for all operations
 
-    // 1. Track Network Data (for Carbon Calculation)
-    let totalBytes = 0;
-    page.on('response', async (response) => {
-        const headers = response.headers();
-        if (headers['content-length']) {
-            totalBytes += parseInt(headers['content-length'], 10);
-        }
-    });
+        // 1. Track Network Data (for Carbon Calculation)
+        let totalBytes = 0;
+        page.on('response', async (response) => {
+            const headers = response.headers();
+            if (headers['content-length']) {
+                totalBytes += parseInt(headers['content-length'], 10);
+            }
+        });
 
     console.log(`--- Starting Audit for: ${url} ---`);
-    await page.goto(url, { waitUntil: 'networkidle' });
+    
+    // Navigate with increased timeout and more lenient wait condition
+    // 'load' waits for the load event, 'networkidle' can be too strict for some sites
+    try {
+        await page.goto(url, { 
+            waitUntil: 'load',
+            timeout: 60000 // 60 seconds timeout
+        });
+    } catch (error) {
+        if (error.name === 'TimeoutError') {
+            console.log('⚠️  Page load timeout, but continuing with partial content...');
+        } else {
+            throw error;
+        }
+    }
+
+    // Wait a bit more for dynamic content to load
+    await page.waitForTimeout(2000);
+
+    // Extract page HTML content for LLM analysis
+    const pageHTML = await page.content();
 
     // 2. Run Accessibility Scan
     // Optimized configuration for maximum RGAA compliance detection
@@ -187,11 +221,217 @@ async function runAudit(url) {
     console.log(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
     console.log(`These criteria could benefit from AI vision/language analysis:\n`);
     
-    aiChecks.forEach(criterion => {
-        console.log(`🤖 RGAA ${criterion.article} (${criterion.level}) - ${criterion.risk} risk`);
-        console.log(`   ${criterion.desc}`);
-        console.log(`   🛠️  ${criterion.fix}\n`);
-    });
+    // Check if LLM is available
+    const llmAvailable = await llmClient.checkHealth();
+    
+    // Show cache statistics
+    const cacheStats = llmClient.aiCache.getCacheStats();
+    console.log(`\n📦 AI Analysis Cache: ${cacheStats.totalEntries} entries (${(cacheStats.size / 1024).toFixed(2)} KB)`);
+    
+    // Store all LLM analysis results for the HTML report and raw export
+    const llmAnalysisResults = {
+        aiChecks: [],
+        manualChecks: [],
+        hybridChecks: [] // automatedWithHumanCheck that also get AI analysis
+    };
+    
+    if (llmAvailable) {
+        
+        const allToAnalyze = [...aiChecks, ...manualChecks, ...automatedWithHumanCheck];
+        const limitedList = allToAnalyze.slice(0, TEST_LIMIT);
+        
+        console.log(`✨ Local LLM is available. Testing with first ${TEST_LIMIT} criteria...\n`);
+        console.log(`   (Full analysis would cover ${allToAnalyze.length} criteria)\n`);
+        
+        let analyzed = 0;
+        let fromCache = 0;
+        
+        // Split limited list back into categories
+        const limitedAiChecks = limitedList.filter(c => c.testMethod === 'ai');
+        const limitedManualChecks = limitedList.filter(c => c.testMethod === 'manual');
+        const limitedHybridChecks = limitedList.filter(c => c.testMethod === 'axe-core,manual' || c.testMethod === 'axe-core,ai');
+        
+        // Analyze LIMITED AI checks with LLM
+        if (limitedAiChecks.length > 0) {
+            console.log(`\n📊 Analyzing ${limitedAiChecks.length} AI-assisted checks (limited)...\n`);
+            for (const criterion of limitedAiChecks) {
+                console.log(`[${++analyzed}/${TEST_LIMIT}] 🤖 Analyzing RGAA ${criterion.article}`);
+                
+                try {
+                    const analysis = await llmClient.analyzeAccessibilityCriterion(criterion, { 
+                        url, 
+                        html: pageHTML,
+                        useCache: true
+                    });
+                    if (analysis.fromCache) fromCache++;
+                    llmAnalysisResults.aiChecks.push({
+                        ...criterion,
+                        llmAnalysis: analysis.analysis,
+                        status: 'analyzed',
+                        timestamp: analysis.timestamp,
+                        fromCache: analysis.fromCache
+                    });
+                    console.log(`   ✅ Complete${analysis.fromCache ? ' (cached)' : ''}`);
+                } catch (error) {
+                    console.log(`   ⚠️  Failed: ${error.message}`);
+                    llmAnalysisResults.aiChecks.push({
+                        ...criterion,
+                        llmAnalysis: `Error: ${error.message}`,
+                        status: 'error'
+                    });
+                }
+            }
+        }
+        
+        // Analyze LIMITED manual checks with LLM
+        if (limitedManualChecks.length > 0) {
+            console.log(`\n📊 Analyzing ${limitedManualChecks.length} manual checks (limited)...\n`);
+            for (const criterion of limitedManualChecks) {
+                console.log(`[${++analyzed}/${TEST_LIMIT}] 📝 Analyzing RGAA ${criterion.article}`);
+                
+                try {
+                    const analysis = await llmClient.analyzeAccessibilityCriterion(criterion, { 
+                        url, 
+                        html: pageHTML,
+                        useCache: true
+                    });
+                    if (analysis.fromCache) fromCache++;
+                    llmAnalysisResults.manualChecks.push({
+                        ...criterion,
+                        llmAnalysis: analysis.analysis,
+                        status: 'analyzed',
+                        timestamp: analysis.timestamp,
+                        fromCache: analysis.fromCache
+                    });
+                    console.log(`   ✅ Complete${analysis.fromCache ? ' (cached)' : ''}`);
+                } catch (error) {
+                    console.log(`   ⚠️  Failed: ${error.message}`);
+                    llmAnalysisResults.manualChecks.push({
+                        ...criterion,
+                        llmAnalysis: `Error: ${error.message}`,
+                        status: 'error'
+                    });
+                }
+            }
+        }
+        
+        // Analyze LIMITED hybrid checks (automated + manual) with AI
+        if (limitedHybridChecks.length > 0) {
+            console.log(`\n📊 Analyzing ${limitedHybridChecks.length} hybrid checks (limited)...\n`);
+            for (const criterion of limitedHybridChecks) {
+                console.log(`[${++analyzed}/${TEST_LIMIT}] 🤖👤 Analyzing RGAA ${criterion.article}`);
+                
+                try {
+                    const analysis = await llmClient.analyzeAccessibilityCriterion(criterion, { 
+                        url, 
+                        html: pageHTML,
+                        useCache: true
+                    });
+                    if (analysis.fromCache) fromCache++;
+                    llmAnalysisResults.hybridChecks.push({
+                        ...criterion,
+                        llmAnalysis: analysis.analysis,
+                        status: 'analyzed',
+                        timestamp: analysis.timestamp,
+                        fromCache: analysis.fromCache
+                    });
+                    console.log(`   ✅ Complete${analysis.fromCache ? ' (cached)' : ''}`);
+                } catch (error) {
+                    console.log(`   ⚠️  Failed: ${error.message}`);
+                    llmAnalysisResults.hybridChecks.push({
+                        ...criterion,
+                        llmAnalysis: `Error: ${error.message}`,
+                        status: 'error'
+                    });
+                }
+            }
+        }
+        
+        // Add remaining criteria without AI analysis (for complete report)
+        aiChecks.filter(c => !limitedAiChecks.includes(c)).forEach(criterion => {
+            llmAnalysisResults.aiChecks.push({
+                ...criterion,
+                llmAnalysis: 'Not analyzed in test mode (limited to 5 total)',
+                status: 'not_analyzed'
+            });
+        });
+        
+        manualChecks.filter(c => !limitedManualChecks.includes(c)).forEach(criterion => {
+            llmAnalysisResults.manualChecks.push({
+                ...criterion,
+                llmAnalysis: 'Not analyzed in test mode (limited to 5 total)',
+                status: 'not_analyzed'
+            });
+        });
+        
+        automatedWithHumanCheck.filter(c => !limitedHybridChecks.includes(c)).forEach(criterion => {
+            llmAnalysisResults.hybridChecks.push({
+                ...criterion,
+                llmAnalysis: 'Not analyzed in test mode (limited to 5 total)',
+                status: 'not_analyzed'
+            });
+        });
+        
+        console.log(`\n✨ LLM Analysis Complete (TEST MODE)!`);
+        console.log(`   Analyzed: ${analyzed}/${TEST_LIMIT} criteria`);
+        console.log(`   From Cache: ${fromCache}/${analyzed} (${analyzed > 0 ? ((fromCache/analyzed)*100).toFixed(1) : 0}%)`);
+        console.log(`   New Analyses: ${analyzed - fromCache}`);
+        console.log(`\n   In full mode, would analyze: ${allToAnalyze.length} criteria`);
+    } else {
+        console.log(`⚠️  Local LLM not available. Start Ollama server to enable AI analysis.`);
+        console.log(`   Run: ollama serve (in a separate terminal)\n`);
+        
+        // Store criteria without analysis
+        aiChecks.forEach(criterion => {
+            llmAnalysisResults.aiChecks.push({
+                ...criterion,
+                llmAnalysis: 'LLM not available',
+                status: 'not_analyzed'
+            });
+            console.log(`🤖 RGAA ${criterion.article} (${criterion.level}) - ${criterion.risk} risk`);
+            console.log(`   ${criterion.desc}`);
+            console.log(`   🛠️  ${criterion.fix}\n`);
+        });
+        
+        manualChecks.forEach(criterion => {
+            llmAnalysisResults.manualChecks.push({
+                ...criterion,
+                llmAnalysis: 'LLM not available',
+                status: 'not_analyzed'
+            });
+        });
+        
+        automatedWithHumanCheck.forEach(criterion => {
+            llmAnalysisResults.hybridChecks.push({
+                ...criterion,
+                llmAnalysis: 'LLM not available',
+                status: 'not_analyzed'
+            });
+        });
+    }
+    
+    // Save raw AI findings to JSON file
+    const fs = require('fs');
+    const rawDataPath = path.join(__dirname, 'reports', `ai-analysis-raw_${Date.now()}.json`);
+    const rawData = {
+        auditDate: new Date().toISOString(),
+        url,
+        llmAvailable,
+        summary: {
+            totalCriteria: Object.keys(rgaaFlatMapping).length,
+            aiChecks: llmAnalysisResults.aiChecks.length,
+            manualChecks: llmAnalysisResults.manualChecks.length,
+            hybridChecks: llmAnalysisResults.hybridChecks.length,
+            totalAnalyzed: llmAnalysisResults.aiChecks.length + llmAnalysisResults.manualChecks.length + llmAnalysisResults.hybridChecks.length
+        },
+        analyses: llmAnalysisResults
+    };
+    fs.writeFileSync(rawDataPath, JSON.stringify(rawData, null, 2));
+    console.log(`\n💾 Raw AI analysis data saved to: ${path.basename(rawDataPath)}`);
+    
+    // Export cache for future use
+    const cacheExportPath = path.join(__dirname, 'reports', `ai-cache-export_${Date.now()}.json`);
+    llmClient.aiCache.exportCacheToFile(cacheExportPath);
 
     console.log(`\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
     console.log(`📊 AUDIT SUMMARY`);
@@ -215,6 +455,29 @@ async function runAudit(url) {
     generateRGAAReport(results, url);
     generateDetailedRGAAReport(rgaaStatus, url);
     
+    // Generate comprehensive 106-criteria report with LLM analysis
+    const { generateComprehensiveRGAAReport } = require('./comprehensiveRGAAReport.js');
+    
+    // Merge hybrid checks with automatedWithHumanCheck, adding AI analysis
+    const hybridWithAI = automatedWithHumanCheck.map(criterion => {
+        const aiAnalysis = llmAnalysisResults.hybridChecks.find(h => h.article === criterion.article);
+        return {
+            ...criterion,
+            llmAnalysis: aiAnalysis?.llmAnalysis || null,
+            llmStatus: aiAnalysis?.status || 'not_analyzed'
+        };
+    });
+    
+    generateComprehensiveRGAAReport({
+        url,
+        automatedTests,
+        automatedWithHumanCheck: hybridWithAI,
+        manualChecks: llmAnalysisResults.manualChecks,
+        aiChecks: llmAnalysisResults.aiChecks,
+        llmAvailable,
+        timestamp: new Date().toISOString()
+    });
+    
     // Generate official French accessibility declaration
     generateDeclarationAccessibilite(results, url, {
         entityName: 'Vivatech',
@@ -230,7 +493,13 @@ async function runAudit(url) {
         ]
     });
 
-    await browser.close();
+    } finally {
+        // Ensure browser is always closed, even if an error occurs
+        if (browser) {
+            await browser.close();
+            console.log('🔒 Browser closed');
+        }
+    }
 }
 
 const pagesToAudit = [
@@ -240,11 +509,30 @@ const pagesToAudit = [
 ];
 
 async function runFullAudit() {
+    console.log(`\n🚀 Starting Full Audit for ${pagesToAudit.length} page(s)...\n`);
+    
     for (const url of pagesToAudit) {
-        console.log(`\n--- AUDITING PAGE: ${url} ---`);
-        await runAudit(url); // Your existing function
+        console.log(`\n${'='.repeat(80)}`);
+        console.log(`--- AUDITING PAGE: ${url} ---`);
+        console.log(`${'='.repeat(80)}\n`);
+        
+        try {
+            await runAudit(url);
+            console.log(`\n✅ Audit completed successfully for: ${url}`);
+        } catch (error) {
+            console.error(`\n❌ Audit failed for: ${url}`);
+            console.error(`Error: ${error.message}`);
+            console.error(`Continuing with next page...\n`);
+        }
     }
+    
+    console.log(`\n${'='.repeat(80)}`);
+    console.log(`✨ Full audit process completed!`);
+    console.log(`${'='.repeat(80)}\n`);
 }
 
 // Test it on your example
-runFullAudit();
+runFullAudit().catch(error => {
+    console.error('\n❌ Fatal error in audit process:', error);
+    process.exit(1);
+});
