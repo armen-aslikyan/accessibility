@@ -56,7 +56,44 @@ const rgaaTheme1Images = {
     fix: "Ensure alt text accurately describes the image content and purpose",
     testMethod: "ai",
     axeRules: [],
-    tests: ["1.3.1", "1.3.2", "1.3.3", "1.3.4", "1.3.5", "1.3.6", "1.3.7", "1.3.8", "1.3.9"]
+    tests: ["1.3.1", "1.3.2", "1.3.3", "1.3.4", "1.3.5", "1.3.6", "1.3.7", "1.3.8", "1.3.9"],
+    prompt: `You are given HTML containing images with alt text. For each informative image (not decorative), analyze whether its alternative text is RELEVANT and ACCURATE.
+
+For each image with alt text, evaluate:
+
+1. ACCURACY: Does the alt text correctly describe what the image shows?
+   - Does it identify the subject/content of the image?
+   - Does it convey the same information a sighted user would get?
+   - Is the description factually correct?
+
+2. PURPOSE: Does the alt text convey the image's PURPOSE in context?
+   - Why is this image here? What information does it provide?
+   - Does the alt text serve the same function as the image?
+   - For linked images: Does it describe the link destination/action?
+
+3. CONCISENESS: Is the alt text appropriately concise?
+   - Not too short (missing important information)
+   - Not too long (overwhelming, redundant)
+   - Generally 125 characters or less unless complexity requires more
+
+4. CONTEXT APPROPRIATENESS:
+   - Does it avoid redundancy with surrounding text?
+   - Does it fit the context where the image appears?
+   - For functional images (buttons, links): Does it describe the action?
+
+Common issues to flag:
+- Generic text: "image", "photo", "graphic", "icon"
+- Filename as alt: "IMG_1234.jpg", "banner-2.png"
+- Overly literal: "A photograph of..." (just describe what it shows)
+- Missing key information the image conveys
+- Redundant with visible caption or adjacent text
+- Describes decorative aspects instead of informative content
+
+Report for each image:
+- Image identifier (src or context)
+- Current alt text
+- Assessment: PASS (relevant) or FAIL (not relevant)
+- If FAIL: Explanation of what's wrong and suggested improvement`
   },
   "1.4": {
     desc: "Pour chaque image utilisée comme CAPTCHA ou comme image-test, ayant une alternative textuelle, cette alternative permet-elle d'identifier la nature et la fonction de l'image ?",
@@ -150,7 +187,50 @@ List each complex image found and whether it has adequate detailed description.`
     fix: "Ensure detailed description conveys all essential visual information",
     testMethod: "ai",
     axeRules: [],
-    tests: ["1.7.1", "1.7.2", "1.7.3", "1.7.4", "1.7.5", "1.7.6"]
+    tests: ["1.7.1", "1.7.2", "1.7.3", "1.7.4", "1.7.5", "1.7.6"],
+    prompt: `You are given HTML containing complex images (charts, graphs, infographics, diagrams) with detailed descriptions. Evaluate whether each detailed description is RELEVANT and COMPLETE.
+
+For each complex image with a detailed description, analyze:
+
+1. COMPLETENESS: Does the description include ALL essential information?
+   - For charts/graphs: All data points, trends, axes labels, legend items
+   - For infographics: All text content, statistics, key messages
+   - For diagrams: All components, relationships, process steps
+   - For maps: All relevant locations, routes, data represented
+
+2. ACCURACY: Is the description factually correct?
+   - Do numbers and statistics match the visual?
+   - Are relationships and hierarchies correctly described?
+   - Are colors/patterns described when they convey meaning?
+
+3. STRUCTURE: Is the description well-organized?
+   - Logical reading order
+   - Clear organization matching the visual structure
+   - Appropriate use of lists or sections for complex data
+
+4. EQUIVALENCE: Does a user reading only the description get the same understanding?
+   - Could someone make the same conclusions from the description?
+   - Are insights and key takeaways conveyed?
+   - Is the purpose/message of the visual clear?
+
+5. CONCISENESS: Is it appropriately detailed without being excessive?
+   - Not missing critical information
+   - Not including irrelevant decorative details
+   - Focused on informative content
+
+Common issues to flag:
+- Missing data points or values from charts
+- Incomplete process steps in flowcharts
+- Missing legend explanations
+- Generic descriptions ("This is a chart showing data")
+- Missing trend descriptions ("sales increased")
+- Incomplete geographic/spatial relationships
+
+Report for each complex image:
+- Image identifier
+- Current detailed description (summarized)
+- Assessment: PASS (relevant and complete) or FAIL (inadequate)
+- If FAIL: What information is missing or incorrect`
   },
   "1.8": {
     desc: "Chaque image texte porteuse d'information, en l'absence d'un mécanisme de remplacement, doit si possible être remplacée par du texte stylé. Cette règle est-elle respectée (hors cas particuliers) ?",
@@ -240,7 +320,51 @@ const rgaaTheme2Frames = {
     fix: "Frame title must accurately describe frame content",
     testMethod: "ai",
     axeRules: [],
-    tests: ["2.2.1"]
+    tests: ["2.2.1"],
+    prompt: `You are given HTML containing iframes and frames with title attributes. Evaluate whether each frame title is RELEVANT and DESCRIPTIVE.
+
+For each frame/iframe with a title, analyze:
+
+1. DESCRIPTIVE: Does the title describe the frame's content or purpose?
+   - Does it tell users what they'll find in the frame?
+   - Does it identify the source or type of content?
+   - Is it specific enough to distinguish from other frames?
+
+2. ACCURACY: Does the title match the actual frame content?
+   - For embedded videos: Does it identify it as a video and its topic?
+   - For maps: Does it describe what map/location is shown?
+   - For forms: Does it describe what the form is for?
+   - For widgets: Does it identify the widget's function?
+
+3. USEFULNESS: Would a screen reader user understand the frame's purpose?
+   - Can they decide whether to enter the frame or skip it?
+   - Does it provide enough context?
+
+4. CONCISENESS: Is the title appropriately brief but complete?
+   - Not too generic ("content", "frame", "widget")
+   - Not too long or verbose
+   - Focused on the essential information
+
+Common issues to flag:
+- Generic titles: "iframe", "frame", "content", "widget"
+- Technical titles: "ad-container", "tracking-pixel", "embed-123"
+- Missing context: "Video" instead of "Product demonstration video"
+- Misleading titles that don't match content
+- Duplicate titles for different frames
+- URL or filename as title
+
+Good frame title examples:
+- "Google Maps showing store location"
+- "YouTube video: How to use our product"
+- "Contact form"
+- "Live chat support widget"
+- "Payment processing form"
+
+Report for each frame:
+- Frame element (src or context)
+- Current title attribute value
+- Assessment: PASS (relevant) or FAIL (not relevant)
+- If FAIL: Explanation and suggested improvement`
   }
 };
 
@@ -882,7 +1006,51 @@ List each data table with a visible title and how the title is (or isn't) associ
     fix: "Table title must clearly identify table content and purpose",
     testMethod: "ai",
     axeRules: [],
-    tests: ["5.5.1"]
+    tests: ["5.5.1"],
+    prompt: `You are given HTML containing data tables with titles (via caption, aria-label, aria-labelledby, or title attribute). Evaluate whether each table title is RELEVANT and DESCRIPTIVE.
+
+For each data table with a title, analyze:
+
+1. DESCRIPTIVE: Does the title describe what data the table contains?
+   - Does it identify the type of data presented?
+   - Does it indicate the scope or context of the data?
+   - Can users understand the table's purpose from the title alone?
+
+2. SPECIFICITY: Is the title specific enough?
+   - Does it distinguish this table from other tables on the page?
+   - Does it provide meaningful context?
+   - Is it more informative than just "Table" or "Data"?
+
+3. ACCURACY: Does the title match the actual table content?
+   - Does it reflect the data columns and rows?
+   - Is it up-to-date if the table contains time-based data?
+   - Does it accurately represent the data scope?
+
+4. CONCISENESS: Is the title appropriately brief but complete?
+   - Short enough to quickly understand
+   - Long enough to be meaningful
+   - Focused on essential identifying information
+
+Common issues to flag:
+- Generic titles: "Table", "Data", "Results", "Information"
+- Technical/internal names: "tbl_data_1", "results-table"
+- Vague titles: "Statistics" instead of "Q3 2024 Sales Statistics by Region"
+- Misleading titles that don't match content
+- Overly long titles that are hard to comprehend
+- Titles that repeat column headers instead of describing the table
+
+Good table title examples:
+- "Employee contact information by department"
+- "Monthly revenue comparison 2023-2024"
+- "Product specifications and pricing"
+- "Flight schedule - Paris to London, January 2025"
+- "Accessibility audit results by criterion"
+
+Report for each table:
+- Table identifier (location, first few headers)
+- Current title
+- Assessment: PASS (relevant) or FAIL (not relevant)
+- If FAIL: Explanation and suggested improvement`
   },
   "5.6": {
     desc: "Pour chaque tableau de données, chaque en-tête de colonne et chaque en-tête de ligne sont-ils correctement déclarés ?",
@@ -1283,7 +1451,57 @@ State which DOCTYPE is used and whether it is valid.`
     fix: "Page title must be unique and describe page content/purpose",
     testMethod: "ai",
     axeRules: [],
-    tests: ["8.6.1"]
+    tests: ["8.6.1"],
+    prompt: `You are given an HTML page with a <title> element. Evaluate whether the page title is RELEVANT, DESCRIPTIVE, and UNIQUE.
+
+Analyze the page title against these criteria:
+
+1. DESCRIPTIVE: Does the title describe the page's content or purpose?
+   - Does it identify what the page is about?
+   - Can users understand the page purpose from the title?
+   - Does it reflect the main content/function of the page?
+
+2. SPECIFIC: Is the title specific to this page?
+   - Does it distinguish this page from other pages on the site?
+   - Is it more informative than just the site name?
+   - Does it include page-specific information?
+
+3. STRUCTURE: Does the title follow good practices?
+   - Recommended: "Page-specific content - Site name" OR "Site name - Page-specific content"
+   - Page-specific content should come first (better for screen readers and tabs)
+   - Site name provides context but shouldn't dominate
+
+4. CONCISENESS: Is the title appropriately brief?
+   - Ideally under 60-70 characters (visible in browser tabs/search results)
+   - Long enough to be meaningful
+   - Not stuffed with keywords
+
+5. ACCURACY: Does the title match the actual page content?
+   - Reflects the main heading (h1) or primary content
+   - Not misleading or outdated
+   - Matches user expectations from navigation
+
+Common issues to flag:
+- Generic titles: "Home", "Welcome", "Page", "Untitled"
+- Site name only: "Company Name" (missing page-specific info)
+- Keyword stuffing: "Buy Cheap Products Best Deals Shop Now Online Store"
+- Misleading titles that don't match content
+- All pages with identical titles
+- Very long titles that get truncated
+- Missing separator between page info and site name
+
+Good page title examples:
+- "Contact Us - Company Name"
+- "iPhone 15 Pro Specifications - Apple"
+- "Your Shopping Cart (3 items) - Store Name"
+- "Search Results for 'accessibility' - Site Name"
+- "Account Settings | Dashboard - App Name"
+
+Report:
+- Current page title
+- Page's apparent purpose (from h1, main content)
+- Assessment: PASS (relevant) or FAIL (not relevant)
+- If FAIL: Explanation and suggested improvement`
   },
   "8.7": {
     desc: "Dans chaque page web, chaque changement de langue est-il indiqué dans le code source (hors cas particuliers) ?",
@@ -2124,7 +2342,59 @@ const rgaaTheme11Forms = {
     fix: "Label must clearly describe input purpose and include visible label text in accessible name",
     testMethod: "ai",
     axeRules: [],
-    tests: ["11.2.1", "11.2.2", "11.2.3", "11.2.4", "11.2.5", "11.2.6"]
+    tests: ["11.2.1", "11.2.2", "11.2.3", "11.2.4", "11.2.5", "11.2.6"],
+    prompt: `You are given HTML containing form fields with labels (via <label>, aria-label, aria-labelledby, title, or placeholder). Evaluate whether each label is RELEVANT and clearly describes the expected input.
+
+For each form field with a label, analyze:
+
+1. CLARITY: Does the label clearly describe what input is expected?
+   - Does it identify the type of information to enter?
+   - Is it unambiguous about what's required?
+   - Can users understand what to enter without guessing?
+
+2. COMPLETENESS: Does the label include all necessary information?
+   - Format requirements (if any): "Date (DD/MM/YYYY)"
+   - Units (if applicable): "Weight (kg)", "Price (€)"
+   - Required/optional status (ideally visible, not just asterisk)
+
+3. ACCURACY: Does the label match the field's actual purpose?
+   - Does the input type match the label?
+   - Is the label consistent with validation rules?
+   - Does it align with autocomplete attribute (if present)?
+
+4. VISIBLE TEXT INCLUSION: Does the accessible name include visible text?
+   - If there's visible label text, it should be part of the accessible name
+   - aria-label should match or expand on visible text
+   - Placeholder alone is insufficient as a label
+
+5. CONTEXT APPROPRIATENESS:
+   - Does it make sense in the form's context?
+   - Is it specific enough when multiple similar fields exist?
+   - For fieldsets: Does individual label + legend provide full context?
+
+Common issues to flag:
+- Generic labels: "Input", "Field", "Enter value"
+- Placeholder-only labels (no persistent label)
+- Mismatched label and field type: "Name" for email field
+- Missing format hints for constrained inputs
+- Ambiguous labels in forms with similar fields
+- Labels that don't match visible text
+- Technical/internal names: "field_1", "usr_email"
+- Abbreviated labels that aren't clear: "DOB" instead of "Date of Birth"
+
+Good form label examples:
+- "Email address"
+- "Password (minimum 8 characters)"
+- "Phone number (optional)"
+- "Date of birth (DD/MM/YYYY)"
+- "Shipping address - Street"
+- "Card number"
+
+Report for each form field:
+- Field type and purpose
+- Current label/accessible name
+- Assessment: PASS (relevant) or FAIL (not relevant)
+- If FAIL: Explanation and suggested improvement`
   },
   "11.3": {
     desc: "Dans chaque formulaire, chaque étiquette associée à un champ de formulaire ayant la même fonction et répétée plusieurs fois dans une même page ou dans un ensemble de pages est-elle cohérente ?",
@@ -2304,7 +2574,61 @@ List each field group and its legend (or note if missing).`
     fix: "Group legend must clearly describe the group purpose",
     testMethod: "ai",
     axeRules: [],
-    tests: ["11.7.1"]
+    tests: ["11.7.1"],
+    prompt: `You are given HTML containing form field groups (fieldsets with legends, or role="group"/role="radiogroup" with aria-label/aria-labelledby). Evaluate whether each group legend is RELEVANT and clearly describes the group's purpose.
+
+For each field group with a legend, analyze:
+
+1. DESCRIPTIVE: Does the legend clearly identify what the group is for?
+   - Does it explain the common purpose of the grouped fields?
+   - Can users understand why these fields are grouped together?
+   - Does it provide the context needed for individual field labels?
+
+2. COMPLETENESS: Does the legend + field labels provide full context?
+   - Individual labels should make sense when combined with the legend
+   - Example: Legend "Billing Address" + labels "Street", "City", "Zip Code"
+   - For radio groups: Does it describe what the options are for?
+
+3. SPECIFICITY: Is the legend specific enough?
+   - Does it distinguish this group from other groups in the form?
+   - Is it clear what type of information belongs in this group?
+   - For multiple address groups: "Billing Address" vs "Shipping Address"
+
+4. ACCURACY: Does the legend match the actual fields in the group?
+   - Are all fields in the group related to the legend?
+   - Does it accurately represent the group's purpose?
+
+5. CONCISENESS: Is the legend appropriately brief?
+   - Short enough to read quickly
+   - Long enough to be meaningful
+   - Focused on the essential grouping concept
+
+Common issues to flag:
+- Generic legends: "Options", "Fields", "Information", "Details"
+- Missing context: "Address" when there are multiple address sections
+- Overly technical: "personal_info_section"
+- Legends that don't match grouped content
+- Very long legends that are hard to comprehend
+- Legends that repeat information in field labels
+
+For radio/checkbox groups specifically:
+- Legend should describe the question being asked
+- Example: "What is your preferred contact method?" for radio options Email/Phone/Mail
+
+Good legend examples:
+- "Billing Address"
+- "Contact Preferences"
+- "Select your preferred delivery date"
+- "Payment Information"
+- "Emergency Contact Details"
+- "How did you hear about us?"
+
+Report for each field group:
+- Group type (fieldset, radiogroup, etc.)
+- Fields contained in the group
+- Current legend text
+- Assessment: PASS (relevant) or FAIL (not relevant)
+- If FAIL: Explanation and suggested improvement`
   },
   "11.8": {
     desc: "Dans chaque formulaire, les items de même nature d'une liste de choix sont-ils regroupés de manière pertinente ?",
