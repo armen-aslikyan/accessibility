@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 function ViolationsReport({ data }) {
+  const { t } = useTranslation();
   const { violations } = data;
   const [selectedImpact, setSelectedImpact] = useState('all');
 
@@ -19,14 +21,14 @@ function ViolationsReport({ data }) {
       {/* Summary */}
       <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
         <h2 className="text-xl font-bold text-slate-900 mb-4">
-          Violations d'Accessibilité Détectées
+          {t('violations.title')}
         </h2>
         <div className="flex flex-wrap gap-4">
-          <ImpactBadge label="Critique" count={impactCounts.critical || 0} color="red" />
-          <ImpactBadge label="Sérieux" count={impactCounts.serious || 0} color="orange" />
-          <ImpactBadge label="Modéré" count={impactCounts.moderate || 0} color="yellow" />
-          <ImpactBadge label="Mineur" count={impactCounts.minor || 0} color="blue" />
-          <ImpactBadge label="Total" count={violations.length} color="slate" />
+          <ImpactBadge label={t('violations.critical')} count={impactCounts.critical || 0} color="red" />
+          <ImpactBadge label={t('violations.serious')} count={impactCounts.serious || 0} color="orange" />
+          <ImpactBadge label={t('violations.moderate')} count={impactCounts.moderate || 0} color="yellow" />
+          <ImpactBadge label={t('violations.minor')} count={impactCounts.minor || 0} color="blue" />
+          <ImpactBadge label={t('violations.total')} count={violations.length} color="slate" />
         </div>
       </div>
 
@@ -34,11 +36,11 @@ function ViolationsReport({ data }) {
       <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
         <div className="flex flex-wrap gap-2">
           {[
-            { id: 'all', label: 'Toutes' },
-            { id: 'critical', label: 'Critique' },
-            { id: 'serious', label: 'Sérieux' },
-            { id: 'moderate', label: 'Modéré' },
-            { id: 'minor', label: 'Mineur' }
+            { id: 'all' },
+            { id: 'critical' },
+            { id: 'serious' },
+            { id: 'moderate' },
+            { id: 'minor' }
           ].map((filter) => (
             <button
               key={filter.id}
@@ -49,7 +51,7 @@ function ViolationsReport({ data }) {
                   : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
               }`}
             >
-              {filter.label}
+              {t(`violations.${filter.id}`)}
               {filter.id !== 'all' && impactCounts[filter.id] && (
                 <span className="ml-2 bg-white bg-opacity-20 px-2 py-0.5 rounded">
                   {impactCounts[filter.id]}
@@ -68,7 +70,7 @@ function ViolationsReport({ data }) {
         {filteredViolations.length === 0 && (
           <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-12 text-center">
             <div className="text-6xl mb-4">🎉</div>
-            <p className="text-slate-500">Aucune violation de ce type détectée.</p>
+            <p className="text-slate-500">{t('violations.noViolations')}</p>
           </div>
         )}
       </div>
@@ -94,6 +96,7 @@ function ImpactBadge({ label, count, color }) {
 }
 
 function ViolationCard({ violation }) {
+  const { t } = useTranslation();
   const [expanded, setExpanded] = useState(false);
 
   const impactColors = {
@@ -124,7 +127,7 @@ function ViolationCard({ violation }) {
             </h3>
             <p className="text-sm text-slate-600">{violation.description}</p>
             <div className="mt-3 flex items-center gap-2 text-sm text-slate-500">
-              <span>Éléments affectés: {violation.nodes.length}</span>
+              <span>{t('violations.affectedElements')}: {violation.nodes.length}</span>
             </div>
           </div>
           <button className="text-slate-400 hover:text-slate-600 transition">
@@ -146,7 +149,7 @@ function ViolationCard({ violation }) {
                 rel="noopener noreferrer"
                 className="text-indigo-600 hover:text-indigo-800 text-sm font-medium flex items-center gap-2"
               >
-                📖 Documentation WCAG
+                {t('violations.wcagDocumentation')}
                 <span className="text-xs">↗</span>
               </a>
             </div>
@@ -155,7 +158,7 @@ function ViolationCard({ violation }) {
           {/* Tags */}
           {violation.tags && violation.tags.length > 0 && (
             <div>
-              <h4 className="font-bold text-slate-900 mb-2 text-sm">Standards</h4>
+              <h4 className="font-bold text-slate-900 mb-2 text-sm">{t('violations.standards')}</h4>
               <div className="flex flex-wrap gap-2">
                 {violation.tags.map((tag, idx) => (
                   <span key={idx} className="px-2 py-1 bg-indigo-100 text-indigo-800 rounded text-xs font-mono">
@@ -169,7 +172,7 @@ function ViolationCard({ violation }) {
           {/* Affected Nodes */}
           <div>
             <h4 className="font-bold text-slate-900 mb-2 text-sm">
-              Éléments Affectés ({violation.nodes.length})
+              {t('violations.affectedElementsCount')} ({violation.nodes.length})
             </h4>
             <div className="space-y-3 max-h-96 overflow-y-auto">
               {violation.nodes.map((node, idx) => (

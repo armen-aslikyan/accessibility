@@ -1,0 +1,108 @@
+{
+  "app": {
+    "loading": "Chargement des données d'audit...",
+    "error": "Erreur",
+    "retry": "Réessayer",
+    "noData": "Aucune donnée disponible",
+    "noDataDescription": "Veuillez exécuter un audit pour générer des données.",
+    "title": "Rapport d'Audit Accessibilité",
+    "refresh": "Actualiser"
+  },
+  "nav": {
+    "dashboard": "Tableau de Bord",
+    "rgaa": "Critères RGAA",
+    "violations": "Violations",
+    "carbon": "Empreinte Carbone"
+  },
+  "dashboard": {
+    "legalRiskAlert": "⚠️ Alerte Exposition Juridique (Loi n° 2023-171 & EAA 2025)",
+    "cumulativeRiskSanction": "Risque Sanction Cumulé",
+    "estimationNote": "*Estimation basée sur les plafonds de l'Ordonnance n° 2023-859",
+    "technicalFine": "€50,000 : Amende technique max (renouvelable tous les 6 mois).",
+    "declarationFine": "€25,000 : Amende pour défaut de déclaration d'accessibilité.",
+    "accessibilityScore": "Score Accessibilité",
+    "violationsDetected": "Violations Détectées",
+    "problems": "Problèmes",
+    "ecoDesign": "Éco-Conception",
+    "rgaaStatistics": "Statistiques des Critères RGAA",
+    "totalCriteria": "Total Critères",
+    "compliant": "Conformes",
+    "nonCompliant": "Non-Conformes",
+    "toVerify": "À Vérifier",
+    "testMethodBreakdown": "Répartition par Méthode de Test",
+    "automated": "Automatisés",
+    "hybrid": "Hybrides",
+    "ai": "IA",
+    "manual": "Manuels"
+  },
+  "rgaa": {
+    "title": "106 Critères RGAA 4.1",
+    "compliant": "Conformes",
+    "nonCompliant": "Non-Conformes",
+    "manualVerification": "Vérification Manuelle",
+    "aiVerification": "Vérification IA",
+    "notTested": "Non Testés",
+    "searchPlaceholder": "Rechercher un critère...",
+    "all": "Tous",
+    "noResults": "Aucun critère ne correspond à votre recherche.",
+    "violationsDetected": "Violations Détectées",
+    "aiAnalysis": "Analyse IA",
+    "wcagReferences": "Références WCAG",
+    "statusLabels": {
+      "passed": "Conforme",
+      "failed": "Non-Conforme",
+      "requiresManual": "Vérification Manuelle",
+      "requiresAI": "Vérification IA",
+      "notTested": "Non Testé"
+    }
+  },
+  "violations": {
+    "title": "Violations d'Accessibilité Détectées",
+    "critical": "Critique",
+    "serious": "Sérieux",
+    "moderate": "Modéré",
+    "minor": "Mineur",
+    "total": "Total",
+    "all": "Toutes",
+    "noViolations": "Aucune violation de ce type détectée.",
+    "affectedElements": "Éléments affectés",
+    "wcagDocumentation": "📖 Documentation WCAG",
+    "standards": "Standards",
+    "affectedElementsCount": "Éléments Affectés"
+  },
+  "carbon": {
+    "title": "Empreinte Carbone Numérique",
+    "description": "Analyse de l'impact environnemental de votre site web basée sur la méthodologie",
+    "methodology": "CO2.js",
+    "perVisit": "CO2 par visite",
+    "pageSize": "Taille de la page",
+    "dataTransferred": "Données transférées",
+    "annualProjections": "Projections Annuelles CO2",
+    "visitsPerYear": {
+      "1k": "1K visites/an",
+      "10k": "10K visites/an",
+      "100k": "100K visites/an",
+      "1m": "1M visites/an"
+    },
+    "contextAndEquivalents": "Contexte & Équivalences",
+    "carEquivalent": "Équivalent voiture",
+    "carDescription": "{{km}} km parcourus en voiture (120g CO2/km)",
+    "treeAbsorption": "Absorption par arbre",
+    "treeDescription": "Un arbre absorbe environ 25kg de CO2 par an. Pour 1M de visites, il faudrait {{trees}} arbres.",
+    "electricalConsumption": "Consommation électrique",
+    "electricalDescription": "L'empreinte carbone inclut l'énergie du datacenter, du réseau et des appareils des utilisateurs.",
+    "recommendations": "💡 Recommandations pour Réduire l'Impact",
+    "recommendationsList": {
+      "images": "Optimiser et compresser les images (WebP, AVIF)",
+      "minify": "Minimiser et combiner les fichiers CSS/JS",
+      "cache": "Mettre en cache les ressources statiques",
+      "cdn": "Utiliser un CDN géographiquement distribué",
+      "greenHosting": "Choisir un hébergement vert (énergie renouvelable)",
+      "thirdParty": "Réduire les requêtes tierces inutiles",
+      "lazyLoading": "Implémenter le lazy loading pour les images"
+    },
+    "sourceNote": "Calculs basés sur le modèle SWD (Sustainable Web Design) de",
+    "greenWebFoundation": "The Green Web Foundation",
+    "auditPerformed": "Audit effectué le"
+  }
+}

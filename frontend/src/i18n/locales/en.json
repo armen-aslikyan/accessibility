@@ -1,0 +1,108 @@
+{
+  "app": {
+    "loading": "Loading audit data...",
+    "error": "Error",
+    "retry": "Retry",
+    "noData": "No data available",
+    "noDataDescription": "Please run an audit to generate data.",
+    "title": "Accessibility Audit Report",
+    "refresh": "Refresh"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "rgaa": "RGAA Criteria",
+    "violations": "Violations",
+    "carbon": "Carbon Footprint"
+  },
+  "dashboard": {
+    "legalRiskAlert": "⚠️ Legal Exposure Alert (Law No. 2023-171 & EAA 2025)",
+    "cumulativeRiskSanction": "Cumulative Sanction Risk",
+    "estimationNote": "*Estimate based on the caps of Ordinance No. 2023-859",
+    "technicalFine": "€50,000 : Maximum technical fine (renewable every 6 months).",
+    "declarationFine": "€25,000 : Fine for failure to provide accessibility statement.",
+    "accessibilityScore": "Accessibility Score",
+    "violationsDetected": "Violations Detected",
+    "problems": "Issues",
+    "ecoDesign": "Eco-Design",
+    "rgaaStatistics": "RGAA Criteria Statistics",
+    "totalCriteria": "Total Criteria",
+    "compliant": "Compliant",
+    "nonCompliant": "Non-Compliant",
+    "toVerify": "To Verify",
+    "testMethodBreakdown": "Breakdown by Test Method",
+    "automated": "Automated",
+    "hybrid": "Hybrid",
+    "ai": "AI",
+    "manual": "Manual"
+  },
+  "rgaa": {
+    "title": "106 RGAA 4.1 Criteria",
+    "compliant": "Compliant",
+    "nonCompliant": "Non-Compliant",
+    "manualVerification": "Manual Verification",
+    "aiVerification": "AI Verification",
+    "notTested": "Not Tested",
+    "searchPlaceholder": "Search for a criterion...",
+    "all": "All",
+    "noResults": "No criteria match your search.",
+    "violationsDetected": "Violations Detected",
+    "aiAnalysis": "AI Analysis",
+    "wcagReferences": "WCAG References",
+    "statusLabels": {
+      "passed": "Compliant",
+      "failed": "Non-Compliant",
+      "requiresManual": "Manual Verification",
+      "requiresAI": "AI Verification",
+      "notTested": "Not Tested"
+    }
+  },
+  "violations": {
+    "title": "Detected Accessibility Violations",
+    "critical": "Critical",
+    "serious": "Serious",
+    "moderate": "Moderate",
+    "minor": "Minor",
+    "total": "Total",
+    "all": "All",
+    "noViolations": "No violations of this type detected.",
+    "affectedElements": "Affected elements",
+    "wcagDocumentation": "📖 WCAG Documentation",
+    "standards": "Standards",
+    "affectedElementsCount": "Affected Elements"
+  },
+  "carbon": {
+    "title": "Digital Carbon Footprint",
+    "description": "Analysis of your website's environmental impact based on the",
+    "methodology": "CO2.js",
+    "perVisit": "CO2 per visit",
+    "pageSize": "Page size",
+    "dataTransferred": "Data transferred",
+    "annualProjections": "Annual CO2 Projections",
+    "visitsPerYear": {
+      "1k": "1K visits/year",
+      "10k": "10K visits/year",
+      "100k": "100K visits/year",
+      "1m": "1M visits/year"
+    },
+    "contextAndEquivalents": "Context & Equivalents",
+    "carEquivalent": "Car equivalent",
+    "carDescription": "{{km}} km driven by car (120g CO2/km)",
+    "treeAbsorption": "Tree absorption",
+    "treeDescription": "A tree absorbs about 25kg of CO2 per year. For 1M visits, {{trees}} trees would be needed.",
+    "electricalConsumption": "Electrical consumption",
+    "electricalDescription": "The carbon footprint includes energy from the datacenter, network, and user devices.",
+    "recommendations": "💡 Recommendations to Reduce Impact",
+    "recommendationsList": {
+      "images": "Optimize and compress images (WebP, AVIF)",
+      "minify": "Minify and combine CSS/JS files",
+      "cache": "Cache static resources",
+      "cdn": "Use a geographically distributed CDN",
+      "greenHosting": "Choose green hosting (renewable energy)",
+      "thirdParty": "Reduce unnecessary third-party requests",
+      "lazyLoading": "Implement lazy loading for images"
+    },
+    "sourceNote": "Calculations based on the SWD (Sustainable Web Design) model from",
+    "greenWebFoundation": "The Green Web Foundation",
+    "auditPerformed": "Audit performed on"
+  }
+}

@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 function RGAAReport({ data }) {
+  const { t } = useTranslation();
   const { criteria, statistics } = data;
   const [filterStatus, setFilterStatus] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
@@ -27,14 +29,14 @@ function RGAAReport({ data }) {
       {/* Summary Stats */}
       <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
         <h2 className="text-xl font-bold text-slate-900 mb-4">
-          106 Critères RGAA 4.1
+          {t('rgaa.title')}
         </h2>
         <div className="flex flex-wrap gap-4">
-          <StatBadge label="Conformes" value={statistics.passed} color="emerald" />
-          <StatBadge label="Non-Conformes" value={statistics.failed} color="red" />
-          <StatBadge label="Vérification Manuelle" value={statistics.requiresManual} color="orange" />
-          <StatBadge label="Vérification IA" value={statistics.requiresAI} color="blue" />
-          <StatBadge label="Non Testés" value={statistics.notTested} color="slate" />
+          <StatBadge label={t('rgaa.compliant')} value={statistics.passed} color="emerald" />
+          <StatBadge label={t('rgaa.nonCompliant')} value={statistics.failed} color="red" />
+          <StatBadge label={t('rgaa.manualVerification')} value={statistics.requiresManual} color="orange" />
+          <StatBadge label={t('rgaa.aiVerification')} value={statistics.requiresAI} color="blue" />
+          <StatBadge label={t('rgaa.notTested')} value={statistics.notTested} color="slate" />
         </div>
       </div>
 
@@ -44,7 +46,7 @@ function RGAAReport({ data }) {
           <div className="flex-1">
             <input
               type="text"
-              placeholder="Rechercher un critère..."
+              placeholder={t('rgaa.searchPlaceholder')}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
@@ -52,11 +54,11 @@ function RGAAReport({ data }) {
           </div>
           <div className="flex gap-2 flex-wrap">
             {[
-              { id: 'all', label: 'Tous' },
-              { id: 'passed', label: 'Conformes' },
-              { id: 'failed', label: 'Non-Conformes' },
-              { id: 'manual', label: 'Manuel' },
-              { id: 'ai', label: 'IA' }
+              { id: 'all' },
+              { id: 'passed' },
+              { id: 'failed' },
+              { id: 'manual' },
+              { id: 'ai' }
             ].map((filter) => (
               <button
                 key={filter.id}
@@ -67,7 +69,11 @@ function RGAAReport({ data }) {
                     : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                 }`}
               >
-                {filter.label}
+                {filter.id === 'all' ? t('rgaa.all') : 
+                 filter.id === 'passed' ? t('rgaa.compliant') :
+                 filter.id === 'failed' ? t('rgaa.nonCompliant') :
+                 filter.id === 'manual' ? t('dashboard.manual') :
+                 t('dashboard.ai')}
               </button>
             ))}
           </div>
@@ -81,7 +87,7 @@ function RGAAReport({ data }) {
         ))}
         {filteredCriteria.length === 0 && (
           <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-12 text-center">
-            <p className="text-slate-500">Aucun critère ne correspond à votre recherche.</p>
+            <p className="text-slate-500">{t('rgaa.noResults')}</p>
           </div>
         )}
       </div>
@@ -107,17 +113,19 @@ function StatBadge({ label, value, color }) {
 }
 
 function CriterionCard({ criterion }) {
+  const { t } = useTranslation();
   const [expanded, setExpanded] = useState(false);
 
   const statusConfig = {
-    passed: { label: 'Conforme', color: 'bg-emerald-100 text-emerald-800', icon: '✓' },
-    failed: { label: 'Non-Conforme', color: 'bg-red-100 text-red-800', icon: '✗' },
-    requires_manual_check: { label: 'Vérification Manuelle', color: 'bg-orange-100 text-orange-800', icon: '👤' },
-    requires_ai_check: { label: 'Vérification IA', color: 'bg-blue-100 text-blue-800', icon: '🧠' },
-    not_tested: { label: 'Non Testé', color: 'bg-slate-100 text-slate-800', icon: '?' }
+    passed: { labelKey: 'rgaa.statusLabels.passed', color: 'bg-emerald-100 text-emerald-800', icon: '✓' },
+    failed: { labelKey: 'rgaa.statusLabels.failed', color: 'bg-red-100 text-red-800', icon: '✗' },
+    requires_manual_check: { labelKey: 'rgaa.statusLabels.requiresManual', color: 'bg-orange-100 text-orange-800', icon: '👤' },
+    requires_ai_check: { labelKey: 'rgaa.statusLabels.requiresAI', color: 'bg-blue-100 text-blue-800', icon: '🧠' },
+    not_tested: { labelKey: 'rgaa.statusLabels.notTested', color: 'bg-slate-100 text-slate-800', icon: '?' }
   };
 
-  const status = statusConfig[criterion.result] || statusConfig.not_tested;
+  const statusInfo = statusConfig[criterion.result] || statusConfig.not_tested;
+  const status = { ...statusInfo, label: t(statusInfo.labelKey) };
 
   return (
     <div className="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden">
@@ -161,7 +169,7 @@ function CriterionCard({ criterion }) {
           {criterion.violations && criterion.violations.length > 0 && (
             <div>
               <h4 className="font-bold text-slate-900 mb-2">
-                Violations Détectées ({criterion.violations.length})
+                {t('rgaa.violationsDetected')} ({criterion.violations.length})
               </h4>
               <div className="space-y-2">
                 {criterion.violations.map((violation, idx) => (
@@ -179,7 +187,7 @@ function CriterionCard({ criterion }) {
           {/* LLM Analysis */}
           {criterion.llmAnalysis && (
             <div>
-              <h4 className="font-bold text-slate-900 mb-2">Analyse IA</h4>
+              <h4 className="font-bold text-slate-900 mb-2">{t('rgaa.aiAnalysis')}</h4>
               <div className="bg-white p-4 rounded border border-blue-200">
                 <p className="text-sm text-slate-700 whitespace-pre-wrap">
                   {criterion.llmAnalysis}
@@ -191,7 +199,7 @@ function CriterionCard({ criterion }) {
           {/* WCAG References */}
           {criterion.wcag && criterion.wcag.length > 0 && (
             <div>
-              <h4 className="font-bold text-slate-900 mb-2">Références WCAG</h4>
+              <h4 className="font-bold text-slate-900 mb-2">{t('rgaa.wcagReferences')}</h4>
               <div className="flex flex-wrap gap-2">
                 {criterion.wcag.map((ref, idx) => (
                   <span key={idx} className="px-2 py-1 bg-indigo-100 text-indigo-800 rounded text-xs font-mono">

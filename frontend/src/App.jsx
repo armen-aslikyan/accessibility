@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import Dashboard from './components/Dashboard';
 import RGAAReport from './components/RGAAReport';
 import ViolationsReport from './components/ViolationsReport';
 import CarbonReport from './components/CarbonReport';
+import LanguageSwitcher from './components/LanguageSwitcher';
 import { loadLatestAudit } from './utils/dataLoader';
 import './App.css';
 
 function App() {
+  const { t } = useTranslation();
   const [auditData, setAuditData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -34,7 +37,7 @@ function App() {
       <div className="min-h-screen bg-slate-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-indigo-600 mx-auto"></div>
-          <p className="mt-4 text-slate-600 font-medium">Chargement des données d'audit...</p>
+          <p className="mt-4 text-slate-600 font-medium">{t('app.loading')}</p>
         </div>
       </div>
     );
@@ -45,13 +48,13 @@ function App() {
       <div className="min-h-screen bg-slate-50 flex items-center justify-center">
         <div className="max-w-md bg-white rounded-lg shadow-lg p-8">
           <div className="text-red-600 text-5xl mb-4">⚠️</div>
-          <h2 className="text-2xl font-bold text-slate-900 mb-2">Erreur</h2>
+          <h2 className="text-2xl font-bold text-slate-900 mb-2">{t('app.error')}</h2>
           <p className="text-slate-600 mb-4">{error}</p>
           <button
             onClick={loadAuditData}
             className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition"
           >
-            Réessayer
+            {t('app.retry')}
           </button>
         </div>
       </div>
@@ -63,8 +66,8 @@ function App() {
       <div className="min-h-screen bg-slate-50 flex items-center justify-center">
         <div className="max-w-md bg-white rounded-lg shadow-lg p-8 text-center">
           <div className="text-slate-400 text-6xl mb-4">📊</div>
-          <h2 className="text-2xl font-bold text-slate-900 mb-2">Aucune donnée disponible</h2>
-          <p className="text-slate-600">Veuillez exécuter un audit pour générer des données.</p>
+          <h2 className="text-2xl font-bold text-slate-900 mb-2">{t('app.noData')}</h2>
+          <p className="text-slate-600">{t('app.noDataDescription')}</p>
         </div>
       </div>
     );
@@ -78,19 +81,22 @@ function App() {
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-3xl font-bold text-slate-900">
-                Rapport d'Audit Accessibilité
+                {t('app.title')}
               </h1>
               <p className="text-sm text-slate-500 mt-1">
-                {auditData.meta.url} • {new Date(auditData.meta.generatedAt).toLocaleString('fr-FR')}
+                {auditData.meta.url} • {new Date(auditData.meta.generatedAt).toLocaleString()}
               </p>
             </div>
-            <button
-              onClick={loadAuditData}
-              className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition flex items-center gap-2"
-            >
-              <span>🔄</span>
-              Actualiser
-            </button>
+            <div className="flex items-center gap-4">
+              <LanguageSwitcher />
+              <button
+                onClick={loadAuditData}
+                className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition flex items-center gap-2"
+              >
+                <span>🔄</span>
+                {t('app.refresh')}
+              </button>
+            </div>
           </div>
         </div>
       </header>
@@ -100,10 +106,10 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <nav className="flex space-x-8">
             {[
-              { id: 'dashboard', label: 'Tableau de Bord', icon: '📊' },
-              { id: 'rgaa', label: 'Critères RGAA', icon: '📋' },
-              { id: 'violations', label: 'Violations', icon: '⚠️' },
-              { id: 'carbon', label: 'Empreinte Carbone', icon: '🌱' }
+              { id: 'dashboard', icon: '📊' },
+              { id: 'rgaa', icon: '📋' },
+              { id: 'violations', icon: '⚠️' },
+              { id: 'carbon', icon: '🌱' }
             ].map((tab) => (
               <button
                 key={tab.id}
@@ -115,7 +121,7 @@ function App() {
                 }`}
               >
                 <span className="mr-2">{tab.icon}</span>
-                {tab.label}
+                {t(`nav.${tab.id}`)}
               </button>
             ))}
           </nav>
