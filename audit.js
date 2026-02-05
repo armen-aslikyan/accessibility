@@ -8,6 +8,7 @@ const { generateWCAGReport } = require('./wcagReport.js');
 const { generateRGAAReport, analyzeRGAACompliance } = require('./rgaaReport.js');
 const { generateDeclarationAccessibilite } = require('./declarationAccessibilite.js');
 const { generateDetailedRGAAReport } = require('./rgaaDetailedReport.js');
+const { exportAuditData } = require('./exportAuditData.js');
 const llmClient = require('./utils/llmClient.js');
 
 // TESTING MODE: Limit to first 5 total analyses
@@ -491,6 +492,22 @@ async function runAudit(url) {
             // { name: 'À propos', url: 'https://vivatechnology.com/about' },
             // { name: 'Actualités', url: 'https://vivatechnology.com/news' }
         ]
+    });
+
+    // Export comprehensive JSON data for React frontend
+    exportAuditData({
+        url,
+        results,
+        co2Data: estimate,
+        totalBytes,
+        automatedTests,
+        automatedWithHumanCheck: hybridWithAI,
+        manualChecks: llmAnalysisResults.manualChecks,
+        aiChecks: llmAnalysisResults.aiChecks,
+        llmAvailable,
+        llmAnalysisResults,
+        rgaaStatus,
+        timestamp: new Date().toISOString()
     });
 
     } finally {

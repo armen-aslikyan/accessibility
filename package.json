@@ -5,7 +5,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "test-llm": "node test-llm.js",
-    "audit": "node audit.js"
+    "audit": "node audit.js",
+    "start-fe": "cd frontend && npm run dev",
+    "build-fe": "cd frontend && npm run build",
+    "preview-fe": "cd frontend && npm run preview",
+    "install:fe": "cd frontend && npm install"
   },
   "keywords": [],
   "author": "",

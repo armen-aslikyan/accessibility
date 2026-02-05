@@ -1,0 +1,46 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "generatedAt": "2026-02-02T18:00:00.000Z",
+    "url": "https://example.com",
+    "llmAvailable": true
+  },
+  "summary": {
+    "accessibilityScore": 82,
+    "totalViolations": 6,
+    "legalRisk": {
+      "technical": 50000,
+      "administrative": 25000,
+      "total": 75000
+    },
+    "carbon": {
+      "perVisit": 0.234,
+      "totalBytes": 1245678,
+      "pageSizeMB": "1.19"
+    }
+  },
+  "statistics": {
+    "total": 106,
+    "passed": 68,
+    "failed": 6,
+    "passedNeedsReview": 8,
+    "failedNeedsReview": 2,
+    "requiresManual": 12,
+    "requiresAI": 10,
+    "notTested": 0,
+    "byAutomation": 68,
+    "byAI": 10,
+    "byManual": 12,
+    "byHybrid": 16
+  },
+  "criteria": {},
+  "violations": [],
+  "passes": [],
+  "incomplete": [],
+  "rgaaCompliance": {
+    "compliant": 68,
+    "nonCompliant": 8,
+    "notApplicable": 30,
+    "complianceRate": 89.47
+  }
+}
