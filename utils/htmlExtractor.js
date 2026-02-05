@@ -233,6 +233,201 @@ function getExtractionStats(html) {
   }
 }
 
+/**
+ * Count elements for a specific theme
+ * Used to determine if a criterion is applicable
+ * @param {string} html - Full page HTML
+ * @param {number} theme - Theme number
+ * @returns {number} - Element count
+ */
+function countElementsForTheme(html, theme) {
+  const selector = THEME_SELECTORS[theme];
+  if (!selector) return -1; // Unknown theme
+  
+  try {
+    const $ = cheerio.load(html);
+    return $(selector).length;
+  } catch (error) {
+    return -1;
+  }
+}
+
+/**
+ * Specific element selectors for "Not Applicable" detection
+ * More granular than theme selectors for specific criteria
+ */
+const CRITERION_SPECIFIC_SELECTORS = {
+  // Theme 1: Images - more specific
+  '1.1': 'img[src]:not([alt=""]):not([role="presentation"]), svg:not([aria-hidden="true"]), [role="img"], input[type="image"], area[alt]',
+  '1.2': 'img[alt=""], [role="presentation"], [role="none"], svg[aria-hidden="true"]',
+  '1.3': 'img[alt]:not([alt=""]), [role="img"][aria-label], [role="img"][aria-labelledby]',
+  '1.4': 'img[alt*="captcha" i], img[alt*="test" i], img[src*="captcha" i]',
+  '1.5': 'img[usemap], map, area',
+  '1.6': 'img[longdesc], [aria-describedby], figure img',
+  '1.7': 'img[longdesc], [aria-describedby], figure img',
+  '1.8': 'img[alt*="text" i], svg text, canvas',
+  '1.9': 'img[alt*="text" i], svg text, canvas',
+  
+  // Theme 2: Frames
+  '2.1': 'iframe, frame',
+  '2.2': 'iframe[title], frame[title]',
+  
+  // Theme 4: Multimedia - specific
+  '4.1': 'video, audio, object[type*="video"], object[type*="audio"], embed[type*="video"], embed[type*="audio"]',
+  '4.2': 'video[src], audio[src]',
+  '4.3': 'video track[kind="captions"], video track[kind="subtitles"]',
+  '4.4': 'video track[kind="captions"], video track[kind="subtitles"]',
+  '4.5': 'video track[kind="descriptions"], audio track[kind="descriptions"]',
+  '4.6': 'video track[kind="descriptions"]',
+  '4.7': 'video track[kind="descriptions"]',
+  '4.8': 'video, audio',
+  '4.9': 'video, audio',
+  '4.10': 'video[autoplay], audio[autoplay], [autoplay]',
+  '4.11': 'video[autoplay], audio[autoplay], [autoplay]',
+  '4.12': 'video, audio',
+  '4.13': 'video, audio',
+  
+  // Theme 5: Tables
+  '5.1': 'table',
+  '5.2': 'table',
+  '5.3': 'table caption, table[aria-label], table[aria-labelledby]',
+  '5.4': 'table[role="presentation"], table[role="none"]',
+  '5.5': 'table[role="presentation"], table[role="none"]',
+  '5.6': 'table th',
+  '5.7': 'table th[scope], table th[id]',
+  '5.8': 'table th[id], table td[headers]',
+  
+  // Theme 11: Forms
+  '11.1': 'input, select, textarea',
+  '11.2': 'label, [aria-label], [aria-labelledby]',
+  '11.3': 'input, select, textarea',
+  '11.4': 'input, select, textarea',
+  '11.5': 'input, select, textarea',
+  '11.6': 'fieldset, [role="group"]',
+  '11.7': 'fieldset legend, [role="group"]',
+  '11.8': 'select optgroup, datalist',
+  '11.9': 'button, input[type="submit"], input[type="button"], input[type="reset"]',
+  '11.10': '[required], [aria-required]',
+  '11.11': '[required], [aria-required]',
+  '11.12': '[type="email"], [type="url"], [type="tel"], [pattern]',
+  '11.13': '[aria-invalid], .error, .invalid',
+};
+
+/**
+ * Check if a criterion is applicable to the page
+ * Returns element count for the criterion-specific selector
+ * @param {string} html - Full page HTML  
+ * @param {string} article - Criterion article (e.g., "4.1", "11.2")
+ * @returns {Object} - { applicable: boolean, elementCount: number, reason: string }
+ */
+function checkCriterionApplicability(html, article) {
+  try {
+    const $ = cheerio.load(html);
+    
+    // Try criterion-specific selector first
+    const specificSelector = CRITERION_SPECIFIC_SELECTORS[article];
+    if (specificSelector) {
+      const count = $(specificSelector).length;
+      if (count === 0) {
+        return {
+          applicable: false,
+          elementCount: 0,
+          reason: `No relevant elements found for criterion ${article}`
+        };
+      }
+      return { applicable: true, elementCount: count, reason: null };
+    }
+    
+    // Fall back to theme selector
+    const theme = getThemeFromArticle(article);
+    if (theme) {
+      const themeSelector = THEME_SELECTORS[theme];
+      if (themeSelector) {
+        const count = $(themeSelector).length;
+        // For some themes, 0 elements doesn't mean N/A (e.g., structure, mandatory)
+        const alwaysApplicableThemes = [3, 8, 9, 10, 12]; // Colors, Mandatory, Structure, Presentation, Navigation
+        if (count === 0 && !alwaysApplicableThemes.includes(theme)) {
+          return {
+            applicable: false,
+            elementCount: 0,
+            reason: `No ${getThemeName(theme)} elements found on this page`
+          };
+        }
+        return { applicable: true, elementCount: count, reason: null };
+      }
+    }
+    
+    // Default: assume applicable
+    return { applicable: true, elementCount: -1, reason: null };
+  } catch (error) {
+    return { applicable: true, elementCount: -1, reason: null };
+  }
+}
+
+/**
+ * Batch check applicability for multiple criteria
+ * @param {string} html - Full page HTML
+ * @param {Array} criteria - Array of criterion objects with 'article' property
+ * @returns {Map} - Map of article -> applicability result
+ */
+function batchCheckApplicability(html, criteria) {
+  const results = new Map();
+  
+  // Pre-load cheerio once
+  let $;
+  try {
+    $ = cheerio.load(html);
+  } catch (error) {
+    // Return all as applicable on error
+    criteria.forEach(c => results.set(c.article, { applicable: true, elementCount: -1, reason: null }));
+    return results;
+  }
+  
+  for (const criterion of criteria) {
+    const article = criterion.article;
+    
+    // Try criterion-specific selector first
+    const specificSelector = CRITERION_SPECIFIC_SELECTORS[article];
+    if (specificSelector) {
+      const count = $(specificSelector).length;
+      if (count === 0) {
+        results.set(article, {
+          applicable: false,
+          elementCount: 0,
+          reason: `No relevant elements found for criterion ${article}`
+        });
+        continue;
+      }
+      results.set(article, { applicable: true, elementCount: count, reason: null });
+      continue;
+    }
+    
+    // Fall back to theme selector
+    const theme = getThemeFromArticle(article);
+    if (theme) {
+      const themeSelector = THEME_SELECTORS[theme];
+      if (themeSelector) {
+        const count = $(themeSelector).length;
+        const alwaysApplicableThemes = [3, 8, 9, 10, 12];
+        if (count === 0 && !alwaysApplicableThemes.includes(theme)) {
+          results.set(article, {
+            applicable: false,
+            elementCount: 0,
+            reason: `No ${getThemeName(theme)} elements found on this page`
+          });
+          continue;
+        }
+        results.set(article, { applicable: true, elementCount: count, reason: null });
+        continue;
+      }
+    }
+    
+    results.set(article, { applicable: true, elementCount: -1, reason: null });
+  }
+  
+  return results;
+}
+
 module.exports = {
   extractForTheme,
   extractForCriterion,
@@ -240,5 +435,9 @@ module.exports = {
   getThemeFromArticle,
   getThemeName,
   getExtractionStats,
-  THEME_SELECTORS
+  countElementsForTheme,
+  checkCriterionApplicability,
+  batchCheckApplicability,
+  THEME_SELECTORS,
+  CRITERION_SPECIFIC_SELECTORS
 };

@@ -352,8 +352,360 @@ async function analyzeByThemeBatch(criteria, pageContext, options = {}) {
 }
 
 /**
+ * Compliance status constants
+ */
+const COMPLIANCE_STATUS = {
+    COMPLIANT: 'compliant',
+    NON_COMPLIANT: 'non_compliant', 
+    NOT_APPLICABLE: 'not_applicable',
+    NEEDS_REVIEW: 'needs_review'
+};
+
+/**
+ * Analyze criterion and determine compliance status
+ * Returns structured result with status determination
+ * 
+ * @param {Object} criterion - The RGAA criterion to analyze
+ * @param {Object} pageContext - Context about the page
+ * @param {Object} axeViolations - Any violations from axe-core for this criterion
+ * @returns {Promise<Object>} - Structured analysis result with status
+ */
+async function analyzeWithStatus(criterion, pageContext, axeViolations = []) {
+    const { 
+        url, 
+        html = '', 
+        useCache = true,
+        model 
+    } = pageContext;
+    
+    // First, check if criterion is applicable based on element presence
+    const applicability = htmlExtractor.checkCriterionApplicability(html, criterion.article);
+    
+    // If no relevant elements exist, mark as Not Applicable immediately
+    if (!applicability.applicable) {
+        return {
+            criterion: criterion.article,
+            level: criterion.level,
+            desc: criterion.desc,
+            status: COMPLIANCE_STATUS.NOT_APPLICABLE,
+            confidence: 100,
+            reasoning: applicability.reason,
+            issues: [],
+            recommendations: [],
+            elementCount: 0,
+            timestamp: new Date().toISOString(),
+            fromCache: false,
+            testedBy: 'element_detection'
+        };
+    }
+    
+    // If axe-core found violations, mark as Non-Compliant
+    if (axeViolations && axeViolations.length > 0) {
+        const issues = axeViolations.map(v => ({
+            type: 'violation',
+            message: v.help || v.description,
+            elements: v.nodes ? v.nodes.map(n => n.html?.substring(0, 200)) : [],
+            impact: v.impact
+        }));
+        
+        return {
+            criterion: criterion.article,
+            level: criterion.level,
+            desc: criterion.desc,
+            status: COMPLIANCE_STATUS.NON_COMPLIANT,
+            confidence: 95,
+            reasoning: `Automated testing detected ${axeViolations.length} violation(s)`,
+            issues,
+            recommendations: [criterion.fix],
+            elementCount: applicability.elementCount,
+            timestamp: new Date().toISOString(),
+            fromCache: false,
+            testedBy: 'axe_core'
+        };
+    }
+    
+    // Check cache for LLM analysis
+    if (useCache) {
+        const cached = aiCache.getCachedAnalysis(criterion, html);
+        if (cached && cached.status) {
+            return {
+                criterion: criterion.article,
+                level: criterion.level,
+                desc: criterion.desc,
+                status: cached.status,
+                confidence: cached.confidence || 80,
+                reasoning: cached.reasoning || cached.analysis,
+                issues: cached.issues || [],
+                recommendations: cached.recommendations || [],
+                elementCount: applicability.elementCount,
+                timestamp: cached.timestamp,
+                fromCache: true,
+                testedBy: cached.testedBy || 'ai'
+            };
+        }
+    }
+    
+    // Extract relevant HTML for this criterion
+    const relevantHtml = htmlExtractor.extractForCriterion(html, criterion.article, {
+        maxChars: 4000,
+        maxElements: 40,
+        includeContext: true
+    });
+    
+    // Build structured prompt for status determination
+    const prompt = buildStatusPrompt(criterion, url, relevantHtml, applicability.elementCount);
+    
+    const response = await query(prompt, { model });
+    
+    // Parse the LLM response to extract structured data
+    const parsed = parseStatusResponse(response, criterion);
+    
+    const result = {
+        criterion: criterion.article,
+        level: criterion.level,
+        desc: criterion.desc,
+        status: parsed.status,
+        confidence: parsed.confidence,
+        reasoning: parsed.reasoning,
+        issues: parsed.issues,
+        recommendations: parsed.recommendations,
+        elementCount: applicability.elementCount,
+        timestamp: new Date().toISOString(),
+        fromCache: false,
+        testedBy: 'ai',
+        rawAnalysis: response
+    };
+    
+    // Cache the structured result
+    if (useCache) {
+        aiCache.cacheAnalysis(criterion, html, JSON.stringify({
+            status: result.status,
+            confidence: result.confidence,
+            reasoning: result.reasoning,
+            issues: result.issues,
+            recommendations: result.recommendations,
+            testedBy: 'ai'
+        }));
+    }
+    
+    return result;
+}
+
+/**
+ * Build a prompt that asks LLM to determine compliance status
+ */
+function buildStatusPrompt(criterion, url, html, elementCount) {
+    const customPrompt = criterion.prompt || '';
+    
+    return `You are an RGAA 4.1 accessibility auditor. Analyze and determine the compliance status.
+
+CRITERION: ${criterion.article} (Level ${criterion.level})
+DESCRIPTION: ${criterion.desc}
+URL: ${url}
+ELEMENTS FOUND: ${elementCount >= 0 ? elementCount : 'Unknown'}
+
+HTML TO ANALYZE:
+${html}
+
+${customPrompt ? `SPECIFIC INSTRUCTIONS:\n${customPrompt}\n` : ''}
+TASK: Determine the compliance status for this criterion.
+
+You MUST respond in this EXACT format (use these exact labels):
+
+STATUS: [Choose ONE: COMPLIANT | NON_COMPLIANT | NEEDS_REVIEW]
+CONFIDENCE: [Number 0-100]
+REASONING: [One paragraph explaining your determination]
+ISSUES: [List each issue on a new line starting with "- ", or "None" if compliant]
+RECOMMENDATIONS: [List each recommendation on a new line starting with "- ", or "None" if fully compliant]
+
+Rules:
+- COMPLIANT: All requirements of the criterion are clearly met
+- NON_COMPLIANT: Clear violations are found
+- NEEDS_REVIEW: Cannot determine with confidence, human verification needed
+- Be conservative: if uncertain, choose NEEDS_REVIEW
+- Do NOT use NOT_APPLICABLE (that's determined by element presence, not content)`;
+}
+
+/**
+ * Parse LLM response to extract structured status data
+ */
+function parseStatusResponse(response, criterion) {
+    const result = {
+        status: COMPLIANCE_STATUS.NEEDS_REVIEW,
+        confidence: 50,
+        reasoning: '',
+        issues: [],
+        recommendations: []
+    };
+    
+    try {
+        // Extract STATUS
+        const statusMatch = response.match(/STATUS:\s*(COMPLIANT|NON_COMPLIANT|NEEDS_REVIEW)/i);
+        if (statusMatch) {
+            const statusStr = statusMatch[1].toUpperCase();
+            if (statusStr === 'COMPLIANT') result.status = COMPLIANCE_STATUS.COMPLIANT;
+            else if (statusStr === 'NON_COMPLIANT') result.status = COMPLIANCE_STATUS.NON_COMPLIANT;
+            else result.status = COMPLIANCE_STATUS.NEEDS_REVIEW;
+        }
+        
+        // Extract CONFIDENCE
+        const confMatch = response.match(/CONFIDENCE:\s*(\d+)/i);
+        if (confMatch) {
+            result.confidence = Math.min(100, Math.max(0, parseInt(confMatch[1], 10)));
+        }
+        
+        // Extract REASONING
+        const reasonMatch = response.match(/REASONING:\s*([^\n]+(?:\n(?!ISSUES:|RECOMMENDATIONS:)[^\n]+)*)/i);
+        if (reasonMatch) {
+            result.reasoning = reasonMatch[1].trim();
+        }
+        
+        // Extract ISSUES
+        const issuesMatch = response.match(/ISSUES:\s*([\s\S]*?)(?=RECOMMENDATIONS:|$)/i);
+        if (issuesMatch) {
+            const issuesText = issuesMatch[1].trim();
+            if (issuesText.toLowerCase() !== 'none') {
+                const issues = issuesText.split('\n')
+                    .map(line => line.replace(/^[-•*]\s*/, '').trim())
+                    .filter(line => line.length > 0);
+                result.issues = issues.map(text => ({ type: 'issue', message: text }));
+            }
+        }
+        
+        // Extract RECOMMENDATIONS
+        const recsMatch = response.match(/RECOMMENDATIONS:\s*([\s\S]*?)$/i);
+        if (recsMatch) {
+            const recsText = recsMatch[1].trim();
+            if (recsText.toLowerCase() !== 'none') {
+                result.recommendations = recsText.split('\n')
+                    .map(line => line.replace(/^[-•*]\s*/, '').trim())
+                    .filter(line => line.length > 0);
+            }
+        }
+        
+        // If no reasoning extracted, use full response
+        if (!result.reasoning) {
+            result.reasoning = response.substring(0, 500);
+        }
+        
+    } catch (error) {
+        result.reasoning = response.substring(0, 500);
+    }
+    
+    return result;
+}
+
+/**
+ * Analyze multiple criteria with status determination in parallel
+ * 
+ * @param {Array} criteria - Array of criterion objects
+ * @param {Object} pageContext - Context about the page
+ * @param {Object} violationsByRule - Map of axe rule ID to violations
+ * @param {Object} options - Processing options
+ * @returns {Promise<Array>} - Array of structured analysis results
+ */
+async function analyzeAllWithStatus(criteria, pageContext, violationsByRule = {}, options = {}) {
+    const { concurrency = DEFAULT_CONCURRENCY, onProgress = null } = options;
+    
+    // First, batch check applicability for all criteria
+    const applicabilityMap = htmlExtractor.batchCheckApplicability(pageContext.html, criteria);
+    
+    // Separate into applicable and not applicable
+    const notApplicable = [];
+    const toAnalyze = [];
+    
+    for (const criterion of criteria) {
+        const app = applicabilityMap.get(criterion.article);
+        if (app && !app.applicable) {
+            notApplicable.push({
+                criterion: criterion.article,
+                level: criterion.level,
+                desc: criterion.desc,
+                status: COMPLIANCE_STATUS.NOT_APPLICABLE,
+                confidence: 100,
+                reasoning: app.reason,
+                issues: [],
+                recommendations: [],
+                elementCount: 0,
+                timestamp: new Date().toISOString(),
+                fromCache: false,
+                testedBy: 'element_detection'
+            });
+        } else {
+            // Check for axe-core violations
+            const axeRules = criterion.axeRules || [];
+            const violations = axeRules
+                .map(ruleId => violationsByRule[ruleId])
+                .filter(Boolean);
+            
+            toAnalyze.push({ criterion, violations });
+        }
+    }
+    
+    // Report not applicable criteria immediately
+    if (onProgress) {
+        for (const result of notApplicable) {
+            onProgress(notApplicable.indexOf(result) + 1, criteria.length, { article: result.criterion }, result);
+        }
+    }
+    
+    // Process remaining criteria in parallel
+    const pLimit = (await import('p-limit')).default;
+    const limit = pLimit(concurrency);
+    
+    let completed = notApplicable.length;
+    const total = criteria.length;
+    
+    const promises = toAnalyze.map(({ criterion, violations }) =>
+        limit(async () => {
+            try {
+                const result = await analyzeWithStatus(criterion, pageContext, violations);
+                completed++;
+                if (onProgress) {
+                    onProgress(completed, total, criterion, result);
+                }
+                return result;
+            } catch (error) {
+                completed++;
+                const errorResult = {
+                    criterion: criterion.article,
+                    level: criterion.level,
+                    desc: criterion.desc,
+                    status: COMPLIANCE_STATUS.NEEDS_REVIEW,
+                    confidence: 0,
+                    reasoning: `Error during analysis: ${error.message}`,
+                    issues: [],
+                    recommendations: [],
+                    elementCount: -1,
+                    timestamp: new Date().toISOString(),
+                    fromCache: false,
+                    testedBy: 'error',
+                    error: true
+                };
+                if (onProgress) {
+                    onProgress(completed, total, criterion, errorResult);
+                }
+                return errorResult;
+            }
+        })
+    );
+    
+    const analyzed = await Promise.all(promises);
+    
+    // Combine and sort results by criterion number
+    const allResults = [...notApplicable, ...analyzed];
+    allResults.sort((a, b) => {
+        const [aMajor, aMinor] = a.criterion.split('.').map(Number);
+        const [bMajor, bMinor] = b.criterion.split('.').map(Number);
+        return aMajor - bMajor || aMinor - bMinor;
+    });
+    
+    return allResults;
+}
+
+/**
  * Analyze accessibility criterion using the LLM (backward compatibility)
- * @deprecated Use analyzeAccessibilityCriterion with html parameter instead
+ * @deprecated Use analyzeWithStatus instead
  */
 async function analyzeAccessibilityCriterionSimple(criterion, pageContext) {
     const prompt = `You are an accessibility expert. Analyze the following RGAA accessibility criterion:
@@ -439,11 +791,14 @@ module.exports = {
     analyzeAccessibilityCriterionSimple,
     analyzeInParallel,
     analyzeByThemeBatch,
+    analyzeWithStatus,
+    analyzeAllWithStatus,
     checkHealth,
     getAvailableModels,
     aiCache,
     htmlExtractor,
     config,
+    COMPLIANCE_STATUS,
     DEFAULT_MODEL,
     DEFAULT_CONCURRENCY,
     OLLAMA_OPTIONS

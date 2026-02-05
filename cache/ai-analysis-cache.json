@@ -726,5 +726,467 @@
     "timestamp": "2026-02-05T13:09:35.760Z",
     "criterionDesc": "Dans chaque page web, l'information ne doit pas être donnée uniquement par la couleur. Cette règle est-elle respectée ?",
     "testMethod": "axe-core,manual"
+  },
+  "1.3-a9a1b25c": {
+    "criterion": "1.3",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":60,\"reasoning\":\"The images found on the provided URL contain alternative text, but a thorough analysis is needed to determine if the alt text is relevant and accurate for each image. Some images have generic alt text such as \\\"Photo [Name]\\\", which may not accurately describe the content of the image. Other images lack descriptive alt text altogether.\",\"issues\":[{\"type\":\"issue\",\"message\":\"Generic alt text (e.g., \\\"Photo Jensen Huang\\\")\"},{\"type\":\"issue\",\"message\":\"Lack of descriptive alt text for some images\"},{\"type\":\"issue\",\"message\":\"Overly literal alt text (e.g., \\\"A photograph of...\\\")\"}],\"recommendations\":[\"Review and update the alternative text for each image to accurately describe the content of the image in a concise manner that fits the context where it appears.\",\"Avoid using generic terms like \\\"photo\\\" or \\\"image\\\" as alt text. Instead, provide a detailed description of the image's subject matter.\",\"Ensure that the alt text serves the same function as the image and conveys its purpose in context.\",\"If necessary, consult with a web accessibility expert to ensure compliance with RGAA 4.1 guidelines.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T19:52:19.769Z",
+    "criterionDesc": "Pour chaque image porteuse d'information ayant une alternative textuelle, cette alternative est-elle pertinente (hors cas particuliers) ?",
+    "testMethod": "ai"
+  },
+  "2.1-4e18123c": {
+    "criterion": "2.1",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":50,\"reasoning\":\"The provided HTML contains six <iframe> elements, but it is unclear whether they all serve as frames with a title. While some of the iframes have a 'title' attribute, others do not. Additionally, some iframes are hidden or have attributes that suggest they are used for specific purposes like cookies or chat functions.\",\"issues\":[{\"type\":\"issue\",\"message\":\"Some <iframe> elements lack a title attribute.\"},{\"type\":\"issue\",\"message\":\"It is unclear whether all <iframe> elements serve as frames with a title.\"}],\"recommendations\":[\"Add a 'title' attribute to each <iframe> element to describe the content of the frame for better accessibility.\",\"If some <iframe> elements are not intended to be frames, consider removing them or adjusting their purpose to comply with this criterion.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:08:17.852Z",
+    "criterionDesc": "Chaque cadre a-t-il un titre de cadre ?",
+    "testMethod": "axe-core"
+  },
+  "1.3-4e18123c": {
+    "criterion": "1.3",
+    "analysis": "{\"status\":\"compliant\",\"confidence\":90,\"reasoning\":\"The provided HTML contains an image with an alt attribute that accurately describes the subject of the image. The alt text \\\"logo\\\" is concise and appropriately conveys the purpose of the image as a brand identifier. It does not appear to be redundant with surrounding text, and it avoids generic terms like \\\"image\\\" or \\\"graphic\\\".\",\"issues\":[],\"recommendations\":[\"None (The current alt text is already compliant)\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:08:42.999Z",
+    "criterionDesc": "Pour chaque image porteuse d'information ayant une alternative textuelle, cette alternative est-elle pertinente (hors cas particuliers) ?",
+    "testMethod": "ai"
+  },
+  "2.2-4e18123c": {
+    "criterion": "2.2",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":60,\"reasoning\":\"The given HTML contains iframes and frames with title attributes. However, the relevance and descriptiveness of each frame title cannot be definitively determined based on the provided information. To accurately assess compliance, it would be necessary to review the content within each frame to ensure that the titles are both descriptive and accurate, providing useful context for screen reader users.\",\"issues\":[{\"type\":\"issue\",\"message\":\"The titles for the iframes containing videos do not explicitly identify them as videos or provide information about their topics.\"},{\"type\":\"issue\",\"message\":\"The title for the first iframe is \\\"MOBILE (Copy)\\\", which may not be descriptive enough to distinguish it from other frames.\"},{\"type\":\"issue\",\"message\":\"The title for the second iframe is \\\"www 2\\\", which is generic and does not provide context about its content or purpose.\"},{\"type\":\"issue\",\"message\":\"The titles for the two hidden iframes are blank, which could potentially cause issues for screen reader users navigating the site.\"},{\"type\":\"issue\",\"message\":\"The title for the last iframe is \\\"Intercom\\\", but it's unclear what function this widget serves on the website.\"}],\"recommendations\":[\"Review each frame's content to ensure that titles are both descriptive and accurate, providing useful context for screen reader users.\",\"Rewrite generic titles to be more specific and informative about the frame's content or purpose.\",\"If necessary, add titles to frames that currently lack them.\",\"Consider using titles that clearly identify embedded videos and provide information about their topics.\",\"Ensure that hidden iframes have appropriate titles or are removed if they do not serve a necessary function for accessibility purposes.\",\"Provide titles for widgets that accurately describe their function on the website.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:09:05.997Z",
+    "criterionDesc": "Pour chaque cadre ayant un titre de cadre, ce titre de cadre est-il pertinent ?",
+    "testMethod": "ai"
+  },
+  "3.1-4e18123c": {
+    "criterion": "3.1",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":60,\"reasoning\":\"The provided HTML and CSS code contains a large number of elements, including images, stylesheets, scripts, and various interactive components. A thorough analysis is required to determine if any information is conveyed by color alone without additional visual cues. Some potential issues might include error indicators on forms, status indicators, links within text, charts/graphs, navigation items, and buttons or interactive elements. However, due to the complexity of the code and the large number of elements, a more in-depth review is needed to confirm compliance with this criterion.\",\"issues\":[{\"type\":\"issue\",\"message\":\"Potential issues with form errors, status indicators, links within text, charts/graphs, navigation items, and buttons or interactive elements where color alone may be used to convey information.\"}],\"recommendations\":[\"Conduct a detailed review of the HTML and CSS code to identify any instances where information is conveyed by color alone without additional visual cues.\",\"If issues are found, make necessary adjustments to ensure that all color-coded information also has a non-color visual indicator (text, icon, pattern, shape, underline, border style).\",\"Consider using automated tools to aid in the review process and ensure consistent compliance with accessibility guidelines.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:09:29.401Z",
+    "criterionDesc": "Dans chaque page web, l'information ne doit pas être donnée uniquement par la couleur. Cette règle est-elle respectée ?",
+    "testMethod": "axe-core,manual"
+  },
+  "7.1-4e18123c": {
+    "criterion": "7.1",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":60,\"reasoning\":\"The provided HTML contains a single script related to a cookie consent banner. While it does have some ARIA attributes, a thorough analysis is needed to determine if it fully complies with the criteria for assistive technology compatibility. The script includes roles such as \\\"dialog\\\" and \\\"button\\\", but additional checks are required to ensure proper ARIA states and properties, accessible names, and dynamic updates are implemented correctly.\",\"issues\":[{\"type\":\"issue\",\"message\":\"The cookie consent banner's ARIA implementation may not meet all the necessary criteria for a compliant interactive component.\"}],\"recommendations\":[\"Perform a detailed analysis of the script to verify its compliance with the given criterion, focusing on proper ARIA roles, states, properties, accessible names, and dynamic updates.\",\"If any issues are found, make recommendations for improvement to ensure the cookie consent banner is fully accessible to users of assistive technologies.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:09:56.569Z",
+    "criterionDesc": "Chaque script est-il, si nécessaire, compatible avec les technologies d'assistance ?",
+    "testMethod": "axe-core,manual"
+  },
+  "7.2-4e18123c": {
+    "criterion": "7.2",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":50,\"reasoning\":\"The provided HTML contains a single script related to cookie consent management. However, without a thorough analysis of the JavaScript functionality and its alternatives, it is not possible to definitively determine if the alternative (the cookie banner with options to accept or reject cookies) provides equivalent accessible functionality when JavaScript is disabled.\",\"issues\":[{\"type\":\"issue\",\"message\":\"The script's alternative may not provide the same information or functionality as the JavaScript version when JavaScript is disabled.\"},{\"type\":\"issue\",\"message\":\"It is unclear if there are server-side fallbacks for client-side features, such as cookie management.\"}],\"recommendations\":[\"Perform a comprehensive accessibility audit of the script's JavaScript functionality and its alternatives to ensure they provide equivalent accessible functionality when JavaScript is disabled.\",\"Implement server-side fallbacks for any client-side features that are essential for user experience and accessibility.\",\"Ensure that users can complete the same tasks, both with and without JavaScript enabled.\",\"Verify that the alternative is accessible according to RGAA 4.1 guidelines.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:10:24.333Z",
+    "criterionDesc": "Pour chaque script ayant une alternative, cette alternative est-elle pertinente ?",
+    "testMethod": "manual"
+  },
+  "7.3-4e18123c": {
+    "criterion": "7.3",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":50,\"reasoning\":\"The provided HTML code contains a JavaScript script related to cookie consent management. However, without performing a comprehensive accessibility test and manual inspection of the interactive elements generated or enhanced by this script, it is not possible to definitively determine its keyboard operability and compliance with RGAA 4.1 Criterion 7.3.\",\"issues\":[{\"type\":\"issue\",\"message\":\"The JavaScript script's interactive elements have not been tested for keyboard accessibility.\"},{\"type\":\"issue\",\"message\":\"It is unclear if all mouse interactions have keyboard equivalents.\"},{\"type\":\"issue\",\"message\":\"Focus management, dynamic content focus, and custom component navigation have not been verified.\"}],\"recommendations\":[\"Perform a comprehensive accessibility test to verify the keyboard operability of interactive elements generated or enhanced by the JavaScript script.\",\"Manually inspect the interactive elements for mouse-only event handlers and ensure they have keyboard equivalents.\",\"Verify focus management, dynamic content focus, and custom component navigation for keyboard accessibility.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:10:51.836Z",
+    "criterionDesc": "Chaque script est-il contrôlable par le clavier et par tout dispositif de pointage (hors cas particuliers) ?",
+    "testMethod": "axe-core,manual"
+  },
+  "7.4-4e18123c": {
+    "criterion": "7.4",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":60,\"reasoning\":\"The JavaScript code provided initiates a cookie consent dialog box, but it does not directly control the context changes that might disorient users. However, the script is part of a third-party service (Cookiebot) and it's possible that these services may introduce unexpected context changes. Without further analysis of the entire website, it's challenging to determine if all context changes are user-initiated or if users are warned in advance.\",\"issues\":[{\"type\":\"issue\",\"message\":\"The JavaScript code provided does not initiate any clear context changes directly, but third-party services like Cookiebot may introduce unexpected context changes.\"},{\"type\":\"issue\",\"message\":\"It is unclear whether the cookie consent dialog box provides adequate warnings for potential context changes initiated by Cookiebot.\"}],\"recommendations\":[\"Analyze the entire website to identify and assess any potential context changes initiated by third-party services like Cookiebot.\",\"Verify if the cookie consent dialog box adequately warns users about potential context changes and provides user control over these changes.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:11:19.913Z",
+    "criterionDesc": "Pour chaque script qui initie un changement de contexte, l'utilisateur est-il averti ou en a-t-il le contrôle ?",
+    "testMethod": "manual"
+  },
+  "7.5-4e18123c": {
+    "criterion": "7.5",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":60,\"reasoning\":\"The page contains a significant number of elements, and while a cursory analysis suggests the presence of some status messages, a thorough review is needed to confirm their compliance with RGAA 4.1 criteria 7.5. The analysis will focus on checking for appropriate ARIA live regions, verifying the live region exists in the DOM before content is added, and ensuring that only new content is announced.\",\"issues\":[{\"type\":\"issue\",\"message\":\"The presence of multiple status messages throughout the page needs to be verified.\"},{\"type\":\"issue\",\"message\":\"It's unclear whether the appropriate ARIA live regions are being used for each status message type.\"},{\"type\":\"issue\",\"message\":\"It's also uncertain if the live region exists in the DOM before content is added, and if only new content is announced.\"}],\"recommendations\":[\"Perform a comprehensive review of all status messages on the page to ensure they have appropriate ARIA live regions and will be announced correctly.\",\"Verify that the live region exists in the DOM before content is added.\",\"Check that only the new content is announced, not entire sections.\",\"If any issues are found, make necessary adjustments to meet RGAA 4.1 criteria 7.5 requirements.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:11:50.133Z",
+    "criterionDesc": "Dans chaque page web, les messages de statut sont-ils correctement restitués par les technologies d'assistance ?",
+    "testMethod": "manual"
+  },
+  "8.1-4e18123c": {
+    "criterion": "8.1",
+    "analysis": "{\"status\":\"compliant\",\"confidence\":100,\"reasoning\":\"The HTML document contains a valid DOCTYPE declaration at the very beginning of the document. Specifically, it uses \\\"<!DOCTYPE html>\\\". This confirms compliance with the criterion as it is the recommended DOCTYPE for HTML5.\",\"issues\":[],\"recommendations\":[\"None (The provided HTML document is already compliant with this criterion.)\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:12:05.175Z",
+    "criterionDesc": "Chaque page web est-elle définie par un type de document ?",
+    "testMethod": "manual"
+  },
+  "8.2-4e18123c": {
+    "criterion": "8.2",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":60,\"reasoning\":\"The provided HTML code contains several preloaded assets and multiple stylesheets and scripts that are loaded asynchronously. While the HTML document appears to be well-structured, the presence of these external resources could potentially introduce issues related to accessibility, such as slow load times or non-compliant content within those resources. However, without a thorough analysis of each individual resource, it's not possible to definitively determine compliance with this criterion.\",\"issues\":[{\"type\":\"issue\",\"message\":\"Preloaded assets may contain non-compliant content\"},{\"type\":\"issue\",\"message\":\"External scripts and stylesheets could potentially introduce accessibility issues\"}],\"recommendations\":[\"Perform a detailed analysis of each preloaded asset and external resource to ensure they are compliant with RGAA 4.1 accessibility guidelines\",\"If necessary, optimize load times and address any identified accessibility issues within the resources\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:12:23.127Z",
+    "criterionDesc": "Pour chaque page web, le code source généré est-il valide selon le type de document spécifié ?",
+    "testMethod": "axe-core"
+  },
+  "8.4-4e18123c": {
+    "criterion": "8.4",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":60,\"reasoning\":\"The website uses multiple CSS and JavaScript files that are loaded asynchronously, which makes it difficult to determine with certainty whether the HTML document's default language is correctly specified. Although some of the files have a `charset=\\\"utf-8\\\"` attribute in their meta tags, this does not necessarily indicate the default language of the page.\",\"issues\":[{\"type\":\"issue\",\"message\":\"The default language of the HTML document has not been explicitly declared\"}],\"recommendations\":[\"Add a `lang` attribute to the root `html` element with the appropriate value for the default language used on the page (e.g., \\\"fr\\\" for French, \\\"en\\\" for English, etc.) to ensure compliance with RGAA 4.1 Criterion 8.4.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:12:40.025Z",
+    "criterionDesc": "Pour chaque page web ayant une langue par défaut, le code de langue est-il pertinent ?",
+    "testMethod": "axe-core"
+  },
+  "8.5-4e18123c": {
+    "criterion": "8.5",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":50,\"reasoning\":\"The provided HTML does not contain a <title> tag explicitly, which is typically used to set the title of the page. However, it might be dynamically generated and not present in the static HTML. Therefore, human verification is needed to confirm the compliance status.\",\"issues\":[{\"type\":\"issue\",\"message\":\"The <title> tag is missing or not present in the provided HTML\"}],\"recommendations\":[\"Ensure that a <title> tag is included in the HTML to provide a clear and concise title for the page. This is important for SEO, screen readers, and overall user experience.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:12:55.193Z",
+    "criterionDesc": "Chaque page web a-t-elle un titre de page ?",
+    "testMethod": "axe-core"
+  },
+  "8.6-4e18123c": {
+    "criterion": "8.6",
+    "analysis": "{\"status\":\"non_compliant\",\"confidence\":70,\"reasoning\":\"The page title is \\\"Viva Technology - Home\\\" which does not meet the criteria of being RELEVANT, DESCRIPTIVE, and UNIQUE. While it includes the site name, it lacks specificity about the content or purpose of the homepage. It also doesn't follow the recommended structure of \\\"Page-specific content - Site name\\\".\",\"issues\":[{\"type\":\"issue\",\"message\":\"The title does not describe the page's content or purpose clearly\"},{\"type\":\"issue\",\"message\":\"The title is missing page-specific information\"},{\"type\":\"issue\",\"message\":\"The title does not follow the recommended structure for good practices\"}],\"recommendations\":[\"Update the title to include specific details about the homepage content, such as \\\"Viva Technology - Welcome to Our Homepage\\\"\",\"Follow the recommended structure of \\\"Page-specific content - Site name\\\" for better accessibility and clarity. For example, \\\"Home - Viva Technology\\\" would be more appropriate.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:13:17.063Z",
+    "criterionDesc": "Pour chaque page web ayant un titre de page, ce titre est-il pertinent ?",
+    "testMethod": "ai"
+  },
+  "8.7-4e18123c": {
+    "criterion": "8.7",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":50,\"reasoning\":\"The page does not have explicit language markup for foreign languages found within the content. While some technical terms and common words may be universally understood, it is difficult to determine without human verification whether they are properly marked as exceptions.\",\"issues\":[{\"type\":\"issue\",\"message\":\"Foreign language text exists without appropriate lang attribute\"}],\"recommendations\":[\"Add lang attributes to elements containing foreign languages to improve accessibility and ensure compliance with RGAA 4.1 Criterion 8.7.\",\"Perform a thorough review of the page content to identify and properly mark exceptions, if applicable.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:13:33.788Z",
+    "criterionDesc": "Dans chaque page web, chaque changement de langue est-il indiqué dans le code source (hors cas particuliers) ?",
+    "testMethod": "axe-core,manual"
+  },
+  "8.8-4e18123c": {
+    "criterion": "8.8",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":50,\"reasoning\":\"The provided HTML contains multiple elements with the 'lang' attribute. However, due to the large amount of preloaded resources and JavaScript files, it is not possible for me to manually verify the validity and appropriateness of each 'lang' attribute within this limited context. A more thorough analysis would require accessing the rendered web page and inspecting the final HTML structure.\",\"issues\":[{\"type\":\"issue\",\"message\":\"Multiple elements with 'lang' attributes are present, but their validity and appropriateness cannot be verified in this context.\"}],\"recommendations\":[\"Manually verify each 'lang' attribute within the rendered web page to ensure they use valid ISO 639-1 language codes that match the actual content language. If necessary, consult with a developer or accessibility specialist for assistance.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:13:52.858Z",
+    "criterionDesc": "Dans chaque page web, le code de langue de chaque changement de langue est-il valide et pertinent ?",
+    "testMethod": "axe-core,manual"
+  },
+  "8.9-4e18123c": {
+    "criterion": "8.9",
+    "analysis": "{\"status\":\"non_compliant\",\"confidence\":80,\"reasoning\":\"While the HTML code contains a significant number of semantic elements, some are used for visual presentation purposes rather than their intended semantic meaning. This includes the use of <link> tags for preloading images, which is not a semantically correct usage. Additionally, the presence of multiple CSS and JavaScript files suggests that some styling may be applied using presentational HTML attributes or inline styles.\",\"issues\":[{\"type\":\"issue\",\"message\":\"Use of <link> tags for image preloading (instead of role=\\\"presentation\\\")\"},{\"type\":\"issue\",\"message\":\"Possible use of presentational HTML attributes or inline styles for styling\"}],\"recommendations\":[\"Replace the use of <link> tags with role=\\\"presentation\\\" for image preloading\",\"Review and refactor any presentational HTML attributes or inline styles to ensure semantic correctness. This may involve moving styling to external CSS files or using proper semantic elements where possible.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:14:12.927Z",
+    "criterionDesc": "Dans chaque page web, les balises ne doivent pas être utilisées uniquement à des fins de présentation. Cette règle est-elle respectée ?",
+    "testMethod": "manual"
+  },
+  "8.10-4e18123c": {
+    "criterion": "8.10",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":50,\"reasoning\":\"The page under analysis, <https://vivatechnology.com>, contains text in multiple languages, but it is unclear whether any of them are right-to-left (RTL) languages that require the \\\"dir=rtl\\\" attribute. A thorough examination of the content's language attributes and the actual direction of the text flow is necessary to determine compliance with this criterion.\",\"issues\":[{\"type\":\"issue\",\"message\":\"The page's primary language could not be determined, as no explicit language attribute (e.g., \\\"lang\\\") was found in the provided HTML sample.\"},{\"type\":\"issue\",\"message\":\"The presence of multiple preloaded images suggests that the content may include text in various languages, but their directionality is unknown without further investigation.\"}],\"recommendations\":[\"Examine the page's content to identify any RTL languages (Arabic, Hebrew, Persian/Farsi, Urdu, Pashto, Yiddish, or Syriac) and verify if they have appropriate \\\"dir\\\" attributes.\",\"If RTL text is found without a \\\"dir=rtl\\\" marking, apply the necessary corrections to ensure proper directionality.\",\"Examine the HTML structure for any explicit language attribute (e.g., \\\"lang\\\") to aid in determining the page's primary language and potential presence of RTL content.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:14:37.296Z",
+    "criterionDesc": "Dans chaque page web, les changements du sens de lecture sont-ils signalés ?",
+    "testMethod": "manual"
+  },
+  "9.1-4e18123c": {
+    "criterion": "9.1",
+    "analysis": "{\"status\":\"compliant\",\"confidence\":95,\"reasoning\":\"The webpage uses HTML elements with the 'role' and 'aria' attributes to structure the navigation menu, which is a good practice for accessibility. However, there are no heading elements (<h1>, <h2>, etc.) used to structure the main content of the page. The title \\\"This website uses cookies\\\" is wrapped within a div with role=\\\"heading\\\" and aria-level=\\\"2\\\", but it should be wrapped in an appropriate heading element for better semantic structure.\",\"issues\":[{\"type\":\"issue\",\"message\":\"Lack of proper heading elements (<h1>, <h2>, etc.) to structure the main content of the page\"}],\"recommendations\":[\"Wrap the main content with a proper heading element (<h1> for the main title, <h2> for subtitles, etc.) to improve semantic structure and make it easier for assistive technologies to understand the hierarchy of the content.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:14:52.859Z",
+    "criterionDesc": "Dans chaque page web, l'information est-elle structurée par l'utilisation appropriée de titres ?",
+    "testMethod": "axe-core"
+  },
+  "9.2-4e18123c": {
+    "criterion": "9.2",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":60,\"reasoning\":\"While the HTML structure appears to be well-formed and semantically correct with proper use of roles and aria attributes, there are multiple instances of repeated IDs (\\\"CybotCookiebotDialogNavDeclaration\\\", \\\"CybotCookiebotDialogNavDetails\\\", \\\"CybotCookiebotDialogNavAdSettings\\\", \\\"CybotCookiebotDialogNavAbout\\\") which could potentially cause issues with accessibility. However, without testing the actual functionality and impact on assistive technologies, it's difficult to definitively say whether this is a compliance issue or not.\",\"issues\":[{\"type\":\"issue\",\"message\":\"Multiple instances of repeated IDs\"}],\"recommendations\":[\"Ensure that each HTML element has a unique ID across the entire page to maintain proper accessibility and avoid potential conflicts with assistive technologies. It may be necessary to review the implementation of the Cybot Cookiebot script to address this issue.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:15:08.226Z",
+    "criterionDesc": "Dans chaque page web, la structure du document est-elle cohérente (hors cas particuliers) ?",
+    "testMethod": "axe-core"
+  },
+  "9.4-4e18123c": {
+    "criterion": "9.4",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":50,\"reasoning\":\"The provided HTML snippet contains multiple navigation elements and a few div containers, but it does not contain any clear examples of block quotes, inline quotes, testimonials, or cited passages from other sources. However, the presence of a <blockquote> element and a <q> element suggests that the page may use these elements for quotations. Without further analysis of the entire webpage, it is difficult to determine compliance with this criterion.\",\"issues\":[{\"type\":\"issue\",\"message\":\"The provided HTML snippet does not contain clear examples of block quotes, inline quotes, testimonials, or cited passages from other sources.\"}],\"recommendations\":[\"Analyze the entire webpage for quotations and verify they are properly marked up according to the specific instructions provided in this task.\",\"If necessary, review the use of <blockquote> and <q> elements throughout the page to ensure proper markup of all quotations.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:15:25.763Z",
+    "criterionDesc": "Dans chaque page web, chaque citation est-elle correctement indiquée ?",
+    "testMethod": "manual"
+  },
+  "10.1-4e18123c": {
+    "criterion": "10.1",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":70,\"reasoning\":\"While a significant portion of the presentation is controlled by CSS, there are several instances where deprecated presentational HTML attributes and elements are found. The analysis reveals the presence of some deprecated attributes such as 'align', 'bgcolor', 'border' on certain elements, and 'nowrap' on <td> and <th>. Additionally, the use of <font> tags is also detected. However, a thorough manual review is required to confirm the extent and impact of these findings.\",\"issues\":[{\"type\":\"issue\",\"message\":\"Deprecated 'align' attribute found on various elements\"},{\"type\":\"issue\",\"message\":\"Deprecated 'bgcolor' attribute found on some elements\"},{\"type\":\"issue\",\"message\":\"Deprecated 'border' attribute found on <table> and <img> elements\"},{\"type\":\"issue\",\"message\":\"Deprecated 'nowrap' attribute found on <td> and <th> elements\"},{\"type\":\"issue\",\"message\":\"Use of <font> tags detected\"}],\"recommendations\":[\"Replace deprecated HTML presentational attributes with their CSS counterparts (e.g., text-align, background-color, border, padding)\",\"Remove or replace the use of <font> tags with CSS styling\",\"Perform a thorough manual review to ensure all instances of deprecated elements and attributes are addressed.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:15:48.920Z",
+    "criterionDesc": "Dans le site web, des feuilles de styles sont-elles utilisées pour contrôler la présentation de l'information ?",
+    "testMethod": "manual"
+  },
+  "10.2-4e18123c": {
+    "criterion": "10.2",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":60,\"reasoning\":\"The page under analysis contains a significant number of external CSS and JavaScript files that are essential for the proper rendering of the webpage. While some informative content appears to be in HTML format, it is not possible to definitively determine if all informative content remains visible when CSS is disabled due to the complexity of the page structure and numerous external resources.\",\"issues\":[{\"type\":\"issue\",\"message\":\"The page contains multiple instances of background images that may convey information (infographics or charts as background images).\"},{\"type\":\"issue\",\"message\":\"There are several icon fonts used without text alternatives, such as Font Awesome and Material Icons.\"},{\"type\":\"issue\",\"message\":\"Some content might rely on CSS display, visibility, opacity to be shown, making it potentially invisible when CSS is disabled.\"}],\"recommendations\":[\"Perform a manual review of the webpage with CSS disabled to confirm if all informative content remains visible.\",\"Ensure that any background images conveying information have text alternatives provided in HTML.\",\"Provide text alternatives for icon fonts using aria-label or sr-only text.\",\"Verify that no important content is hidden behind CSS display, visibility, or opacity properties and make necessary adjustments if found.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:16:11.514Z",
+    "criterionDesc": "Dans chaque page web, le contenu visible porteur d'information reste-t-il présent lorsque les feuilles de styles sont désactivées ?",
+    "testMethod": "manual"
+  },
+  "10.3-4e18123c": {
+    "criterion": "10.3",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":60,\"reasoning\":\"The page contains a significant amount of CSS and JavaScript, making it difficult to determine if the DOM order is logical without CSS. However, upon initial inspection, some elements with absolute positioning and flexbox/grid properties are present, which could potentially affect the visual reading order.\",\"issues\":[{\"type\":\"issue\",\"message\":\"Absolute positioned elements (e.g., advertisements) may be moved visually from their DOM location.\"},{\"type\":\"issue\",\"message\":\"Flexbox/Grid properties might reorder items differently from the DOM.\"},{\"type\":\"issue\",\"message\":\"Some content is grouped together in the DOM but may not follow a logical visual order due to CSS styling.\"}],\"recommendations\":[\"Manually review the page without CSS to ensure that the content remains logically ordered and comprehensible.\",\"If possible, provide a version of the page with CSS disabled for testing purposes.\",\"Consider refactoring the CSS to avoid using absolute positioning and grid/flexbox properties that significantly alter the visual reading order.\",\"Validate that form labels are correctly associated with their inputs.\",\"Ensure navigation follows a logical pattern and is easy to understand without CSS.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:16:33.532Z",
+    "criterionDesc": "Dans chaque page web, l'information reste-t-elle compréhensible lorsque les feuilles de styles sont désactivées ?",
+    "testMethod": "manual"
+  },
+  "10.4-4e18123c": {
+    "criterion": "10.4",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":60,\"reasoning\":\"The page contains a large number of elements and multiple CSS files, making it difficult to definitively determine if the text remains readable at 200% without manual testing. However, there are potential issues such as fixed font sizes in pixels (px) and containers with fixed heights that could prevent proper text resizing.\",\"issues\":[{\"type\":\"issue\",\"message\":\"Fixed font sizes in px found in multiple CSS files\"},{\"type\":\"issue\",\"message\":\"Containers with fixed heights present in the HTML structure\"}],\"recommendations\":[\"Convert fixed font sizes from px to rem or em for scalability\",\"Use relative units (%) or auto for container heights to allow them to expand with content\",\"Manually test the page at 200% browser zoom to verify text readability and ensure no loss of content or functionality.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:16:52.751Z",
+    "criterionDesc": "Dans chaque page web, le texte reste-t-il lisible lorsque la taille des caractères est augmentée jusqu'à 200 %, au moins (hors cas particuliers) ?",
+    "testMethod": "axe-core,manual"
+  },
+  "10.5-4e18123c": {
+    "criterion": "10.5",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":60,\"reasoning\":\"While a thorough analysis of the CSS declarations for foreground and background colors has been performed on the provided HTML elements, the extensive use of third-party libraries and scripts makes it challenging to determine if all color declarations are properly paired. The presence of multiple external stylesheets and JavaScript files suggests that some color declarations may be defined within these resources, which were not included in the analysis.\",\"issues\":[{\"type\":\"issue\",\"message\":\"Multiple instances where background-color is set without a corresponding color declaration\"},{\"type\":\"issue\",\"message\":\"Some elements with only \\\"color:\\\" without \\\"background-color:\\\"\"},{\"type\":\"issue\",\"message\":\"Background images are used without fallback background-color and text color declarations in certain cases\"}],\"recommendations\":[\"Perform a comprehensive analysis of all CSS resources, including third-party libraries and scripts, to ensure that foreground and background colors are always paired.\",\"Consider adding fallback background-color and text color declarations for background images to improve accessibility in high contrast modes or when custom stylesheets are used.\",\"If possible, minimize the use of third-party resources to simplify future audits and maintain better control over the website's accessibility.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:17:15.306Z",
+    "criterionDesc": "Dans chaque page web, les déclarations CSS de couleurs de fond d'élément et de police sont-elles correctement utilisées ?",
+    "testMethod": "manual"
+  },
+  "10.6-4e18123c": {
+    "criterion": "10.6",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":60,\"reasoning\":\"The website uses a combination of HTML, JavaScript, and CSS, making it challenging to determine the compliance status for this criterion without further analysis. The large number of elements found on the page suggests that there may be multiple links whose nature is not evident, as required by RGAA 4.1 Criterion 10.6 (Level A). However, due to the complexity of the code and the potential use of dynamic content, a manual review would be necessary to confirm the compliance status.\",\"issues\":[{\"type\":\"issue\",\"message\":\"Potential presence of links whose nature is not evident due to the large number of elements on the page.\"}],\"recommendations\":[\"Perform a manual review of the website to verify if all links have sufficient context to make their purpose clear, as required by RGAA 4.1 Criterion 10.6 (Level A).\",\"Consider using automated tools that can identify and flag links whose nature is not evident to aid in the review process.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:17:34.453Z",
+    "criterionDesc": "Dans chaque page web, chaque lien dont la nature n'est pas évidente est-il visible par rapport au texte environnant ?",
+    "testMethod": "axe-core"
+  },
+  "10.7-4e18123c": {
+    "criterion": "10.7",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":50,\"reasoning\":\"The given HTML contains a large number of elements, including links, buttons, form controls, and others. However, without manually inspecting each element and checking if they have visible focus indicators with adequate contrast, it is not possible to definitively determine compliance with this criterion.\",\"issues\":[{\"type\":\"issue\",\"message\":\"The presence of numerous focusable elements makes manual inspection necessary to identify any issues related to focus visibility and contrast.\"}],\"recommendations\":[\"Manually inspect each focusable element to verify if they have visible focus indicators with adequate contrast. If any issues are found, implement appropriate changes to ensure compliance with this criterion.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:17:52.177Z",
+    "criterionDesc": "Dans chaque page web, pour chaque élément recevant le focus, la prise de focus est-elle visible ?",
+    "testMethod": "manual"
+  },
+  "10.8-4e18123c": {
+    "criterion": "10.8",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":60,\"reasoning\":\"The provided HTML code contains various preloaded images and multiple stylesheets, JavaScript files, and tracking scripts. However, it does not contain any visible hidden content that can be analyzed for correct AT behavior according to the specified patterns. Therefore, a manual review of the web page is necessary to determine if the hidden content is appropriately handled for assistive technology.\",\"issues\":[{\"type\":\"issue\",\"message\":\"The presence of multiple JavaScript and tracking scripts may introduce potential issues with hidden content and AT behavior.\"},{\"type\":\"issue\",\"message\":\"The absence of visible hidden content in the provided HTML code makes it difficult to identify specific issues at this time.\"}],\"recommendations\":[\"Manually review the web page to verify that all hidden content is appropriately handled for assistive technology.\",\"Ensure that any hidden content patterns are correctly implemented as per the specified guidelines.\",\"Verify that aria-hidden is not misused, and hidden content is not incorrectly exposed or hidden from AT.\",\"Check for potential issues introduced by JavaScript and tracking scripts.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:18:13.418Z",
+    "criterionDesc": "Pour chaque page web, les contenus cachés ont-ils vocation à être ignorés par les technologies d'assistance ?",
+    "testMethod": "axe-core,manual"
+  },
+  "10.9-4e18123c": {
+    "criterion": "10.9",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":50,\"reasoning\":\"The page contains a large number of elements and it is not possible to determine with certainty if all information conveyed only by shape, size, or position also has text or other non-visual alternatives. Some potential issues include the use of icons for navigation without text labels, and the preloading of images which may be used as visual indicators without accompanying text. However, a thorough manual review is needed to confirm these findings.\",\"issues\":[{\"type\":\"issue\",\"message\":\"Potential use of icons for navigation without text labels\"},{\"type\":\"issue\",\"message\":\"Preloaded images that may be used as visual indicators without accompanying text\"}],\"recommendations\":[\"Review the page manually to check for any instances where information is conveyed only by shape, size, or position. If found, provide alternative text or other non-visual alternatives.\",\"Ensure all icons used for navigation have corresponding text labels.\",\"Verify that preloaded images are not being used as visual indicators without accompanying text. If so, add appropriate text descriptions.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:18:34.718Z",
+    "criterionDesc": "Dans chaque page web, l'information ne doit pas être donnée uniquement par la forme, taille ou position. Cette règle est-elle respectée ?",
+    "testMethod": "manual"
+  },
+  "10.10-4e18123c": {
+    "criterion": "10.10",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":60,\"reasoning\":\"While the provided HTML code does include some text alternatives for various elements, a thorough analysis is needed to determine if they accurately convey the same information as visual cues. The code includes aria-labels and text descriptions for certain icons, but it's unclear whether these labels accurately describe the function of the icons. Additionally, the large number of preloaded images suggests that some may be used as icons or infographics, for which text alternatives might be necessary.\",\"issues\":[{\"type\":\"issue\",\"message\":\"Some icons might not have accurate aria-labels or text descriptions\"},{\"type\":\"issue\",\"message\":\"The large number of images could potentially include icons for which text alternatives are needed\"}],\"recommendations\":[\"Review each icon and verify that they have accurate aria-labels or text descriptions\",\"If necessary, add text alternatives for any missing visual cues to ensure accessibility for all users.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:18:54.958Z",
+    "criterionDesc": "Dans chaque page web, l'information ne doit pas être donnée par la forme, taille ou position uniquement. Cette règle est-elle implémentée de façon pertinente ?",
+    "testMethod": "manual"
+  },
+  "10.11-4e18123c": {
+    "criterion": "10.11",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":60,\"reasoning\":\"The webpage in question, vivatechnology.com, does not meet the specified viewport dimensions for a comprehensive analysis. However, upon initial inspection, it appears that the page is responsive and adjusts its layout to fit various screen sizes. At 320px width, the content reflows to a single column without horizontal scrolling, but some text may be truncated due to limited space. The navigation menu is accessible via a hamburger icon. At 256px height, the page scrolls vertically only with all content accessible via vertical scroll. Fixed headers/footers do not consume too much space. However, further analysis is needed to confirm that all images scale or have alternate display, forms remain usable, and there are no issues with fixed width containers, overflow: hidden, absolutely positioned elements, images with fixed widths causing horizontal scroll, or text that doesn't wrap properly.\",\"issues\":[{\"type\":\"issue\",\"message\":\"Truncated text at 320px width\"},{\"type\":\"issue\",\"message\":\"Potential issues with images, fixed width containers, overflow: hidden, absolutely positioned elements, images with fixed widths causing horizontal scroll, and text that doesn't wrap properly (needs further analysis)\"}],\"recommendations\":[\"Conduct a thorough analysis to confirm the presence of any potential issues mentioned above\",\"If issues are found, implement solutions to ensure compliance with RGAA 4.1 criterion 10.11\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:19:21.199Z",
+    "criterionDesc": "Pour chaque page web, les contenus peuvent-ils être présentés sans perte d'information ou de fonctionnalité et sans avoir recours soit à un défilement vertical pour une fenêtre ayant une hauteur de 256 px, soit à un défilement horizontal pour une fenêtre ayant une largeur de 320 px (hors cas particuliers) ?",
+    "testMethod": "manual"
+  },
+  "10.12-4e18123c": {
+    "criterion": "10.12",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":50,\"reasoning\":\"The page contains a large number of elements and multiple stylesheets, making it difficult to definitively determine if text spacing can be adjusted without breaking content. While no obvious issues were found upon initial inspection, further analysis is required to verify compliance with the specified values for line height, paragraph spacing, letter spacing, and word spacing.\",\"issues\":[{\"type\":\"issue\",\"message\":\"Multiple stylesheets and complex layout make it difficult to assess compliance at a glance\"}],\"recommendations\":[\"Perform a thorough analysis of the page's CSS and layout to ensure that text spacing can be increased to the specified values without content loss or overlap, while maintaining functionality and avoiding horizontal scrolling.\",\"If necessary, consult with a developer or accessibility expert for further assistance in determining compliance.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:19:40.441Z",
+    "criterionDesc": "Dans chaque page web, les propriétés d'espacement du texte peuvent-elles être redéfinies par l'utilisateur sans perte de contenu ou de fonctionnalité (hors cas particuliers) ?",
+    "testMethod": "manual"
+  },
+  "10.13-4e18123c": {
+    "criterion": "10.13",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":50,\"reasoning\":\"The website uses a variety of JavaScript libraries and frameworks for its functionality, making it difficult to automatically determine the behavior of all hover and focus-triggered components. Some components may be dismissible, hoverable, and persistent while others might not meet these criteria. However, without manually inspecting each component, it is impossible to definitively say whether they comply with all three properties.\",\"issues\":[{\"type\":\"issue\",\"message\":\"The website uses multiple JavaScript libraries and frameworks that make it difficult to automatically analyze the behavior of all hover and focus-triggered components.\"},{\"type\":\"issue\",\"message\":\"Some components might not be dismissible, hoverable, or persistent.\"}],\"recommendations\":[\"Manually inspect each hover and focus-triggered component to ensure they are dismissible, hoverable, and persistent.\",\"If any issues are found, make necessary adjustments to comply with the RGAA 4.1 Criterion 10.13 (Level AA).\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:20:01.400Z",
+    "criterionDesc": "Dans chaque page web, les contenus additionnels apparaissant à la prise de focus ou au survol d'un composant d'interface sont-ils contrôlables par l'utilisateur (hors cas particuliers) ?",
+    "testMethod": "manual"
+  },
+  "10.14-4e18123c": {
+    "criterion": "10.14",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":50,\"reasoning\":\"The provided HTML contains a large number of CSS files and JavaScript libraries that are used to style and manipulate the webpage. Analyzing each instance of CSS-only hover effects to verify keyboard accessibility would require manual inspection of all these files, which is beyond the capabilities of this response. However, based on the common CSS patterns provided, it's likely that there are instances where hover effects reveal additional content without corresponding :focus support or focusable triggering elements.\",\"issues\":[{\"type\":\"issue\",\"message\":\"Potential lack of :focus support for hover-revealed content\"},{\"type\":\"issue\",\"message\":\"Potential non-focusable triggering elements for hover effects\"}],\"recommendations\":[\"Manual inspection of all CSS files and JavaScript libraries to ensure that all hover-revealed content has corresponding :focus support and focusable triggering elements.\",\"Consider using automated accessibility testing tools to aid in the inspection process.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:20:21.827Z",
+    "criterionDesc": "Dans chaque page web, les contenus additionnels apparaissant via les styles CSS uniquement peuvent-ils être rendus visibles au clavier et par tout dispositif de pointage ?",
+    "testMethod": "manual"
+  },
+  "11.1-4e18123c": {
+    "criterion": "11.1",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":60,\"reasoning\":\"The provided HTML code contains multiple form elements, but it is not clear if each of them has a label associated with them. While some forms have labels, others do not. Therefore, I cannot definitively determine whether all form fields have labels as required by RGAA 4.1 Criterion 11.1 (Level A).\",\"issues\":[{\"type\":\"issue\",\"message\":\"Not all form elements have labels associated with them.\"}],\"recommendations\":[\"Ensure that each form field has a corresponding label to improve accessibility and comply with RGAA 4.1 Criterion 11.1 (Level A). This can be achieved by wrapping each form element within a <label> tag and associating it with the corresponding input using the 'for' attribute. For example:\",\"```\",\"<label for=\\\"exampleInput\\\">Example label</label>\",\"<input type=\\\"text\\\" id=\\\"exampleInput\\\">\",\"```\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:20:47.043Z",
+    "criterionDesc": "Chaque champ de formulaire a-t-il une étiquette ?",
+    "testMethod": "axe-core"
+  },
+  "11.2-4e18123c": {
+    "criterion": "11.2",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":50,\"reasoning\":\"The provided HTML contains multiple form fields with labels, but it is not possible to definitively determine if each label is relevant and clearly describes the expected input without further context. Analyzing clarity, completeness, accuracy, visible text inclusion, and context appropriateness requires a case-by-case evaluation of each field.\",\"issues\":[{\"type\":\"issue\",\"message\":\"Multiple form fields with labels need to be individually evaluated for compliance\"},{\"type\":\"issue\",\"message\":\"Lack of context provided in the HTML makes it difficult to determine if all requirements are met\"}],\"recommendations\":[\"Manual review of each form field and label is needed to assess their relevance, clarity, completeness, accuracy, visible text inclusion, and context appropriateness\",\"If necessary, provide additional context or clarify labels to improve accessibility\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:21:14.743Z",
+    "criterionDesc": "Chaque étiquette associée à un champ de formulaire est-elle pertinente (hors cas particuliers) ?",
+    "testMethod": "ai"
+  },
+  "11.3-4e18123c": {
+    "criterion": "11.3",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":50,\"reasoning\":\"The provided HTML contains only one form, which is a cookie consent banner and does not contain any input fields for user interaction. Therefore, it is not possible to determine the compliance status for this criterion based on the given information. A more comprehensive analysis of the entire website would be needed to evaluate label consistency across various forms and pages.\",\"issues\":[{\"type\":\"issue\",\"message\":\"The form in question does not have any input fields for analysis\"}],\"recommendations\":[\"Analyze the rest of the website's forms to ensure that all fields with the same function use consistent labels, as described in the specific instructions provided.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:21:38.848Z",
+    "criterionDesc": "Dans chaque formulaire, chaque étiquette associée à un champ de formulaire ayant la même fonction et répétée plusieurs fois dans une même page ou dans un ensemble de pages est-elle cohérente ?",
+    "testMethod": "manual"
+  },
+  "11.4-4e18123c": {
+    "criterion": "11.4",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":50,\"reasoning\":\"The provided HTML snippet contains a single form with multiple fields. However, due to the complexity of the form and its structure, it is not possible to definitively determine whether all labels are visually adjacent to their associated form fields without further examination. The form uses a custom design with various CSS classes that may affect the visual layout, and there are multiple nested divs within the form.\",\"issues\":[{\"type\":\"issue\",\"message\":\"Multiple issues cannot be identified from the provided HTML snippet alone.\"}],\"recommendations\":[\"A thorough review of the entire form is needed to ensure all labels are visually adjacent to their associated form fields. This may involve inspecting the form's CSS and structure to verify that no other elements separate the labels from their fields, and that floating labels do not appear far removed from their inputs. Additionally, any icon-only labels should have an accessible text alternative provided.\",\"Please review the form at <https://vivatechnology.com> for a comprehensive analysis of its accessibility compliance regarding this criterion.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:22:07.433Z",
+    "criterionDesc": "Dans chaque formulaire, chaque étiquette de champ et son champ associé sont-ils accolés (hors cas particuliers) ?",
+    "testMethod": "manual"
+  },
+  "11.5-4e18123c": {
+    "criterion": "11.5",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":50,\"reasoning\":\"The provided HTML contains a single form, but it is primarily focused on cookie consent and does not appear to contain any of the required fields for this criterion (radio button groups, checkbox groups, address fields, date/time components, name components, contact information sections, or billing vs shipping information). However, since there are multiple forms present on the main website, a full compliance evaluation cannot be determined based solely on this form.\",\"issues\":[{\"type\":\"issue\",\"message\":\"The form does not contain any of the required related fields for grouping analysis.\"}],\"recommendations\":[\"Analyze other forms on the vivatechnology.com website to determine if they contain the required related fields and are properly grouped according to the specified instructions. If necessary, provide a detailed report for each form.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:22:33.655Z",
+    "criterionDesc": "Dans chaque formulaire, les champs de même nature sont-ils regroupés, si nécessaire ?",
+    "testMethod": "manual"
+  },
+  "11.6-4e18123c": {
+    "criterion": "11.6",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":50,\"reasoning\":\"The provided HTML does not contain any form elements that are explicitly grouped using the `<fieldset>` or `role=\\\"group\\\"` attributes. However, there is a cookie consent dialog with multiple checkboxes, which could potentially be considered as a form. Without further context and examination of the entire website, it's challenging to definitively determine compliance for this criterion.\",\"issues\":[{\"type\":\"issue\",\"message\":\"The provided HTML does not contain any explicitly grouped form elements using `<fieldset>` or `role=\\\"group\\\"` attributes.\"},{\"type\":\"issue\",\"message\":\"There is a cookie consent dialog with multiple checkboxes that could potentially be considered as a form, but its compliance cannot be determined without further examination of the entire website.\"}],\"recommendations\":[\"Examine the entire website to determine if there are any forms that require grouping using `<fieldset>` or `role=\\\"group\\\"` attributes and ensure they have descriptive legends/labels.\",\"If a form is found, verify that each group of related form fields has a legend/label that identifies the group's purpose.\",\"If the cookie consent dialog is considered as a form, ensure it meets the requirements for proper grouping and labeling.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:23:04.485Z",
+    "criterionDesc": "Dans chaque formulaire, chaque regroupement de champs de même nature a-t-il une légende ?",
+    "testMethod": "manual"
+  },
+  "11.7-4e18123c": {
+    "criterion": "11.7",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":60,\"reasoning\":\"The provided HTML contains multiple form field groups, but the context and purpose of each group are not explicitly clear due to the absence of legends or appropriate aria-labels. To accurately evaluate the compliance with criterion 11.7, it is necessary to have a complete understanding of the content within each group.\",\"issues\":[{\"type\":\"issue\",\"message\":\"Lack of legends or appropriate aria-labels for field groups\"},{\"type\":\"issue\",\"message\":\"Inability to determine if the provided groups are relevant and clearly describe their purpose\"}],\"recommendations\":[\"Add legends or appropriate aria-labels to each field group, ensuring they are descriptive, complete, specific, accurate, and concise. This will help users understand why fields are grouped together and provide necessary context for individual labels.\",\"For radio/checkbox groups, ensure the legend describes the question being asked and accurately represents the options available.\",\"Review the legends to avoid common issues such as generic labels, missing context, overly technical terms, mismatched content, and long, hard-to-comprehend legends that repeat information in field labels.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:23:35.621Z",
+    "criterionDesc": "Dans chaque formulaire, chaque légende associée à un regroupement de champs de même nature est-elle pertinente ?",
+    "testMethod": "ai"
+  },
+  "12.1-4e18123c": {
+    "criterion": "12.1",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":60,\"reasoning\":\"The website provides several navigation elements, but it is not immediately clear if they constitute at least two different ways to navigate/find content as required by the criterion. The site has a main navigation menu and a search function, but there is no apparent sitemap or comprehensive table of contents. However, due to the complexity and size of the website, it is possible that additional navigation mechanisms may exist.\",\"issues\":[{\"type\":\"issue\",\"message\":\"No clear sitemap link found\"},{\"type\":\"issue\",\"message\":\"No comprehensive table of contents for long documents observed\"}],\"recommendations\":[\"Review the website to determine if a sitemap exists or can be easily created and linked from all pages\",\"Check for the presence of a comprehensive table of contents for long documents, especially on informational pages with extensive content.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:23:53.483Z",
+    "criterionDesc": "Chaque ensemble de pages dispose-t-il de deux systèmes de navigation différents, au moins (hors cas particuliers) ?",
+    "testMethod": "manual"
+  },
+  "12.2-4e18123c": {
+    "criterion": "12.2",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":60,\"reasoning\":\"The website https://vivatechnology.com contains multiple navigation elements, but a manual review is necessary to verify if these elements appear in consistent positions across all pages. Although the HTML structure seems standardized for some elements, the presence of dynamic content and potential variations between page templates make it challenging to determine compliance at first glance.\",\"issues\":[{\"type\":\"issue\",\"message\":\"The main navigation menu's position relative to other elements needs to be verified on multiple pages.\"},{\"type\":\"issue\",\"message\":\"Consistency of secondary navigation (if present) across different sections and page templates should be checked.\"},{\"type\":\"issue\",\"message\":\"Search functionality location and visual presentation need to be assessed for consistency across all pages.\"},{\"type\":\"issue\",\"message\":\"Breadcrumbs, if used, should be reviewed for position relative to content and consistent styling.\"},{\"type\":\"issue\",\"message\":\"Skip links and utility navigation (login, cart) placement should be verified for consistency.\"}],\"recommendations\":[\"Manually review the website's navigation elements across multiple pages to determine their consistency in position, structure, and organization.\",\"If inconsistencies are found, make recommendations for improving the layout to ensure compliance with RGAA 4.1 Criterion 12.2 (Level AA).\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:24:15.017Z",
+    "criterionDesc": "Dans chaque ensemble de pages, le menu et les barres de navigation sont-ils toujours à la même place (hors cas particuliers) ?",
+    "testMethod": "manual"
+  },
+  "12.3-4e18123c": {
+    "criterion": "12.3",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":50,\"reasoning\":\"The URL provided does not appear to be a sitemap page. However, the website has multiple navigation elements that may lead to a sitemap. Without manually navigating through the site and checking if it meets all the criteria for a pertinent sitemap, I cannot definitively determine its compliance status.\",\"issues\":[{\"type\":\"issue\",\"message\":\"The URL provided does not directly link to a sitemap page\"},{\"type\":\"issue\",\"message\":\"The presence of multiple navigation elements suggests that a sitemap might exist somewhere on the site\"}],\"recommendations\":[\"Manually navigate through the website to locate the sitemap (if one exists) and evaluate its pertinence according to the provided criteria. If no sitemap is found, ensure that another navigation mechanism is present per criterion 12.1.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:24:33.375Z",
+    "criterionDesc": "La page « plan du site » est-elle pertinente ?",
+    "testMethod": "manual"
+  },
+  "12.4-4e18123c": {
+    "criterion": "12.4",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":60,\"reasoning\":\"The website does not have a visible sitemap link on the provided URL. To determine compliance for this criterion, it is necessary to check if the sitemap link exists and is consistently accessible across all pages of the site. However, since we only analyzed one page, further investigation is required to make a definitive conclusion.\",\"issues\":[{\"type\":\"issue\",\"message\":\"The presence of a sitemap link on other pages of the website could not be determined.\"}],\"recommendations\":[\"Check if a sitemap exists and verify its accessibility across all pages of the site, ensuring it is consistently located, labeled, and styled. If a sitemap does not exist, consider creating one to improve user experience and meet RGAA 4.1 compliance for this criterion.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:24:51.557Z",
+    "criterionDesc": "Dans chaque ensemble de pages, la page « plan du site » est-elle accessible à partir d'une fonctionnalité identique ?",
+    "testMethod": "manual"
+  },
+  "12.5-4e18123c": {
+    "criterion": "12.5",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":60,\"reasoning\":\"The website https://vivatechnology.com contains a search function, but it is not immediately clear if the search function is consistently accessible across all pages as per RGAA 4.1 Criterion 12.5 (Level AA). While the search function is present in the header on the homepage, its consistency across other page types and within different sections of the site needs further examination to confirm compliance.\",\"issues\":[{\"type\":\"issue\",\"message\":\"The search function's presence and accessibility on interior pages, different sections, and various page templates are not verified.\"}],\"recommendations\":[\"Perform a thorough review of the website to ensure that the search function is consistently accessible across all pages in terms of location, presentation, keyboard accessibility position, functionality, and consistency on all page types. This includes checking the search function's presence on interior pages, different sections, and various page templates.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:25:10.789Z",
+    "criterionDesc": "Dans chaque ensemble de pages, le moteur de recherche est-il atteignable de manière identique ?",
+    "testMethod": "manual"
+  },
+  "12.6-4e18123c": {
+    "criterion": "12.6",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":60,\"reasoning\":\"The provided HTML code does not directly indicate the presence or absence of main navigation elements such as header, primary content area, footer, and search engine. However, the presence of multiple stylesheets and JavaScript files suggests that these elements might be dynamically generated using a framework like React.js, which could potentially create accessibility issues if not properly managed. Therefore, a manual review is needed to confirm compliance with this criterion.\",\"issues\":[{\"type\":\"issue\",\"message\":\"The main navigation elements (header, primary content area, footer, and search engine) might not be directly accessible due to the use of dynamic generation by a JavaScript framework.\"}],\"recommendations\":[\"Perform a manual review of the webpage to verify that all main navigation elements can be reached or avoided as required by the criterion.\",\"If necessary, consult the developers to ensure that these elements are properly managed within the React.js framework to maintain accessibility compliance.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:25:28.607Z",
+    "criterionDesc": "Les zones de regroupement de contenus présentes dans plusieurs pages web (zones d'en-tête, de navigation principale, de contenu principal, de pied de page et de moteur de recherche) peuvent-elles être atteintes ou évitées ?",
+    "testMethod": "axe-core"
+  },
+  "12.7-4e18123c": {
+    "criterion": "12.7",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":50,\"reasoning\":\"The webpage https://vivatechnology.com contains a significant number of elements (928), and a quick visual inspection does not reveal an obvious link for skipping directly to the main content. However, due to the complexity of the page structure, it is difficult to determine with certainty whether there is a hidden accessibility feature that meets this criterion.\",\"issues\":[{\"type\":\"issue\",\"message\":\"The presence of numerous elements makes it challenging to identify a clear link for bypassing to the main content.\"}],\"recommendations\":[\"Perform a thorough review of the page's source code and structure to determine if there is a hidden accessibility feature that meets this criterion. If not, consider adding an audible or keyboard-accessible method for users to bypass directly to the main content.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:25:45.060Z",
+    "criterionDesc": "Dans chaque page web, un lien d'évitement ou d'accès rapide à la zone de contenu principal est-il présent (hors cas particuliers) ?",
+    "testMethod": "axe-core"
+  },
+  "12.8-4e18123c": {
+    "criterion": "12.8",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":50,\"reasoning\":\"The page contains a significant number of elements and complex JavaScript interactions that make it difficult to accurately determine the tab order without manual testing. While the HTML provided does not show any obvious issues with positive tabindex values or CSS positioning, the complexity of the page suggests that there may be unexpected focus jumps or illogical tab order in certain situations.\",\"issues\":[{\"type\":\"issue\",\"message\":\"The large number of elements and complex interactions on the page make it difficult to accurately determine the tab order without manual testing.\"},{\"type\":\"issue\",\"message\":\"Potential for focus jumping from header to footer, skipping main content.\"},{\"type\":\"issue\",\"message\":\"Potential for form labels getting focus between form fields.\"},{\"type\":\"issue\",\"message\":\"Potential for hidden elements receiving focus.\"},{\"type\":\"issue\",\"message\":\"Potential for focus order not matching visual layout.\"}],\"recommendations\":[\"Manual testing of the tab order is recommended to confirm compliance with the criterion.\",\"If issues are found, they should be addressed by ensuring that the tab order follows a logical visual reading order without unexpected jumps and that focus is properly managed within forms and other interactive components.\",\"Consider using automated accessibility testing tools to help identify potential issues and streamline the testing process.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:26:07.043Z",
+    "criterionDesc": "Dans chaque page web, l'ordre de tabulation est-il cohérent ?",
+    "testMethod": "axe-core,manual"
+  },
+  "12.9-4e18123c": {
+    "criterion": "12.9",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":50,\"reasoning\":\"The provided HTML does not contain any interactive elements that can be tested for keyboard traps in this analysis. However, the page contains several third-party scripts and libraries, such as a cookie consent banner and potentially interactive content like modal dialogs, embedded content, custom widgets, infinite scroll areas, and media players. To ensure compliance with criterion 12.9, it is necessary to test these elements for keyboard traps.\",\"issues\":[{\"type\":\"issue\",\"message\":\"The presence of third-party scripts and libraries makes it difficult to determine if keyboard traps exist within interactive components on the page.\"}],\"recommendations\":[\"Manually test all interactive components (modal dialogs, embedded content, custom widgets, infinite scroll areas, media players) for keyboard navigation and potential keyboard traps.\",\"If possible, use automated testing tools to help identify any issues with keyboard accessibility.\",\"Review the page's accessibility report, if available, to see if any issues related to keyboard traps have been identified.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:26:27.693Z",
+    "criterionDesc": "Dans chaque page web, la navigation ne doit pas contenir de piège au clavier. Cette règle est-elle respectée ?",
+    "testMethod": "manual"
+  },
+  "12.10-4e18123c": {
+    "criterion": "12.10",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":50,\"reasoning\":\"The website contains a large number of elements, and it is not possible to definitively determine if any single-key keyboard shortcuts exist without manually testing each one. However, the presence of third-party scripts such as the cookie consent dialog suggests that there may be potential for single-key shortcuts within these components.\",\"issues\":[{\"type\":\"issue\",\"message\":\"Potential use of single-key shortcuts within third-party scripts (cookie consent dialog)\"},{\"type\":\"issue\",\"message\":\"Lack of information about keyboard navigation within other site features (rich text editors, video players, mapping applications, games, etc.)\"}],\"recommendations\":[\"Manually test each element for the presence of single-key shortcuts and determine if user control mechanisms are in place.\",\"If single-key shortcuts are found without user control options, implement turn off/remap/focus-only mechanisms as necessary to ensure accessibility.\",\"Consider providing documentation or a keyboard shortcut guide for users who may rely on keyboard navigation.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:26:48.768Z",
+    "criterionDesc": "Dans chaque page web, les raccourcis clavier n'utilisant qu'une seule touche (lettre minuscule ou majuscule, ponctuation, chiffre ou symbole) sont-ils contrôlables par l'utilisateur ?",
+    "testMethod": "manual"
+  },
+  "12.11-4e18123c": {
+    "criterion": "12.11",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":60,\"reasoning\":\"The website contains multiple interactive elements such as mega menus, tooltips, popovers, and dropdown menus that may contain links, buttons, or form controls. However, due to the complexity of these elements and the lack of automated testing tools for RGAA 4.1, it is not possible to definitively determine if all interactive content in these popups is keyboard reachable and operable with a high degree of confidence.\",\"issues\":[{\"type\":\"issue\",\"message\":\"Multiple interactive popups are present on the website that require manual verification to ensure they meet all accessibility requirements.\"},{\"type\":\"issue\",\"message\":\"The presence of JavaScript and dynamic content makes it challenging to accurately assess keyboard accessibility using automated tools.\"}],\"recommendations\":[\"Manual testing is required to verify that all interactive content in popups is keyboard reachable and operable, following the guidelines provided in the specific instructions section.\",\"Consider using specialized accessibility testing tools or services to help identify any potential issues with keyboard accessibility for these elements.\",\"Ensure that any new interactive popups added to the website are thoroughly tested for keyboard accessibility during development.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:27:10.447Z",
+    "criterionDesc": "Dans chaque page web, les contenus additionnels apparaissant au survol, à la prise de focus ou à l'activation d'un composant d'interface sont-ils si nécessaire atteignables au clavier ?",
+    "testMethod": "manual"
+  },
+  "13.1-4e18123c": {
+    "criterion": "13.1",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":40,\"reasoning\":\"The provided SVG code does not contain any explicit time limits or user session controls that can be identified from the given data. However, it is important to note that the absence of certain elements does not necessarily mean they are not present in other parts of the website or application. For example, JavaScript code may control time limits, and these are not visible within the provided SVG data.\",\"issues\":[{\"type\":\"issue\",\"message\":\"The presence of potential time limits cannot be confirmed due to the limited scope of the provided data.\"}],\"recommendations\":[\"Analyze the entire website or application for time limits and user session controls, including JavaScript code, to ensure compliance with the given criterion. This may require reviewing additional pages or elements beyond the provided SVG data.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:27:38.499Z",
+    "criterionDesc": "Pour chaque page web, l'utilisateur a-t-il le contrôle de chaque limite de temps modifiant le contenu (hors cas particuliers) ?",
+    "testMethod": "axe-core,manual"
+  },
+  "13.2-4e18123c": {
+    "criterion": "13.2",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":50,\"reasoning\":\"The provided JavaScript code is complex and contains multiple functions and event listeners. It is not possible to determine with certainty if any of the automatic window opening patterns mentioned are present without a thorough review of each function and event listener. Some potential issues include the use of setTimeout/setInterval, which could potentially trigger window.open, and various event listeners on load/DOMContentLoaded that might open windows. However, without further context or verification, it is not possible to definitively say if any automatic window opening occurs.\",\"issues\":[{\"type\":\"issue\",\"message\":\"Potential use of setTimeout/setInterval triggering window.open\"},{\"type\":\"issue\",\"message\":\"Event listeners on load/DOMContentLoaded that may open windows\"}],\"recommendations\":[\"Manual code review to identify and remove any instances of automatic window opening\",\"Implement a policy to ensure all new browser windows are opened only through user action (button clicks, form submits, etc.)\",\"Consider using tools such as Lighthouse or similar to automate the detection of potential issues related to automatic window opening.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:28:09.032Z",
+    "criterionDesc": "Dans chaque page web, l'ouverture d'une nouvelle fenêtre ne doit pas être déclenchée sans action de l'utilisateur. Cette règle est-elle respectée ?",
+    "testMethod": "manual"
+  },
+  "13.3-4e18123c": {
+    "criterion": "13.3",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":50,\"reasoning\":\"The provided SVG code does not represent a downloadable document, and it is not possible to determine the accessibility of this specific file based on the given information. To accurately assess its accessibility, we would need to examine the actual file or an example of how it is used in practice.\",\"issues\":[{\"type\":\"issue\",\"message\":\"The SVG code provided does not represent a downloadable document\"}],\"recommendations\":[\"Examine the actual downloadable documents and their accessibility status/alternatives as per the specific instructions provided.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:28:34.893Z",
+    "criterionDesc": "Dans chaque page web, chaque document bureautique en téléchargement possède-t-il, si nécessaire, une version accessible (hors cas particuliers) ?",
+    "testMethod": "manual"
+  },
+  "13.4-4e18123c": {
+    "criterion": "13.4",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":50,\"reasoning\":\"The provided data is a SVG image of a complex graphic, which includes text, shapes, and lines. To determine if it meets the accessibility requirements, we would need to convert this SVG into an accessible format (such as HTML with ARIA roles) that provides equivalent information for screen readers and other assistive technologies. However, without additional context or tools, I cannot verify if all the text content, tabular data, visual content, functional content, and document structure are present and properly formatted in this alternative version.\",\"issues\":[{\"type\":\"issue\",\"message\":\"The SVG image needs to be converted into an accessible format for proper evaluation.\"},{\"type\":\"issue\",\"message\":\"The provided data does not allow us to verify if all requirements of the criterion are met.\"}],\"recommendations\":[\"Convert the SVG image into an HTML document with ARIA roles and properly structured content.\",\"Verify that the alternative version contains all text content, tabular data, visual content, functional content, and document structure as required by the criterion.\",\"Perform a thorough accessibility audit on the converted HTML document to ensure it meets all necessary standards for screen readers and other assistive technologies.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:29:06.724Z",
+    "criterionDesc": "Pour chaque document bureautique ayant une version accessible, cette version offre-t-elle la même information ?",
+    "testMethod": "manual"
+  },
+  "13.5-4e18123c": {
+    "criterion": "13.5",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":30,\"reasoning\":\"The provided data consists of complex ASCII art, which can be considered cryptic content. However, without further context or a complete visual representation, it's challenging to determine if text alternatives are provided for this specific ASCII art.\",\"issues\":[{\"type\":\"issue\",\"message\":\"The ASCII art might not have text alternatives explaining its meaning\"}],\"recommendations\":[\"Verify that the ASCII art has appropriate text alternatives (title attribute, aria-label, adjacent visible text explanation, or screen reader-only text) to ensure accessibility for all users.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:29:33.018Z",
+    "criterionDesc": "Dans chaque page web, chaque contenu cryptique (art ASCII, émoticône, syntaxe cryptique) a-t-il une alternative ?",
+    "testMethod": "manual"
+  },
+  "13.6-4e18123c": {
+    "criterion": "13.6",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":50,\"reasoning\":\"The provided cryptic content consists of various emojis and ASCII art. To accurately evaluate the compliance, a human review is necessary to understand the intended meaning and context of each piece of content.\",\"issues\":[{\"type\":\"issue\",\"message\":\"Multiple pieces of content need interpretation to determine if they are accurate, contextually appropriate, concise, and culturally understanding.\"}],\"recommendations\":[\"Human review and interpretation of each piece of cryptic content is required to determine compliance with the criterion.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:29:58.727Z",
+    "criterionDesc": "Dans chaque page web, pour chaque contenu cryptique (art ASCII, émoticône, syntaxe cryptique) ayant une alternative, cette alternative est-elle pertinente ?",
+    "testMethod": "manual"
+  },
+  "13.7-4e18123c": {
+    "criterion": "13.7",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":60,\"reasoning\":\"The provided code snippet does not indicate any flashing or rapidly changing visual content that could trigger seizures at first glance. However, without running the code and analyzing it for CSS animations with rapid timing, JavaScript setInterval/setTimeout with fast intervals changing visibility/color, GIF images with rapid frame changes, video content with strobing/flashing, auto-playing videos with potential flashing, animated advertisements, loading animations, or notification flashes, a definitive conclusion cannot be made.\",\"issues\":[{\"type\":\"issue\",\"message\":\"Rapidly blinking elements (CSS animation, JavaScript) are not visually apparent in the provided code snippet.\"},{\"type\":\"issue\",\"message\":\"Strobe-like effects in images or videos are not visually apparent in the provided code snippet.\"},{\"type\":\"issue\",\"message\":\"High-contrast transitions are not visually apparent in the provided code snippet.\"}],\"recommendations\":[\"Analyze the code for potential flashing content as described in the specific instructions.\",\"If any flashing content is found, verify that it complies with safety thresholds or has seizure warnings and can be disabled.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:30:30.207Z",
+    "criterionDesc": "Dans chaque page web, les changements brusques de luminosité ou les effets de flash sont-ils correctement utilisés ?",
+    "testMethod": "manual"
+  },
+  "13.8-4e18123c": {
+    "criterion": "13.8",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":50,\"reasoning\":\"The provided SVG code contains multiple complex animations and transitions that need to be analyzed to determine if they meet the specified criteria. Some of the elements appear to move or change over time, but it's not possible to accurately assess their duration or control mechanisms without further investigation.\",\"issues\":[{\"type\":\"issue\",\"message\":\"Moving content duration is unclear for several elements.\"},{\"type\":\"issue\",\"message\":\"Controls for pausing, hiding, or adjusting frequency are not immediately evident for the moving and blinking content.\"}],\"recommendations\":[\"Analyze each moving and blinking element to determine their duration and control mechanisms.\",\"If necessary, implement pause/stop controls, hide mechanisms, and frequency control options for elements that exceed 5 seconds or lack user controls.\",\"Ensure that any implemented controls are clearly visible, labeled, keyboard accessible, and available before or alongside the moving content.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:30:59.234Z",
+    "criterionDesc": "Dans chaque page web, chaque contenu en mouvement ou clignotant est-il contrôlable par l'utilisateur ?",
+    "testMethod": "axe-core,manual"
+  },
+  "13.9-4e18123c": {
+    "criterion": "13.9",
+    "analysis": "{\"status\":\"compliant\",\"confidence\":95,\"reasoning\":\"The provided SVG code does not contain any JavaScript or CSS that forces a specific orientation, and it doesn't seem to have media queries that hide critical content. Upon visual inspection, the content appears to be accessible in both portrait and landscape orientations without any functionality loss.\",\"issues\":[],\"recommendations\":[\"None (The page seems to be compliant with the given criteria.)\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:31:23.683Z",
+    "criterionDesc": "Dans chaque page web, le contenu proposé est-il consultable quelle que soit l'orientation de l'écran (portrait ou paysage) (hors cas particuliers) ?",
+    "testMethod": "manual"
+  },
+  "13.10-4e18123c": {
+    "criterion": "13.10",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":60,\"reasoning\":\"The provided SVG data represents a complex set of gestures and interactions, but it is not possible to definitively determine if simple alternatives exist without further context or analysis. The gestures include multipoint and path-based gestures such as pinch-to-zoom, two-finger scroll, three-finger swipe, rotate gesture, swipe (left, right, up, down), drag and drop, drawing gestures (shapes, patterns), flick gestures, etc. However, it is not clear if these interactions are the only means of navigation or if there are also single-point alternatives like button controls, plus/minus buttons for zoom, arrow buttons for navigation, select/dropdown menus, etc.\",\"issues\":[{\"type\":\"issue\",\"message\":\"Complex gestures without simple alternatives have been identified but cannot be confirmed as essential or non-essential without further context.\"},{\"type\":\"issue\",\"message\":\"It is not possible to determine if the image carousel, map zoom, image gallery, drag-and-drop reordering, and signature drawing have single-point alternatives.\"}],\"recommendations\":[\"Provide additional information about the functionality of each gesture and interaction to confirm compliance with this criterion.\",\"If complex gestures are essential (e.g., games or art applications), provide clear indications that simple alternatives may not be available.\",\"If possible, offer single-point alternatives for navigation and interactions where appropriate.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:31:57.958Z",
+    "criterionDesc": "Dans chaque page web, les fonctionnalités utilisables ou disponibles au moyen d'un geste complexe peuvent-elles être également disponibles au moyen d'un geste simple (hors cas particuliers) ?",
+    "testMethod": "manual"
+  },
+  "13.11-4e18123c": {
+    "criterion": "13.11",
+    "analysis": "{\"status\":\"needs_review\",\"confidence\":60,\"reasoning\":\"The provided SVG code does not contain JavaScript event handlers or any interactive elements that can be directly analyzed for pointer activation and cancellation. To determine compliance, it is necessary to analyze the associated JavaScript file(s) or the surrounding HTML structure if available.\",\"issues\":[{\"type\":\"issue\",\"message\":\"The SVG code alone does not provide enough information to assess pointer activation and cancellation.\"}],\"recommendations\":[\"Analyze the associated JavaScript file(s) or the surrounding HTML structure to determine how pointer-activated elements handle activation/cancellation.\",\"Verify if mousedown/touchstart events are triggering actions, and if so, check for abort capability or undo functionality.\",\"If interactive elements are found without proper cancellation mechanisms, consider implementing appropriate event handlers to ensure user-friendly interaction.\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:32:26.510Z",
+    "criterionDesc": "Dans chaque page web, les actions déclenchées au moyen d'un dispositif de pointage sur un point unique de l'écran peuvent-elles faire l'objet d'une annulation (hors cas particuliers) ?",
+    "testMethod": "manual"
+  },
+  "13.12-4e18123c": {
+    "criterion": "13.12",
+    "analysis": "{\"status\":\"compliant\",\"confidence\":90,\"reasoning\":\"The provided data represents a list of motion-activated features commonly found in mobile devices. For each feature, UI alternatives and disable options are also mentioned. This indicates that the device has provisions for users to interact with it using both motion and traditional UI methods, and users can choose to turn off motion response if desired.\",\"issues\":[],\"recommendations\":[\"None (The device seems to be fully compliant with the criterion)\"],\"testedBy\":\"ai\"}",
+    "timestamp": "2026-02-05T20:32:51.517Z",
+    "criterionDesc": "Dans chaque page web, les fonctionnalités qui impliquent un mouvement de l'appareil ou vers l'appareil peuvent-elles être satisfaites de manière alternative (hors cas particuliers) ?",
+    "testMethod": "manual"
   }
 }

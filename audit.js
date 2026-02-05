@@ -2,6 +2,7 @@ const { chromium } = require("playwright");
 const AxeBuilder = require("@axe-core/playwright").default;
 const { co2 } = require("@tgwf/co2");
 const path = require("path");
+const fs = require("fs");
 const { rgaaFlatMapping } = require("./constants/rgaaMapping.complete.js");
 const { generateProReport } = require("./visualize.js");
 const { generateWCAGReport } = require("./wcagReport.js");
@@ -10,6 +11,7 @@ const { generateDeclarationAccessibilite } = require("./declarationAccessibilite
 const { generateDetailedRGAAReport } = require("./rgaaDetailedReport.js");
 const { exportAuditData } = require("./exportAuditData.js");
 const llmClient = require("./utils/llmClient.js");
+const { COMPLIANCE_STATUS } = llmClient;
 
 // ============================================================================
 // PERFORMANCE CONFIGURATION
@@ -95,383 +97,296 @@ async function runAudit(url) {
     const co2Emitter = new co2();
     const estimate = co2Emitter.perVisit(totalBytes);
 
-    // 4. Process RGAA Criteria Based on Test Method
-    // Create a map of violations by axe-core rule ID for quick lookup
+    // 4. Create a map of violations by axe-core rule ID for quick lookup
     const violationsByRule = {};
     results.violations.forEach((violation) => {
       violationsByRule[violation.id] = violation;
     });
 
-    console.log(`\n[ RGAA COMPREHENSIVE AUDIT REPORT ]`);
-    console.log(`Total axe-core Violations Found: ${results.violations.length}`);
-
-    // Categorize criteria by test method
-    const automatedTests = [];
-    const automatedWithHumanCheck = [];
-    const manualChecks = [];
-    const aiChecks = [];
-
-    Object.entries(rgaaFlatMapping).forEach(([article, criterion]) => {
-      const testMethod = criterion.testMethod;
-      const axeRules = criterion.axeRules || [];
-
-      // Check if any of the criterion's axe rules have violations
-      const relatedViolations = axeRules.map((ruleId) => violationsByRule[ruleId]).filter(Boolean);
-
-      const criterionData = {
-        article,
-        ...criterion,
-        violations: relatedViolations,
-      };
-
-      if (testMethod === "axe-core") {
-        automatedTests.push(criterionData);
-      } else if (testMethod === "axe-core,ai" || testMethod === "axe-core,manual") {
-        // Both need automated testing + human verification
-        automatedWithHumanCheck.push(criterionData);
-      } else if (testMethod === "manual") {
-        manualChecks.push(criterionData);
-      } else if (testMethod === "ai") {
-        aiChecks.push(criterionData);
-      }
-    });
-
-    // Report automated test results (axe-core only)
-    console.log(`\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
-    console.log(`🤖 AUTOMATED TESTS (axe-core) - ${automatedTests.length} criteria`);
+    console.log(`\n[ RGAA 4.1 COMPREHENSIVE AUDIT ]`);
     console.log(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
+    console.log(`Total RGAA Criteria: ${Object.keys(rgaaFlatMapping).length}`);
+    console.log(`Axe-core Violations Found: ${results.violations.length}`);
 
-    const automatedWithViolations = automatedTests.filter((c) => c.violations.length > 0);
-    console.log(`✅ Passed: ${automatedTests.length - automatedWithViolations.length}`);
-    console.log(`❌ Failed: ${automatedWithViolations.length}`);
-
-    automatedWithViolations.forEach((criterion) => {
-      console.log(`\n============================================================`);
-      console.log(`🔴 RGAA ${criterion.article} - ${criterion.level}`);
-      console.log(`${criterion.desc}`);
-      console.log(`============================================================`);
-
-      console.log(`\n[ BUSINESS IMPACT ]`);
-      console.log(`⚠️  RISK: ${criterion.risk}`);
-      console.log(`💰 FINES: ${criterion.financial}`);
-      console.log(`✨ BRAND: ${criterion.brand}`);
-
-      criterion.violations.forEach((violation) => {
-        console.log(`\n📋 Issue: ${violation.help}`);
-        console.log(`🛠️  Fix: ${criterion.fix}`);
-
-        violation.nodes.forEach((node, index) => {
-          console.log(`\n--- Occurrence #${index + 1} ---`);
-          console.log(`📍 Location: ${node.target.join(", ")}`);
-          console.log(`💻 Code: ${node.html.substring(0, 200)}${node.html.length > 200 ? "..." : ""}`);
-        });
-      });
-    });
-
-    // Report automated tests that need human verification
-    console.log(`\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
-    console.log(`🤖👤 AUTOMATED + HUMAN CHECK REQUIRED - ${automatedWithHumanCheck.length} criteria`);
-    console.log(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
-
-    const automatedAiWithViolations = automatedWithHumanCheck.filter((c) => c.violations.length > 0);
-    const automatedAiPassed = automatedWithHumanCheck.filter((c) => c.violations.length === 0);
-    console.log(`✅ Passed automated: ${automatedAiPassed.length}`);
-    console.log(`❌ Failed automated: ${automatedAiWithViolations.length}`);
-    console.log(`⚠️  All ${automatedWithHumanCheck.length} require human verification for quality and relevance\n`);
-
-    // Show FAILED automated tests that need human review
-    if (automatedAiWithViolations.length > 0) {
-      console.log(`\n❌ FAILED AUTOMATED TESTS (need human review):\n`);
-      automatedAiWithViolations.forEach((criterion) => {
-        console.log(`\n============================================================`);
-        console.log(`🔴 RGAA ${criterion.article} - ${criterion.level} ⚠️ HUMAN REVIEW REQUIRED`);
-        console.log(`${criterion.desc}`);
-        console.log(`============================================================`);
-
-        console.log(`\n[ BUSINESS IMPACT ]`);
-        console.log(`⚠️  RISK: ${criterion.risk}`);
-        console.log(`💰 FINES: ${criterion.financial}`);
-        console.log(`✨ BRAND: ${criterion.brand}`);
-
-        criterion.violations.forEach((violation) => {
-          console.log(`\n📋 Automated Issue Detected: ${violation.help}`);
-          console.log(
-            `⚠️  Human must verify: ${
-              criterion.testMethod === "axe-core,manual"
-                ? "Partial automation - manual verification required for full compliance"
-                : "Quality and relevance of implementation"
-            }`
-          );
-          console.log(`🛠️  Fix: ${criterion.fix}`);
-
-          violation.nodes.forEach((node, index) => {
-            console.log(`\n--- Occurrence #${index + 1} ---`);
-            console.log(`📍 Location: ${node.target.join(", ")}`);
-            console.log(`💻 Code: ${node.html.substring(0, 200)}${node.html.length > 200 ? "..." : ""}`);
-          });
-        });
-      });
-    }
-
-    // Show PASSED automated tests that still need human review
-    if (automatedAiPassed.length > 0) {
-      console.log(`\n\n✅ PASSED AUTOMATED TESTS (still need human review):\n`);
-      automatedAiPassed.forEach((criterion) => {
-        const reviewNote =
-          criterion.testMethod === "axe-core,manual"
-            ? "Passed automated checks but manual verification required for full compliance"
-            : "Passed automated checks but quality and relevance need human verification";
-
-        console.log(`✅ RGAA ${criterion.article} (${criterion.level}) ⚠️ ${reviewNote}`);
-        console.log(`   ${criterion.desc}`);
-      });
-    }
-
-    // List criteria requiring manual checks
-    console.log(`\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
-    console.log(`👤 MANUAL CHECKS REQUIRED - ${manualChecks.length} criteria`);
-    console.log(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
-    console.log(`These criteria require human judgment and cannot be automated:\n`);
-
-    manualChecks.forEach((criterion) => {
-      console.log(`📝 RGAA ${criterion.article} (${criterion.level}) - ${criterion.risk} risk`);
-      console.log(`   ${criterion.desc}`);
-      console.log(`   🛠️  ${criterion.fix}\n`);
-    });
-
-    // List criteria that could benefit from AI analysis
-    console.log(`\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
-    console.log(`🤖 AI-ASSISTED CHECKS RECOMMENDED - ${aiChecks.length} criteria`);
-    console.log(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
-    console.log(`These criteria could benefit from AI vision/language analysis:\n`);
+    // Build all criteria with their axe violations
+    const allCriteria = Object.entries(rgaaFlatMapping).map(([article, criterion]) => ({
+      article,
+      ...criterion,
+    }));
 
     // Check if LLM is available
     const llmAvailable = await llmClient.checkHealth();
 
     // Show cache statistics
     const cacheStats = llmClient.aiCache.getCacheStats();
-    console.log(`\n📦 AI Analysis Cache: ${cacheStats.totalEntries} entries (${(cacheStats.size / 1024).toFixed(2)} KB)`);
+    console.log(`AI Cache: ${cacheStats.totalEntries} entries (${(cacheStats.size / 1024).toFixed(2)} KB)`);
 
-    // Store all LLM analysis results for the HTML report and raw export
-    const llmAnalysisResults = {
-      aiChecks: [],
-      manualChecks: [],
-      hybridChecks: [], // automatedWithHumanCheck that also get AI analysis
-    };
+    // ========================================================================
+    // OUTCOME-BASED ANALYSIS
+    // ========================================================================
+    // All criteria are analyzed together, categorized by RESULT not by METHOD
+    // Results: Compliant, Non-Compliant, Not Applicable, Needs Review
+
+    // Apply test limit if set
+    const criteriaToAnalyze = TEST_LIMIT ? allCriteria.slice(0, TEST_LIMIT) : allCriteria;
+
+    console.log(`\n✨ Analyzing ${criteriaToAnalyze.length} criteria...`);
+    console.log(`   Model: ${PREFERRED_MODEL}`);
+    console.log(`   Concurrency: ${CONCURRENCY}`);
+    console.log(`   LLM Available: ${llmAvailable ? "Yes" : "No"}`);
+
+    if (TEST_LIMIT) {
+      console.log(`   Mode: TEST (limited to ${TEST_LIMIT} criteria)`);
+    }
+
+    let analysisResults = [];
+    const startTime = Date.now();
+    let fromCache = 0;
 
     if (llmAvailable) {
-      const allToAnalyze = [...aiChecks, ...manualChecks, ...automatedWithHumanCheck];
-      const limitedList = TEST_LIMIT ? allToAnalyze.slice(0, TEST_LIMIT) : allToAnalyze;
-      const analysisLimit = TEST_LIMIT || allToAnalyze.length;
-
-      console.log(`\n✨ Local LLM available (model: ${PREFERRED_MODEL})`);
-      console.log(`   Mode: ${TEST_LIMIT ? "TEST" : "FULL"} (${limitedList.length} criteria)`);
-      console.log(`   Concurrency: ${CONCURRENCY} parallel requests`);
-      console.log(`   Optimizations: Smart HTML extraction, in-memory cache\n`);
-
-      if (TEST_LIMIT && allToAnalyze.length > TEST_LIMIT) {
-        console.log(`   (Full audit would analyze ${allToAnalyze.length} criteria)\n`);
-      }
-
-      let fromCache = 0;
-      const startTime = Date.now();
-
-      // Progress callback for parallel processing
+      // Progress callback
       const onProgress = (completed, total, criterion, result) => {
-        const icon = criterion.testMethod === "ai" ? "🤖" : criterion.testMethod === "manual" ? "📝" : "🤖👤";
-        const cacheStatus = result.fromCache ? "(cached)" : "(new)";
-        const errorStatus = result.error ? "⚠️" : "✅";
-        console.log(`[${completed}/${total}] ${icon} RGAA ${criterion.article} ${errorStatus} ${cacheStatus}`);
+        const statusIcon =
+          {
+            [COMPLIANCE_STATUS.COMPLIANT]: "✅",
+            [COMPLIANCE_STATUS.NON_COMPLIANT]: "❌",
+            [COMPLIANCE_STATUS.NOT_APPLICABLE]: "⊘",
+            [COMPLIANCE_STATUS.NEEDS_REVIEW]: "🔍",
+          }[result.status] || "?";
+
+        const cacheIcon = result.fromCache ? "📦" : "🆕";
+        const testedBy = result.testedBy === "element_detection" ? "elem" : result.testedBy === "axe_core" ? "axe" : "AI";
+
+        console.log(`[${completed}/${total}] ${statusIcon} RGAA ${criterion.article} (${testedBy}) ${cacheIcon}`);
         if (result.fromCache) fromCache++;
       };
 
-      // OPTIMIZED: Use parallel processing with theme-based HTML extraction
-      console.log(`\n📊 Analyzing ${limitedList.length} criteria in parallel...\n`);
+      // Use the new outcome-based analysis
+      console.log(`\n📊 Running analysis...\n`);
 
-      const parallelResults = await llmClient.analyzeByThemeBatch(
-        limitedList,
+      analysisResults = await llmClient.analyzeAllWithStatus(
+        criteriaToAnalyze,
         {
           url,
           html: pageHTML,
           useCache: true,
           model: PREFERRED_MODEL,
         },
+        violationsByRule,
         {
           concurrency: CONCURRENCY,
           onProgress,
         }
       );
+    } else {
+      console.log(`\n⚠️  LLM not available. Running element detection only...`);
 
-      // Sort results back into categories
-      for (const result of parallelResults) {
-        const criterionData = limitedList.find((c) => c.article === result.criterion);
-        if (!criterionData) continue;
+      // Without LLM, we can still detect Not Applicable and axe-core violations
+      const applicabilityMap = llmClient.htmlExtractor.batchCheckApplicability(pageHTML, criteriaToAnalyze);
 
-        const enrichedResult = {
-          ...criterionData,
-          llmAnalysis: result.analysis,
-          status: result.error ? "error" : "analyzed",
-          timestamp: result.timestamp,
-          fromCache: result.fromCache,
-        };
+      for (const criterion of criteriaToAnalyze) {
+        const app = applicabilityMap.get(criterion.article);
+        const axeRules = criterion.axeRules || [];
+        const violations = axeRules.map((ruleId) => violationsByRule[ruleId]).filter(Boolean);
 
-        if (criterionData.testMethod === "ai") {
-          llmAnalysisResults.aiChecks.push(enrichedResult);
-        } else if (criterionData.testMethod === "manual") {
-          llmAnalysisResults.manualChecks.push(enrichedResult);
+        if (app && !app.applicable) {
+          analysisResults.push({
+            criterion: criterion.article,
+            level: criterion.level,
+            desc: criterion.desc,
+            status: COMPLIANCE_STATUS.NOT_APPLICABLE,
+            confidence: 100,
+            reasoning: app.reason,
+            issues: [],
+            recommendations: [],
+            elementCount: 0,
+            timestamp: new Date().toISOString(),
+            testedBy: "element_detection",
+          });
+        } else if (violations.length > 0) {
+          analysisResults.push({
+            criterion: criterion.article,
+            level: criterion.level,
+            desc: criterion.desc,
+            status: COMPLIANCE_STATUS.NON_COMPLIANT,
+            confidence: 95,
+            reasoning: `Automated testing detected ${violations.length} violation(s)`,
+            issues: violations.map((v) => ({ type: "violation", message: v.help })),
+            recommendations: [criterion.fix],
+            elementCount: app?.elementCount || -1,
+            timestamp: new Date().toISOString(),
+            testedBy: "axe_core",
+          });
         } else {
-          llmAnalysisResults.hybridChecks.push(enrichedResult);
+          analysisResults.push({
+            criterion: criterion.article,
+            level: criterion.level,
+            desc: criterion.desc,
+            status: COMPLIANCE_STATUS.NEEDS_REVIEW,
+            confidence: 0,
+            reasoning: "LLM not available - manual review required",
+            issues: [],
+            recommendations: [],
+            elementCount: app?.elementCount || -1,
+            timestamp: new Date().toISOString(),
+            testedBy: "none",
+          });
         }
       }
+    }
 
-      // Add remaining criteria without AI analysis (for complete report)
-      if (TEST_LIMIT) {
-        const analyzedArticles = new Set(limitedList.map((c) => c.article));
+    // Flush cache
+    llmClient.aiCache.flushCache();
 
-        aiChecks
-          .filter((c) => !analyzedArticles.has(c.article))
-          .forEach((criterion) => {
-            llmAnalysisResults.aiChecks.push({
-              ...criterion,
-              llmAnalysis: `Not analyzed in test mode (limited to ${TEST_LIMIT} total)`,
-              status: "not_analyzed",
-            });
+    const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
+
+    // ========================================================================
+    // CATEGORIZE RESULTS BY OUTCOME
+    // ========================================================================
+    const compliant = analysisResults.filter((r) => r.status === COMPLIANCE_STATUS.COMPLIANT);
+    const nonCompliant = analysisResults.filter((r) => r.status === COMPLIANCE_STATUS.NON_COMPLIANT);
+    const notApplicable = analysisResults.filter((r) => r.status === COMPLIANCE_STATUS.NOT_APPLICABLE);
+    const needsReview = analysisResults.filter((r) => r.status === COMPLIANCE_STATUS.NEEDS_REVIEW);
+
+    // ========================================================================
+    // DISPLAY RESULTS BY STATUS
+    // ========================================================================
+    console.log(`\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
+    console.log(`📊 ANALYSIS COMPLETE - RESULTS BY STATUS`);
+    console.log(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
+    console.log(`   Total analyzed: ${analysisResults.length}`);
+    console.log(`   Time: ${elapsed}s`);
+    console.log(`   From cache: ${fromCache}\n`);
+
+    // Summary counts
+    console.log(`   ✅ Compliant:      ${compliant.length}`);
+    console.log(`   ❌ Non-Compliant:  ${nonCompliant.length}`);
+    console.log(`   ⊘  Not Applicable: ${notApplicable.length}`);
+    console.log(`   🔍 Needs Review:   ${needsReview.length}`);
+
+    // Show Non-Compliant criteria (violations)
+    if (nonCompliant.length > 0) {
+      console.log(`\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
+      console.log(`❌ NON-COMPLIANT CRITERIA (${nonCompliant.length})`);
+      console.log(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
+
+      nonCompliant.forEach((result) => {
+        const criterion = rgaaFlatMapping[result.criterion];
+        console.log(`\n🔴 RGAA ${result.criterion} (Level ${result.level})`);
+        console.log(`   ${result.desc}`);
+        console.log(`   Confidence: ${result.confidence}%`);
+        console.log(`   Tested by: ${result.testedBy}`);
+        console.log(`   Reasoning: ${result.reasoning}`);
+
+        if (result.issues && result.issues.length > 0) {
+          console.log(`   Issues:`);
+          result.issues.forEach((issue, i) => {
+            console.log(`     ${i + 1}. ${issue.message}`);
           });
+        }
 
-        manualChecks
-          .filter((c) => !analyzedArticles.has(c.article))
-          .forEach((criterion) => {
-            llmAnalysisResults.manualChecks.push({
-              ...criterion,
-              llmAnalysis: `Not analyzed in test mode (limited to ${TEST_LIMIT} total)`,
-              status: "not_analyzed",
-            });
-          });
-
-        automatedWithHumanCheck
-          .filter((c) => !analyzedArticles.has(c.article))
-          .forEach((criterion) => {
-            llmAnalysisResults.hybridChecks.push({
-              ...criterion,
-              llmAnalysis: `Not analyzed in test mode (limited to ${TEST_LIMIT} total)`,
-              status: "not_analyzed",
-            });
-          });
-      }
-
-      const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
-      const analyzed = parallelResults.length;
-      const avgTime = (elapsed / Math.max(analyzed - fromCache, 1)).toFixed(1);
-
-      console.log(`\n✨ LLM Analysis Complete!`);
-      console.log(`   Total time: ${elapsed}s`);
-      console.log(`   Analyzed: ${analyzed} criteria`);
-      console.log(`   From Cache: ${fromCache}/${analyzed} (${analyzed > 0 ? ((fromCache / analyzed) * 100).toFixed(1) : 0}%)`);
-      console.log(`   New Analyses: ${analyzed - fromCache}`);
-      console.log(`   Avg time per new analysis: ~${avgTime}s`);
-
-      // Flush cache to disk
-      llmClient.aiCache.flushCache();
-    } else {
-      console.log(`⚠️  Local LLM not available. Start Ollama server to enable AI analysis.`);
-      console.log(`   Run: ollama serve (in a separate terminal)\n`);
-
-      // Store criteria without analysis
-      aiChecks.forEach((criterion) => {
-        llmAnalysisResults.aiChecks.push({
-          ...criterion,
-          llmAnalysis: "LLM not available",
-          status: "not_analyzed",
-        });
-        console.log(`🤖 RGAA ${criterion.article} (${criterion.level}) - ${criterion.risk} risk`);
-        console.log(`   ${criterion.desc}`);
-        console.log(`   🛠️  ${criterion.fix}\n`);
-      });
-
-      manualChecks.forEach((criterion) => {
-        llmAnalysisResults.manualChecks.push({
-          ...criterion,
-          llmAnalysis: "LLM not available",
-          status: "not_analyzed",
-        });
-      });
-
-      automatedWithHumanCheck.forEach((criterion) => {
-        llmAnalysisResults.hybridChecks.push({
-          ...criterion,
-          llmAnalysis: "LLM not available",
-          status: "not_analyzed",
-        });
+        if (result.recommendations && result.recommendations.length > 0) {
+          console.log(`   Fix: ${result.recommendations[0]}`);
+        } else if (criterion?.fix) {
+          console.log(`   Fix: ${criterion.fix}`);
+        }
       });
     }
 
-    // Save raw AI findings to JSON file
-    const fs = require("fs");
-    const rawDataPath = path.join(__dirname, "reports", `ai-analysis-raw_${Date.now()}.json`);
+    // Show Needs Review criteria
+    if (needsReview.length > 0) {
+      console.log(`\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
+      console.log(`🔍 NEEDS HUMAN REVIEW (${needsReview.length})`);
+      console.log(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
+      console.log(`These criteria require human verification:\n`);
+
+      needsReview.forEach((result) => {
+        console.log(`   🔍 RGAA ${result.criterion} (${result.level}) - ${result.reasoning?.substring(0, 80)}...`);
+      });
+    }
+
+    // Show Not Applicable criteria
+    if (notApplicable.length > 0) {
+      console.log(`\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
+      console.log(`⊘ NOT APPLICABLE (${notApplicable.length})`);
+      console.log(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
+      console.log(`These criteria don't apply to this page:\n`);
+
+      notApplicable.forEach((result) => {
+        console.log(`   ⊘ RGAA ${result.criterion}: ${result.reasoning}`);
+      });
+    }
+
+    // Show Compliant criteria (brief)
+    if (compliant.length > 0) {
+      console.log(`\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
+      console.log(`✅ COMPLIANT (${compliant.length})`);
+      console.log(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
+
+      compliant.forEach((result) => {
+        console.log(`   ✅ RGAA ${result.criterion} (${result.level})`);
+      });
+    }
+
+    // Calculate compliance rate (excluding N/A)
+    const applicableCount = analysisResults.length - notApplicable.length;
+    const complianceRate = applicableCount > 0 ? ((compliant.length / applicableCount) * 100).toFixed(1) : 0;
+
+    console.log(`\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
+    console.log(`📊 COMPLIANCE SUMMARY`);
+    console.log(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
+    console.log(`   Applicable criteria: ${applicableCount}`);
+    console.log(`   Compliant: ${compliant.length}`);
+    console.log(`   Non-Compliant: ${nonCompliant.length}`);
+    console.log(`   Needs Review: ${needsReview.length}`);
+    console.log(`   Compliance Rate: ${complianceRate}% (excluding N/A and Needs Review)`);
+
+    // Prepare data for export in the new format
+    const auditResults = {
+      compliant,
+      nonCompliant,
+      notApplicable,
+      needsReview,
+      all: analysisResults,
+    };
+
+    // Save results to JSON
+    const rawDataPath = path.join(__dirname, "reports", `audit-results_${Date.now()}.json`);
     const rawData = {
       auditDate: new Date().toISOString(),
       url,
       llmAvailable,
+      model: PREFERRED_MODEL,
       summary: {
         totalCriteria: Object.keys(rgaaFlatMapping).length,
-        aiChecks: llmAnalysisResults.aiChecks.length,
-        manualChecks: llmAnalysisResults.manualChecks.length,
-        hybridChecks: llmAnalysisResults.hybridChecks.length,
-        totalAnalyzed: llmAnalysisResults.aiChecks.length + llmAnalysisResults.manualChecks.length + llmAnalysisResults.hybridChecks.length,
+        analyzed: analysisResults.length,
+        compliant: compliant.length,
+        nonCompliant: nonCompliant.length,
+        notApplicable: notApplicable.length,
+        needsReview: needsReview.length,
+        complianceRate: parseFloat(complianceRate),
       },
-      analyses: llmAnalysisResults,
+      results: auditResults,
     };
     fs.writeFileSync(rawDataPath, JSON.stringify(rawData, null, 2));
-    console.log(`\n💾 Raw AI analysis data saved to: ${path.basename(rawDataPath)}`);
+    console.log(`\n💾 Results saved to: ${path.basename(rawDataPath)}`);
 
-    // Export cache for future use
+    // Export cache
     const cacheExportPath = path.join(__dirname, "reports", `ai-cache-export_${Date.now()}.json`);
     llmClient.aiCache.exportCacheToFile(cacheExportPath);
-
-    console.log(`\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
-    console.log(`📊 AUDIT SUMMARY`);
-    console.log(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
-    console.log(`Total RGAA Criteria: ${Object.keys(rgaaFlatMapping).length}`);
-    console.log(`Automated (axe-core): ${automatedTests.length} (${automatedWithViolations.length} failed)`);
-    console.log(`Automated + Human: ${automatedWithHumanCheck.length} (${automatedAiWithViolations.length} failed)`);
-    console.log(`Manual Checks: ${manualChecks.length}`);
-    console.log(`AI-Assisted: ${aiChecks.length}`);
 
     console.log(`\n[ GREEN IMPACT REPORT ]`);
     console.log(`Page Size: ${(totalBytes / 1024 / 1024).toFixed(2)} MB`);
     console.log(`Carbon per Visit: ${estimate.toFixed(3)}g CO2`);
 
-    // Analyze RGAA compliance for detailed report
+    // Analyze RGAA compliance for detailed report (legacy format)
     const rgaaStatus = analyzeRGAACompliance(results);
 
-    // Generate all reports
+    // Generate basic reports
     generateProReport(results, estimate, url);
     generateWCAGReport(results, url);
     generateRGAAReport(results, url);
     generateDetailedRGAAReport(rgaaStatus, url);
-
-    // Generate comprehensive 106-criteria report with LLM analysis
-    const { generateComprehensiveRGAAReport } = require("./comprehensiveRGAAReport.js");
-
-    // Merge hybrid checks with automatedWithHumanCheck, adding AI analysis
-    const hybridWithAI = automatedWithHumanCheck.map((criterion) => {
-      const aiAnalysis = llmAnalysisResults.hybridChecks.find((h) => h.article === criterion.article);
-      return {
-        ...criterion,
-        llmAnalysis: aiAnalysis?.llmAnalysis || null,
-        llmStatus: aiAnalysis?.status || "not_analyzed",
-      };
-    });
-
-    generateComprehensiveRGAAReport({
-      url,
-      automatedTests,
-      automatedWithHumanCheck: hybridWithAI,
-      manualChecks: llmAnalysisResults.manualChecks,
-      aiChecks: llmAnalysisResults.aiChecks,
-      llmAvailable,
-      timestamp: new Date().toISOString(),
-    });
 
     // Generate official French accessibility declaration
     generateDeclarationAccessibilite(results, url, {
@@ -481,25 +396,20 @@ async function runAudit(url) {
       contactForm: "https://vivatechnology.com/contact",
       schemaUrl: "[Lien vers le document]",
       actionPlanUrl: "[Lien vers le document]",
-      testedPages: [
-        { name: "Accueil", url: "https://vivatechnology.com" },
-        // { name: 'À propos', url: 'https://vivatechnology.com/about' },
-        // { name: 'Actualités', url: 'https://vivatechnology.com/news' }
-      ],
+      testedPages: [{ name: "Accueil", url: "https://vivatechnology.com" }],
     });
 
-    // Export comprehensive JSON data for React frontend
+    // Export comprehensive JSON data for React frontend (new format)
     exportAuditData({
       url,
       results,
       co2Data: estimate,
       totalBytes,
-      automatedTests,
-      automatedWithHumanCheck: hybridWithAI,
-      manualChecks: llmAnalysisResults.manualChecks,
-      aiChecks: llmAnalysisResults.aiChecks,
+      // New outcome-based format
+      auditResults,
+      complianceRate: parseFloat(complianceRate),
       llmAvailable,
-      llmAnalysisResults,
+      model: PREFERRED_MODEL,
       rgaaStatus,
       timestamp: new Date().toISOString(),
     });

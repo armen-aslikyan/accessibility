@@ -3,8 +3,24 @@ const path = require('path');
 const { rgaaFlatMapping } = require('./constants/rgaaMapping.complete.js');
 
 /**
+ * Compliance status constants (must match llmClient.js)
+ */
+const COMPLIANCE_STATUS = {
+    COMPLIANT: 'compliant',
+    NON_COMPLIANT: 'non_compliant',
+    NOT_APPLICABLE: 'not_applicable',
+    NEEDS_REVIEW: 'needs_review'
+};
+
+/**
  * Export comprehensive audit data as JSON
  * This data will be consumed by the React frontend
+ * 
+ * NEW FORMAT (v2): Outcome-based categorization
+ * - Compliant: Criterion is met
+ * - Non-Compliant: Criterion has violations
+ * - Not Applicable: No relevant elements exist
+ * - Needs Review: AI couldn't determine with confidence
  */
 function exportAuditData(auditResults) {
     const {
@@ -12,12 +28,11 @@ function exportAuditData(auditResults) {
         results,
         co2Data,
         totalBytes,
-        automatedTests,
-        automatedWithHumanCheck,
-        manualChecks,
-        aiChecks,
+        // New outcome-based format
+        auditResults: outcomeResults,
+        complianceRate,
         llmAvailable,
-        llmAnalysisResults,
+        model,
         rgaaStatus,
         timestamp = new Date().toISOString()
     } = auditResults;
@@ -30,111 +45,71 @@ function exportAuditData(auditResults) {
         allCriteria[article] = {
             ...criterion,
             article,
-            testMethod: criterion.testMethod,
-            result: 'not_tested',
-            needsReview: false,
+            // New status-based fields
+            status: COMPLIANCE_STATUS.NEEDS_REVIEW,
+            confidence: 0,
+            reasoning: null,
+            issues: [],
+            recommendations: [],
             testedBy: null,
-            violations: [],
-            llmAnalysis: null,
-            llmStatus: null
+            elementCount: -1
         };
     });
 
-    // Update with automated test results
-    automatedTests.forEach(test => {
-        if (allCriteria[test.article]) {
-            allCriteria[test.article].result = test.violations.length > 0 ? 'failed' : 'passed';
-            allCriteria[test.article].violations = test.violations || [];
-            allCriteria[test.article].testedBy = 'automated';
-        }
-    });
+    // If we have new outcome-based results, use them
+    if (outcomeResults && outcomeResults.all) {
+        outcomeResults.all.forEach(result => {
+            if (allCriteria[result.criterion]) {
+                allCriteria[result.criterion].status = result.status;
+                allCriteria[result.criterion].confidence = result.confidence;
+                allCriteria[result.criterion].reasoning = result.reasoning;
+                allCriteria[result.criterion].issues = result.issues || [];
+                allCriteria[result.criterion].recommendations = result.recommendations || [];
+                allCriteria[result.criterion].testedBy = result.testedBy;
+                allCriteria[result.criterion].elementCount = result.elementCount;
+                allCriteria[result.criterion].timestamp = result.timestamp;
+                allCriteria[result.criterion].fromCache = result.fromCache;
+            }
+        });
+    }
 
-    // Update with automated + human check results (with AI analysis)
-    automatedWithHumanCheck.forEach(test => {
-        if (allCriteria[test.article]) {
-            const hasViolations = test.violations.length > 0;
-            allCriteria[test.article].result = hasViolations ? 'failed' : 'passed';
-            allCriteria[test.article].needsReview = true;
-            allCriteria[test.article].violations = test.violations || [];
-            allCriteria[test.article].testedBy = 'automated+manual';
-            allCriteria[test.article].llmAnalysis = test.llmAnalysis || null;
-            allCriteria[test.article].llmStatus = test.llmStatus || 'not_analyzed';
-        }
-    });
-
-    // Update with manual check results
-    manualChecks.forEach(check => {
-        if (allCriteria[check.article]) {
-            allCriteria[check.article].result = 'requires_manual_check';
-            allCriteria[check.article].llmAnalysis = check.llmAnalysis || null;
-            allCriteria[check.article].llmStatus = check.status || 'not_analyzed';
-            allCriteria[check.article].testedBy = 'manual';
-        }
-    });
-
-    // Update with AI check results
-    aiChecks.forEach(check => {
-        if (allCriteria[check.article]) {
-            allCriteria[check.article].result = 'requires_ai_check';
-            allCriteria[check.article].llmAnalysis = check.llmAnalysis || null;
-            allCriteria[check.article].llmStatus = check.status || 'not_analyzed';
-            allCriteria[check.article].testedBy = 'ai';
-        }
-    });
-
-    // Calculate statistics
+    // Calculate statistics from outcome-based results
     const stats = {
         total: Object.keys(allCriteria).length,
-        passed: 0,
-        failed: 0,
-        passedNeedsReview: 0,
-        failedNeedsReview: 0,
-        requiresManual: 0,
-        requiresAI: 0,
-        notTested: 0,
-        byAutomation: automatedTests.length,
-        byAI: aiChecks.length,
-        byManual: manualChecks.length,
-        byHybrid: automatedWithHumanCheck.length
+        compliant: outcomeResults?.compliant?.length || 0,
+        nonCompliant: outcomeResults?.nonCompliant?.length || 0,
+        notApplicable: outcomeResults?.notApplicable?.length || 0,
+        needsReview: outcomeResults?.needsReview?.length || 0,
+        analyzed: outcomeResults?.all?.length || 0
     };
 
-    Object.values(allCriteria).forEach(criterion => {
-        if (criterion.result === 'passed' && !criterion.needsReview) {
-            stats.passed++;
-        } else if (criterion.result === 'failed' && !criterion.needsReview) {
-            stats.failed++;
-        } else if (criterion.result === 'passed' && criterion.needsReview) {
-            stats.passedNeedsReview++;
-        } else if (criterion.result === 'failed' && criterion.needsReview) {
-            stats.failedNeedsReview++;
-        } else if (criterion.result === 'requires_manual_check') {
-            stats.requiresManual++;
-        } else if (criterion.result === 'requires_ai_check') {
-            stats.requiresAI++;
-        } else if (criterion.result === 'not_tested') {
-            stats.notTested++;
-        }
-    });
+    // Calculate compliance rate
+    const applicableCount = stats.analyzed - stats.notApplicable;
+    const calculatedComplianceRate = applicableCount > 0 
+        ? ((stats.compliant / applicableCount) * 100).toFixed(1)
+        : 0;
 
     // Calculate scores
     const totalViolations = results.violations.length;
-    const accessibilityScore = Math.max(0, 100 - (totalViolations * 3));
+    const accessibilityScore = Math.max(0, 100 - (stats.nonCompliant * 3));
     
     // Legal risk calculations (2026 enforcement)
-    const technicalRisk = totalViolations > 0 ? 50000 : 0;
+    const technicalRisk = stats.nonCompliant > 0 ? 50000 : 0;
     const adminRisk = 25000;
     const totalExposure = technicalRisk + adminRisk;
 
-    // Build comprehensive data export
+    // Build comprehensive data export (v2 format)
     const exportData = {
         meta: {
-            version: '1.0.0',
+            version: '2.0.0',
             generatedAt: timestamp,
             url,
-            llmAvailable
+            llmAvailable,
+            model: model || 'unknown'
         },
         summary: {
             accessibilityScore,
+            complianceRate: complianceRate || parseFloat(calculatedComplianceRate),
             totalViolations,
             legalRisk: {
                 technical: technicalRisk,
@@ -147,8 +122,18 @@ function exportAuditData(auditResults) {
                 pageSizeMB: (totalBytes / 1024 / 1024).toFixed(2)
             }
         },
+        // New outcome-based statistics
         statistics: stats,
+        // All criteria with their status
         criteria: allCriteria,
+        // Grouped by outcome for easy frontend access
+        byStatus: {
+            compliant: outcomeResults?.compliant || [],
+            nonCompliant: outcomeResults?.nonCompliant || [],
+            notApplicable: outcomeResults?.notApplicable || [],
+            needsReview: outcomeResults?.needsReview || []
+        },
+        // Raw axe-core results
         violations: results.violations.map(violation => ({
             id: violation.id,
             impact: violation.impact,
