@@ -169,6 +169,18 @@ function CriterionCard({ criterion }) {
                   {criterion.confidence}% {t('rgaa.confidence')}
                 </span>
               )}
+              {/* Show preliminary status for items needing review */}
+              {criterion.status === COMPLIANCE_STATUS.NEEDS_REVIEW && criterion.preliminaryStatus && (
+                <span className={`px-2 py-1 rounded text-xs font-medium ${
+                  criterion.preliminaryStatus === COMPLIANCE_STATUS.COMPLIANT 
+                    ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' 
+                    : 'bg-red-50 text-red-700 border border-red-200'
+                }`}>
+                  {criterion.preliminaryStatus === COMPLIANCE_STATUS.COMPLIANT 
+                    ? `↑ ${t('rgaa.likelyCompliant')}`
+                    : `↓ ${t('rgaa.likelyNonCompliant')}`}
+                </span>
+              )}
             </div>
             <p className="text-sm text-slate-700">{description}</p>
           </div>

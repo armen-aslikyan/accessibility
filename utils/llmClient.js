@@ -465,6 +465,7 @@ async function analyzeWithStatus(criterion, pageContext, axeViolations = []) {
         level: criterion.level,
         desc: criterion.desc,
         status: parsed.status,
+        preliminaryStatus: parsed.preliminaryStatus,
         confidence: parsed.confidence,
         reasoning: parsed.reasoning,
         issues: parsed.issues,
@@ -480,6 +481,7 @@ async function analyzeWithStatus(criterion, pageContext, axeViolations = []) {
     if (useCache) {
         aiCache.cacheAnalysis(criterion, html, JSON.stringify({
             status: result.status,
+            preliminaryStatus: result.preliminaryStatus,
             confidence: result.confidence,
             reasoning: result.reasoning,
             issues: result.issues,
@@ -490,6 +492,12 @@ async function analyzeWithStatus(criterion, pageContext, axeViolations = []) {
     
     return result;
 }
+
+/**
+ * Confidence threshold for automatic status determination
+ * Below this threshold, status becomes "needs_review" with preliminary assessment
+ */
+const CONFIDENCE_THRESHOLD = 70;
 
 /**
  * Build a prompt that asks LLM to determine compliance status
@@ -512,26 +520,30 @@ TASK: Determine the compliance status for this criterion.
 
 You MUST respond in this EXACT format (use these exact labels):
 
-STATUS: [Choose ONE: COMPLIANT | NON_COMPLIANT | NEEDS_REVIEW]
-CONFIDENCE: [Number 0-100]
+ASSESSMENT: [Choose ONE: COMPLIANT | NON_COMPLIANT]
+CONFIDENCE: [Number 0-100, how certain are you about this assessment]
 REASONING: [One paragraph explaining your determination]
 ISSUES: [List each issue on a new line starting with "- ", or "None" if compliant]
 RECOMMENDATIONS: [List each recommendation on a new line starting with "- ", or "None" if fully compliant]
 
 Rules:
-- COMPLIANT: All requirements of the criterion are clearly met
-- NON_COMPLIANT: Clear violations are found
-- NEEDS_REVIEW: Cannot determine with confidence, human verification needed
-- Be conservative: if uncertain, choose NEEDS_REVIEW
-- Do NOT use NOT_APPLICABLE (that's determined by element presence, not content)`;
+- ALWAYS choose either COMPLIANT or NON_COMPLIANT based on your best assessment
+- Use CONFIDENCE to express how certain you are (100 = absolutely certain, 50 = coin flip)
+- COMPLIANT: Requirements appear to be met based on the HTML
+- NON_COMPLIANT: Issues or violations are detected
+- If uncertain, still make your best guess but use a lower confidence score
+- Do NOT say "unable to determine" - always provide an assessment with confidence
+- Low confidence (under 70%) means human review is recommended`;
 }
 
 /**
  * Parse LLM response to extract structured status data
+ * Now uses confidence threshold to determine if human review is needed
  */
 function parseStatusResponse(response, criterion) {
     const result = {
         status: COMPLIANCE_STATUS.NEEDS_REVIEW,
+        preliminaryStatus: null, // What AI thinks it is (before confidence threshold)
         confidence: 50,
         reasoning: '',
         issues: [],
@@ -539,13 +551,19 @@ function parseStatusResponse(response, criterion) {
     };
     
     try {
-        // Extract STATUS
+        // Extract ASSESSMENT (the AI's best guess)
+        const assessmentMatch = response.match(/ASSESSMENT:\s*(COMPLIANT|NON_COMPLIANT)/i);
+        // Also try STATUS for backward compatibility with cached responses
         const statusMatch = response.match(/STATUS:\s*(COMPLIANT|NON_COMPLIANT|NEEDS_REVIEW)/i);
-        if (statusMatch) {
-            const statusStr = statusMatch[1].toUpperCase();
-            if (statusStr === 'COMPLIANT') result.status = COMPLIANCE_STATUS.COMPLIANT;
-            else if (statusStr === 'NON_COMPLIANT') result.status = COMPLIANCE_STATUS.NON_COMPLIANT;
-            else result.status = COMPLIANCE_STATUS.NEEDS_REVIEW;
+        
+        const matchedAssessment = assessmentMatch || statusMatch;
+        if (matchedAssessment) {
+            const assessmentStr = matchedAssessment[1].toUpperCase();
+            if (assessmentStr === 'COMPLIANT') {
+                result.preliminaryStatus = COMPLIANCE_STATUS.COMPLIANT;
+            } else if (assessmentStr === 'NON_COMPLIANT') {
+                result.preliminaryStatus = COMPLIANCE_STATUS.NON_COMPLIANT;
+            }
         }
         
         // Extract CONFIDENCE
@@ -586,6 +604,22 @@ function parseStatusResponse(response, criterion) {
         // If no reasoning extracted, use full response
         if (!result.reasoning) {
             result.reasoning = response.substring(0, 500);
+        }
+        
+        // Determine final status based on confidence threshold
+        if (result.preliminaryStatus) {
+            if (result.confidence >= CONFIDENCE_THRESHOLD) {
+                // High confidence - use the assessment as final status
+                result.status = result.preliminaryStatus;
+            } else {
+                // Low confidence - needs human review, but show what AI thinks
+                result.status = COMPLIANCE_STATUS.NEEDS_REVIEW;
+                // Add confidence context to reasoning
+                const likelyStatus = result.preliminaryStatus === COMPLIANCE_STATUS.COMPLIANT 
+                    ? 'likely compliant' 
+                    : 'likely non-compliant';
+                result.reasoning = `[AI Assessment: ${likelyStatus}] ${result.reasoning}`;
+            }
         }
         
     } catch (error) {

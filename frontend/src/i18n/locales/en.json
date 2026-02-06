@@ -65,6 +65,8 @@
     "financialImpact": "Financial Impact",
     "brandImpact": "Brand Impact",
     "confidence": "confidence",
+    "likelyCompliant": "Likely Compliant",
+    "likelyNonCompliant": "Likely Non-Compliant",
     "wcagReferences": "WCAG References",
     "statusLabels": {
       "compliant": "Compliant",

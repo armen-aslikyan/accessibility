@@ -47,6 +47,7 @@ function exportAuditData(auditResults) {
             article,
             // New status-based fields
             status: COMPLIANCE_STATUS.NEEDS_REVIEW,
+            preliminaryStatus: null, // AI's preliminary assessment for needs_review items
             confidence: 0,
             reasoning: null,
             issues: [],
@@ -61,6 +62,7 @@ function exportAuditData(auditResults) {
         outcomeResults.all.forEach(result => {
             if (allCriteria[result.criterion]) {
                 allCriteria[result.criterion].status = result.status;
+                allCriteria[result.criterion].preliminaryStatus = result.preliminaryStatus || null;
                 allCriteria[result.criterion].confidence = result.confidence;
                 allCriteria[result.criterion].reasoning = result.reasoning;
                 allCriteria[result.criterion].issues = result.issues || [];
