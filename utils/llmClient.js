@@ -399,6 +399,9 @@ async function analyzeWithStatus(criterion, pageContext, axeViolations = []) {
         };
     }
     
+    // Check if this criterion has axe-core rules defined
+    const hasAxeRules = criterion.axeRules && criterion.axeRules.length > 0;
+    
     // If axe-core found violations, mark as Non-Compliant
     if (axeViolations && axeViolations.length > 0) {
         const issues = axeViolations.map(v => ({
@@ -417,6 +420,25 @@ async function analyzeWithStatus(criterion, pageContext, axeViolations = []) {
             reasoning: `Automated testing detected ${axeViolations.length} violation(s)`,
             issues,
             recommendations: [criterion.fix],
+            elementCount: applicability.elementCount,
+            timestamp: new Date().toISOString(),
+            fromCache: false,
+            testedBy: 'axe_core'
+        };
+    }
+    
+    // If criterion has axe rules and NO violations were found, mark as COMPLIANT by axe-core
+    // (unless there's a custom AI prompt that requires additional evaluation)
+    if (hasAxeRules && !criterion.prompt) {
+        return {
+            criterion: criterion.article,
+            level: criterion.level,
+            desc: criterion.desc,
+            status: COMPLIANCE_STATUS.COMPLIANT,
+            confidence: 90,
+            reasoning: `Automated testing (axe-core) passed - no violations detected for rules: ${criterion.axeRules.join(', ')}`,
+            issues: [],
+            recommendations: [],
             elementCount: applicability.elementCount,
             timestamp: new Date().toISOString(),
             fromCache: false,

@@ -76,13 +76,28 @@ function exportAuditData(auditResults) {
     }
 
     // Calculate statistics from outcome-based results
+    const allResults = outcomeResults?.all || [];
+    
+    // Calculate test method breakdown
+    const testMethodCounts = allResults.reduce((acc, result) => {
+        const method = result.testedBy || 'unknown';
+        acc[method] = (acc[method] || 0) + 1;
+        return acc;
+    }, {});
+    
     const stats = {
         total: Object.keys(allCriteria).length,
         compliant: outcomeResults?.compliant?.length || 0,
         nonCompliant: outcomeResults?.nonCompliant?.length || 0,
         notApplicable: outcomeResults?.notApplicable?.length || 0,
         needsReview: outcomeResults?.needsReview?.length || 0,
-        analyzed: outcomeResults?.all?.length || 0
+        analyzed: allResults.length,
+        // Test method breakdown
+        byTestMethod: {
+            axeCore: testMethodCounts['axe_core'] || 0,
+            ai: testMethodCounts['ai'] || 0,
+            elementDetection: testMethodCounts['element_detection'] || 0
+        }
     };
 
     // Calculate compliance rate

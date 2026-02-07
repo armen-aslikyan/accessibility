@@ -144,6 +144,29 @@ function Dashboard({ data }) {
           />
         </div>
 
+        {/* Test Method Breakdown */}
+        {statistics.byTestMethod && (
+          <div className="mt-8 pt-8 border-t border-slate-200">
+            <h3 className="text-lg font-bold text-slate-900 mb-4">
+              {t('dashboard.testMethodBreakdown')}
+            </h3>
+            <div className="grid grid-cols-3 gap-4">
+              <div className="bg-blue-50 rounded-lg p-3 text-center">
+                <p className="text-2xl font-bold text-blue-600">{statistics.byTestMethod.axeCore || 0}</p>
+                <p className="text-xs text-slate-600">{t('dashboard.automated')} (axe-core)</p>
+              </div>
+              <div className="bg-purple-50 rounded-lg p-3 text-center">
+                <p className="text-2xl font-bold text-purple-600">{statistics.byTestMethod.ai || 0}</p>
+                <p className="text-xs text-slate-600">{t('dashboard.ai')} (Mistral)</p>
+              </div>
+              <div className="bg-slate-100 rounded-lg p-3 text-center">
+                <p className="text-2xl font-bold text-slate-600">{statistics.byTestMethod.elementDetection || 0}</p>
+                <p className="text-xs text-slate-600">{t('dashboard.notApplicable')}</p>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Compliance Progress Bar */}
         <div className="mt-8 pt-8 border-t border-slate-200">
           <h3 className="text-lg font-bold text-slate-900 mb-4">
