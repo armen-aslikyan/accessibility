@@ -521,19 +521,21 @@ TASK: Determine the compliance status for this criterion.
 You MUST respond in this EXACT format (use these exact labels):
 
 ASSESSMENT: [Choose ONE: COMPLIANT | NON_COMPLIANT]
-CONFIDENCE: [Number 0-100, how certain are you about this assessment]
+CONFIDENCE: [Number 0-100]
 REASONING: [One paragraph explaining your determination]
 ISSUES: [List each issue on a new line starting with "- ", or "None" if compliant]
 RECOMMENDATIONS: [List each recommendation on a new line starting with "- ", or "None" if fully compliant]
 
-Rules:
-- ALWAYS choose either COMPLIANT or NON_COMPLIANT based on your best assessment
-- Use CONFIDENCE to express how certain you are (100 = absolutely certain, 50 = coin flip)
-- COMPLIANT: Requirements appear to be met based on the HTML
-- NON_COMPLIANT: Issues or violations are detected
-- If uncertain, still make your best guess but use a lower confidence score
-- Do NOT say "unable to determine" - always provide an assessment with confidence
-- Low confidence (under 70%) means human review is recommended`;
+CONFIDENCE CALIBRATION (follow strictly):
+- 90-100%: Found CONCRETE EVIDENCE (specific violations with examples, or verified all elements meet requirements)
+- 80-89%: Strong indicators found (clear patterns of issues or compliance, minor ambiguity)
+- 70-79%: Moderate evidence but some aspects unclear
+- 50-69%: Limited evidence, significant uncertainty, HTML may be incomplete
+
+IMPORTANT: If you find specific issues (like "iframe missing title", "image without alt"), that IS concrete evidence. 
+Finding 3+ specific issues = at least 85% confidence in NON_COMPLIANT.
+Finding all elements properly implemented = at least 85% confidence in COMPLIANT.
+Do NOT be overly conservative - concrete findings ARE certainty.`;
 }
 
 /**
@@ -604,6 +606,16 @@ function parseStatusResponse(response, criterion) {
         // If no reasoning extracted, use full response
         if (!result.reasoning) {
             result.reasoning = response.substring(0, 500);
+        }
+        
+        // Confidence calibration: adjust based on evidence found
+        // If AI found multiple concrete issues but reported low confidence, boost it
+        if (result.preliminaryStatus === COMPLIANCE_STATUS.NON_COMPLIANT && result.issues.length >= 3) {
+            // 3+ specific issues = strong evidence, minimum 85% confidence
+            result.confidence = Math.max(result.confidence, 85);
+        } else if (result.preliminaryStatus === COMPLIANCE_STATUS.NON_COMPLIANT && result.issues.length >= 1) {
+            // 1-2 specific issues = moderate evidence, minimum 75% confidence
+            result.confidence = Math.max(result.confidence, 75);
         }
         
         // Determine final status based on confidence threshold

@@ -122,7 +122,7 @@ function StatBadge({ label, value, color, icon }) {
 }
 
 function CriterionCard({ criterion }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [expanded, setExpanded] = useState(false);
 
   // New status configuration using compliance status
@@ -136,8 +136,10 @@ function CriterionCard({ criterion }) {
   const statusInfo = statusConfig[criterion.status] || statusConfig[COMPLIANCE_STATUS.NEEDS_REVIEW];
   const status = { ...statusInfo, label: t(statusInfo.labelKey) };
 
-  // Get description (support both French and English)
-  const description = criterion.desc || criterion.descEn || '';
+  // Get description based on current language
+  const description = i18n.language === 'en' 
+    ? (criterion.descEn || criterion.desc || '')
+    : (criterion.desc || criterion.descEn || '');
 
   return (
     <div className="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden">
