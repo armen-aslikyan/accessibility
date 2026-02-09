@@ -4,9 +4,58 @@ import Dashboard from './components/Dashboard';
 import RGAAReport from './components/RGAAReport';
 import ViolationsReport from './components/ViolationsReport';
 import CarbonReport from './components/CarbonReport';
+import AccessibilityStatement from './components/AccessibilityStatement/AccessibilityStatement';
 import LanguageSwitcher from './components/LanguageSwitcher';
 import { loadLatestAudit } from './utils/dataLoader';
 import './App.css';
+
+// Helper function to prepare data for AccessibilityStatement component
+function prepareStatementData(auditData) {
+  const { meta, statistics, criteria } = auditData;
+  
+  // Calculate compliance status
+  const applicableCount = statistics.analyzed - (statistics.notApplicable || 0);
+  const complianceRate = applicableCount > 0 
+    ? ((statistics.compliant / applicableCount) * 100).toFixed(1)
+    : 0;
+  
+  let complianceStatus = 'non';
+  if (complianceRate >= 100) complianceStatus = 'totalement';
+  else if (complianceRate >= 50) complianceStatus = 'partiellement';
+  
+  // Extract non-compliant items from criteria
+  const nonCompliantItems = Object.entries(criteria)
+    .filter(([, criterion]) => criterion.status === 'non_compliant')
+    .slice(0, 10) // Limit to first 10 for readability
+    .map(([key, criterion]) => `Critère ${key} : ${criterion.desc}`);
+  
+  // Get audit date
+  const auditDate = new Date(meta.generatedAt).toLocaleDateString('fr-FR', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
+  
+  return {
+    siteName: meta.url || "Site Web",
+    organizationName: "Organisation",
+    complianceStatus,
+    complianceRate: parseFloat(complianceRate),
+    auditDate,
+    auditorName: "Audit Automatisé RGAA",
+    technologies: ["HTML5", "CSS", "JavaScript", "WAI-ARIA"],
+    testEnvironment: [
+      "Analyse automatisée avec axe-core",
+      "Analyse IA avec Mistral",
+      "Détection d'éléments automatique"
+    ],
+    nonCompliantItems: nonCompliantItems.length > 0 
+      ? nonCompliantItems 
+      : ["Aucune non-conformité majeure détectée"],
+    contactEmail: "accessibilite@exemple.fr",
+    contactFormUrl: "/contact"
+  };
+}
 
 function App() {
   const { t } = useTranslation();
@@ -109,7 +158,8 @@ function App() {
               { id: 'dashboard', icon: '📊' },
               { id: 'rgaa', icon: '📋' },
               { id: 'violations', icon: '⚠️' },
-              { id: 'carbon', icon: '🌱' }
+              { id: 'carbon', icon: '🌱' },
+              { id: 'statement', icon: '📄' }
             ].map((tab) => (
               <button
                 key={tab.id}
@@ -134,6 +184,7 @@ function App() {
         {activeTab === 'rgaa' && <RGAAReport data={auditData} />}
         {activeTab === 'violations' && <ViolationsReport data={auditData} />}
         {activeTab === 'carbon' && <CarbonReport data={auditData} />}
+        {activeTab === 'statement' && <AccessibilityStatement data={prepareStatementData(auditData)} />}
       </main>
     </div>
   );

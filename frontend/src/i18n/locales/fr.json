@@ -12,7 +12,8 @@
     "dashboard": "Tableau de Bord",
     "rgaa": "Critères RGAA",
     "violations": "Violations",
-    "carbon": "Empreinte Carbone"
+    "carbon": "Empreinte Carbone",
+    "statement": "Déclaration d'Accessibilité"
   },
   "dashboard": {
     "legalRiskAlert": "⚠️ Alerte Exposition Juridique (Loi n° 2023-171 & EAA 2025)",
@@ -128,5 +129,38 @@
     "sourceNote": "Calculs basés sur le modèle SWD (Sustainable Web Design) de",
     "greenWebFoundation": "The Green Web Foundation",
     "auditPerformed": "Audit effectué le"
+  },
+  "statement": {
+    "title": "Déclaration d'accessibilité",
+    "intro": "s'engage à rendre ses services numériques accessibles, conformément à l'article 47 de la loi n° 2005-102 du 11 février 2005.",
+    "appliesTo": "Cette déclaration d'accessibilité s'applique au site :",
+    "complianceTitle": "État de conformité",
+    "complianceText": "est {{status}} avec le référentiel général d'amélioration de l'accessibilité (RGAA), en raison des non-conformités et des dérogations énumérées ci-dessous.",
+    "complianceRate": "Le taux de conformité est de {{rate}}%.",
+    "statusLabels": {
+      "totalement": "totalement conforme",
+      "partiellement": "partiellement conforme",
+      "non": "non conforme"
+    },
+    "testResultsTitle": "Résultats des tests",
+    "testResultsIntro": "L'audit de conformité réalisé par {{auditor}} le {{date}} révèle que :",
+    "technologiesTitle": "Technologies utilisées pour l'audit",
+    "testEnvironmentTitle": "Environnement de test",
+    "testEnvironmentIntro": "Les vérifications de restitution de contenus ont été réalisées avec les combinaisons suivantes :",
+    "contactTitle": "Retour d'information et contact",
+    "contactIntro": "Si vous n'arrivez pas à accéder à un contenu ou à un service, vous pouvez contacter le responsable de {{siteName}} pour être orienté vers une alternative accessible ou obtenir le contenu sous une autre forme.",
+    "contactSendMessage": "Envoyer un message :",
+    "contactFormLink": "Lien vers le formulaire",
+    "contactEmail": "Contacter :",
+    "appealTitle": "Voies de recours",
+    "appealIntro": "Si vous constatez un défaut d'accessibilité vous empêchant d'accéder à un contenu ou une fonctionnalité du site, que vous nous le signalez et que vous ne parvenez pas à obtenir une réponse de notre part, vous avez le droit d'envoyer vos doléances ou une demande de saisine au Défenseur des droits.",
+    "appealMethods": "Plusieurs moyens sont à votre disposition :",
+    "appealOption1": "Écrire un message au",
+    "appealOption1Link": "Défenseur des droits",
+    "appealOption2": "Contacter l'ambassadeur du Défenseur des droits dans votre région",
+    "appealOption3": "Envoyer un courrier par la poste (gratuit, ne pas mettre de timbre) :",
+    "appealAddress": "Défenseur des droits\nLibre réponse 71120\n75342 Paris CEDEX 07",
+    "downloadHTML": "Télécharger en HTML",
+    "downloadPDF": "Télécharger en PDF"
   }
 }

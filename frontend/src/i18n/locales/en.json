@@ -12,7 +12,8 @@
     "dashboard": "Dashboard",
     "rgaa": "RGAA Criteria",
     "violations": "Violations",
-    "carbon": "Carbon Footprint"
+    "carbon": "Carbon Footprint",
+    "statement": "Accessibility Statement"
   },
   "dashboard": {
     "legalRiskAlert": "⚠️ Legal Exposure Alert (Law No. 2023-171 & EAA 2025)",
@@ -128,5 +129,38 @@
     "sourceNote": "Calculations based on the SWD (Sustainable Web Design) model from",
     "greenWebFoundation": "The Green Web Foundation",
     "auditPerformed": "Audit performed on"
+  },
+  "statement": {
+    "title": "Accessibility Statement",
+    "intro": "is committed to making its digital services accessible, in accordance with Article 47 of Law No. 2005-102 of February 11, 2005.",
+    "appliesTo": "This accessibility statement applies to the website:",
+    "complianceTitle": "Compliance Status",
+    "complianceText": "is {{status}} with the General Framework for Improving Accessibility (RGAA), due to the non-compliances and exemptions listed below.",
+    "complianceRate": "The compliance rate is {{rate}}%.",
+    "statusLabels": {
+      "totalement": "fully compliant",
+      "partiellement": "partially compliant",
+      "non": "not compliant"
+    },
+    "testResultsTitle": "Test Results",
+    "testResultsIntro": "The compliance audit carried out by {{auditor}} on {{date}} reveals that:",
+    "technologiesTitle": "Technologies Used for the Audit",
+    "testEnvironmentTitle": "Test Environment",
+    "testEnvironmentIntro": "Content rendering verifications were performed with the following combinations:",
+    "contactTitle": "Feedback and Contact",
+    "contactIntro": "If you are unable to access content or a service, you can contact the person responsible for {{siteName}} to be directed to an accessible alternative or obtain the content in another form.",
+    "contactSendMessage": "Send a message:",
+    "contactFormLink": "Link to the form",
+    "contactEmail": "Contact:",
+    "appealTitle": "Appeal Procedures",
+    "appealIntro": "If you notice an accessibility defect preventing you from accessing content or functionality of the site, that you report it to us and you do not receive a response from us, you have the right to send your complaints or a referral request to the Defender of Rights.",
+    "appealMethods": "Several options are available to you:",
+    "appealOption1": "Write a message to the",
+    "appealOption1Link": "Defender of Rights",
+    "appealOption2": "Contact the ambassador of the Defender of Rights in your region",
+    "appealOption3": "Send a letter by mail (free, no stamp required):",
+    "appealAddress": "Defender of Rights\nFree response 71120\n75342 Paris CEDEX 07",
+    "downloadHTML": "Download as HTML",
+    "downloadPDF": "Download as PDF"
   }
 }
