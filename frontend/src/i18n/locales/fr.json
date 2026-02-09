@@ -11,8 +11,6 @@
   "nav": {
     "dashboard": "Tableau de Bord",
     "rgaa": "Critères RGAA",
-    "violations": "Violations",
-    "carbon": "Empreinte Carbone",
     "statement": "Déclaration d'Accessibilité"
   },
   "dashboard": {
@@ -27,7 +25,6 @@
     "violationsDetected": "Violations Détectées",
     "problems": "Problèmes",
     "criteria": "Critères",
-    "ecoDesign": "Éco-Conception",
     "rgaaStatistics": "Statistiques des Critères RGAA",
     "totalCriteria": "Total Critères",
     "analyzed": "Analysés",
@@ -80,55 +77,6 @@
       "requiresAI": "Vérification IA",
       "notTested": "Non Testé"
     }
-  },
-  "violations": {
-    "title": "Violations d'Accessibilité Détectées",
-    "critical": "Critique",
-    "serious": "Sérieux",
-    "moderate": "Modéré",
-    "minor": "Mineur",
-    "total": "Total",
-    "all": "Toutes",
-    "noViolations": "Aucune violation de ce type détectée.",
-    "affectedElements": "Éléments affectés",
-    "wcagDocumentation": "📖 Documentation WCAG",
-    "standards": "Standards",
-    "affectedElementsCount": "Éléments Affectés"
-  },
-  "carbon": {
-    "title": "Empreinte Carbone Numérique",
-    "description": "Analyse de l'impact environnemental de votre site web basée sur la méthodologie",
-    "methodology": "CO2.js",
-    "perVisit": "CO2 par visite",
-    "pageSize": "Taille de la page",
-    "dataTransferred": "Données transférées",
-    "annualProjections": "Projections Annuelles CO2",
-    "visitsPerYear": {
-      "1k": "1K visites/an",
-      "10k": "10K visites/an",
-      "100k": "100K visites/an",
-      "1m": "1M visites/an"
-    },
-    "contextAndEquivalents": "Contexte & Équivalences",
-    "carEquivalent": "Équivalent voiture",
-    "carDescription": "{{km}} km parcourus en voiture (120g CO2/km)",
-    "treeAbsorption": "Absorption par arbre",
-    "treeDescription": "Un arbre absorbe environ 25kg de CO2 par an. Pour 1M de visites, il faudrait {{trees}} arbres.",
-    "electricalConsumption": "Consommation électrique",
-    "electricalDescription": "L'empreinte carbone inclut l'énergie du datacenter, du réseau et des appareils des utilisateurs.",
-    "recommendations": "💡 Recommandations pour Réduire l'Impact",
-    "recommendationsList": {
-      "images": "Optimiser et compresser les images (WebP, AVIF)",
-      "minify": "Minimiser et combiner les fichiers CSS/JS",
-      "cache": "Mettre en cache les ressources statiques",
-      "cdn": "Utiliser un CDN géographiquement distribué",
-      "greenHosting": "Choisir un hébergement vert (énergie renouvelable)",
-      "thirdParty": "Réduire les requêtes tierces inutiles",
-      "lazyLoading": "Implémenter le lazy loading pour les images"
-    },
-    "sourceNote": "Calculs basés sur le modèle SWD (Sustainable Web Design) de",
-    "greenWebFoundation": "The Green Web Foundation",
-    "auditPerformed": "Audit effectué le"
   },
   "statement": {
     "title": "Déclaration d'accessibilité",

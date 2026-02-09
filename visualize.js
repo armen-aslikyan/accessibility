@@ -12,7 +12,7 @@ function escapeHtml(text) {
         .replace(/'/g, '&#039;');
 }
 
-function generateProReport(results, co2Data, url) {
+function generateProReport(results, url) {
     const totalViolations = results.violations.length;
     
     // SCORING LOGIC
@@ -76,19 +76,12 @@ function generateProReport(results, co2Data, url) {
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+            <div class="mb-12">
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 max-w-md">
                     <p class="text-xs text-slate-400 font-black uppercase tracking-widest mb-4">Santé Accessibilité</p>
                     <div class="flex items-end gap-2">
                         <span class="text-6xl font-black ${score > 80 ? 'text-emerald-500' : 'text-orange-500'}">${score}%</span>
                         <span class="text-slate-400 font-bold mb-2">Conformité RGAA</span>
-                    </div>
-                </div>
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
-                    <p class="text-xs text-slate-400 font-black uppercase tracking-widest mb-4">Éco-Conception</p>
-                    <div class="flex items-end gap-2 text-emerald-700">
-                        <span class="text-6xl font-black">${co2Data.toFixed(2)}g</span>
-                        <span class="text-slate-400 font-bold mb-2 text-sm">CO2 par chargement</span>
                     </div>
                 </div>
             </div>

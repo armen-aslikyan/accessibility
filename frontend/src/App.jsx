@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import Dashboard from './components/Dashboard';
 import RGAAReport from './components/RGAAReport';
-import ViolationsReport from './components/ViolationsReport';
-import CarbonReport from './components/CarbonReport';
 import AccessibilityStatement from './components/AccessibilityStatement/AccessibilityStatement';
 import LanguageSwitcher from './components/LanguageSwitcher';
 import { loadLatestAudit } from './utils/dataLoader';
@@ -157,8 +155,6 @@ function App() {
             {[
               { id: 'dashboard', icon: '📊' },
               { id: 'rgaa', icon: '📋' },
-              { id: 'violations', icon: '⚠️' },
-              { id: 'carbon', icon: '🌱' },
               { id: 'statement', icon: '📄' }
             ].map((tab) => (
               <button
@@ -182,8 +178,6 @@ function App() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {activeTab === 'dashboard' && <Dashboard data={auditData} />}
         {activeTab === 'rgaa' && <RGAAReport data={auditData} />}
-        {activeTab === 'violations' && <ViolationsReport data={auditData} />}
-        {activeTab === 'carbon' && <CarbonReport data={auditData} />}
         {activeTab === 'statement' && <AccessibilityStatement data={prepareStatementData(auditData)} />}
       </main>
     </div>

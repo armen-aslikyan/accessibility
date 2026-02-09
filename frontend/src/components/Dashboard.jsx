@@ -49,7 +49,7 @@ function Dashboard({ data }) {
       </div>
 
       {/* Key Metrics */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
           <p className="text-xs text-slate-400 font-bold uppercase tracking-wider mb-4">
             {t('dashboard.complianceRate')}
@@ -86,19 +86,6 @@ function Dashboard({ data }) {
             <span className="text-6xl font-black text-orange-500">{statistics.needsReview || 0}</span>
             <span className="text-slate-400 font-bold mb-2">{t('dashboard.criteria')}</span>
           </div>
-        </div>
-
-        <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
-          <p className="text-xs text-slate-400 font-bold uppercase tracking-wider mb-4">
-            {t('dashboard.ecoDesign')}
-          </p>
-          <div className="flex items-end gap-2 text-emerald-700">
-            <span className="text-5xl font-black">{summary.carbon?.perVisit?.toFixed(2) || 0}g</span>
-            <span className="text-slate-400 font-bold mb-2 text-sm">CO2</span>
-          </div>
-          <p className="text-xs text-slate-500 mt-2">
-            {t('carbon.pageSize')}: {summary.carbon?.pageSizeMB || 0} MB
-          </p>
         </div>
       </div>
 

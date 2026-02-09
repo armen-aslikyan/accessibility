@@ -26,8 +26,6 @@ function exportAuditData(auditResults) {
     const {
         url,
         results,
-        co2Data,
-        totalBytes,
         // New outcome-based format
         auditResults: outcomeResults,
         complianceRate,
@@ -132,11 +130,6 @@ function exportAuditData(auditResults) {
                 technical: technicalRisk,
                 administrative: adminRisk,
                 total: totalExposure
-            },
-            carbon: {
-                perVisit: co2Data,
-                totalBytes,
-                pageSizeMB: (totalBytes / 1024 / 1024).toFixed(2)
             }
         },
         // New outcome-based statistics

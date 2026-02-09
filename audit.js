@@ -1,6 +1,5 @@
 const { chromium } = require("playwright");
 const AxeBuilder = require("@axe-core/playwright").default;
-const { co2 } = require("@tgwf/co2");
 const path = require("path");
 const fs = require("fs");
 const { rgaaFlatMapping } = require("./constants/rgaaMapping.complete.js");
@@ -48,15 +47,6 @@ async function runAudit(url) {
     const page = await context.newPage();
     page.setDefaultTimeout(60000); // Set default timeout for all operations
 
-    // 1. Track Network Data (for Carbon Calculation)
-    let totalBytes = 0;
-    page.on("response", async (response) => {
-      const headers = response.headers();
-      if (headers["content-length"]) {
-        totalBytes += parseInt(headers["content-length"], 10);
-      }
-    });
-
     console.log(`--- Starting Audit for: ${url} ---`);
 
     // Navigate with increased timeout and more lenient wait condition
@@ -93,11 +83,7 @@ async function runAudit(url) {
       ])
       .analyze();
 
-    // 3. Calculate Carbon Footprint
-    const co2Emitter = new co2();
-    const estimate = co2Emitter.perVisit(totalBytes);
-
-    // 4. Create a map of violations by axe-core rule ID for quick lookup
+    // 3. Create a map of violations by axe-core rule ID for quick lookup
     const violationsByRule = {};
     results.violations.forEach((violation) => {
       violationsByRule[violation.id] = violation;
@@ -375,15 +361,11 @@ async function runAudit(url) {
     const cacheExportPath = path.join(__dirname, "reports", `ai-cache-export_${Date.now()}.json`);
     llmClient.aiCache.exportCacheToFile(cacheExportPath);
 
-    console.log(`\n[ GREEN IMPACT REPORT ]`);
-    console.log(`Page Size: ${(totalBytes / 1024 / 1024).toFixed(2)} MB`);
-    console.log(`Carbon per Visit: ${estimate.toFixed(3)}g CO2`);
-
     // Analyze RGAA compliance for detailed report (legacy format)
     const rgaaStatus = analyzeRGAACompliance(results);
 
     // Generate basic reports
-    generateProReport(results, estimate, url);
+    generateProReport(results, url);
     generateWCAGReport(results, url);
     generateRGAAReport(results, url);
     generateDetailedRGAAReport(rgaaStatus, url);
@@ -403,8 +385,6 @@ async function runAudit(url) {
     exportAuditData({
       url,
       results,
-      co2Data: estimate,
-      totalBytes,
       // New outcome-based format
       auditResults,
       complianceRate: parseFloat(complianceRate),

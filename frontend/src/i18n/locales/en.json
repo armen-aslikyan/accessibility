@@ -11,8 +11,6 @@
   "nav": {
     "dashboard": "Dashboard",
     "rgaa": "RGAA Criteria",
-    "violations": "Violations",
-    "carbon": "Carbon Footprint",
     "statement": "Accessibility Statement"
   },
   "dashboard": {
@@ -27,7 +25,6 @@
     "violationsDetected": "Violations Detected",
     "problems": "Issues",
     "criteria": "Criteria",
-    "ecoDesign": "Eco-Design",
     "rgaaStatistics": "RGAA Criteria Statistics",
     "totalCriteria": "Total Criteria",
     "analyzed": "Analyzed",
@@ -80,55 +77,6 @@
       "requiresAI": "AI Verification",
       "notTested": "Not Tested"
     }
-  },
-  "violations": {
-    "title": "Detected Accessibility Violations",
-    "critical": "Critical",
-    "serious": "Serious",
-    "moderate": "Moderate",
-    "minor": "Minor",
-    "total": "Total",
-    "all": "All",
-    "noViolations": "No violations of this type detected.",
-    "affectedElements": "Affected elements",
-    "wcagDocumentation": "📖 WCAG Documentation",
-    "standards": "Standards",
-    "affectedElementsCount": "Affected Elements"
-  },
-  "carbon": {
-    "title": "Digital Carbon Footprint",
-    "description": "Analysis of your website's environmental impact based on the",
-    "methodology": "CO2.js",
-    "perVisit": "CO2 per visit",
-    "pageSize": "Page size",
-    "dataTransferred": "Data transferred",
-    "annualProjections": "Annual CO2 Projections",
-    "visitsPerYear": {
-      "1k": "1K visits/year",
-      "10k": "10K visits/year",
-      "100k": "100K visits/year",
-      "1m": "1M visits/year"
-    },
-    "contextAndEquivalents": "Context & Equivalents",
-    "carEquivalent": "Car equivalent",
-    "carDescription": "{{km}} km driven by car (120g CO2/km)",
-    "treeAbsorption": "Tree absorption",
-    "treeDescription": "A tree absorbs about 25kg of CO2 per year. For 1M visits, {{trees}} trees would be needed.",
-    "electricalConsumption": "Electrical consumption",
-    "electricalDescription": "The carbon footprint includes energy from the datacenter, network, and user devices.",
-    "recommendations": "💡 Recommendations to Reduce Impact",
-    "recommendationsList": {
-      "images": "Optimize and compress images (WebP, AVIF)",
-      "minify": "Minify and combine CSS/JS files",
-      "cache": "Cache static resources",
-      "cdn": "Use a geographically distributed CDN",
-      "greenHosting": "Choose green hosting (renewable energy)",
-      "thirdParty": "Reduce unnecessary third-party requests",
-      "lazyLoading": "Implement lazy loading for images"
-    },
-    "sourceNote": "Calculations based on the SWD (Sustainable Web Design) model from",
-    "greenWebFoundation": "The Green Web Foundation",
-    "auditPerformed": "Audit performed on"
   },
   "statement": {
     "title": "Accessibility Statement",
