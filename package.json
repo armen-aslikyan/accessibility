@@ -1,24 +1,36 @@
 {
   "name": "vivatech-audit-poc",
   "version": "1.0.0",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "test-llm": "node test-llm.js",
-    "audit": "node audit.js",
-    "start-fe": "cd frontend && npm run dev",
-    "build-fe": "cd frontend && npm run build",
-    "preview-fe": "cd frontend && npm run preview",
-    "install:fe": "cd frontend && npm install"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:studio": "prisma studio"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
     "@axe-core/playwright": "^4.11.0",
+    "@prisma/client": "^6.0.0",
     "cheerio": "^1.0.0-rc.12",
+    "html2pdf.js": "^0.14.0",
+    "i18next": "^25.8.3",
+    "next": "^15.0.0",
     "p-limit": "^3.1.0",
-    "playwright": "^1.57.0"
+    "playwright": "^1.57.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-i18next": "^16.5.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.18",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.2.5",
+    "@types/react-dom": "^19.2.3",
+    "postcss": "^8.5.6",
+    "prisma": "^6.0.0",
+    "tailwindcss": "^4.1.18",
+    "typescript": "^5.7.0"
   }
 }
