@@ -1,28 +1,14 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import Dashboard from './Dashboard';
 import RGAAReport from './RGAAReport';
 import AccessibilityStatement from './AccessibilityStatement/AccessibilityStatement';
-import LanguageSwitcher from './LanguageSwitcher';
 import AuditStatusBadge from './AuditStatusBadge';
 import { useAuditStream } from './notifications/useAuditStream';
 import type { AuditData } from '@/lib/transform-audit';
-
-interface StatementData {
-  siteName: string;
-  organizationName: string;
-  complianceStatus: 'totalement' | 'partiellement' | 'non';
-  complianceRate: number;
-  auditDate: string;
-  auditorName: string;
-  technologies: string[];
-  testEnvironment: string[];
-  nonCompliantItems: string[];
-  contactEmail: string;
-  contactFormUrl: string;
-}
 
 interface Props {
   auditId: string;
@@ -31,56 +17,25 @@ interface Props {
   auditData: AuditData | null;
 }
 
-function prepareStatementData(auditData: AuditData): StatementData {
-  const { meta, statistics, criteria } = auditData;
-  const applicableCount = statistics.analyzed - (statistics.notApplicable || 0);
-  const complianceRate =
-    applicableCount > 0
-      ? parseFloat(((statistics.compliant / applicableCount) * 100).toFixed(1))
-      : 0;
-
-  let complianceStatus: 'totalement' | 'partiellement' | 'non' = 'non';
-  if (complianceRate >= 100) complianceStatus = 'totalement';
-  else if (complianceRate >= 50) complianceStatus = 'partiellement';
-
-  const nonCompliantItems = Object.entries(criteria)
-    .filter(([, c]) => c.status === 'non_compliant')
-    .slice(0, 10)
-    .map(([key, c]) => `Critère ${key} : ${c.desc}`);
-
-  return {
-    siteName: meta.url || 'Site Web',
-    organizationName: 'Organisation',
-    complianceStatus,
-    complianceRate,
-    auditDate: new Date(meta.generatedAt).toLocaleDateString('fr-FR', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric',
-    }),
-    auditorName: 'Audit Automatisé RGAA',
-    technologies: ['HTML5', 'CSS', 'JavaScript', 'WAI-ARIA'],
-    testEnvironment: [
-      'Analyse automatisée avec axe-core',
-      'Analyse IA avec Mistral',
-      "Détection d'éléments automatique",
-    ],
-    nonCompliantItems:
-      nonCompliantItems.length > 0
-        ? nonCompliantItems
-        : ['Aucune non-conformité majeure détectée'],
-    contactEmail: 'accessibilite@exemple.fr',
-    contactFormUrl: '/contact',
-  };
-}
-
 export default function AuditDetail({ auditId, auditUrl, status, auditData }: Props) {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<'dashboard' | 'rgaa' | 'statement'>('dashboard');
+  const [cancelling, setCancelling] = useState(false);
+  const router = useRouter();
 
   const isRunning = status === 'pending' || status === 'running';
 
   useAuditStream(auditId, auditUrl, isRunning);
+
+  const handleCancel = async () => {
+    setCancelling(true);
+    try {
+      await fetch(`/api/audits/${auditId}`, { method: 'PATCH' });
+      router.refresh();
+    } finally {
+      setCancelling(false);
+    }
+  };
 
   if (isRunning) {
     return (
@@ -97,6 +52,13 @@ export default function AuditDetail({ auditId, auditUrl, status, auditData }: Pr
           </strong>
         </p>
         <AuditStatusBadge status={status} />
+        <button
+          onClick={handleCancel}
+          disabled={cancelling}
+          className="mt-6 text-sm text-slate-400 hover:text-red-500 transition disabled:opacity-50"
+        >
+          {cancelling ? 'Cancelling…' : 'Cancel audit'}
+        </button>
       </div>
     );
   }
@@ -119,18 +81,43 @@ export default function AuditDetail({ auditId, auditUrl, status, auditData }: Pr
     );
   }
 
-  const statementData = prepareStatementData(auditData);
-
   const tabs = [
     { id: 'dashboard' as const, label: t('nav.dashboard') },
     { id: 'rgaa' as const, label: t('nav.rgaa') },
     { id: 'statement' as const, label: t('nav.statement') },
   ];
 
+  const host = (() => {
+    try {
+      return new URL(auditUrl).hostname;
+    } catch {
+      return auditUrl;
+    }
+  })();
+  const complianceRate = auditData.summary.complianceRate;
+  const complianceStatus: 'totalement' | 'partiellement' | 'non' =
+    complianceRate >= 95 ? 'totalement' : complianceRate >= 50 ? 'partiellement' : 'non';
+  const nonCompliantItems = Object.values(auditData.criteria)
+    .filter((c) => c.status === 'non_compliant')
+    .map((c) => `${c.article} - ${c.desc || c.descEn || ''}`);
+  const statementData = {
+    siteName: auditUrl,
+    organizationName: host,
+    complianceStatus,
+    complianceRate,
+    auditDate: new Date(auditData.meta.generatedAt).toLocaleDateString('fr-FR'),
+    auditorName: 'Vivatech Audit AI',
+    technologies: ['HTML5', 'CSS', 'JavaScript', 'ARIA', 'RGAA 4.1', 'axe-core', 'Mistral LLM'],
+    testEnvironment: ['Desktop viewport', 'Automated + AI-assisted checks'],
+    nonCompliantItems,
+    contactEmail: `accessibilite@${host}`,
+    contactFormUrl: auditUrl,
+  };
+
   return (
     <div className="space-y-0">
       <div className="bg-white border-b border-slate-200 mb-6 rounded-xl shadow-sm">
-        <div className="px-6 flex items-center justify-between">
+        <div className="px-6">
           <nav className="flex space-x-8">
             {tabs.map((tab) => (
               <button
@@ -146,7 +133,6 @@ export default function AuditDetail({ auditId, auditUrl, status, auditData }: Pr
               </button>
             ))}
           </nav>
-          <LanguageSwitcher />
         </div>
       </div>
 

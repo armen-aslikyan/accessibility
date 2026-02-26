@@ -10,12 +10,21 @@ const languages = [
 export default function LanguageSwitcher() {
   const { i18n } = useTranslation();
 
+  async function handleChange(code: string) {
+    await i18n.changeLanguage(code);
+    await fetch("/api/preferences", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ language: code }),
+    });
+  }
+
   return (
     <div className="flex items-center gap-2 bg-slate-100 rounded-lg p-1">
       {languages.map((lang) => (
         <button
           key={lang.code}
-          onClick={() => i18n.changeLanguage(lang.code)}
+          onClick={() => handleChange(lang.code)}
           className={`px-3 py-1.5 rounded-md text-sm font-medium transition ${
             i18n.language === lang.code
               ? "bg-indigo-600 text-white shadow-sm"

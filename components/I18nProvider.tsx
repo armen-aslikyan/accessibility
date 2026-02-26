@@ -5,14 +5,28 @@ import { I18nextProvider } from "react-i18next";
 import i18n from "@/i18n/config";
 
 export function I18nProvider({ children }: { children: React.ReactNode }) {
-  const [ready, setReady] = useState(i18n.isInitialized);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    if (!i18n.isInitialized) {
-      i18n.init().then(() => setReady(true));
-    } else {
+    async function init() {
+      if (!i18n.isInitialized) {
+        await i18n.init();
+      }
+
+      try {
+        const res = await fetch("/api/preferences");
+        const { language } = (await res.json()) as { language: string };
+        if (language && language !== i18n.language) {
+          await i18n.changeLanguage(language);
+        }
+      } catch {
+        // fall back to whatever was already set (localStorage or 'en')
+      }
+
       setReady(true);
     }
+
+    init();
   }, []);
 
   if (!ready) return null;

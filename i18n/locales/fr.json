@@ -76,6 +76,19 @@
       "requiresManual": "Vérification Manuelle",
       "requiresAI": "Vérification IA",
       "notTested": "Non Testé"
+    },
+    "testedBy": {
+      "axeCore": "axe-core",
+      "ai": "IA",
+      "elementDetection": "Détection d'éléments",
+      "multiViewport": "Plusieurs viewports",
+      "error": "Erreur"
+    },
+    "viewports": {
+      "all": "Tous les viewports",
+      "desktop": "Desktop",
+      "tablet": "Tablet",
+      "mobile": "Mobile"
     }
   },
   "statement": {
@@ -110,5 +123,52 @@
     "appealAddress": "Défenseur des droits\nLibre réponse 71120\n75342 Paris CEDEX 07",
     "downloadHTML": "Télécharger en HTML",
     "downloadPDF": "Télécharger en PDF"
+  },
+  "siteAudit": {
+    "phases": {
+      "discovering": "Découverte des pages",
+      "clustering": "Identification des pages uniques",
+      "auditing": "Audit des représentants",
+      "completed": "Terminé",
+      "failed": "Échec"
+    },
+    "inProgressTitle": "Audit complet du site en cours",
+    "pagesDiscovered": "pages découvertes",
+    "viaMethod": "via {{method}}",
+    "uniquePagesIdentified": "pages uniques identifiées",
+    "pagesSkippedUnchanged": "pages ignorées (inchangées)",
+    "auditingUniquePages": "Audit des pages uniques",
+    "done": "terminé",
+    "nowAuditing": "Audit en cours",
+    "viewportName": "viewport {{viewport}}",
+    "criterionProgress": "Progression des critères",
+    "currentCriterion": "en cours",
+    "viewportSteps": "Étapes de viewport",
+    "dbProgress": "Progression base de données",
+    "viewportResults": "résultats de viewport",
+    "criterionRowsSaved": "lignes de critères enregistrées",
+    "cancelling": "Annulation…",
+    "cancelAudit": "Annuler l'audit",
+    "failedTitle": "Échec de l'audit du site",
+    "failedDescription": "Une erreur est survenue pendant l'audit. Veuillez réessayer.",
+    "pagesDiscoveredLabel": "Pages découvertes",
+    "uniquePagesIdentifiedLabel": "Pages uniques identifiées",
+    "audited": "auditées",
+    "viewportsTested": "Viewports testés",
+    "viewportList": "Desktop · Tablet · Mobile",
+    "overallCompliance": "Conformité globale",
+    "discoveryVia": "Découverte via",
+    "unknown": "inconnu",
+    "summaryPrefix": "Nous avons audité",
+    "summaryMiddle": "mais identifié seulement",
+    "summarySuffix": "— donc seulement",
+    "summaryEnd": "ont nécessité un audit RGAA complet.",
+    "pages": "pages",
+    "uniquePages": "pages uniques",
+    "representatives": "représentants",
+    "technicalReport": "Rapport technique",
+    "legalReport": "Rapport légal",
+    "noTemplateData": "Aucune donnée de représentant disponible pour le moment.",
+    "legalSummaryNotAvailable": "Le résumé légal n'est pas encore disponible."
   }
 }

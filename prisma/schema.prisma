@@ -8,36 +8,123 @@ datasource db {
 }
 
 model Audit {
-  id              String            @id @default(cuid())
-  url             String
-  status          String            @default("pending")
-  model           String?
-  llmAvailable    Boolean           @default(false)
-  complianceRate  Float?
-  totalViolations Int?
-  legalRiskTotal  Int?
-  statistics      Json?
-  rawAxeResults   Json?
-  errorMessage    String?
-  createdAt       DateTime          @default(now())
-  completedAt     DateTime?
-  criteria        CriterionResult[]
+  id               String            @id @default(cuid())
+  url              String
+  status           String            @default("pending")
+  mode             String            @default("page")
+  viewport         String?
+  model            String?
+  llmAvailable     Boolean           @default(false)
+  complianceRate   Float?
+  totalViolations  Int?
+  legalRiskTotal   Int?
+  statistics       Json?
+  rawAxeResults    Json?
+  errorMessage     String?
+  discoveryMethod  String?
+  maxDepth         Int?
+  maxUrls          Int?
+  totalDiscovered  Int?
+  totalTemplates   Int?
+  totalAudited     Int?
+  pagesSkipped     Int?
+  legalSummary     Json?
+  createdAt        DateTime          @default(now())
+  completedAt      DateTime?
+  criteria         CriterionResult[]
+  discoveredPages  DiscoveredPage[]
+  templates        PageTemplate[]
+  viewportResults  ViewportResult[]
 }
 
 model CriterionResult {
-  id              String  @id @default(cuid())
-  auditId         String
-  audit           Audit   @relation(fields: [auditId], references: [id], onDelete: Cascade)
-  article         String
-  status          String
-  confidence      Int     @default(0)
-  reasoning       String?
-  issues          Json?
-  recommendations Json?
-  testedBy        String?
-  elementCount    Int     @default(-1)
+  id               String          @id @default(cuid())
+  auditId          String
+  audit            Audit           @relation(fields: [auditId], references: [id], onDelete: Cascade)
+  viewportResultId String?
+  viewportResult   ViewportResult? @relation(fields: [viewportResultId], references: [id], onDelete: Cascade)
+  article          String
+  status           String
+  confidence       Int             @default(0)
+  reasoning        String?
+  issues           Json?
+  recommendations  Json?
+  testedBy         String?
+  elementCount     Int             @default(-1)
 
   @@index([auditId])
   @@index([article])
   @@index([status])
+  @@index([viewportResultId])
+}
+
+model DiscoveredPage {
+  id               String        @id @default(cuid())
+  auditId          String
+  audit            Audit         @relation(fields: [auditId], references: [id], onDelete: Cascade)
+  url              String
+  statusCode       Int?
+  structuralHash   String?
+  templateId       String?
+  template         PageTemplate? @relation(fields: [templateId], references: [id])
+  isRepresentative Boolean       @default(false)
+  hashChanged      Boolean       @default(true)
+
+  @@index([auditId])
+  @@index([templateId])
+}
+
+model PageTemplate {
+  id                String           @id @default(cuid())
+  auditId           String
+  audit             Audit            @relation(fields: [auditId], references: [id], onDelete: Cascade)
+  name              String
+  structuralHash    String
+  pageCount         Int
+  representativeUrl String
+  examplePaths      Json
+  complianceRate    Float?
+  pages             DiscoveredPage[]
+  viewportResults   ViewportResult[]
+
+  @@index([auditId])
+}
+
+model ViewportResult {
+  id              String            @id @default(cuid())
+  auditId         String
+  audit           Audit             @relation(fields: [auditId], references: [id], onDelete: Cascade)
+  templateId      String
+  template        PageTemplate      @relation(fields: [templateId], references: [id], onDelete: Cascade)
+  viewport        String
+  width           Int
+  height          Int
+  url             String
+  complianceRate  Float?
+  totalViolations Int?
+  statistics      Json?
+  rawAxeResults   Json?
+  criteria        CriterionResult[]
+
+  @@index([auditId])
+  @@index([templateId])
+}
+
+model PageHashCache {
+  id            String   @id @default(cuid())
+  domain        String
+  url           String
+  structuralHash String
+  lastAuditedAt DateTime @default(now())
+  lastAuditId   String
+
+  @@unique([domain, url])
+  @@index([domain])
+}
+
+model UserPreference {
+  id        String   @id @default(cuid())
+  sessionId String   @unique
+  language  String   @default("en")
+  updatedAt DateTime @updatedAt
 }

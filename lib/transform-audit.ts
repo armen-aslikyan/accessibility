@@ -28,6 +28,11 @@ export interface CriterionData extends RGAAEntry {
   recommendations: string[];
   testedBy: string | null;
   elementCount: number;
+  viewportBreakdown?: Partial<Record<'desktop' | 'tablet' | 'mobile', {
+    status: string;
+    reasoning: string | null;
+    issues: Array<{ type: string; message: string; elements?: string[]; impact?: string }>;
+  }>>;
 }
 
 export interface AuditData {

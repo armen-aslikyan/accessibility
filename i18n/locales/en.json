@@ -76,6 +76,19 @@
       "requiresManual": "Manual Verification",
       "requiresAI": "AI Verification",
       "notTested": "Not Tested"
+    },
+    "testedBy": {
+      "axeCore": "axe-core",
+      "ai": "AI",
+      "elementDetection": "Element detection",
+      "multiViewport": "Multiple viewports",
+      "error": "Error"
+    },
+    "viewports": {
+      "all": "All viewports",
+      "desktop": "Desktop",
+      "tablet": "Tablet",
+      "mobile": "Mobile"
     }
   },
   "statement": {
@@ -110,5 +123,52 @@
     "appealAddress": "Defender of Rights\nFree response 71120\n75342 Paris CEDEX 07",
     "downloadHTML": "Download as HTML",
     "downloadPDF": "Download as PDF"
+  },
+  "siteAudit": {
+    "phases": {
+      "discovering": "Discovering pages",
+      "clustering": "Identifying unique pages",
+      "auditing": "Auditing representatives",
+      "completed": "Completed",
+      "failed": "Failed"
+    },
+    "inProgressTitle": "Full Site Audit in Progress",
+    "pagesDiscovered": "pages discovered",
+    "viaMethod": "via {{method}}",
+    "uniquePagesIdentified": "unique pages identified",
+    "pagesSkippedUnchanged": "pages skipped (unchanged)",
+    "auditingUniquePages": "Auditing unique pages",
+    "done": "done",
+    "nowAuditing": "Now auditing",
+    "viewportName": "{{viewport}} viewport",
+    "criterionProgress": "Criterion progress",
+    "currentCriterion": "current",
+    "viewportSteps": "Viewport steps",
+    "dbProgress": "DB progress",
+    "viewportResults": "viewport results",
+    "criterionRowsSaved": "criterion rows saved",
+    "cancelling": "Cancelling…",
+    "cancelAudit": "Cancel audit",
+    "failedTitle": "Site Audit Failed",
+    "failedDescription": "An error occurred during the audit. Please try again.",
+    "pagesDiscoveredLabel": "Pages Discovered",
+    "uniquePagesIdentifiedLabel": "Unique Pages Identified",
+    "audited": "audited",
+    "viewportsTested": "Viewports Tested",
+    "viewportList": "Desktop · Tablet · Mobile",
+    "overallCompliance": "Overall Compliance",
+    "discoveryVia": "Discovery via",
+    "unknown": "unknown",
+    "summaryPrefix": "We audited",
+    "summaryMiddle": "but identified only",
+    "summarySuffix": "— so only",
+    "summaryEnd": "needed a full RGAA audit.",
+    "pages": "pages",
+    "uniquePages": "unique pages",
+    "representatives": "representatives",
+    "technicalReport": "Technical Report",
+    "legalReport": "Legal Report",
+    "noTemplateData": "No representative data available yet.",
+    "legalSummaryNotAvailable": "Legal summary not yet available."
   }
 }

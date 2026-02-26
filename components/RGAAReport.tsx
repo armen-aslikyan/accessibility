@@ -12,6 +12,7 @@ const COMPLIANCE_STATUS = {
 } as const;
 
 type ComplianceStatus = (typeof COMPLIANCE_STATUS)[keyof typeof COMPLIANCE_STATUS];
+type ViewportKey = 'all' | 'desktop' | 'tablet' | 'mobile';
 
 const COLORS: Record<string, string> = {
   emerald: 'bg-emerald-100 text-emerald-800',
@@ -43,6 +44,19 @@ function StatBadge({
 function CriterionCard({ criterion }: { criterion: CriterionData & { article: string; preliminaryStatus?: string } }) {
   const { t, i18n } = useTranslation();
   const [expanded, setExpanded] = useState(false);
+  const testedByLabel = (() => {
+    const map: Record<string, string> = {
+      axe_core: t('rgaa.testedBy.axeCore'),
+      ai: t('rgaa.testedBy.ai'),
+      element_detection: t('rgaa.testedBy.elementDetection'),
+      multi_viewport: t('rgaa.testedBy.multiViewport'),
+      desktop: t('rgaa.viewports.desktop'),
+      tablet: t('rgaa.viewports.tablet'),
+      mobile: t('rgaa.viewports.mobile'),
+      error: t('rgaa.testedBy.error'),
+    };
+    return criterion.testedBy ? (map[criterion.testedBy] ?? criterion.testedBy.replace(/_/g, ' ')) : null;
+  })();
 
   const statusConfig: Record<ComplianceStatus, { labelKey: string; color: string; icon: string }> = {
     [COMPLIANCE_STATUS.COMPLIANT]: {
@@ -96,9 +110,9 @@ function CriterionCard({ criterion }: { criterion: CriterionData & { article: st
                   {criterion.level}
                 </span>
               )}
-              {criterion.testedBy && (
+              {testedByLabel && (
                 <span className="px-2 py-1 bg-slate-100 text-slate-600 rounded text-xs">
-                  {criterion.testedBy}
+                  {testedByLabel}
                 </span>
               )}
               {criterion.confidence !== undefined && criterion.confidence > 0 && (
@@ -236,13 +250,41 @@ function CriterionCard({ criterion }: { criterion: CriterionData & { article: st
 
 export default function RGAAReport({ data }: { data: AuditData }) {
   const { t } = useTranslation();
-  const { criteria, statistics } = data;
+  const { criteria } = data;
   const [filterStatus, setFilterStatus] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
+  const [viewportFilter, setViewportFilter] = useState<ViewportKey>('all');
 
   const criteriaArray = Object.values(criteria) as (CriterionData & { article: string; preliminaryStatus?: string })[];
+  const hasViewportBreakdown = criteriaArray.some((c) => c.viewportBreakdown && Object.keys(c.viewportBreakdown).length > 0);
 
-  const filteredCriteria = criteriaArray.filter((criterion) => {
+  const viewportAdjustedCriteria = criteriaArray.map((criterion) => {
+    if (!hasViewportBreakdown || viewportFilter === 'all' || !criterion.viewportBreakdown?.[viewportFilter]) {
+      return criterion;
+    }
+    const vp = criterion.viewportBreakdown[viewportFilter];
+    return {
+      ...criterion,
+      status: vp.status,
+      reasoning: vp.reasoning,
+      issues: vp.issues,
+      testedBy: viewportFilter,
+    };
+  });
+
+  const derivedStatistics = viewportAdjustedCriteria.reduce(
+    (acc, c) => {
+      acc.total += 1;
+      if (c.status === COMPLIANCE_STATUS.COMPLIANT) acc.compliant += 1;
+      else if (c.status === COMPLIANCE_STATUS.NON_COMPLIANT) acc.nonCompliant += 1;
+      else if (c.status === COMPLIANCE_STATUS.NEEDS_REVIEW) acc.needsReview += 1;
+      else acc.notApplicable += 1;
+      return acc;
+    },
+    { total: 0, compliant: 0, nonCompliant: 0, notApplicable: 0, needsReview: 0 }
+  );
+
+  const filteredCriteria = viewportAdjustedCriteria.filter((criterion) => {
     const searchText = criterion.desc || criterion.descEn || '';
     const matchesSearch =
       criterion.article?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -270,21 +312,49 @@ export default function RGAAReport({ data }: { data: AuditData }) {
     };
     return map[id] ?? id;
   };
+  const viewportLabel = (id: ViewportKey) => {
+    const map: Record<ViewportKey, string> = {
+      all: t('rgaa.viewports.all'),
+      desktop: t('rgaa.viewports.desktop'),
+      tablet: t('rgaa.viewports.tablet'),
+      mobile: t('rgaa.viewports.mobile'),
+    };
+    return map[id];
+  };
+  const viewportTabs: ViewportKey[] = ['all', 'desktop', 'tablet', 'mobile'];
 
   return (
     <div className="space-y-6">
       <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
         <h2 className="text-xl font-bold text-slate-900 mb-4">{t('rgaa.title')}</h2>
         <div className="flex flex-wrap gap-4">
-          <StatBadge label={t('rgaa.compliant')} value={statistics.compliant || 0} color="emerald" icon="✅" />
-          <StatBadge label={t('rgaa.nonCompliant')} value={statistics.nonCompliant || 0} color="red" icon="❌" />
-          <StatBadge label={t('rgaa.notApplicable')} value={statistics.notApplicable || 0} color="slate" icon="⊘" />
-          <StatBadge label={t('rgaa.needsReview')} value={statistics.needsReview || 0} color="orange" icon="🔍" />
+          <StatBadge label={t('rgaa.compliant')} value={derivedStatistics.compliant || 0} color="emerald" icon="✅" />
+          <StatBadge label={t('rgaa.nonCompliant')} value={derivedStatistics.nonCompliant || 0} color="red" icon="❌" />
+          <StatBadge label={t('rgaa.notApplicable')} value={derivedStatistics.notApplicable || 0} color="slate" icon="⊘" />
+          <StatBadge label={t('rgaa.needsReview')} value={derivedStatistics.needsReview || 0} color="orange" icon="🔍" />
         </div>
       </div>
 
       <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
-        <div className="flex flex-col md:flex-row gap-4">
+        <div className="flex flex-col gap-4">
+          {hasViewportBreakdown && (
+            <div className="flex gap-2 flex-wrap">
+              {viewportTabs.map((tab) => (
+                <button
+                  key={tab}
+                  onClick={() => setViewportFilter(tab)}
+                  className={`px-3 py-1.5 rounded-lg font-medium text-sm transition ${
+                    viewportFilter === tab
+                      ? 'bg-indigo-600 text-white'
+                      : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                  }`}
+                >
+                  {viewportLabel(tab)}
+                </button>
+              ))}
+            </div>
+          )}
+          <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1">
             <input
               type="text"
@@ -310,6 +380,7 @@ export default function RGAAReport({ data }: { data: AuditData }) {
               </button>
             ))}
           </div>
+        </div>
         </div>
       </div>
 

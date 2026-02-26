@@ -6,6 +6,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "kill-ollama-process": "ollama stop $(ollama ps | awk 'NR>1 {print $1}') 2>/dev/null || true",
+    "kill-ollama-daemon": "pkill -f ollama || true",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:studio": "prisma studio"
