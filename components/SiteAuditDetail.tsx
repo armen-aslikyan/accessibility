@@ -6,13 +6,13 @@ import { useTranslation } from 'react-i18next';
 import TemplateCard from './TemplateCard';
 import RGAAReport from './RGAAReport';
 import AccessibilityStatement from './AccessibilityStatement/AccessibilityStatement';
-import type { AuditData } from '@/lib/transform-audit';
+import type { AuditData, RuleIssue } from '@/lib/transform-audit';
 
 interface CriterionData {
   article: string;
   status: string;
   reasoning: string | null;
-  issues: Array<{ type: string; message: string }> | null;
+  issues: RuleIssue[] | null;
 }
 
 interface ViewportResultData {

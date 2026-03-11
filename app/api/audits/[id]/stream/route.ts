@@ -18,8 +18,8 @@ export async function GET(
   }
 
   // 12 consecutive unchanged polls before declaring stale in short operations.
-  // For site-mode "auditing", we do not auto-fail based on staleness because a
-  // single representative can legitimately take more than a minute.
+  // We do not auto-fail active audit execution phases because processing can
+  // legitimately run longer than the stale window.
   const STALE_POLLS = 12;
 
   const stream = new ReadableStream({
@@ -148,12 +148,17 @@ export async function GET(
               staleCount = 0;
               send(controller, { status: audit.status, errorMessage: audit.errorMessage ?? null });
             } else if (!terminal) {
-              staleCount++;
-              if (staleCount >= STALE_POLLS) {
-                await markFailed();
-                send(controller, { status: 'failed' });
-                close();
-                return;
+              if (audit.status === 'running') {
+                // Single-page audits can run longer than the stale window while criteria are processed.
+                staleCount = 0;
+              } else {
+                staleCount++;
+                if (staleCount >= STALE_POLLS) {
+                  await markFailed();
+                  send(controller, { status: 'failed' });
+                  close();
+                  return;
+                }
               }
             }
           }

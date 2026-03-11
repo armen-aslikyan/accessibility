@@ -3,6 +3,7 @@
 
 const { chromium } = require('playwright');
 const { PrismaClient } = require('@prisma/client');
+const path = require('path');
 const { auditPageAtViewport } = require('../lib/audit-core.js');
 
 const prisma = new PrismaClient();
@@ -33,11 +34,17 @@ async function runAudit() {
       console.log(`[run-audit] [${completed}/${total}] ${icon} RGAA ${criterion.article}`);
     };
 
+    const evidenceRootDir = path.join(process.cwd(), 'public', 'audit-evidence', auditId);
+    const evidenceBaseUrl = `/audit-evidence/${auditId}`;
+
     const { analysisResults, statistics, rawAxeResults, complianceRate, totalViolations, legalRiskTotal, llmAvailable } =
       await auditPageAtViewport(browser, url, viewportArg || 'desktop', {
         concurrency: 1,
         llmModel: 'mistral:7b-instruct-v0.3-q4_K_M',
         onProgress,
+        evidenceRootDir,
+        evidenceBaseUrl,
+        evidenceScope: viewportArg || 'desktop',
       });
 
     for (let i = 0; i < analysisResults.length; i += BATCH_SIZE) {

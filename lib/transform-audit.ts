@@ -1,7 +1,7 @@
-import type { Audit, CriterionResult } from '@prisma/client';
+import type { Audit, CriterionResult } from "@prisma/client";
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
-const { rgaaFlatMapping } = require('../constants/rgaaMapping.complete.js') as {
+const { rgaaFlatMapping } = require("../constants/rgaaMapping.complete.js") as {
   rgaaFlatMapping: Record<string, RGAAEntry>;
 };
 
@@ -19,20 +19,52 @@ interface RGAAEntry {
   prompt?: string;
 }
 
+export interface RuleEvidence {
+  screenshotUrl: string;
+  screenshotPath: string;
+  pageUrl: string;
+  viewport: string;
+  highlightIndex: number;
+  boundingBox: { x: number; y: number; width: number; height: number };
+  axeRuleId: string;
+  impact?: string | null;
+  help: string;
+  helpUrl?: string | null;
+  selector: string;
+  selectorChain?: string[];
+  domPath: string;
+  elementHtml: string;
+  elementSource?: string | null;
+  failureSummary?: string | null;
+}
+
+export interface RuleIssue {
+  type: string;
+  message: string;
+  elements?: string[];
+  impact?: string;
+  evidence?: RuleEvidence[];
+}
+
 export interface CriterionData extends RGAAEntry {
   article: string;
   status: string;
   confidence: number;
   reasoning: string | null;
-  issues: Array<{ type: string; message: string; elements?: string[]; impact?: string }>;
+  issues: RuleIssue[];
   recommendations: string[];
   testedBy: string | null;
   elementCount: number;
-  viewportBreakdown?: Partial<Record<'desktop' | 'tablet' | 'mobile', {
-    status: string;
-    reasoning: string | null;
-    issues: Array<{ type: string; message: string; elements?: string[]; impact?: string }>;
-  }>>;
+  viewportBreakdown?: Partial<
+    Record<
+      "desktop" | "tablet" | "mobile",
+      {
+        status: string;
+        reasoning: string | null;
+        issues: RuleIssue[];
+      }
+    >
+  >;
 }
 
 export interface AuditData {
@@ -64,14 +96,10 @@ export interface AuditData {
 type AuditWithCriteria = Audit & { criteria: CriterionResult[] };
 
 export function transformAuditForUI(audit: AuditWithCriteria): AuditData {
-  const stats = audit.statistics as AuditData['statistics'] | null;
-  const totalViolations = audit.totalViolations ?? (stats?.nonCompliant ?? 0);
+  const stats = audit.statistics as AuditData["statistics"] | null;
+  const totalViolations = audit.totalViolations ?? stats?.nonCompliant ?? 0;
   const applicable = (stats?.total ?? 0) - (stats?.notApplicable ?? 0);
-  const complianceRate =
-    audit.complianceRate ??
-    (applicable > 0
-      ? parseFloat(((stats?.compliant ?? 0) / applicable * 100).toFixed(1))
-      : 0);
+  const complianceRate = audit.complianceRate ?? (applicable > 0 ? parseFloat((((stats?.compliant ?? 0) / applicable) * 100).toFixed(1)) : 0);
   const technical = totalViolations > 0 ? 50000 : 0;
   const administrative = 25000;
 
@@ -84,7 +112,7 @@ export function transformAuditForUI(audit: AuditWithCriteria): AuditData {
       status: result.status,
       confidence: result.confidence,
       reasoning: result.reasoning,
-      issues: (result.issues as CriterionData['issues']) ?? [],
+      issues: (result.issues as unknown as CriterionData["issues"]) ?? [],
       recommendations: (result.recommendations as string[]) ?? [],
       testedBy: result.testedBy,
       elementCount: result.elementCount,
@@ -93,14 +121,14 @@ export function transformAuditForUI(audit: AuditWithCriteria): AuditData {
 
   return {
     meta: {
-      version: '2.0.0',
+      version: "2.0.0",
       generatedAt: audit.completedAt?.toISOString() ?? audit.createdAt.toISOString(),
       url: audit.url,
       llmAvailable: audit.llmAvailable,
-      model: audit.model ?? 'unknown',
+      model: audit.model ?? "unknown",
     },
     summary: {
-      accessibilityScore: Math.max(0, 100 - ((stats?.nonCompliant ?? 0) * 3)),
+      accessibilityScore: Math.max(0, 100 - (stats?.nonCompliant ?? 0) * 3),
       complianceRate,
       totalViolations,
       legalRisk: { technical, administrative, total: technical + administrative },

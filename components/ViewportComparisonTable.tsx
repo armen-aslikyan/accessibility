@@ -1,6 +1,7 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
+import type { RuleIssue } from "@/lib/transform-audit";
 
 interface CriterionRow {
   article: string;
@@ -16,7 +17,7 @@ interface ViewportResultData {
     article: string;
     status: string;
     reasoning: string | null;
-    issues: Array<{ type: string; message: string }> | null;
+    issues: RuleIssue[] | null;
   }>;
 }
 
@@ -25,35 +26,35 @@ interface Props {
 }
 
 const STATUS_CLASSES: Record<string, string> = {
-  compliant: 'bg-emerald-100 text-emerald-700',
-  non_compliant: 'bg-red-100 text-red-700',
-  not_applicable: 'bg-slate-100 text-slate-500',
-  needs_review: 'bg-orange-100 text-orange-700',
+  compliant: "bg-emerald-100 text-emerald-700",
+  non_compliant: "bg-red-100 text-red-700",
+  not_applicable: "bg-slate-100 text-slate-500",
+  needs_review: "bg-orange-100 text-orange-700",
 };
 
 const STATUS_SHORT: Record<string, string> = {
-  compliant: 'Pass',
-  non_compliant: 'Fail',
-  not_applicable: 'N/A',
-  needs_review: 'Review',
+  compliant: "Pass",
+  non_compliant: "Fail",
+  not_applicable: "N/A",
+  needs_review: "Review",
 };
 
 const VIEWPORT_ICONS: Record<string, string> = {
-  desktop: '🖥',
-  tablet: '📱',
-  mobile: '📱',
+  desktop: "🖥",
+  tablet: "📱",
+  mobile: "📱",
 };
 
 function getRowClass(byViewport: Record<string, string>): string {
   const statuses = Object.values(byViewport);
-  if (statuses.every((s) => s === 'non_compliant')) return 'bg-red-50';
-  if (statuses.some((s) => s === 'non_compliant')) return 'bg-orange-50';
-  if (statuses.every((s) => s === 'compliant')) return '';
-  return '';
+  if (statuses.every((s) => s === "non_compliant")) return "bg-red-50";
+  if (statuses.some((s) => s === "non_compliant")) return "bg-orange-50";
+  if (statuses.every((s) => s === "compliant")) return "";
+  return "";
 }
 
 export default function ViewportComparisonTable({ viewportResults }: Props) {
-  const [filter, setFilter] = useState<'all' | 'issues' | 'viewport-diff'>('issues');
+  const [filter, setFilter] = useState<"all" | "issues" | "viewport-diff">("issues");
 
   if (!viewportResults.length) return null;
 
@@ -66,8 +67,8 @@ export default function ViewportComparisonTable({ viewportResults }: Props) {
       if (!articleMap.has(c.article)) {
         articleMap.set(c.article, {
           article: c.article,
-          desc: '',
-          level: '',
+          desc: "",
+          level: "",
           byViewport: {},
         });
       }
@@ -76,16 +77,16 @@ export default function ViewportComparisonTable({ viewportResults }: Props) {
   }
 
   const rows = [...articleMap.values()].sort((a, b) => {
-    const [aMaj, aMin] = a.article.split('.').map(Number);
-    const [bMaj, bMin] = b.article.split('.').map(Number);
+    const [aMaj, aMin] = a.article.split(".").map(Number);
+    const [bMaj, bMin] = b.article.split(".").map(Number);
     return aMaj - bMaj || aMin - bMin;
   });
 
   const filtered = rows.filter((row) => {
     const statuses = Object.values(row.byViewport);
-    if (filter === 'issues') return statuses.some((s) => s === 'non_compliant');
-    if (filter === 'viewport-diff') {
-      const unique = new Set(statuses.filter((s) => s !== 'not_applicable'));
+    if (filter === "issues") return statuses.some((s) => s === "non_compliant");
+    if (filter === "viewport-diff") {
+      const unique = new Set(statuses.filter((s) => s !== "not_applicable"));
       return unique.size > 1;
     }
     return true;
@@ -95,27 +96,23 @@ export default function ViewportComparisonTable({ viewportResults }: Props) {
     <div className="space-y-3">
       {/* Filter bar */}
       <div className="flex gap-2 text-xs">
-        {(['issues', 'viewport-diff', 'all'] as const).map((f) => (
+        {(["issues", "viewport-diff", "all"] as const).map((f) => (
           <button
             key={f}
             onClick={() => setFilter(f)}
             className={`px-3 py-1.5 rounded-full font-medium transition ${
-              filter === f
-                ? 'bg-indigo-600 text-white'
-                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+              filter === f ? "bg-indigo-600 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
             }`}
           >
-            {f === 'issues' && 'Failures only'}
-            {f === 'viewport-diff' && 'Viewport differences'}
-            {f === 'all' && 'All criteria'}
+            {f === "issues" && "Failures only"}
+            {f === "viewport-diff" && "Viewport differences"}
+            {f === "all" && "All criteria"}
           </button>
         ))}
         <span className="ml-auto text-slate-400 self-center">{filtered.length} criteria</span>
       </div>
 
-      {filtered.length === 0 && (
-        <p className="text-sm text-slate-500 py-4 text-center">No matching criteria.</p>
-      )}
+      {filtered.length === 0 && <p className="text-sm text-slate-500 py-4 text-center">No matching criteria.</p>}
 
       {filtered.length > 0 && (
         <div className="overflow-x-auto rounded-xl border border-slate-200">
@@ -135,12 +132,10 @@ export default function ViewportComparisonTable({ viewportResults }: Props) {
                 <tr key={row.article} className={getRowClass(row.byViewport)}>
                   <td className="px-4 py-2.5 font-mono font-medium text-slate-700">{row.article}</td>
                   {viewports.map((vp) => {
-                    const status = row.byViewport[vp] ?? 'needs_review';
+                    const status = row.byViewport[vp] ?? "needs_review";
                     return (
                       <td key={vp} className="px-3 py-2.5 text-center">
-                        <span
-                          className={`inline-block px-2 py-0.5 rounded text-[11px] font-medium ${STATUS_CLASSES[status] ?? ''}`}
-                        >
+                        <span className={`inline-block px-2 py-0.5 rounded text-[11px] font-medium ${STATUS_CLASSES[status] ?? ""}`}>
                           {STATUS_SHORT[status] ?? status}
                         </span>
                       </td>

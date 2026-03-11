@@ -14,6 +14,7 @@ const { auditPageAtViewport, VIEWPORTS } = require('../lib/audit-core.js');
 const { URL } = require('url');
 const https = require('https');
 const http = require('http');
+const path = require('path');
 const { createHash } = require('crypto');
 
 // Inline minimal cheerio usage via require
@@ -232,6 +233,8 @@ async function runSiteAudit() {
   try {
     const origin = new URL(baseUrl).origin;
     const domain = new URL(baseUrl).hostname;
+    const evidenceRootDir = path.join(process.cwd(), 'public', 'audit-evidence', auditId);
+    const evidenceBaseUrl = `/audit-evidence/${auditId}`;
 
     await setStatus('discovering');
     console.log(`[site-audit] Discovering pages for: ${origin}`);
@@ -438,6 +441,9 @@ async function runSiteAudit() {
           concurrency: 1,
           llmModel: 'mistral:7b-instruct-v0.3-q4_K_M',
           onProgress,
+          evidenceRootDir,
+          evidenceBaseUrl,
+          evidenceScope: `${template.id}/${vp.name}`,
         });
         completedViewportSteps++;
 

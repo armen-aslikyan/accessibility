@@ -3,6 +3,7 @@ import Link from 'next/link';
 import prisma from '@/lib/prisma';
 import { transformAuditForUI } from '@/lib/transform-audit';
 import { transformSiteAuditForUI } from '@/lib/transform-site-audit';
+import type { RuleIssue } from '@/lib/transform-audit';
 import AuditDetail from '@/components/AuditDetail';
 import AuditStatusBadge from '@/components/AuditStatusBadge';
 import SiteAuditDetail from '@/components/SiteAuditDetail';
@@ -127,7 +128,7 @@ export default async function AuditPage({
           article: c.article,
           status: c.status,
           reasoning: c.reasoning,
-          issues: c.issues as Array<{ type: string; message: string }> | null,
+          issues: c.issues as RuleIssue[] | null,
         })),
       })),
     })),

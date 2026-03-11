@@ -3,7 +3,7 @@
  * All 106 RGAA criteria mapped with axe-core rules where applicable
  * Source: https://accessibilite.numerique.gouv.fr/methode/criteres-et-tests/
  * Generated: 2026-01-30
- * 
+ *
  * Structure for each criterion:
  * - article: RGAA criterion number (e.g., "1.1")
  * - desc: Full criterion description from RGAA
@@ -22,7 +22,7 @@
  */
 
 const rgaaTheme1Images = {
-  "1.1": {
+  1.1: {
     desc: "Chaque image porteuse d'information a-t-elle une alternative textuelle ?",
     descEn: "Does each information-carrying image have a text alternative?",
     level: "A",
@@ -32,21 +32,21 @@ const rgaaTheme1Images = {
     fix: "Provide alt text for informative images using alt attribute, aria-label, aria-labelledby, or title",
     testMethod: "axe-core",
     axeRules: ["image-alt", "input-image-alt", "area-alt", "svg-img-alt", "object-alt", "role-img-alt"],
-    tests: ["1.1.1", "1.1.2", "1.1.3", "1.1.4", "1.1.5", "1.1.6", "1.1.7", "1.1.8"]
+    tests: ["1.1.1", "1.1.2", "1.1.3", "1.1.4", "1.1.5", "1.1.6", "1.1.7", "1.1.8"],
   },
-  "1.2": {
+  1.2: {
     desc: "Chaque image de décoration est-elle correctement ignorée par les technologies d'assistance ?",
     descEn: "Is each decorative image correctly ignored by assistive technologies?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
     brand: "Screen reader users hear unnecessary information.",
-    fix: "Use empty alt=\"\", aria-hidden=\"true\", or role=\"presentation\" for decorative images",
+    fix: 'Use empty alt="", aria-hidden="true", or role="presentation" for decorative images',
     testMethod: "axe-core",
     axeRules: ["image-alt"],
-    tests: ["1.2.1", "1.2.2", "1.2.3", "1.2.4", "1.2.5", "1.2.6"]
+    tests: ["1.2.1", "1.2.2", "1.2.3", "1.2.4", "1.2.5", "1.2.6"],
   },
-  "1.3": {
+  1.3: {
     desc: "Pour chaque image porteuse d'information ayant une alternative textuelle, cette alternative est-elle pertinente (hors cas particuliers) ?",
     descEn: "For each information-carrying image with a text alternative, is this alternative relevant (except in special cases)?",
     level: "A",
@@ -93,9 +93,9 @@ Report for each image:
 - Image identifier (src or context)
 - Current alt text
 - Assessment: PASS (relevant) or FAIL (not relevant)
-- If FAIL: Explanation of what's wrong and suggested improvement`
+- If FAIL: Explanation of what's wrong and suggested improvement`,
   },
-  "1.4": {
+  1.4: {
     desc: "Pour chaque image utilisée comme CAPTCHA ou comme image-test, ayant une alternative textuelle, cette alternative permet-elle d'identifier la nature et la fonction de l'image ?",
     descEn: "For each image used as a CAPTCHA or test image with a text alternative, does this alternative identify the nature and function of the image?",
     level: "A",
@@ -117,9 +117,9 @@ Report:
 - PASS: If no CAPTCHAs exist, OR all CAPTCHAs have alt text that identifies their nature and function without revealing the answer
 - FAIL: If any CAPTCHA has missing alt text, OR alt text doesn't identify it as a CAPTCHA, OR alt text reveals the answer
 
-List each CAPTCHA found with its alt text and your assessment.`
+List each CAPTCHA found with its alt text and your assessment.`,
   },
-  "1.5": {
+  1.5: {
     desc: "Pour chaque image utilisée comme CAPTCHA, une solution d'accès alternatif au contenu ou à la fonction du CAPTCHA est-elle présente ?",
     descEn: "For each image used as a CAPTCHA, is an alternative access solution to the content or function of the CAPTCHA provided?",
     level: "A",
@@ -141,9 +141,9 @@ Report:
 - PASS: If no CAPTCHAs exist, OR each CAPTCHA provides at least one accessible alternative (audio version, text alternative, or bypass mechanism)
 - FAIL: If any CAPTCHA exists without an alternative access method for users who cannot see the visual challenge
 
-List each CAPTCHA found and describe what alternative access methods are available (or missing).`
+List each CAPTCHA found and describe what alternative access methods are available (or missing).`,
   },
-  "1.6": {
+  1.6: {
     desc: "Chaque image porteuse d'information a-t-elle, si nécessaire, une description détaillée ?",
     descEn: "Does each information-carrying image have, if necessary, a detailed description?",
     level: "A",
@@ -175,9 +175,9 @@ Report:
 - PASS: If no complex informative images exist, OR all complex images have detailed descriptions accessible to screen reader users
 - FAIL: If any complex image (chart, graph, infographic, diagram) lacks a detailed description beyond basic alt text
 
-List each complex image found and whether it has adequate detailed description.`
+List each complex image found and whether it has adequate detailed description.`,
   },
-  "1.7": {
+  1.7: {
     desc: "Pour chaque image porteuse d'information ayant une description détaillée, cette description est-elle pertinente ?",
     descEn: "For each information-carrying image with a detailed description, is this description relevant?",
     level: "A",
@@ -230,11 +230,12 @@ Report for each complex image:
 - Image identifier
 - Current detailed description (summarized)
 - Assessment: PASS (relevant and complete) or FAIL (inadequate)
-- If FAIL: What information is missing or incorrect`
+- If FAIL: What information is missing or incorrect`,
   },
-  "1.8": {
+  1.8: {
     desc: "Chaque image texte porteuse d'information, en l'absence d'un mécanisme de remplacement, doit si possible être remplacée par du texte stylé. Cette règle est-elle respectée (hors cas particuliers) ?",
-    descEn: "Each information-carrying text image, in the absence of a replacement mechanism, should if possible be replaced with styled text. Is this rule respected (except in special cases)?",
+    descEn:
+      "Each information-carrying text image, in the absence of a replacement mechanism, should if possible be replaced with styled text. Is this rule respected (except in special cases)?",
     level: "AA",
     risk: "Medium",
     financial: "Compliance deduction. Contributes to non-compliant status.",
@@ -261,16 +262,16 @@ Report:
 - PASS: If no images of text are found (except allowed exceptions), OR a mechanism exists to replace text images with styled HTML text
 - FAIL: If images containing text are used where styled HTML text could achieve the same visual effect
 
-List each text image found and explain whether it could be replaced with styled HTML text.`
+List each text image found and explain whether it could be replaced with styled HTML text.`,
   },
-  "1.9": {
+  1.9: {
     desc: "Chaque légende d'image est-elle, si nécessaire, correctement reliée à l'image correspondante ?",
     descEn: "Is each image caption, if necessary, correctly linked to the corresponding image?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
     brand: "Screen reader users cannot associate captions with images.",
-    fix: "Use <figure> with <figcaption>, role=\"figure\", and aria-label",
+    fix: 'Use <figure> with <figcaption>, role="figure", and aria-label',
     testMethod: "manual",
     axeRules: [],
     tests: ["1.9.1", "1.9.2", "1.9.3", "1.9.4", "1.9.5"],
@@ -293,12 +294,12 @@ Report:
 - PASS: If no images have captions, OR all image captions are properly associated using figure/figcaption or ARIA attributes
 - FAIL: If any image has a visible caption that is not programmatically linked to the image
 
-List each image with caption found and describe how (or if) the caption is associated.`
-  }
+List each image with caption found and describe how (or if) the caption is associated.`,
+  },
 };
 
 const rgaaTheme2Frames = {
-  "2.1": {
+  2.1: {
     desc: "Chaque cadre a-t-il un titre de cadre ?",
     descEn: "Does each frame have a frame title?",
     level: "A",
@@ -308,9 +309,9 @@ const rgaaTheme2Frames = {
     fix: "Every <iframe> and <frame> must have a title attribute",
     testMethod: "axe-core",
     axeRules: ["frame-title"],
-    tests: ["2.1.1"]
+    tests: ["2.1.1"],
   },
-  "2.2": {
+  2.2: {
     desc: "Pour chaque cadre ayant un titre de cadre, ce titre de cadre est-il pertinent ?",
     descEn: "For each frame with a frame title, is this frame title relevant?",
     level: "A",
@@ -364,12 +365,12 @@ Report for each frame:
 - Frame element (src or context)
 - Current title attribute value
 - Assessment: PASS (relevant) or FAIL (not relevant)
-- If FAIL: Explanation and suggested improvement`
-  }
+- If FAIL: Explanation and suggested improvement`,
+  },
 };
 
 const rgaaTheme3Colors = {
-  "3.1": {
+  3.1: {
     desc: "Dans chaque page web, l'information ne doit pas être donnée uniquement par la couleur. Cette règle est-elle respectée ?",
     descEn: "On each web page, information must not be conveyed by color alone. Is this rule respected?",
     level: "A",
@@ -399,9 +400,9 @@ Report:
 - PASS: If all color-coded information also has a non-color visual indicator
 - FAIL: If any information is conveyed by color alone without additional visual cues
 
-List each instance where color conveys information and whether it has adequate non-color alternatives.`
+List each instance where color conveys information and whether it has adequate non-color alternatives.`,
   },
-  "3.2": {
+  3.2: {
     desc: "Dans chaque page web, le contraste entre la couleur du texte et la couleur de son arrière-plan est-il suffisamment élevé (hors cas particuliers) ?",
     descEn: "On each web page, is the contrast between text color and background color sufficiently high (except in special cases)?",
     level: "AA",
@@ -411,11 +412,12 @@ List each instance where color conveys information and whether it has adequate n
     fix: "Text contrast ratio: 4.5:1 for normal text, 3:1 for large text (18pt+ or 14pt+ bold)",
     testMethod: "axe-core",
     axeRules: ["color-contrast"],
-    tests: ["3.2.1", "3.2.2", "3.2.3", "3.2.4", "3.2.5"]
+    tests: ["3.2.1", "3.2.2", "3.2.3", "3.2.4", "3.2.5"],
   },
-  "3.3": {
+  3.3: {
     desc: "Dans chaque page web, les couleurs utilisées dans les composants d'interface ou les éléments graphiques porteurs d'informations sont-elles suffisamment contrastées (hors cas particuliers) ?",
-    descEn: "On each web page, are the colors used in interface components or information-carrying graphic elements sufficiently contrasted (except in special cases)?",
+    descEn:
+      "On each web page, are the colors used in interface components or information-carrying graphic elements sufficiently contrasted (except in special cases)?",
     level: "AA",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -423,12 +425,12 @@ List each instance where color conveys information and whether it has adequate n
     fix: "UI components and graphics: 3:1 contrast ratio with adjacent colors",
     testMethod: "axe-core",
     axeRules: ["color-contrast"],
-    tests: ["3.3.1", "3.3.2", "3.3.3", "3.3.4"]
-  }
+    tests: ["3.3.1", "3.3.2", "3.3.3", "3.3.4"],
+  },
 };
 
 const rgaaTheme4Multimedia = {
-  "4.1": {
+  4.1: {
     desc: "Chaque média temporel pré-enregistré a-t-il, si nécessaire, une transcription textuelle ou une audiodescription (hors cas particuliers) ?",
     descEn: "Does each pre-recorded time-based media have, if necessary, a text transcript or audio description (except in special cases)?",
     level: "A",
@@ -460,9 +462,9 @@ Report:
 - PASS: If no pre-recorded media exists, OR all media has appropriate transcripts/audio descriptions
 - FAIL: If any pre-recorded media lacks a text transcript or audio description
 
-List each media element found and whether it has the required alternative.`
+List each media element found and whether it has the required alternative.`,
   },
-  "4.2": {
+  4.2: {
     desc: "Pour chaque média temporel pré-enregistré ayant une transcription textuelle ou une audiodescription synchronisée, celles-ci sont-elles pertinentes (hors cas particuliers) ?",
     descEn: "For each pre-recorded time-based media with a text transcript or synchronized audio description, are these relevant (except in special cases)?",
     level: "A",
@@ -492,16 +494,16 @@ Report:
 - PASS: If all transcripts/audio descriptions are accurate, complete, and convey equivalent information
 - FAIL: If any transcript/audio description is incomplete, inaccurate, or missing essential information
 
-For each transcript found, note any quality issues or missing information.`
+For each transcript found, note any quality issues or missing information.`,
   },
-  "4.3": {
+  4.3: {
     desc: "Chaque média temporel synchronisé pré-enregistré a-t-il, si nécessaire, des sous-titres synchronisés (hors cas particuliers) ?",
     descEn: "Does each pre-recorded synchronized time-based media have, if necessary, synchronized captions (except in special cases)?",
     level: "A",
     risk: "Critical",
     financial: "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
     brand: "Excludes deaf and hard-of-hearing users from video content.",
-    fix: "Provide synchronized captions using <track kind=\"captions\">",
+    fix: 'Provide synchronized captions using <track kind="captions">',
     testMethod: "axe-core,manual",
     axeRules: ["video-caption"],
     tests: ["4.3.1", "4.3.2"],
@@ -522,9 +524,9 @@ Report:
 - PASS: If no synchronized video+audio exists, OR all such videos have synchronized captions available
 - FAIL: If any pre-recorded video with audio lacks synchronized captions
 
-List each video found and whether captions are available.`
+List each video found and whether captions are available.`,
   },
-  "4.4": {
+  4.4: {
     desc: "Pour chaque média temporel synchronisé pré-enregistré ayant des sous-titres synchronisés, ces sous-titres sont-ils pertinents ?",
     descEn: "For each pre-recorded synchronized time-based media with synchronized captions, are these captions relevant?",
     level: "A",
@@ -557,9 +559,9 @@ Report:
 - PASS: If all captions are accurate, well-synchronized, and include all audio information
 - FAIL: If captions are inaccurate, poorly synchronized, or missing essential audio information
 
-Note specific quality issues found in captions.`
+Note specific quality issues found in captions.`,
   },
-  "4.5": {
+  4.5: {
     desc: "Chaque média temporel pré-enregistré a-t-il, si nécessaire, une audiodescription synchronisée (hors cas particuliers) ?",
     descEn: "Does each pre-recorded time-based media have, if necessary, a synchronized audio description (except in special cases)?",
     level: "AA",
@@ -594,9 +596,9 @@ Report:
 - PASS: If no videos require audio description, OR all videos needing it have synchronized audio description available
 - FAIL: If any video has essential visual content not conveyed by audio and lacks audio description
 
-List each video and whether audio description is needed and available.`
+List each video and whether audio description is needed and available.`,
   },
-  "4.6": {
+  4.6: {
     desc: "Pour chaque média temporel pré-enregistré ayant une audiodescription synchronisée, celle-ci est-elle pertinente ?",
     descEn: "For each pre-recorded time-based media with a synchronized audio description, is this description relevant?",
     level: "AA",
@@ -629,9 +631,9 @@ Report:
 - PASS: If all audio descriptions convey essential visual information appropriately timed
 - FAIL: If any audio description misses important visual content or interferes with main audio
 
-Note specific quality issues found in audio descriptions.`
+Note specific quality issues found in audio descriptions.`,
   },
-  "4.7": {
+  4.7: {
     desc: "Chaque média temporel est-il clairement identifiable (hors cas particuliers) ?",
     descEn: "Is each time-based media clearly identifiable (except in special cases)?",
     level: "A",
@@ -660,9 +662,9 @@ Report:
 - PASS: If all media elements have clear, accessible identification of their content
 - FAIL: If any media element lacks clear identification (no title, heading, or accessible name)
 
-List each media element found and how it is identified (or note if identification is missing).`
+List each media element found and how it is identified (or note if identification is missing).`,
   },
-  "4.8": {
+  4.8: {
     desc: "Chaque média non temporel a-t-il, si nécessaire, une alternative (hors cas particuliers) ?",
     descEn: "Does each non-time-based media have, if necessary, an alternative (except in special cases)?",
     level: "A",
@@ -694,9 +696,9 @@ Report:
 - PASS: If no non-temporal media exists, OR all such media has accessible alternatives
 - FAIL: If any non-temporal media lacks an accessible alternative and is not natively accessible
 
-List each non-temporal media element and whether it has an adequate alternative.`
+List each non-temporal media element and whether it has an adequate alternative.`,
   },
-  "4.9": {
+  4.9: {
     desc: "Pour chaque média non temporel ayant une alternative, cette alternative est-elle pertinente ?",
     descEn: "For each non-time-based media with an alternative, is this alternative relevant?",
     level: "A",
@@ -726,7 +728,7 @@ Report:
 - PASS: If all alternatives provide equivalent information and functionality in an accessible format
 - FAIL: If any alternative is incomplete, inaccessible, or missing essential content/functionality
 
-Note specific gaps between original media and its alternative.`
+Note specific gaps between original media and its alternative.`,
   },
   "4.10": {
     desc: "Chaque son déclenché automatiquement est-il contrôlable par l'utilisateur ?",
@@ -757,9 +759,9 @@ Report:
 - PASS: If no auto-playing audio exists, OR audio ≤3 seconds, OR accessible pause/stop/volume controls are present
 - FAIL: If audio auto-plays for >3 seconds without accessible controls to pause/stop or adjust volume
 
-List each auto-playing audio source and available controls (or lack thereof).`
+List each auto-playing audio source and available controls (or lack thereof).`,
   },
-  "4.11": {
+  4.11: {
     desc: "La consultation de chaque média temporel est-elle, si nécessaire, contrôlable par le clavier et tout dispositif de pointage ?",
     descEn: "Is the viewing of each time-based media, if necessary, controllable by keyboard and any pointing device?",
     level: "A",
@@ -792,9 +794,9 @@ Report:
 - PASS: If all media player controls are fully keyboard accessible with proper labels and focus indicators
 - FAIL: If any essential control (play, pause, volume, mute) is not keyboard accessible
 
-List each media player and which controls are keyboard accessible/inaccessible.`
+List each media player and which controls are keyboard accessible/inaccessible.`,
   },
-  "4.12": {
+  4.12: {
     desc: "La consultation de chaque média non temporel est-elle contrôlable par le clavier et tout dispositif de pointage ?",
     descEn: "Is the viewing of each non-time-based media controllable by keyboard and any pointing device?",
     level: "A",
@@ -825,9 +827,9 @@ Report:
 - PASS: If all non-temporal media is fully keyboard operable with clear focus management
 - FAIL: If any interactive feature requires mouse-only interaction
 
-List each non-temporal media and keyboard accessibility status of its interactive features.`
+List each non-temporal media and keyboard accessibility status of its interactive features.`,
   },
-  "4.13": {
+  4.13: {
     desc: "Chaque média temporel et non temporel est-il compatible avec les technologies d'assistance (hors cas particuliers) ?",
     descEn: "Is each time-based and non-time-based media compatible with assistive technologies (except in special cases)?",
     level: "A",
@@ -858,12 +860,12 @@ Report:
 - PASS: If all media players have proper ARIA attributes and announce state changes to assistive technologies
 - FAIL: If any media player lacks accessible names, roles, or state announcements
 
-List each media player control and its ARIA implementation status.`
-  }
+List each media player control and its ARIA implementation status.`,
+  },
 };
 
 const rgaaTheme5Tables = {
-  "5.1": {
+  5.1: {
     desc: "Chaque tableau de données complexe a-t-il un résumé ?",
     descEn: "Does each complex data table have a summary?",
     level: "A",
@@ -896,9 +898,9 @@ Report:
 - PASS: If no complex data tables exist, OR all complex tables have summaries explaining their structure
 - FAIL: If any complex data table lacks a summary describing its structure
 
-List each complex table found and whether it has an adequate summary.`
+List each complex table found and whether it has an adequate summary.`,
   },
-  "5.2": {
+  5.2: {
     desc: "Pour chaque tableau de données complexe ayant un résumé, celui-ci est-il pertinent ?",
     descEn: "For each complex data table with a summary, is this summary relevant?",
     level: "A",
@@ -927,16 +929,16 @@ Report:
 - PASS: If all complex table summaries adequately explain the table structure and navigation
 - FAIL: If any summary is too vague, inaccurate, or fails to explain the table structure
 
-For each complex table with a summary, evaluate the summary quality and note any issues.`
+For each complex table with a summary, evaluate the summary quality and note any issues.`,
   },
-  "5.3": {
+  5.3: {
     desc: "Pour chaque tableau de mise en forme, le contenu linéarisé reste-t-il compréhensible ?",
     descEn: "For each layout table, does the linearized content remain understandable?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
     brand: "Content order is illogical without visual layout.",
-    fix: "Layout tables must use role=\"presentation\" and maintain logical reading order",
+    fix: 'Layout tables must use role="presentation" and maintain logical reading order',
     testMethod: "manual",
     axeRules: [],
     tests: ["5.3.1"],
@@ -962,9 +964,9 @@ Report:
 - PASS: If no layout tables exist, OR all layout table content is comprehensible when linearized
 - FAIL: If any layout table content becomes illogical or confusing when read in DOM order
 
-List each layout table and describe how content flows when linearized.`
+List each layout table and describe how content flows when linearized.`,
   },
-  "5.4": {
+  5.4: {
     desc: "Pour chaque tableau de données ayant un titre, le titre est-il correctement associé au tableau de données ?",
     descEn: "For each data table with a title, is the title correctly associated with the data table?",
     level: "A",
@@ -994,9 +996,9 @@ Report:
 - PASS: If no data tables have titles, OR all titled tables have proper programmatic association
 - FAIL: If any data table has a visible title that is not programmatically associated with the table
 
-List each data table with a visible title and how the title is (or isn't) associated.`
+List each data table with a visible title and how the title is (or isn't) associated.`,
   },
-  "5.5": {
+  5.5: {
     desc: "Pour chaque tableau de données ayant un titre, celui-ci est-il pertinent ?",
     descEn: "For each data table with a title, is this title relevant?",
     level: "A",
@@ -1050,21 +1052,21 @@ Report for each table:
 - Table identifier (location, first few headers)
 - Current title
 - Assessment: PASS (relevant) or FAIL (not relevant)
-- If FAIL: Explanation and suggested improvement`
+- If FAIL: Explanation and suggested improvement`,
   },
-  "5.6": {
+  5.6: {
     desc: "Pour chaque tableau de données, chaque en-tête de colonne et chaque en-tête de ligne sont-ils correctement déclarés ?",
     descEn: "For each data table, are all column headers and row headers correctly declared?",
     level: "A",
     risk: "Critical",
     financial: "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
     brand: "Data tables completely unusable for screen reader users.",
-    fix: "Use <th> for headers or role=\"columnheader\"/\"rowheader\" with ARIA",
+    fix: 'Use <th> for headers or role="columnheader"/"rowheader" with ARIA',
     testMethod: "axe-core",
     axeRules: ["th-has-data-cells"],
-    tests: ["5.6.1", "5.6.2", "5.6.3", "5.6.4"]
+    tests: ["5.6.1", "5.6.2", "5.6.3", "5.6.4"],
   },
-  "5.7": {
+  5.7: {
     desc: "Pour chaque tableau de données, la technique appropriée permettant d'associer chaque cellule avec ses en-têtes est-elle utilisée (hors cas particuliers) ?",
     descEn: "For each data table, is the appropriate technique for associating each cell with its headers used (except in special cases)?",
     level: "A",
@@ -1074,9 +1076,9 @@ Report for each table:
     fix: "Use scope attribute (row/col) or headers/id association for complex tables",
     testMethod: "axe-core",
     axeRules: ["td-headers-attr", "scope-attr-valid"],
-    tests: ["5.7.1", "5.7.2", "5.7.3", "5.7.4", "5.7.5"]
+    tests: ["5.7.1", "5.7.2", "5.7.3", "5.7.4", "5.7.5"],
   },
-  "5.8": {
+  5.8: {
     desc: "Chaque tableau de mise en forme ne doit pas utiliser d'éléments propres aux tableaux de données. Cette règle est-elle respectée ?",
     descEn: "Each layout table must not use elements specific to data tables. Is this rule respected?",
     level: "A",
@@ -1113,24 +1115,24 @@ Report:
 - PASS: If no layout tables exist, OR all layout tables avoid data table elements
 - FAIL: If any layout table uses <caption>, <th>, <thead>, <tfoot>, summary, scope, headers, or axis
 
-List each layout table and any data table elements incorrectly used.`
-  }
+List each layout table and any data table elements incorrectly used.`,
+  },
 };
 
 const rgaaTheme6Links = {
-  "6.1": {
+  6.1: {
     desc: "Chaque lien est-il explicite (hors cas particuliers) ?",
     descEn: "Is each link explicit (except in special cases)?",
     level: "A",
     risk: "Critical",
     financial: "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
     brand: "Total failure: Users cannot understand link destination.",
-    fix: "Link text or context must make destination/purpose clear (avoid \"click here\", \"read more\")",
+    fix: 'Link text or context must make destination/purpose clear (avoid "click here", "read more")',
     testMethod: "axe-core",
     axeRules: ["link-name"],
-    tests: ["6.1.1", "6.1.2", "6.1.3", "6.1.4", "6.1.5"]
+    tests: ["6.1.1", "6.1.2", "6.1.3", "6.1.4", "6.1.5"],
   },
-  "6.2": {
+  6.2: {
     desc: "Dans chaque page web, chaque lien a-t-il un intitulé ?",
     descEn: "On each web page, does each link have a label?",
     level: "A",
@@ -1140,12 +1142,12 @@ const rgaaTheme6Links = {
     fix: "Every link must have text content, alt text, aria-label, or aria-labelledby",
     testMethod: "axe-core",
     axeRules: ["link-name"],
-    tests: ["6.2.1"]
-  }
+    tests: ["6.2.1"],
+  },
 };
 
 const rgaaTheme7Scripts = {
-  "7.1": {
+  7.1: {
     desc: "Chaque script est-il, si nécessaire, compatible avec les technologies d'assistance ?",
     descEn: "Is each script, if necessary, compatible with assistive technologies?",
     level: "A",
@@ -1187,9 +1189,9 @@ Report:
 - PASS: If all custom interactive components have proper ARIA implementation
 - FAIL: If any component lacks appropriate roles, states, or properties for AT compatibility
 
-List each custom component and its ARIA implementation status.`
+List each custom component and its ARIA implementation status.`,
   },
-  "7.2": {
+  7.2: {
     desc: "Pour chaque script ayant une alternative, cette alternative est-elle pertinente ?",
     descEn: "For each script with an alternative, is this alternative relevant?",
     level: "A",
@@ -1224,9 +1226,9 @@ Report:
 - PASS: If all script alternatives provide equivalent accessible functionality
 - FAIL: If any alternative is missing information, functionality, or is inaccessible
 
-List each script with alternative and assess the alternative's equivalence.`
+List each script with alternative and assess the alternative's equivalence.`,
   },
-  "7.3": {
+  7.3: {
     desc: "Chaque script est-il contrôlable par le clavier et par tout dispositif de pointage (hors cas particuliers) ?",
     descEn: "Is each script controllable by keyboard and any pointing device (except in special cases)?",
     level: "A",
@@ -1270,9 +1272,9 @@ Report:
 - PASS: If all interactive elements are fully keyboard operable
 - FAIL: If any interactive feature requires mouse-only interaction
 
-List each interactive element and its keyboard accessibility status.`
+List each interactive element and its keyboard accessibility status.`,
   },
-  "7.4": {
+  7.4: {
     desc: "Pour chaque script qui initie un changement de contexte, l'utilisateur est-il averti ou en a-t-il le contrôle ?",
     descEn: "For each script that initiates a context change, is the user warned or given control?",
     level: "A",
@@ -1311,16 +1313,16 @@ Report:
 - PASS: If all context changes are user-initiated OR users are warned in advance
 - FAIL: If any unexpected context change occurs without warning or user control
 
-List each context change and whether users are adequately warned.`
+List each context change and whether users are adequately warned.`,
   },
-  "7.5": {
+  7.5: {
     desc: "Dans chaque page web, les messages de statut sont-ils correctement restitués par les technologies d'assistance ?",
     descEn: "On each web page, are status messages correctly conveyed by assistive technologies?",
     level: "AA",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
     brand: "Screen reader users miss critical status updates and errors.",
-    fix: "Use role=\"status\", role=\"alert\", or aria-live for status messages",
+    fix: 'Use role="status", role="alert", or aria-live for status messages',
     testMethod: "manual",
     axeRules: [],
     tests: ["7.5.1", "7.5.2", "7.5.3"],
@@ -1353,12 +1355,12 @@ Report:
 - PASS: If all status messages have appropriate live regions and will be announced
 - FAIL: If any status message lacks live region announcement
 
-List each status message type found and its ARIA live region implementation.`
-  }
+List each status message type found and its ARIA live region implementation.`,
+  },
 };
 
 const rgaaTheme8Mandatory = {
-  "8.1": {
+  8.1: {
     desc: "Chaque page web est-elle définie par un type de document ?",
     descEn: "Is each web page defined by a document type?",
     level: "A",
@@ -1391,9 +1393,9 @@ Report:
 - PASS: If a valid DOCTYPE declaration is present at the start of the document
 - FAIL: If DOCTYPE is missing, malformed, or not at the document start
 
-State which DOCTYPE is used and whether it is valid.`
+State which DOCTYPE is used and whether it is valid.`,
   },
-  "8.2": {
+  8.2: {
     desc: "Pour chaque page web, le code source généré est-il valide selon le type de document spécifié ?",
     descEn: "For each web page, is the generated source code valid according to the specified document type?",
     level: "A",
@@ -1403,21 +1405,21 @@ State which DOCTYPE is used and whether it is valid.`
     fix: "Validate HTML: no duplicate IDs, proper nesting, closed tags, valid attributes",
     testMethod: "axe-core",
     axeRules: ["duplicate-id", "duplicate-id-active", "duplicate-id-aria"],
-    tests: ["8.2.1"]
+    tests: ["8.2.1"],
   },
-  "8.3": {
+  8.3: {
     desc: "Dans chaque page web, la langue par défaut est-elle présente ?",
     descEn: "On each web page, is the default language specified?",
     level: "A",
     risk: "Critical",
     financial: "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
     brand: "Fundamental compliance failure. Screen readers use wrong pronunciation.",
-    fix: "Set lang attribute on <html> element (e.g., <html lang=\"fr\">)",
+    fix: 'Set lang attribute on <html> element (e.g., <html lang="fr">)',
     testMethod: "axe-core",
     axeRules: ["html-has-lang"],
-    tests: ["8.3.1"]
+    tests: ["8.3.1"],
   },
-  "8.4": {
+  8.4: {
     desc: "Pour chaque page web ayant une langue par défaut, le code de langue est-il pertinent ?",
     descEn: "For each web page with a default language, is the language code relevant?",
     level: "A",
@@ -1427,9 +1429,9 @@ State which DOCTYPE is used and whether it is valid.`
     fix: "Use valid ISO 639-1 language code that matches page language",
     testMethod: "axe-core",
     axeRules: ["html-lang-valid"],
-    tests: ["8.4.1"]
+    tests: ["8.4.1"],
   },
-  "8.5": {
+  8.5: {
     desc: "Chaque page web a-t-elle un titre de page ?",
     descEn: "Does each web page have a page title?",
     level: "A",
@@ -1439,9 +1441,9 @@ State which DOCTYPE is used and whether it is valid.`
     fix: "Every page must have <title> element in <head>",
     testMethod: "axe-core",
     axeRules: ["document-title"],
-    tests: ["8.5.1"]
+    tests: ["8.5.1"],
   },
-  "8.6": {
+  8.6: {
     desc: "Pour chaque page web ayant un titre de page, ce titre est-il pertinent ?",
     descEn: "For each web page with a page title, is this title relevant?",
     level: "A",
@@ -1501,9 +1503,9 @@ Report:
 - Current page title
 - Page's apparent purpose (from h1, main content)
 - Assessment: PASS (relevant) or FAIL (not relevant)
-- If FAIL: Explanation and suggested improvement`
+- If FAIL: Explanation and suggested improvement`,
   },
-  "8.7": {
+  8.7: {
     desc: "Dans chaque page web, chaque changement de langue est-il indiqué dans le code source (hors cas particuliers) ?",
     descEn: "On each web page, is each language change indicated in the source code (except in special cases)?",
     level: "AA",
@@ -1536,9 +1538,9 @@ Report:
 - PASS: If all significant language changes are marked with lang attributes
 - FAIL: If foreign language text exists without appropriate lang attribute
 
-List each foreign language text found and whether it is properly marked.`
+List each foreign language text found and whether it is properly marked.`,
   },
-  "8.8": {
+  8.8: {
     desc: "Dans chaque page web, le code de langue de chaque changement de langue est-il valide et pertinent ?",
     descEn: "On each web page, is the language code for each language change valid and relevant?",
     level: "AA",
@@ -1570,9 +1572,9 @@ Report:
 - PASS: If all lang attributes use valid codes matching the actual content language
 - FAIL: If any lang code is invalid or doesn't match the content language
 
-List each lang attribute found and verify code validity and appropriateness.`
+List each lang attribute found and verify code validity and appropriateness.`,
   },
-  "8.9": {
+  8.9: {
     desc: "Dans chaque page web, les balises ne doivent pas être utilisées uniquement à des fins de présentation. Cette règle est-elle respectée ?",
     descEn: "On each web page, tags must not be used solely for presentation purposes. Is this rule respected?",
     level: "A",
@@ -1605,7 +1607,7 @@ Report:
 - PASS: If all semantic elements are used appropriately for their semantic meaning
 - FAIL: If any semantic tag is used purely for visual presentation
 
-List each misused semantic element and explain the correct alternative.`
+List each misused semantic element and explain the correct alternative.`,
   },
   "8.10": {
     desc: "Dans chaque page web, les changements du sens de lecture sont-ils signalés ?",
@@ -1614,7 +1616,7 @@ List each misused semantic element and explain the correct alternative.`
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
     brand: "Screen readers read right-to-left text in wrong order.",
-    fix: "Use dir=\"rtl\" or dir=\"ltr\" for bidirectional text (Arabic, Hebrew)",
+    fix: 'Use dir="rtl" or dir="ltr" for bidirectional text (Arabic, Hebrew)',
     testMethod: "manual",
     axeRules: [],
     tests: ["8.10.1", "8.10.2"],
@@ -1646,12 +1648,12 @@ Report:
 - PASS: If no RTL text exists, OR all RTL text has appropriate dir attribute
 - FAIL: If RTL text exists without dir="rtl" marking
 
-List each RTL text section and whether direction is properly indicated.`
-  }
+List each RTL text section and whether direction is properly indicated.`,
+  },
 };
 
 const rgaaTheme9Structure = {
-  "9.1": {
+  9.1: {
     desc: "Dans chaque page web, l'information est-elle structurée par l'utilisation appropriée de titres ?",
     descEn: "On each web page, is information structured through appropriate use of headings?",
     level: "A",
@@ -1661,9 +1663,9 @@ const rgaaTheme9Structure = {
     fix: "Use proper heading hierarchy (<h1>-<h6>), don't skip levels, content must be pertinent",
     testMethod: "axe-core",
     axeRules: ["empty-heading", "heading-order"],
-    tests: ["9.1.1", "9.1.2", "9.1.3"]
+    tests: ["9.1.1", "9.1.2", "9.1.3"],
   },
-  "9.2": {
+  9.2: {
     desc: "Dans chaque page web, la structure du document est-elle cohérente (hors cas particuliers) ?",
     descEn: "On each web page, is the document structure coherent (except in special cases)?",
     level: "A",
@@ -1673,21 +1675,21 @@ const rgaaTheme9Structure = {
     fix: "Use <header>, <nav>, <main>, <footer> with proper ARIA landmarks",
     testMethod: "axe-core",
     axeRules: ["bypass", "skip-link", "region", "landmark-one-main"],
-    tests: ["9.2.1"]
+    tests: ["9.2.1"],
   },
-  "9.3": {
+  9.3: {
     desc: "Dans chaque page web, chaque liste est-elle correctement structurée ?",
     descEn: "On each web page, is each list correctly structured?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
     brand: "Screen readers cannot navigate lists or identify item relationships.",
-    fix: "Use <ul>/<ol> with <li>, <dl> with <dt>/<dd>, or role=\"list\"/\"listitem\"",
+    fix: 'Use <ul>/<ol> with <li>, <dl> with <dt>/<dd>, or role="list"/"listitem"',
     testMethod: "axe-core",
     axeRules: ["list", "listitem", "definition-list", "dlitem"],
-    tests: ["9.3.1", "9.3.2", "9.3.3"]
+    tests: ["9.3.1", "9.3.2", "9.3.3"],
   },
-  "9.4": {
+  9.4: {
     desc: "Dans chaque page web, chaque citation est-elle correctement indiquée ?",
     descEn: "On each web page, is each quotation correctly indicated?",
     level: "A",
@@ -1726,12 +1728,12 @@ Report:
 - PASS: If all quotations are properly marked with <blockquote> or <q>
 - FAIL: If quotations exist without appropriate semantic markup
 
-List each quotation found and whether it is properly marked up.`
-  }
+List each quotation found and whether it is properly marked up.`,
+  },
 };
 
 const rgaaTheme10Presentation = {
-  "10.1": {
+  10.1: {
     desc: "Dans le site web, des feuilles de styles sont-elles utilisées pour contrôler la présentation de l'information ?",
     descEn: "On the website, are stylesheets used to control the presentation of information?",
     level: "A",
@@ -1773,9 +1775,9 @@ Report:
 - PASS: If all presentation is controlled by CSS with no deprecated HTML presentation
 - FAIL: If any deprecated presentational HTML attributes or elements are found
 
-List each deprecated presentational element/attribute found.`
+List each deprecated presentational element/attribute found.`,
   },
-  "10.2": {
+  10.2: {
     desc: "Dans chaque page web, le contenu visible porteur d'information reste-t-il présent lorsque les feuilles de styles sont désactivées ?",
     descEn: "On each web page, does the visible information-carrying content remain present when stylesheets are disabled?",
     level: "A",
@@ -1811,9 +1813,9 @@ Report:
 - PASS: If all informative content is in HTML and remains when CSS is disabled
 - FAIL: If any informative content is added via CSS and would be lost without CSS
 
-List each CSS-generated content that carries information.`
+List each CSS-generated content that carries information.`,
   },
-  "10.3": {
+  10.3: {
     desc: "Dans chaque page web, l'information reste-t-elle compréhensible lorsque les feuilles de styles sont désactivées ?",
     descEn: "On each web page, does the information remain understandable when stylesheets are disabled?",
     level: "A",
@@ -1851,9 +1853,9 @@ Report:
 - PASS: If content remains logically ordered and comprehensible without CSS
 - FAIL: If disabling CSS would make content order confusing or illogical
 
-Describe the DOM order and any significant differences from visual order.`
+Describe the DOM order and any significant differences from visual order.`,
   },
-  "10.4": {
+  10.4: {
     desc: "Dans chaque page web, le texte reste-t-il lisible lorsque la taille des caractères est augmentée jusqu'à 200 %, au moins (hors cas particuliers) ?",
     descEn: "On each web page, does text remain readable when font size is increased up to 200%, at least (except in special cases)?",
     level: "AA",
@@ -1894,9 +1896,9 @@ Report:
 - PASS: If text remains readable at 200% with no loss of content or functionality
 - FAIL: If viewport prevents scaling, OR text is clipped/lost/overlapping at 200%
 
-List any CSS/HTML that would prevent proper text resizing.`
+List any CSS/HTML that would prevent proper text resizing.`,
   },
-  "10.5": {
+  10.5: {
     desc: "Dans chaque page web, les déclarations CSS de couleurs de fond d'élément et de police sont-elles correctement utilisées ?",
     descEn: "On each web page, are CSS declarations for background colors and font colors correctly used?",
     level: "AA",
@@ -1934,9 +1936,9 @@ Report:
 - PASS: If all color declarations are properly paired (foreground + background)
 - FAIL: If any element has color or background-color without the other
 
-List elements with unpaired color declarations.`
+List elements with unpaired color declarations.`,
   },
-  "10.6": {
+  10.6: {
     desc: "Dans chaque page web, chaque lien dont la nature n'est pas évidente est-il visible par rapport au texte environnant ?",
     descEn: "On each web page, is each link whose nature is not obvious visible relative to the surrounding text?",
     level: "A",
@@ -1946,9 +1948,9 @@ List elements with unpaired color declarations.`
     fix: "Text links must have 3:1 contrast with surrounding text + underline/border on hover/focus",
     testMethod: "axe-core",
     axeRules: ["link-in-text-block"],
-    tests: ["10.6.1"]
+    tests: ["10.6.1"],
   },
-  "10.7": {
+  10.7: {
     desc: "Dans chaque page web, pour chaque élément recevant le focus, la prise de focus est-elle visible ?",
     descEn: "On each web page, for each element receiving focus, is the focus visible?",
     level: "AA",
@@ -1991,16 +1993,16 @@ Report:
 - PASS: If all focusable elements have clearly visible focus indicators with adequate contrast
 - FAIL: If any focusable element has invisible, removed, or low-contrast focus indicator
 
-List each focusable element type and describe its focus indicator (or note if missing).`
+List each focusable element type and describe its focus indicator (or note if missing).`,
   },
-  "10.8": {
+  10.8: {
     desc: "Pour chaque page web, les contenus cachés ont-ils vocation à être ignorés par les technologies d'assistance ?",
     descEn: "On each web page, is hidden content intended to be ignored by assistive technologies?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
     brand: "Hidden content incorrectly exposed or important content hidden.",
-    fix: "Use aria-hidden=\"true\" or display:none/visibility:hidden consistently",
+    fix: 'Use aria-hidden="true" or display:none/visibility:hidden consistently',
     testMethod: "axe-core,manual",
     axeRules: ["aria-hidden-body"],
     tests: ["10.8.1"],
@@ -2035,16 +2037,16 @@ Report:
 - PASS: If all hidden content is appropriately handled for AT
 - FAIL: If aria-hidden is misused, or hidden content is incorrectly exposed to/hidden from AT
 
-List each hidden content pattern and whether it's correctly implemented.`
+List each hidden content pattern and whether it's correctly implemented.`,
   },
-  "10.9": {
+  10.9: {
     desc: "Dans chaque page web, l'information ne doit pas être donnée uniquement par la forme, taille ou position. Cette règle est-elle respectée ?",
     descEn: "On each web page, information must not be conveyed solely by shape, size, or position. Is this rule respected?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
     brand: "Screen reader users cannot perceive visual-only cues.",
-    fix: "Don't rely solely on visual characteristics (\"click the red button on the right\")",
+    fix: 'Don\'t rely solely on visual characteristics ("click the red button on the right")',
     testMethod: "manual",
     axeRules: [],
     tests: ["10.9.1", "10.9.2", "10.9.3", "10.9.4"],
@@ -2086,7 +2088,7 @@ Report:
 - PASS: If all shape/size/position information also has text or other non-visual alternatives
 - FAIL: If any information relies solely on shape, size, or visual position
 
-List each instance where visual characteristics convey information.`
+List each instance where visual characteristics convey information.`,
   },
   "10.10": {
     desc: "Dans chaque page web, l'information ne doit pas être donnée par la forme, taille ou position uniquement. Cette règle est-elle implémentée de façon pertinente ?",
@@ -2131,11 +2133,12 @@ Report:
 - PASS: If all text alternatives accurately convey the same information as visual cues
 - FAIL: If any alternative is missing, inaccurate, or doesn't convey equivalent information
 
-List each visual cue and evaluate its text alternative's accuracy.`
+List each visual cue and evaluate its text alternative's accuracy.`,
   },
-  "10.11": {
+  10.11: {
     desc: "Pour chaque page web, les contenus peuvent-ils être présentés sans perte d'information ou de fonctionnalité et sans avoir recours soit à un défilement vertical pour une fenêtre ayant une hauteur de 256 px, soit à un défilement horizontal pour une fenêtre ayant une largeur de 320 px (hors cas particuliers) ?",
-    descEn: "On each web page, can content be presented without loss of information or functionality and without requiring either vertical scrolling for a window with a height of 256px, or horizontal scrolling for a window with a width of 320px (except in special cases)?",
+    descEn:
+      "On each web page, can content be presented without loss of information or functionality and without requiring either vertical scrolling for a window with a height of 256px, or horizontal scrolling for a window with a width of 320px (except in special cases)?",
     level: "AA",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -2180,9 +2183,9 @@ Report:
 - PASS: If content reflows properly at 320px/256px without 2D scrolling (except allowed exceptions)
 - FAIL: If horizontal scrolling is needed at 320px width, or content is lost/hidden
 
-Describe the responsive behavior and any issues found.`
+Describe the responsive behavior and any issues found.`,
   },
-  "10.12": {
+  10.12: {
     desc: "Dans chaque page web, les propriétés d'espacement du texte peuvent-elles être redéfinies par l'utilisateur sans perte de contenu ou de fonctionnalité (hors cas particuliers) ?",
     descEn: "On each web page, can text spacing properties be redefined by the user without loss of content or functionality (except in special cases)?",
     level: "AA",
@@ -2222,9 +2225,9 @@ Report:
 - PASS: If text spacing can be increased to specified values without content loss or overlap
 - FAIL: If increasing text spacing causes text clipping, overlap, or loss of functionality
 
-Describe any containers that would fail text spacing adjustments.`
+Describe any containers that would fail text spacing adjustments.`,
   },
-  "10.13": {
+  10.13: {
     desc: "Dans chaque page web, les contenus additionnels apparaissant à la prise de focus ou au survol d'un composant d'interface sont-ils contrôlables par l'utilisateur (hors cas particuliers) ?",
     descEn: "On each web page, is additional content appearing on focus or hover of an interface component controllable by the user (except in special cases)?",
     level: "AA",
@@ -2269,9 +2272,9 @@ Report:
 - PASS: If all hover/focus content is dismissible, hoverable, and persistent
 - FAIL: If any hover/focus content lacks one of these three properties
 
-List each hover/focus triggered component and its compliance with all three criteria.`
+List each hover/focus triggered component and its compliance with all three criteria.`,
   },
-  "10.14": {
+  10.14: {
     desc: "Dans chaque page web, les contenus additionnels apparaissant via les styles CSS uniquement peuvent-ils être rendus visibles au clavier et par tout dispositif de pointage ?",
     descEn: "On each web page, can additional content appearing via CSS styles only be made visible by keyboard and any pointing device?",
     level: "A",
@@ -2315,12 +2318,12 @@ Report:
 - PASS: If all CSS hover-revealed content is also accessible via keyboard focus
 - FAIL: If any hover content is not accessible via keyboard
 
-List each hover-revealed content and whether :focus support exists.`
-  }
+List each hover-revealed content and whether :focus support exists.`,
+  },
 };
 
 const rgaaTheme11Forms = {
-  "11.1": {
+  11.1: {
     desc: "Chaque champ de formulaire a-t-il une étiquette ?",
     descEn: "Does each form field have a label?",
     level: "A",
@@ -2330,9 +2333,9 @@ const rgaaTheme11Forms = {
     fix: "Every input must have <label>, aria-label, aria-labelledby, or title",
     testMethod: "axe-core",
     axeRules: ["label", "aria-input-field-name", "select-name"],
-    tests: ["11.1.1", "11.1.2", "11.1.3"]
+    tests: ["11.1.1", "11.1.2", "11.1.3"],
   },
-  "11.2": {
+  11.2: {
     desc: "Chaque étiquette associée à un champ de formulaire est-elle pertinente (hors cas particuliers) ?",
     descEn: "Is each label associated with a form field relevant (except in special cases)?",
     level: "A",
@@ -2394,11 +2397,12 @@ Report for each form field:
 - Field type and purpose
 - Current label/accessible name
 - Assessment: PASS (relevant) or FAIL (not relevant)
-- If FAIL: Explanation and suggested improvement`
+- If FAIL: Explanation and suggested improvement`,
   },
-  "11.3": {
+  11.3: {
     desc: "Dans chaque formulaire, chaque étiquette associée à un champ de formulaire ayant la même fonction et répétée plusieurs fois dans une même page ou dans un ensemble de pages est-elle cohérente ?",
-    descEn: "In each form, is each label associated with a form field having the same function and repeated multiple times on the same page or across a set of pages consistent?",
+    descEn:
+      "In each form, is each label associated with a form field having the same function and repeated multiple times on the same page or across a set of pages consistent?",
     level: "AA",
     risk: "Medium",
     financial: "Compliance deduction. Contributes to non-compliant status.",
@@ -2430,9 +2434,9 @@ Report:
 - PASS: If all fields with the same function use consistent labels
 - FAIL: If same-purpose fields have different labels causing potential confusion
 
-List any inconsistent labeling found for same-purpose fields.`
+List any inconsistent labeling found for same-purpose fields.`,
   },
-  "11.4": {
+  11.4: {
     desc: "Dans chaque formulaire, chaque étiquette de champ et son champ associé sont-ils accolés (hors cas particuliers) ?",
     descEn: "In each form, are each field label and its associated field adjacent (except in special cases)?",
     level: "A",
@@ -2471,16 +2475,16 @@ Report:
 - PASS: If all labels are visually adjacent to their associated form fields
 - FAIL: If any label is visually separated from its field
 
-List each form field and describe its label positioning.`
+List each form field and describe its label positioning.`,
   },
-  "11.5": {
+  11.5: {
     desc: "Dans chaque formulaire, les champs de même nature sont-ils regroupés, si nécessaire ?",
     descEn: "In each form, are fields of the same nature grouped together, if necessary?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
     brand: "Screen readers cannot understand field relationships.",
-    fix: "Group related fields with <fieldset> or role=\"group\"/\"radiogroup\"",
+    fix: 'Group related fields with <fieldset> or role="group"/"radiogroup"',
     testMethod: "manual",
     axeRules: [],
     tests: ["11.5.1"],
@@ -2515,16 +2519,16 @@ Report:
 - PASS: If all related field sets are properly grouped with fieldset/legend or ARIA
 - FAIL: If related fields exist without appropriate grouping
 
-List each group of related fields and whether they are properly grouped.`
+List each group of related fields and whether they are properly grouped.`,
   },
-  "11.6": {
+  11.6: {
     desc: "Dans chaque formulaire, chaque regroupement de champs de même nature a-t-il une légende ?",
     descEn: "In each form, does each grouping of fields of the same nature have a legend?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
     brand: "Screen readers cannot identify field group purpose.",
-    fix: "Provide <legend> for <fieldset> or aria-label/aria-labelledby for role=\"group\"",
+    fix: 'Provide <legend> for <fieldset> or aria-label/aria-labelledby for role="group"',
     testMethod: "manual",
     axeRules: [],
     tests: ["11.6.1"],
@@ -2562,9 +2566,9 @@ Report:
 - PASS: If all field groups have descriptive legends/labels
 - FAIL: If any field group lacks a legend or has an inadequate legend
 
-List each field group and its legend (or note if missing).`
+List each field group and its legend (or note if missing).`,
   },
-  "11.7": {
+  11.7: {
     desc: "Dans chaque formulaire, chaque légende associée à un regroupement de champs de même nature est-elle pertinente ?",
     descEn: "In each form, is each legend associated with a grouping of fields of the same nature relevant?",
     level: "A",
@@ -2628,9 +2632,9 @@ Report for each field group:
 - Fields contained in the group
 - Current legend text
 - Assessment: PASS (relevant) or FAIL (not relevant)
-- If FAIL: Explanation and suggested improvement`
+- If FAIL: Explanation and suggested improvement`,
   },
-  "11.8": {
+  11.8: {
     desc: "Dans chaque formulaire, les items de même nature d'une liste de choix sont-ils regroupés de manière pertinente ?",
     descEn: "In each form, are items of the same nature in a choice list grouped in a relevant manner?",
     level: "A",
@@ -2677,9 +2681,9 @@ Report:
 - PASS: If select lists appropriately use <optgroup> where beneficial, with descriptive labels
 - FAIL: If a select list would clearly benefit from grouping but lacks <optgroup>
 
-List each <select> and whether grouping is appropriately used or needed.`
+List each <select> and whether grouping is appropriately used or needed.`,
   },
-  "11.9": {
+  11.9: {
     desc: "Dans chaque formulaire, l'intitulé de chaque bouton est-il pertinent (hors cas particuliers) ?",
     descEn: "In each form, is the label of each button relevant (except in special cases)?",
     level: "A",
@@ -2689,7 +2693,7 @@ List each <select> and whether grouping is appropriately used or needed.`
     fix: "Button text/value/alt must clearly describe action and include visible text in accessible name",
     testMethod: "axe-core",
     axeRules: ["button-name", "input-button-name"],
-    tests: ["11.9.1", "11.9.2"]
+    tests: ["11.9.1", "11.9.2"],
   },
   "11.10": {
     desc: "Dans chaque formulaire, le contrôle de saisie est-il utilisé de manière pertinente (hors cas particuliers) ?",
@@ -2735,9 +2739,9 @@ Report:
 - PASS: If all form validation is accessible with proper required marking, format hints, and error handling
 - FAIL: If required fields aren't marked, formats aren't explained, or errors aren't accessible
 
-List each form and evaluate its validation accessibility.`
+List each form and evaluate its validation accessibility.`,
   },
-  "11.11": {
+  11.11: {
     desc: "Dans chaque formulaire, le contrôle de saisie est-il accompagné, si nécessaire, de suggestions facilitant la correction des erreurs de saisie ?",
     descEn: "In each form, is input validation accompanied, if necessary, by suggestions to help correct input errors?",
     level: "AA",
@@ -2782,11 +2786,12 @@ Report:
 - PASS: If all error messages provide helpful suggestions for correction
 - FAIL: If error messages only state something is wrong without guidance
 
-List each error message type found and evaluate if suggestions are provided.`
+List each error message type found and evaluate if suggestions are provided.`,
   },
-  "11.12": {
+  11.12: {
     desc: "Pour chaque formulaire qui modifie ou supprime des données, ou qui transmet des réponses à un test ou à un examen, ou dont la validation a des conséquences financières ou juridiques, les données saisies peuvent-elles être modifiées, mises à jour ou récupérées par l'utilisateur ?",
-    descEn: "For each form that modifies or deletes data, or that submits responses to a test or exam, or whose validation has financial or legal consequences, can the entered data be modified, updated, or recovered by the user?",
+    descEn:
+      "For each form that modifies or deletes data, or that submits responses to a test or exam, or whose validation has financial or legal consequences, can the entered data be modified, updated, or recovered by the user?",
     level: "AA",
     risk: "Critical",
     financial: "€50,000 renewable fine. Legal liability for irreversible financial transactions.",
@@ -2832,9 +2837,9 @@ Report:
 - PASS: If all high-consequence forms have reversibility, checking, or confirmation mechanisms
 - FAIL: If any financial/legal/data-modifying form lacks these protections
 
-List each high-consequence form and describe what protection mechanisms exist.`
+List each high-consequence form and describe what protection mechanisms exist.`,
   },
-  "11.13": {
+  11.13: {
     desc: "La finalité d'un champ de saisie peut-elle être déduite pour faciliter le remplissage automatique des champs avec les données de l'utilisateur ?",
     descEn: "Can the purpose of an input field be determined to facilitate automatic form filling with user data?",
     level: "AA",
@@ -2844,12 +2849,12 @@ List each high-consequence form and describe what protection mechanisms exist.`
     fix: "Use autocomplete attribute with appropriate values for personal data fields",
     testMethod: "axe-core",
     axeRules: ["autocomplete-valid"],
-    tests: ["11.13.1"]
-  }
+    tests: ["11.13.1"],
+  },
 };
 
 const rgaaTheme12Navigation = {
-  "12.1": {
+  12.1: {
     desc: "Chaque ensemble de pages dispose-t-il de deux systèmes de navigation différents, au moins (hors cas particuliers) ?",
     descEn: "Does each set of pages have at least two different navigation systems (except in special cases)?",
     level: "AA",
@@ -2890,9 +2895,9 @@ Report:
 - PASS: If at least two different navigation mechanisms are available
 - FAIL: If only one way to find content exists (e.g., only a menu, no search or sitemap)
 
-List each navigation mechanism found on the site.`
+List each navigation mechanism found on the site.`,
   },
-  "12.2": {
+  12.2: {
     desc: "Dans chaque ensemble de pages, le menu et les barres de navigation sont-ils toujours à la même place (hors cas particuliers) ?",
     descEn: "In each set of pages, are the menu and navigation bars always in the same location (except in special cases)?",
     level: "AA",
@@ -2943,9 +2948,9 @@ Report:
 - PASS: If navigation elements maintain consistent position across all pages
 - FAIL: If navigation position varies between pages
 
-Describe the navigation layout and any inconsistencies found.`
+Describe the navigation layout and any inconsistencies found.`,
   },
-  "12.3": {
+  12.3: {
     desc: "La page « plan du site » est-elle pertinente ?",
     descEn: "Is the sitemap page relevant?",
     level: "AA",
@@ -2996,9 +3001,9 @@ Report:
 - PASS: If sitemap exists and is complete, organized, up-to-date with working links
 - FAIL: If sitemap is incomplete, disorganized, has broken links, or is missing
 
-If no sitemap exists, note that one of the other navigation mechanisms should be present per 12.1.`
+If no sitemap exists, note that one of the other navigation mechanisms should be present per 12.1.`,
   },
-  "12.4": {
+  12.4: {
     desc: "Dans chaque ensemble de pages, la page « plan du site » est-elle accessible à partir d'une fonctionnalité identique ?",
     descEn: "In each set of pages, is the sitemap page accessible from an identical feature?",
     level: "AA",
@@ -3043,9 +3048,9 @@ Report:
 - PASS: If sitemap link is consistently accessible from same location with same text across all pages
 - FAIL: If sitemap access varies between pages (different location, text, or missing on some pages)
 
-If no sitemap exists, this criterion is not applicable.`
+If no sitemap exists, this criterion is not applicable.`,
   },
-  "12.5": {
+  12.5: {
     desc: "Dans chaque ensemble de pages, le moteur de recherche est-il atteignable de manière identique ?",
     descEn: "In each set of pages, is the search engine accessible in an identical manner?",
     level: "AA",
@@ -3094,11 +3099,12 @@ Report:
 - PASS: If search is consistently accessible from same location with same presentation across all pages
 - FAIL: If search access varies between pages (different location, presentation, or missing)
 
-If no search exists, this criterion is not applicable, but verify one of the other navigation mechanisms (12.1) is present.`
+If no search exists, this criterion is not applicable, but verify one of the other navigation mechanisms (12.1) is present.`,
   },
-  "12.6": {
+  12.6: {
     desc: "Les zones de regroupement de contenus présentes dans plusieurs pages web (zones d'en-tête, de navigation principale, de contenu principal, de pied de page et de moteur de recherche) peuvent-elles être atteintes ou évitées ?",
-    descEn: "Can content grouping areas present on multiple web pages (header, main navigation, main content, footer, and search engine areas) be reached or bypassed?",
+    descEn:
+      "Can content grouping areas present on multiple web pages (header, main navigation, main content, footer, and search engine areas) be reached or bypassed?",
     level: "A",
     risk: "Critical",
     financial: "€50,000 renewable fine. Direct violation of EAA 2026 and French law.",
@@ -3106,9 +3112,9 @@ If no search exists, this criterion is not applicable, but verify one of the oth
     fix: "Use ARIA landmarks (banner, navigation, main, contentinfo, search) or skip links",
     testMethod: "axe-core",
     axeRules: ["region", "bypass"],
-    tests: ["12.6.1"]
+    tests: ["12.6.1"],
   },
-  "12.7": {
+  12.7: {
     desc: "Dans chaque page web, un lien d'évitement ou d'accès rapide à la zone de contenu principal est-il présent (hors cas particuliers) ?",
     descEn: "On each web page, is a skip link or quick access link to the main content area present (except in special cases)?",
     level: "A",
@@ -3118,9 +3124,9 @@ If no search exists, this criterion is not applicable, but verify one of the oth
     fix: "Provide visible or focusable 'skip to main content' link as first focusable element",
     testMethod: "axe-core",
     axeRules: ["skip-link", "bypass"],
-    tests: ["12.7.1", "12.7.2"]
+    tests: ["12.7.1", "12.7.2"],
   },
-  "12.8": {
+  12.8: {
     desc: "Dans chaque page web, l'ordre de tabulation est-il cohérent ?",
     descEn: "On each web page, is the tab order coherent?",
     level: "A",
@@ -3170,9 +3176,9 @@ Report:
 - PASS: If tab order follows logical visual reading order without unexpected jumps
 - FAIL: If tab order is illogical, uses positive tabindex, or creates confusing navigation
 
-Describe the tab order and any issues found.`
+Describe the tab order and any issues found.`,
   },
-  "12.9": {
+  12.9: {
     desc: "Dans chaque page web, la navigation ne doit pas contenir de piège au clavier. Cette règle est-elle respectée ?",
     descEn: "On each web page, navigation must not contain a keyboard trap. Is this rule respected?",
     level: "A",
@@ -3227,11 +3233,12 @@ Report:
 - PASS: If keyboard can navigate through all elements without getting trapped
 - FAIL: If focus gets stuck in any component with no keyboard escape method
 
-List any keyboard traps found and which component causes them.`
+List any keyboard traps found and which component causes them.`,
   },
   "12.10": {
     desc: "Dans chaque page web, les raccourcis clavier n'utilisant qu'une seule touche (lettre minuscule ou majuscule, ponctuation, chiffre ou symbole) sont-ils contrôlables par l'utilisateur ?",
-    descEn: "On each web page, are keyboard shortcuts using only a single key (lowercase or uppercase letter, punctuation, number, or symbol) controllable by the user?",
+    descEn:
+      "On each web page, are keyboard shortcuts using only a single key (lowercase or uppercase letter, punctuation, number, or symbol) controllable by the user?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -3282,9 +3289,9 @@ Report:
 - PASS: If no single-key shortcuts exist, OR all have turn off/remap/focus-only mechanisms
 - FAIL: If single-key shortcuts exist without user control options
 
-List each single-key shortcut found and its user control mechanism.`
+List each single-key shortcut found and its user control mechanism.`,
   },
-  "12.11": {
+  12.11: {
     desc: "Dans chaque page web, les contenus additionnels apparaissant au survol, à la prise de focus ou à l'activation d'un composant d'interface sont-ils si nécessaire atteignables au clavier ?",
     descEn: "On each web page, is additional content appearing on hover, focus, or activation of an interface component, if necessary, reachable by keyboard?",
     level: "A",
@@ -3335,12 +3342,12 @@ Report:
 - PASS: If all interactive content in popups is keyboard reachable and operable
 - FAIL: If any interactive elements in hover/focus content cannot be reached or operated by keyboard
 
-List each popup with interactive content and keyboard accessibility status.`
-  }
+List each popup with interactive content and keyboard accessibility status.`,
+  },
 };
 
 const rgaaTheme13Consultation = {
-  "13.1": {
+  13.1: {
     desc: "Pour chaque page web, l'utilisateur a-t-il le contrôle de chaque limite de temps modifiant le contenu (hors cas particuliers) ?",
     descEn: "On each web page, does the user have control over each time limit that modifies content (except in special cases)?",
     level: "A",
@@ -3390,9 +3397,9 @@ Report:
 - PASS: If no time limits exist, OR all time limits have user control mechanisms
 - FAIL: If any time limit lacks turn off/adjust/extend mechanism
 
-List each time limit found and its user control options.`
+List each time limit found and its user control options.`,
   },
-  "13.2": {
+  13.2: {
     desc: "Dans chaque page web, l'ouverture d'une nouvelle fenêtre ne doit pas être déclenchée sans action de l'utilisateur. Cette règle est-elle respectée ?",
     descEn: "On each web page, opening a new window must not be triggered without user action. Is this rule respected?",
     level: "A",
@@ -3442,9 +3449,9 @@ Report:
 - PASS: If no windows open automatically without explicit user action
 - FAIL: If any window/tab opens without being triggered by user click/submit
 
-List any automatic window opening found.`
+List any automatic window opening found.`,
   },
-  "13.3": {
+  13.3: {
     desc: "Dans chaque page web, chaque document bureautique en téléchargement possède-t-il, si nécessaire, une version accessible (hors cas particuliers) ?",
     descEn: "On each web page, does each downloadable office document have, if necessary, an accessible version (except in special cases)?",
     level: "A",
@@ -3497,9 +3504,9 @@ Report:
 - PASS: If all downloadable documents are accessible OR have accessible alternatives available
 - FAIL: If inaccessible documents are provided without accessible alternatives
 
-List each downloadable document and its accessibility status/alternatives.`
+List each downloadable document and its accessibility status/alternatives.`,
   },
-  "13.4": {
+  13.4: {
     desc: "Pour chaque document bureautique ayant une version accessible, cette version offre-t-elle la même information ?",
     descEn: "For each office document with an accessible version, does this version offer the same information?",
     level: "A",
@@ -3551,9 +3558,9 @@ Report:
 - PASS: If accessible versions contain all information from original documents
 - FAIL: If any accessible version is incomplete or missing information
 
-Compare each accessible version to its original and note any missing content.`
+Compare each accessible version to its original and note any missing content.`,
   },
-  "13.5": {
+  13.5: {
     desc: "Dans chaque page web, chaque contenu cryptique (art ASCII, émoticône, syntaxe cryptique) a-t-il une alternative ?",
     descEn: "On each web page, does each cryptic content (ASCII art, emoticon, cryptic syntax) have an alternative?",
     level: "A",
@@ -3607,9 +3614,9 @@ Report:
 - PASS: If all cryptic content has text alternatives, OR no cryptic content exists
 - FAIL: If cryptic content exists without alternatives that explain meaning
 
-List each cryptic content found and whether it has an alternative.`
+List each cryptic content found and whether it has an alternative.`,
   },
-  "13.6": {
+  13.6: {
     desc: "Dans chaque page web, pour chaque contenu cryptique (art ASCII, émoticône, syntaxe cryptique) ayant une alternative, cette alternative est-elle pertinente ?",
     descEn: "On each web page, for each cryptic content (ASCII art, emoticon, cryptic syntax) with an alternative, is this alternative relevant?",
     level: "A",
@@ -3659,9 +3666,9 @@ Report:
 - PASS: If all cryptic content alternatives accurately describe meaning in context
 - FAIL: If any alternative is inaccurate, too vague, or doesn't convey intended meaning
 
-Evaluate each cryptic content alternative for accuracy and appropriateness.`
+Evaluate each cryptic content alternative for accuracy and appropriateness.`,
   },
-  "13.7": {
+  13.7: {
     desc: "Dans chaque page web, les changements brusques de luminosité ou les effets de flash sont-ils correctement utilisés ?",
     descEn: "On each web page, are sudden changes in brightness or flash effects correctly used?",
     level: "A",
@@ -3715,9 +3722,9 @@ Report:
 - PASS: If no content flashes more than 3 times per second, OR flashing areas are below threshold
 - FAIL: If any content exceeds flash thresholds (CRITICAL - health hazard)
 
-List all potentially flashing content and evaluate against safety thresholds.`
+List all potentially flashing content and evaluate against safety thresholds.`,
   },
-  "13.8": {
+  13.8: {
     desc: "Dans chaque page web, chaque contenu en mouvement ou clignotant est-il contrôlable par l'utilisateur ?",
     descEn: "On each web page, is each moving or blinking content controllable by the user?",
     level: "A",
@@ -3771,9 +3778,9 @@ Report:
 - PASS: If all moving/blinking content ≤5 seconds, OR has accessible pause/stop controls
 - FAIL: If moving/blinking content >5 seconds lacks user controls
 
-List each moving/blinking element and its duration or control mechanism.`
+List each moving/blinking element and its duration or control mechanism.`,
   },
-  "13.9": {
+  13.9: {
     desc: "Dans chaque page web, le contenu proposé est-il consultable quelle que soit l'orientation de l'écran (portrait ou paysage) (hors cas particuliers) ?",
     descEn: "On each web page, is the content accessible regardless of screen orientation (portrait or landscape) (except in special cases)?",
     level: "AA",
@@ -3824,7 +3831,7 @@ Report:
 - PASS: If all content is accessible in both portrait and landscape orientations
 - FAIL: If content requires specific orientation without essential reason
 
-Describe how the page behaves in both orientations.`
+Describe how the page behaves in both orientations.`,
   },
   "13.10": {
     desc: "Dans chaque page web, les fonctionnalités utilisables ou disponibles au moyen d'un geste complexe peuvent-elles être également disponibles au moyen d'un geste simple (hors cas particuliers) ?",
@@ -3881,9 +3888,9 @@ Report:
 - PASS: If all complex gestures have simple single-point alternatives
 - FAIL: If any functionality requires complex gesture without simple alternative
 
-List each complex gesture and its simple alternative (or note if missing).`
+List each complex gesture and its simple alternative (or note if missing).`,
   },
-  "13.11": {
+  13.11: {
     desc: "Dans chaque page web, les actions déclenchées au moyen d'un dispositif de pointage sur un point unique de l'écran peuvent-elles faire l'objet d'une annulation (hors cas particuliers) ?",
     descEn: "On each web page, can actions triggered by a pointing device on a single point of the screen be cancelled (except in special cases)?",
     level: "A",
@@ -3935,11 +3942,12 @@ Report:
 - PASS: If all pointer actions fire on up-event, or can be aborted/undone
 - FAIL: If actions trigger on down-event without abort capability
 
-List each pointer-activated element and how it handles activation/cancellation.`
+List each pointer-activated element and how it handles activation/cancellation.`,
   },
-  "13.12": {
+  13.12: {
     desc: "Dans chaque page web, les fonctionnalités qui impliquent un mouvement de l'appareil ou vers l'appareil peuvent-elles être satisfaites de manière alternative (hors cas particuliers) ?",
-    descEn: "On each web page, can functionalities that involve device motion or motion towards the device be satisfied through an alternative method (except in special cases)?",
+    descEn:
+      "On each web page, can functionalities that involve device motion or motion towards the device be satisfied through an alternative method (except in special cases)?",
     level: "A",
     risk: "High",
     financial: "€25,000 - €50,000 fine. Significant compliance risk.",
@@ -4000,8 +4008,8 @@ Report:
 - PASS: If all motion-activated features have UI alternatives and/or can be disabled
 - FAIL: If any motion feature lacks alternative or disable option
 
-List each motion-activated feature and its UI alternative (or note if missing).`
-  }
+List each motion-activated feature and its UI alternative (or note if missing).`,
+  },
 };
 
 // Complete RGAA mapping object
@@ -4018,7 +4026,7 @@ const rgaaCompleteMapping = {
   theme10: { name: "Présentation de l'information", criteria: rgaaTheme10Presentation },
   theme11: { name: "Formulaires", criteria: rgaaTheme11Forms },
   theme12: { name: "Navigation", criteria: rgaaTheme12Navigation },
-  theme13: { name: "Consultation", criteria: rgaaTheme13Consultation }
+  theme13: { name: "Consultation", criteria: rgaaTheme13Consultation },
 };
 
 // Flat mapping for backward compatibility with existing code
@@ -4035,7 +4043,7 @@ const rgaaFlatMapping = {
   ...rgaaTheme10Presentation,
   ...rgaaTheme11Forms,
   ...rgaaTheme12Navigation,
-  ...rgaaTheme13Consultation
+  ...rgaaTheme13Consultation,
 };
 
 module.exports = {
@@ -4053,5 +4061,5 @@ module.exports = {
   rgaaTheme10Presentation,
   rgaaTheme11Forms,
   rgaaTheme12Navigation,
-  rgaaTheme13Consultation
+  rgaaTheme13Consultation,
 };

@@ -1,5 +1,5 @@
-import { createHash } from 'crypto';
-import { load } from 'cheerio';
+import { createHash } from "crypto";
+import { load } from "cheerio";
 
 export interface TemplateCluster {
   hash: string;
@@ -18,20 +18,20 @@ export interface DiffResult {
 }
 
 // Attributes to keep in the skeleton (semantically meaningful, not content-specific)
-const KEEP_ATTRS = new Set(['role', 'type', 'aria-role', 'data-component', 'data-block']);
+const KEEP_ATTRS = new Set(["role", "type", "aria-role", "data-component", "data-block"]);
 
 // Tags to skip entirely (non-structural)
-const SKIP_TAGS = new Set(['script', 'style', 'noscript', 'head', 'meta', 'link', 'title']);
+const SKIP_TAGS = new Set(["script", "style", "noscript", "head", "meta", "link", "title"]);
 
 function extractSkeleton(html: string): string {
   const $ = load(html, { xmlMode: false });
   const parts: string[] = [];
 
   function walk(el: ReturnType<typeof $>[number]): void {
-    if (!el || el.type === 'text' || el.type === 'comment') return;
-    if (el.type !== 'tag') return;
+    if (!el || el.type === "text" || el.type === "comment") return;
+    if (el.type !== "tag") return;
 
-    const tag = el.name?.toLowerCase() ?? '';
+    const tag = el.name?.toLowerCase() ?? "";
     if (SKIP_TAGS.has(tag)) return;
 
     const kept: string[] = [];
@@ -41,13 +41,13 @@ function extractSkeleton(html: string): string {
     }
 
     // Keep BEM block from class (first segment before __)
-    const cls = $(el).attr('class');
+    const cls = $(el).attr("class");
     if (cls) {
-      const block = cls.trim().split(/\s+/)[0]?.split('__')[0]?.split('--')[0];
+      const block = cls.trim().split(/\s+/)[0]?.split("__")[0]?.split("--")[0];
       if (block) kept.push(`class=${block}`);
     }
 
-    parts.push(kept.length > 0 ? `<${tag} ${kept.join(' ')}>` : `<${tag}>`);
+    parts.push(kept.length > 0 ? `<${tag} ${kept.join(" ")}>` : `<${tag}>`);
 
     for (const child of $(el).contents().toArray()) {
       walk(child as ReturnType<typeof $>[number]);
@@ -56,19 +56,19 @@ function extractSkeleton(html: string): string {
     parts.push(`</${tag}>`);
   }
 
-  const body = $('body');
+  const body = $("body");
   if (body.length) {
     for (const child of body.contents().toArray()) {
       walk(child as ReturnType<typeof $>[number]);
     }
   }
 
-  return parts.join('');
+  return parts.join("");
 }
 
 export function computeStructuralHash(html: string): string {
   const skeleton = extractSkeleton(html);
-  return createHash('sha256').update(skeleton).digest('hex');
+  return createHash("sha256").update(skeleton).digest("hex");
 }
 
 // Compute the set of unique tag paths (e.g. "html>body>main>section>article") for Jaccard
@@ -77,8 +77,8 @@ function extractTagPaths(html: string): Set<string> {
   const paths = new Set<string>();
 
   function walk(el: ReturnType<typeof $>[number], parentPath: string): void {
-    if (!el || el.type !== 'tag') return;
-    const tag = el.name?.toLowerCase() ?? '';
+    if (!el || el.type !== "tag") return;
+    const tag = el.name?.toLowerCase() ?? "";
     if (SKIP_TAGS.has(tag)) return;
 
     const path = parentPath ? `${parentPath}>${tag}` : tag;
@@ -89,8 +89,8 @@ function extractTagPaths(html: string): Set<string> {
     }
   }
 
-  for (const child of $('body').contents().toArray()) {
-    walk(child as ReturnType<typeof $>[number], '');
+  for (const child of $("body").contents().toArray()) {
+    walk(child as ReturnType<typeof $>[number], "");
   }
 
   return paths;
@@ -139,10 +139,7 @@ export function clusterPages(pages: PageHashEntry[]): TemplateCluster[] {
 }
 
 // Fuzzy cluster when HTML snapshots are available (called by orchestrator)
-export function clusterPagesWithHtml(
-  pages: Array<{ url: string; hash: string; html: string }>,
-  similarityThreshold = 0.85,
-): TemplateCluster[] {
+export function clusterPagesWithHtml(pages: Array<{ url: string; hash: string; html: string }>, similarityThreshold = 0.85): TemplateCluster[] {
   // First pass: exact hash groups
   const exactGroups = new Map<string, Array<{ url: string; html: string }>>();
   for (const { url, hash, html } of pages) {
@@ -175,9 +172,7 @@ export function clusterPagesWithHtml(
     }
   }
 
-  return clusters
-    .filter((_, idx) => !assignedTo.has(idx))
-    .map(({ hash, urls, representative }) => ({ hash, urls, representative }));
+  return clusters.filter((_, idx) => !assignedTo.has(idx)).map(({ hash, urls, representative }) => ({ hash, urls, representative }));
 }
 
 // Compare current hashes against PageHashCache entries passed in

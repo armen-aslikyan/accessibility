@@ -1,4 +1,4 @@
-import { chromium } from 'playwright';
+import { chromium } from "playwright";
 
 export interface DiscoveredUrl {
   url: string;
@@ -7,24 +7,51 @@ export interface DiscoveredUrl {
 
 export interface DiscoveryResult {
   urls: DiscoveredUrl[];
-  method: 'sitemap' | 'robots' | 'crawl';
+  method: "sitemap" | "robots" | "crawl";
   disallowedPaths: string[];
 }
 
 const ASSET_EXTENSIONS = new Set([
-  '.css', '.js', '.mjs', '.ts', '.map',
-  '.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg', '.ico', '.avif',
-  '.woff', '.woff2', '.ttf', '.eot', '.otf',
-  '.pdf', '.zip', '.rar', '.gz', '.tar',
-  '.mp4', '.webm', '.mp3', '.wav', '.ogg',
-  '.xml', '.json', '.csv', '.xlsx', '.docx',
+  ".css",
+  ".js",
+  ".mjs",
+  ".ts",
+  ".map",
+  ".png",
+  ".jpg",
+  ".jpeg",
+  ".gif",
+  ".webp",
+  ".svg",
+  ".ico",
+  ".avif",
+  ".woff",
+  ".woff2",
+  ".ttf",
+  ".eot",
+  ".otf",
+  ".pdf",
+  ".zip",
+  ".rar",
+  ".gz",
+  ".tar",
+  ".mp4",
+  ".webm",
+  ".mp3",
+  ".wav",
+  ".ogg",
+  ".xml",
+  ".json",
+  ".csv",
+  ".xlsx",
+  ".docx",
 ]);
 
 function isAssetUrl(url: string): boolean {
   try {
     const { pathname } = new URL(url);
-    const lastSegment = pathname.split('/').pop() ?? '';
-    const dotIndex = lastSegment.lastIndexOf('.');
+    const lastSegment = pathname.split("/").pop() ?? "";
+    const dotIndex = lastSegment.lastIndexOf(".");
     if (dotIndex === -1) return false;
     const ext = lastSegment.slice(dotIndex).toLowerCase();
     return ASSET_EXTENSIONS.has(ext);
@@ -36,9 +63,9 @@ function isAssetUrl(url: string): boolean {
 function normalizeUrl(raw: string, base: string): string | null {
   try {
     const u = new URL(raw, base);
-    u.hash = '';
+    u.hash = "";
     u.search = u.search;
-    if (u.protocol !== 'http:' && u.protocol !== 'https:') return null;
+    if (u.protocol !== "http:" && u.protocol !== "https:") return null;
     return u.href;
   } catch {
     return null;
@@ -47,18 +74,18 @@ function normalizeUrl(raw: string, base: string): string | null {
 
 function parseDisallowRules(robotsTxt: string): string[] {
   const rules: string[] = [];
-  const lines = robotsTxt.split('\n');
+  const lines = robotsTxt.split("\n");
   let inUserAgentAll = false;
 
   for (const raw of lines) {
     const line = raw.trim();
-    if (line.toLowerCase().startsWith('user-agent:')) {
-      const agent = line.slice('user-agent:'.length).trim();
-      inUserAgentAll = agent === '*';
+    if (line.toLowerCase().startsWith("user-agent:")) {
+      const agent = line.slice("user-agent:".length).trim();
+      inUserAgentAll = agent === "*";
       continue;
     }
-    if (inUserAgentAll && line.toLowerCase().startsWith('disallow:')) {
-      const path = line.slice('disallow:'.length).trim();
+    if (inUserAgentAll && line.toLowerCase().startsWith("disallow:")) {
+      const path = line.slice("disallow:".length).trim();
       if (path) rules.push(path);
     }
   }
@@ -123,10 +150,10 @@ async function resolveAllSitemaps(origin: string, robotsTxt: string | null): Pro
 
   // Parse Sitemap: directives from robots.txt
   if (robotsTxt) {
-    for (const line of robotsTxt.split('\n')) {
+    for (const line of robotsTxt.split("\n")) {
       const trimmed = line.trim();
-      if (trimmed.toLowerCase().startsWith('sitemap:')) {
-        const loc = trimmed.slice('sitemap:'.length).trim();
+      if (trimmed.toLowerCase().startsWith("sitemap:")) {
+        const loc = trimmed.slice("sitemap:".length).trim();
         if (loc) sitemapUrls.push(loc);
       }
     }
@@ -161,22 +188,16 @@ async function resolveAllSitemaps(origin: string, robotsTxt: string | null): Pro
   return collected.length > 0 ? collected : null;
 }
 
-async function crawlBFS(
-  origin: string,
-  disallowedPaths: string[],
-  maxDepth: number,
-  maxUrls: number,
-): Promise<DiscoveredUrl[]> {
+async function crawlBFS(origin: string, disallowedPaths: string[], maxDepth: number, maxUrls: number): Promise<DiscoveredUrl[]> {
   const browser = await chromium.launch({ headless: true });
   const context = await browser.newContext({
-    userAgent:
-      'Mozilla/5.0 (compatible; VivaTechAuditBot/1.0; +https://vivatech.com/bot)',
+    userAgent: "Mozilla/5.0 (compatible; VivaTechAuditBot/1.0; +https://vivatech.com/bot)",
     viewport: { width: 1280, height: 800 },
   });
 
   const discovered: DiscoveredUrl[] = [];
   const visited = new Set<string>();
-  const queue: Array<{ url: string; depth: number }> = [{ url: origin + '/', depth: 0 }];
+  const queue: Array<{ url: string; depth: number }> = [{ url: origin + "/", depth: 0 }];
 
   try {
     while (queue.length > 0 && discovered.length < maxUrls) {
@@ -192,16 +213,14 @@ async function crawlBFS(
       let statusCode: number | undefined;
 
       try {
-        const response = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 20000 });
+        const response = await page.goto(url, { waitUntil: "domcontentloaded", timeout: 20000 });
         statusCode = response?.status();
 
         if (statusCode && statusCode < 400) {
           discovered.push({ url, statusCode });
 
           if (depth < maxDepth) {
-            const hrefs = await page.$$eval('a[href]', (els) =>
-              els.map((el) => (el as HTMLAnchorElement).href),
-            );
+            const hrefs = await page.$$eval("a[href]", (els) => els.map((el) => (el as HTMLAnchorElement).href));
 
             for (const href of hrefs) {
               const normalized = normalizeUrl(href, origin);
@@ -246,13 +265,11 @@ export async function discoverPages(
   // Phase 1: Try sitemap
   const sitemapUrls = await resolveAllSitemaps(origin, robotsTxt);
   if (sitemapUrls && sitemapUrls.length > 0) {
-    const filtered = sitemapUrls
-      .filter((u) => !isAssetUrl(u) && !isDisallowed(u, disallowedPaths))
-      .slice(0, maxUrls);
+    const filtered = sitemapUrls.filter((u) => !isAssetUrl(u) && !isDisallowed(u, disallowedPaths)).slice(0, maxUrls);
 
     return {
       urls: filtered.map((u) => ({ url: u })),
-      method: robotsTxt && /sitemap:/i.test(robotsTxt) ? 'robots' : 'sitemap',
+      method: robotsTxt && /sitemap:/i.test(robotsTxt) ? "robots" : "sitemap",
       disallowedPaths,
     };
   }
@@ -262,7 +279,7 @@ export async function discoverPages(
 
   return {
     urls: crawled,
-    method: 'crawl',
+    method: "crawl",
     disallowedPaths,
   };
 }

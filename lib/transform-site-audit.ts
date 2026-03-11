@@ -1,31 +1,34 @@
-import type { AuditData, CriterionData } from '@/lib/transform-audit';
+import type { AuditData, CriterionData } from "@/lib/transform-audit";
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
-const { rgaaFlatMapping } = require('../constants/rgaaMapping.complete.js') as {
-  rgaaFlatMapping: Record<string, {
-    desc: string;
-    descEn: string;
-    level: string;
-    risk: string;
-    financial: string;
-    brand: string;
-    fix: string;
-    testMethod: string;
-    axeRules: string[];
-    tests: string[];
-    prompt?: string;
-  }>;
+const { rgaaFlatMapping } = require("../constants/rgaaMapping.complete.js") as {
+  rgaaFlatMapping: Record<
+    string,
+    {
+      desc: string;
+      descEn: string;
+      level: string;
+      risk: string;
+      financial: string;
+      brand: string;
+      fix: string;
+      testMethod: string;
+      axeRules: string[];
+      tests: string[];
+      prompt?: string;
+    }
+  >;
 };
 
 type SiteCriterion = {
   article: string;
   status: string;
   reasoning: string | null;
-  issues: Array<{ type: string; message: string; elements?: string[]; impact?: string }> | null;
+  issues: CriterionData["issues"] | null;
 };
 
 type SiteViewport = {
-  viewport: 'desktop' | 'tablet' | 'mobile';
+  viewport: "desktop" | "tablet" | "mobile";
   criteria: SiteCriterion[];
 };
 
@@ -50,12 +53,12 @@ const STATUS_ORDER: Record<string, number> = {
 };
 
 function getWorstStatus(statuses: string[]): string {
-  if (statuses.length === 0) return 'not_applicable';
-  return statuses.reduce((worst, s) => (STATUS_ORDER[s] > STATUS_ORDER[worst] ? s : worst), 'not_applicable');
+  if (statuses.length === 0) return "not_applicable";
+  return statuses.reduce((worst, s) => (STATUS_ORDER[s] > STATUS_ORDER[worst] ? s : worst), "not_applicable");
 }
 
 export function transformSiteAuditForUI(audit: SiteAuditLike): AuditData {
-  const observations = new Map<string, Array<SiteCriterion & { viewport: 'desktop' | 'tablet' | 'mobile' }>>();
+  const observations = new Map<string, Array<SiteCriterion & { viewport: "desktop" | "tablet" | "mobile" }>>();
 
   for (const template of audit.templates) {
     for (const viewport of template.viewportResults) {
@@ -78,24 +81,26 @@ export function transformSiteAuditForUI(audit: SiteAuditLike): AuditData {
     const finalStatus = getWorstStatus(statuses);
     const primary = seen.find((s) => s.status === finalStatus) ?? seen[0] ?? null;
 
-    const issueMap = new Map<string, { type: string; message: string; elements?: string[]; impact?: string }>();
+    const issueMap = new Map<string, CriterionData["issues"][number]>();
     for (const obs of seen) {
       for (const issue of obs.issues ?? []) {
-        if (issue?.message && !issueMap.has(issue.message)) issueMap.set(issue.message, issue);
+        const key = issue?.message ? `${issue.message}::${issue.evidence?.[0]?.domPath ?? ""}` : "";
+        if (key && !issueMap.has(key)) issueMap.set(key, issue);
       }
     }
 
     const issues = [...issueMap.values()];
-    const viewportBreakdown: CriterionData['viewportBreakdown'] = {};
-    for (const viewport of ['desktop', 'tablet', 'mobile'] as const) {
+    const viewportBreakdown: CriterionData["viewportBreakdown"] = {};
+    for (const viewport of ["desktop", "tablet", "mobile"] as const) {
       const byViewport = seen.filter((s) => s.viewport === viewport);
       if (byViewport.length === 0) continue;
       const vpStatus = getWorstStatus(byViewport.map((s) => s.status));
       const vpPrimary = byViewport.find((s) => s.status === vpStatus) ?? byViewport[0];
-      const vpIssueMap = new Map<string, { type: string; message: string; elements?: string[]; impact?: string }>();
+      const vpIssueMap = new Map<string, CriterionData["issues"][number]>();
       for (const obs of byViewport) {
         for (const issue of obs.issues ?? []) {
-          if (issue?.message && !vpIssueMap.has(issue.message)) vpIssueMap.set(issue.message, issue);
+          const key = issue?.message ? `${issue.message}::${issue.evidence?.[0]?.domPath ?? ""}` : "";
+          if (key && !vpIssueMap.has(key)) vpIssueMap.set(key, issue);
         }
       }
       viewportBreakdown[viewport] = {
@@ -105,10 +110,7 @@ export function transformSiteAuditForUI(audit: SiteAuditLike): AuditData {
       };
     }
     const recommendations = mapping.fix ? [mapping.fix] : [];
-    const confidence =
-      finalStatus === 'non_compliant' ? 90 :
-      finalStatus === 'compliant' ? 85 :
-      finalStatus === 'needs_review' ? 60 : 100;
+    const confidence = finalStatus === "non_compliant" ? 90 : finalStatus === "compliant" ? 85 : finalStatus === "needs_review" ? 60 : 100;
 
     criteria[article] = {
       ...mapping,
@@ -118,14 +120,14 @@ export function transformSiteAuditForUI(audit: SiteAuditLike): AuditData {
       reasoning: primary?.reasoning ?? null,
       issues,
       recommendations,
-      testedBy: 'multi_viewport',
+      testedBy: "multi_viewport",
       elementCount: -1,
       viewportBreakdown,
     };
 
-    if (finalStatus === 'compliant') compliant++;
-    else if (finalStatus === 'non_compliant') nonCompliant++;
-    else if (finalStatus === 'needs_review') needsReview++;
+    if (finalStatus === "compliant") compliant++;
+    else if (finalStatus === "non_compliant") nonCompliant++;
+    else if (finalStatus === "needs_review") needsReview++;
     else notApplicable++;
   }
 
@@ -137,14 +139,14 @@ export function transformSiteAuditForUI(audit: SiteAuditLike): AuditData {
 
   return {
     meta: {
-      version: '2.0.0-site',
+      version: "2.0.0-site",
       generatedAt: audit.completedAt?.toISOString() ?? audit.createdAt.toISOString(),
       url: audit.url,
       llmAvailable: audit.llmAvailable,
-      model: audit.model ?? 'site-aggregate',
+      model: audit.model ?? "site-aggregate",
     },
     summary: {
-      accessibilityScore: Math.max(0, 100 - (nonCompliant * 3)),
+      accessibilityScore: Math.max(0, 100 - nonCompliant * 3),
       complianceRate,
       totalViolations: nonCompliant,
       legalRisk: { technical, administrative, total: technical + administrative },
