@@ -4,7 +4,12 @@ import { useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useToast } from './ToastProvider';
 
-export function useAuditStream(auditId: string, auditUrl: string, enabled: boolean) {
+export function useAuditStream(
+  auditId: string,
+  auditUrl: string,
+  enabled: boolean,
+  onUpdate?: (data: Record<string, unknown>) => void,
+) {
   const router = useRouter();
   const { addToast } = useToast();
   const closedRef = useRef(false);
@@ -21,7 +26,11 @@ export function useAuditStream(auditId: string, auditUrl: string, enabled: boole
     const es = new EventSource(`/api/audits/${auditId}/stream`);
 
     es.onmessage = (event: MessageEvent) => {
-      const data = JSON.parse(event.data as string) as { status: string };
+      const data = JSON.parse(event.data as string) as { status: string } & Record<string, unknown>;
+
+      if (onUpdate) {
+        onUpdate(data);
+      }
 
       if (data.status === 'completed') {
         addToast('Audit complete! Results are ready.', 'success');

@@ -30,8 +30,26 @@ async function runAudit() {
 
     browser = await chromium.launch({ headless: true, timeout: 60000 });
 
-    const onProgress = (completed, total, criterion, result, icon) => {
+    const onProgress = async (completed, total, criterion, result, icon) => {
       console.log(`[run-audit] [${completed}/${total}] ${icon} RGAA ${criterion.article}`);
+
+      // Persist lightweight progress so the UI can show live status for Quick Checks.
+      try {
+        await prisma.audit.update({
+          where: { id: auditId },
+          data: {
+            statistics: {
+              quickProgress: {
+                completed,
+                total,
+                currentCriterion: criterion.article,
+              },
+            },
+          },
+        });
+      } catch (err) {
+        console.error('[run-audit] Failed to update progress:', err);
+      }
     };
 
     const evidenceRootDir = path.join(process.cwd(), 'public', 'audit-evidence', auditId);

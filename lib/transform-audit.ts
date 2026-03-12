@@ -36,6 +36,9 @@ export interface RuleEvidence {
   elementHtml: string;
   elementSource?: string | null;
   failureSummary?: string | null;
+  occurrenceStatus?: "compliant" | "non_compliant" | "needs_review";
+  occurrenceReason?: string | null;
+  occurrenceIndex?: number;
 }
 
 export interface RuleIssue {
@@ -44,6 +47,11 @@ export interface RuleIssue {
   elements?: string[];
   impact?: string;
   evidence?: RuleEvidence[];
+  ruleId?: string;
+  totalOccurrences?: number;
+  passedOccurrences?: number;
+  failedOccurrences?: number;
+  needsReviewOccurrences?: number;
 }
 
 export interface CriterionData extends RGAAEntry {

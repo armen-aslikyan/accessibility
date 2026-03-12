@@ -21,11 +21,24 @@ export default function AuditDetail({ auditId, auditUrl, status, auditData }: Pr
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<'dashboard' | 'rgaa' | 'statement'>('dashboard');
   const [cancelling, setCancelling] = useState(false);
+  const [progress, setProgress] = useState<{ completed: number; total: number; currentCriterion: string | null } | null>(null);
   const router = useRouter();
 
   const isRunning = status === 'pending' || status === 'running';
 
-  useAuditStream(auditId, auditUrl, isRunning);
+  useAuditStream(auditId, auditUrl, isRunning, (data) => {
+    const raw = (data && typeof data === 'object' && 'progress' in data ? (data as any).progress : null) as
+      | { completed?: unknown; total?: unknown; currentCriterion?: unknown }
+      | null;
+    if (!raw) return;
+    const completed = typeof raw.completed === 'number' ? raw.completed : null;
+    const total = typeof raw.total === 'number' ? raw.total : null;
+    const currentCriterion =
+      typeof raw.currentCriterion === 'string' ? raw.currentCriterion : null;
+    if (completed !== null && total !== null && total > 0) {
+      setProgress({ completed, total, currentCriterion });
+    }
+  });
 
   const handleCancel = async () => {
     setCancelling(true);
@@ -38,6 +51,11 @@ export default function AuditDetail({ auditId, auditUrl, status, auditData }: Pr
   };
 
   if (isRunning) {
+    const pct =
+      progress && progress.total > 0
+        ? Math.round((progress.completed / progress.total) * 100)
+        : null;
+
     return (
       <div className="flex flex-col items-center justify-center py-24 text-center">
         <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-indigo-600 mb-6"></div>
@@ -51,6 +69,17 @@ export default function AuditDetail({ auditId, auditUrl, status, auditData }: Pr
             We will notify you when results are ready.
           </strong>
         </p>
+        {pct !== null && (
+          <div className="mb-4 text-sm text-slate-600">
+            <span className="font-semibold">{pct}%</span>{' '}
+            {progress && (
+              <span>
+                ({progress.completed} / {progress.total}
+                {progress.currentCriterion ? ` · RGAA ${progress.currentCriterion}` : ''})
+              </span>
+            )}
+          </div>
+        )}
         <AuditStatusBadge status={status} />
         <button
           onClick={handleCancel}
