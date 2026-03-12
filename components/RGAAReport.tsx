@@ -80,6 +80,29 @@ function CriterionCard({ criterion }: { criterion: CriterionData & { article: st
     return sum + (typeof count === "number" && Number.isFinite(count) ? count : 0);
   }, 0);
 
+  const extractKeyAttributes = (elementHtml: string | undefined | null) => {
+    const html = elementHtml ?? "";
+    if (!html) return [] as { label: string; value: string }[];
+
+    const attrs: { label: string; value: string }[] = [];
+    const read = (attr: string, label: string) => {
+      const match = html.match(new RegExp(`${attr}="([^"]+)"`, "i"));
+      if (match && match[1]) {
+        attrs.push({ label, value: match[1] });
+      }
+    };
+
+    read("title", "title");
+    read("alt", "alt");
+    read("aria-label", "aria-label");
+    read("aria-labelledby", "aria-labelledby");
+    read("role", "role");
+    read("href", "href");
+    read("src", "src");
+
+    return attrs;
+  };
+
   const description = i18n.language === "en" ? criterion.descEn || criterion.desc || "" : criterion.desc || criterion.descEn || "";
 
   return (
@@ -222,6 +245,24 @@ function CriterionCard({ criterion }: { criterion: CriterionData & { article: st
                                   </p>
                                 )}
                               </div>
+
+                              {(() => {
+                                const attrs = extractKeyAttributes(ev.elementHtml);
+                                if (!attrs.length) return null;
+                                return (
+                                  <div className="mt-2 bg-slate-50 border border-slate-200 rounded p-2 text-xs text-slate-700">
+                                    <p className="font-semibold mb-1">Key attributes</p>
+                                    <dl className="space-y-0.5">
+                                      {attrs.map((a) => (
+                                        <div key={`${a.label}-${a.value}`}>
+                                          <dt className="text-slate-500 mr-1">{a.label}:</dt>
+                                          <dd className="font-mono break-all">{a.value}</dd>
+                                        </div>
+                                      ))}
+                                    </dl>
+                                  </div>
+                                );
+                              })()}
 
                               {ev.elementHtml && (
                                 <div className="mt-2">
