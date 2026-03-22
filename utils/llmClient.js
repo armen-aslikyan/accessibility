@@ -60,6 +60,9 @@ async function query(prompt, options = {}) {
 
   const mergedOptions = { ...OLLAMA_OPTIONS, ...ollamaOptions };
 
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 120_000);
+
   try {
     const response = await fetch(OLLAMA_API_URL, {
       method: "POST",
@@ -72,6 +75,7 @@ async function query(prompt, options = {}) {
         stream: stream,
         options: mergedOptions,
       }),
+      signal: controller.signal,
     });
 
     if (!response.ok) {
@@ -79,7 +83,6 @@ async function query(prompt, options = {}) {
     }
 
     if (stream) {
-      // Handle streaming response
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
       let fullResponse = "";
@@ -105,7 +108,6 @@ async function query(prompt, options = {}) {
 
       return fullResponse;
     } else {
-      // Handle non-streaming response
       const data = await response.json();
       return data.response || "";
     }
@@ -114,6 +116,8 @@ async function query(prompt, options = {}) {
       throw new Error("Ollama server is not running. Please start it with: ollama serve");
     }
     throw error;
+  } finally {
+    clearTimeout(timeoutId);
   }
 }
 
@@ -526,7 +530,7 @@ HTML:
 ${html}
 
 Reply EXACTLY:
-ASSESSMENT: COMPLIANT|NON_COMPLIANT
+ASSESSMENT: COMPLIANT|NON_COMPLIANT|NOT_APPLICABLE
 CONFIDENCE: 0-100
 REASONING: one paragraph
 ISSUES: bullet list or None
@@ -549,9 +553,9 @@ function parseStatusResponse(response, criterion) {
 
   try {
     // Extract ASSESSMENT (the AI's best guess)
-    const assessmentMatch = response.match(/ASSESSMENT:\s*(COMPLIANT|NON_COMPLIANT)/i);
+    const assessmentMatch = response.match(/ASSESSMENT:\s*(COMPLIANT|NON_COMPLIANT|NOT_APPLICABLE)/i);
     // Also try STATUS for backward compatibility with cached responses
-    const statusMatch = response.match(/STATUS:\s*(COMPLIANT|NON_COMPLIANT|NEEDS_REVIEW)/i);
+    const statusMatch = response.match(/STATUS:\s*(COMPLIANT|NON_COMPLIANT|NEEDS_REVIEW|NOT_APPLICABLE)/i);
 
     const matchedAssessment = assessmentMatch || statusMatch;
     if (matchedAssessment) {
@@ -560,6 +564,8 @@ function parseStatusResponse(response, criterion) {
         result.preliminaryStatus = COMPLIANCE_STATUS.COMPLIANT;
       } else if (assessmentStr === "NON_COMPLIANT") {
         result.preliminaryStatus = COMPLIANCE_STATUS.NON_COMPLIANT;
+      } else if (assessmentStr === "NOT_APPLICABLE") {
+        result.preliminaryStatus = COMPLIANCE_STATUS.NOT_APPLICABLE;
       }
     }
 
@@ -605,20 +611,45 @@ function parseStatusResponse(response, criterion) {
       result.reasoning = response.substring(0, 500);
     }
 
+    // N/A pattern detection: if the LLM picked COMPLIANT but reasoning clearly signals
+    // non-applicability, treat it as NOT_APPLICABLE.
+    if (result.preliminaryStatus === COMPLIANCE_STATUS.COMPLIANT && result.issues.length === 0) {
+      const naPatterns = [
+        /\bno\b.{1,60}\bfound\b/i,
+        /\bnot\s+applicable\b/i,
+        /\bdoes\s+not\s+apply\b/i,
+        /\bno\s+relevant\b/i,
+        /\bno\b.{1,60}\bpresent\b/i,
+        /\bno\b.{1,60}\bdetected\b/i,
+        /\bnone\s+found\b/i,
+        /\babsence\s+of\b/i,
+        /\bno\s+such\s+element/i,
+        /\bcriterion\s+does\s+not\s+apply\b/i,
+      ];
+      if (naPatterns.some((re) => re.test(result.reasoning))) {
+        result.preliminaryStatus = COMPLIANCE_STATUS.NOT_APPLICABLE;
+      }
+    }
+
     // Confidence calibration: adjust based on evidence found
-    // If AI found multiple concrete issues but reported low confidence, boost it
-    if (result.preliminaryStatus === COMPLIANCE_STATUS.NON_COMPLIANT && result.issues.length >= 3) {
+    if (result.preliminaryStatus === COMPLIANCE_STATUS.NOT_APPLICABLE) {
+      // LLM explicitly determined non-applicability — very high confidence
+      result.confidence = Math.max(result.confidence, 95);
+    } else if (result.preliminaryStatus === COMPLIANCE_STATUS.NON_COMPLIANT && result.issues.length >= 3) {
       // 3+ specific issues = strong evidence, minimum 85% confidence
       result.confidence = Math.max(result.confidence, 85);
     } else if (result.preliminaryStatus === COMPLIANCE_STATUS.NON_COMPLIANT && result.issues.length >= 1) {
       // 1-2 specific issues = moderate evidence, minimum 75% confidence
       result.confidence = Math.max(result.confidence, 75);
+    } else if (result.preliminaryStatus === COMPLIANCE_STATUS.COMPLIANT && result.issues.length === 0) {
+      // Clear pass with nothing to flag — boost to avoid spurious NEEDS_REVIEW
+      result.confidence = Math.max(result.confidence, 80);
     }
 
     // Determine final status based on confidence threshold
     if (result.preliminaryStatus) {
-      if (result.confidence >= CONFIDENCE_THRESHOLD) {
-        // High confidence - use the assessment as final status
+      if (result.preliminaryStatus === COMPLIANCE_STATUS.NOT_APPLICABLE || result.confidence >= CONFIDENCE_THRESHOLD) {
+        // NOT_APPLICABLE is always used directly; high confidence uses AI assessment
         result.status = result.preliminaryStatus;
       } else {
         // Low confidence - needs human review, but show what AI thinks
@@ -659,7 +690,7 @@ Evaluate each criterion below. Use the EXACT block format for each.
     const custom = c.prompt ? `\nINSTRUCTIONS: ${c.prompt}` : "";
     return `---CRITERION ${c.article}---
 ${c.desc}${custom}
-ASSESSMENT: COMPLIANT|NON_COMPLIANT
+ASSESSMENT: COMPLIANT|NON_COMPLIANT|NOT_APPLICABLE
 CONFIDENCE: 0-100
 REASONING: one paragraph
 ISSUES: bullet list or None

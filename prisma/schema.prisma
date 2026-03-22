@@ -35,6 +35,7 @@ model Audit {
   discoveredPages  DiscoveredPage[]
   templates        PageTemplate[]
   viewportResults  ViewportResult[]
+  elementFixes     ElementFixSuggestion[]
 }
 
 model CriterionResult {
@@ -127,4 +128,22 @@ model UserPreference {
   sessionId String   @unique
   language  String   @default("en")
   updatedAt DateTime @updatedAt
+}
+
+model ElementFixSuggestion {
+  id             String   @id @default(cuid())
+  auditId        String
+  audit          Audit    @relation(fields: [auditId], references: [id], onDelete: Cascade)
+  article        String
+  ruleId         String?
+  viewport       String
+  url            String
+  selector       String?
+  domPath        String?
+  screenshotPath String?
+  elementHash    String
+  suggestion     String
+  createdAt      DateTime @default(now())
+
+  @@index([auditId, elementHash])
 }

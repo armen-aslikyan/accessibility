@@ -15,9 +15,10 @@ interface Props {
   auditUrl: string;
   status: string;
   auditData: AuditData | null;
+  errorMessage?: string | null;
 }
 
-export default function AuditDetail({ auditId, auditUrl, status, auditData }: Props) {
+export default function AuditDetail({ auditId, auditUrl, status, auditData, errorMessage }: Props) {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<'dashboard' | 'rgaa' | 'statement'>('dashboard');
   const [cancelling, setCancelling] = useState(false);
@@ -98,6 +99,11 @@ export default function AuditDetail({ auditId, auditUrl, status, auditData }: Pr
         <div className="text-red-500 text-6xl mb-4">❌</div>
         <h2 className="text-2xl font-bold text-slate-900 mb-2">Audit Failed</h2>
         <p className="text-slate-500">An error occurred during the audit. Please try again.</p>
+        {errorMessage && (
+          <pre className="mt-4 max-w-2xl text-left text-xs text-red-700 bg-red-50 border border-red-200 rounded-lg p-4 overflow-x-auto whitespace-pre-wrap break-all">
+            {errorMessage}
+          </pre>
+        )}
       </div>
     );
   }

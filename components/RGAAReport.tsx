@@ -208,6 +208,11 @@ function CriterionCard({ criterion }: { criterion: CriterionData & { article: st
                               <div className="flex flex-wrap items-center gap-2 mb-2">
                                 <span className="text-xs font-semibold text-slate-700">Occurrence #{ev.occurrenceIndex ?? evIdx + 1}</span>
                                 <span className={`text-xs px-2 py-0.5 rounded ${statusClass}`}>{statusLabel}</span>
+                                {ev.aiSuggestion && (
+                                  <span className="text-xs px-2 py-0.5 rounded bg-indigo-100 text-indigo-700 font-medium">
+                                    ✦ {t("rgaa.aiSuggestionLabel")}
+                                  </span>
+                                )}
                                 <button
                                   type="button"
                                   onClick={() =>
@@ -221,6 +226,13 @@ function CriterionCard({ criterion }: { criterion: CriterionData & { article: st
                                   {isOpen ? "Hide evidence" : "Show evidence"}
                                 </button>
                               </div>
+
+                              {ev.aiSuggestion && (
+                                <div className="mb-2 bg-indigo-50 px-3 py-2 rounded border border-indigo-200">
+                                  <p className="text-xs font-semibold text-indigo-800 mb-0.5">{t("rgaa.aiSuggestionLabel")}</p>
+                                  <p className="text-sm text-indigo-900 break-words">{ev.aiSuggestion}</p>
+                                </div>
+                              )}
 
                               {isOpen && ev.screenshotUrl && (
                                 <a href={ev.screenshotUrl} target="_blank" rel="noreferrer" className="block mb-2">
@@ -284,6 +296,7 @@ function CriterionCard({ criterion }: { criterion: CriterionData & { article: st
                                   </code>
                                 </div>
                               )}
+
                             </div>
                           );
                         })}

@@ -10,7 +10,9 @@
     "kill-ollama-daemon": "pkill -f ollama || true",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
-    "prisma:studio": "prisma studio"
+    "prisma:studio": "prisma studio",
+    "docker:up": "docker compose up -d postgres",
+    "db:backup": "mkdir -p backups && docker exec -t vivatech-audit-poc-postgres-1 pg_dump -U postgres vivatech_audit > backups/backup_$(date +%Y%m%d_%H%M%S).sql"
   },
   "dependencies": {
     "@axe-core/playwright": "^4.11.0",

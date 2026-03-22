@@ -81,6 +81,7 @@ export default async function AuditPage({
             auditUrl={audit.url}
             status={audit.status}
             auditData={auditData}
+            errorMessage={audit.errorMessage ?? null}
           />
         </main>
       </div>

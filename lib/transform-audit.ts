@@ -39,6 +39,8 @@ export interface RuleEvidence {
   occurrenceStatus?: "compliant" | "non_compliant" | "needs_review";
   occurrenceReason?: string | null;
   occurrenceIndex?: number;
+  aiSuggestion?: string;
+  elementHash?: string | null;
 }
 
 export interface RuleIssue {
@@ -73,6 +75,7 @@ export interface CriterionData extends RGAAEntry {
       }
     >
   >;
+  aiSuggestion?: string | null;
 }
 
 export interface AuditData {
@@ -114,16 +117,28 @@ export function transformAuditForUI(audit: AuditWithCriteria): AuditData {
   const criteria: Record<string, CriterionData> = {};
   for (const result of audit.criteria) {
     const mapping = (rgaaFlatMapping[result.article] ?? {}) as RGAAEntry;
+    const rawIssues = (result.issues as unknown as CriterionData["issues"]) ?? [];
+    let aggregatedAiSuggestion: string | null = null;
+    for (const issue of rawIssues) {
+      if (issue.evidence && issue.evidence.length > 0) {
+        const found = issue.evidence.find((ev) => ev.aiSuggestion && ev.aiSuggestion.trim().length > 0);
+        if (found) {
+          aggregatedAiSuggestion = found.aiSuggestion!;
+          break;
+        }
+      }
+    }
     criteria[result.article] = {
       ...mapping,
       article: result.article,
       status: result.status,
       confidence: result.confidence,
       reasoning: result.reasoning,
-      issues: (result.issues as unknown as CriterionData["issues"]) ?? [],
+      issues: rawIssues,
       recommendations: (result.recommendations as string[]) ?? [],
       testedBy: result.testedBy,
       elementCount: result.elementCount,
+      aiSuggestion: aggregatedAiSuggestion,
     };
   }
 
