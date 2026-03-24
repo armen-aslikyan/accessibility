@@ -23,6 +23,7 @@ const { rgaaFlatMapping } = require("../constants/rgaaMapping.complete.js") as {
 type SiteCriterion = {
   article: string;
   status: string;
+  confidence?: number | null;
   reasoning: string | null;
   issues: CriterionData["issues"] | null;
 };
@@ -110,7 +111,19 @@ export function transformSiteAuditForUI(audit: SiteAuditLike): AuditData {
       };
     }
     const recommendations = mapping.fix ? [mapping.fix] : [];
-    const confidence = finalStatus === "non_compliant" ? 90 : finalStatus === "compliant" ? 85 : finalStatus === "needs_review" ? 60 : 100;
+    // Use the actual stored confidence from the matching viewport result when available.
+    // Fall back to status-based defaults only when no confidence was recorded.
+    const storedConfidence = primary?.confidence;
+    const confidence =
+      storedConfidence != null && storedConfidence > 0
+        ? storedConfidence
+        : finalStatus === "non_compliant"
+          ? 90
+          : finalStatus === "compliant"
+            ? 85
+            : finalStatus === "needs_review"
+              ? 60
+              : 100;
 
     criteria[article] = {
       ...mapping,

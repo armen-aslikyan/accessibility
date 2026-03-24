@@ -22,6 +22,9 @@ async function attachElementFixSuggestions(auditId, viewportName, analysisResult
   if (!llmAvailable) return analysisResults;
 
   for (const result of analysisResults) {
+    // AI-tested criteria already have fix guidance in their LLM reasoning/recommendations.
+    // Only generate element-level suggestions for axe-detected failures.
+    if (result.testedBy !== "axe") continue;
     if (result.status !== "non_compliant" && result.status !== "needs_review") continue;
     const evidences = Array.isArray(result.evidence) ? result.evidence : [];
 
@@ -133,13 +136,15 @@ async function runAudit() {
       }
     };
 
+    const llmModel = llmClient.DEFAULT_MODEL;
+
     const { analysisResults, statistics, rawAxeResults, complianceRate, totalViolations, legalRiskTotal, llmAvailable } = await auditPageAtViewport(
       browser,
       url,
       viewportArg || "desktop",
       {
         concurrency: 1,
-        llmModel: "mistral:7b-instruct-v0.3-q4_K_M",
+        llmModel,
         onProgress,
         onPhaseProgress,
         evidenceRootDir,
@@ -153,7 +158,7 @@ async function runAudit() {
       viewportArg || "desktop",
       analysisResults,
       llmAvailable,
-      "mistral:7b-instruct-v0.3-q4_K_M",
+      llmModel,
     );
 
     for (let i = 0; i < analysisResults.length; i += BATCH_SIZE) {
@@ -179,7 +184,7 @@ async function runAudit() {
         status: "completed",
         completedAt: new Date(),
         llmAvailable,
-        model: "mistral",
+        model: llmModel,
         complianceRate,
         totalViolations,
         legalRiskTotal,

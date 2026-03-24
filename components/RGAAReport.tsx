@@ -73,11 +73,24 @@ function CriterionCard({ criterion }: { criterion: CriterionData & { article: st
   };
 
   const statusInfo = statusConfig[criterion.status as ComplianceStatus] ?? statusConfig[COMPLIANCE_STATUS.NEEDS_REVIEW];
+  const getStatusInfo = (status?: string | null) =>
+    statusConfig[(status as ComplianceStatus) ?? COMPLIANCE_STATUS.NEEDS_REVIEW] ?? statusConfig[COMPLIANCE_STATUS.NEEDS_REVIEW];
+  const getOccurrenceStatus = (evidence: { occurrenceAiStatus?: string | null; occurrenceStatus?: string | null }) =>
+    (evidence.occurrenceAiStatus as ComplianceStatus | null) ||
+    (evidence.occurrenceStatus as ComplianceStatus | null) ||
+    COMPLIANCE_STATUS.NEEDS_REVIEW;
 
   const issuesArray = Array.isArray(criterion.issues) ? criterion.issues : [];
-  const hasVisibleIssues = criterion.status !== COMPLIANCE_STATUS.NOT_APPLICABLE && issuesArray.length > 0;
+  const hasVisibleIssues = issuesArray.length > 0;
   const totalIssueOccurrences = issuesArray.reduce((sum, issue) => {
-    const count = issue.totalOccurrences ?? issue.failedOccurrences ?? issue.needsReviewOccurrences ?? issue.passedOccurrences ?? issue.evidence?.length ?? 0;
+    const count =
+      issue.totalOccurrences ??
+      issue.failedOccurrences ??
+      issue.needsReviewOccurrences ??
+      issue.passedOccurrences ??
+      issue.notApplicableOccurrences ??
+      issue.evidence?.length ??
+      0;
     return sum + (typeof count === "number" && Number.isFinite(count) ? count : 0);
   }, 0);
 
@@ -118,10 +131,16 @@ function CriterionCard({ criterion }: { criterion: CriterionData & { article: st
               </span>
               {criterion.level && <span className="px-2 py-1 bg-indigo-50 text-indigo-700 rounded text-xs font-bold">{criterion.level}</span>}
               {testedByLabel && <span className="px-2 py-1 bg-slate-100 text-slate-600 rounded text-xs">{testedByLabel}</span>}
-              {criterion.confidence !== undefined && criterion.confidence > 0 && (
-                <span className="px-2 py-1 bg-blue-50 text-blue-700 rounded text-xs">
-                  {criterion.confidence}% {t("rgaa.confidence")}
-                </span>
+              {criterion.confidence !== undefined && (
+                criterion.confidence > 0 ? (
+                  <span className="px-2 py-1 bg-blue-50 text-blue-700 rounded text-xs">
+                    {criterion.confidence}% {t("rgaa.confidence")}
+                  </span>
+                ) : criterion.status === COMPLIANCE_STATUS.NEEDS_REVIEW ? (
+                  <span className="px-2 py-1 bg-slate-100 text-slate-500 rounded text-xs italic">
+                    Unable to assess
+                  </span>
+                ) : null
               )}
               {criterion.status === COMPLIANCE_STATUS.NEEDS_REVIEW && criterion.preliminaryStatus && (
                 <span
@@ -161,9 +180,11 @@ function CriterionCard({ criterion }: { criterion: CriterionData & { article: st
               </h4>
               <div className="space-y-3">
                 {issuesArray.map((issue, idx) => (
-                  <div key={idx} className="bg-white p-3 rounded border border-slate-200">
+                  <div key={`${issue.ruleId ?? issue.message ?? "issue"}-${idx}`} className="bg-white p-3 rounded border border-slate-200">
                     <div className="flex flex-wrap items-center gap-2 mb-2">
-                      <p className="text-sm font-semibold text-slate-900">Rule: {issue.message}</p>
+                      {issue.ruleId && !issue.ruleId.startsWith("element-detection-") && !issue.ruleId.startsWith("ai-") && (
+                        <p className="text-sm font-semibold text-slate-900">Rule: {issue.message}</p>
+                      )}
                       {typeof issue.totalOccurrences === "number" || Array.isArray(issue.evidence) ? (
                         <span className="text-xs px-2 py-0.5 rounded bg-slate-100 text-slate-700">
                           Occurrences: {issue.totalOccurrences ?? issue.evidence?.length ?? 0}
@@ -177,6 +198,9 @@ function CriterionCard({ criterion }: { criterion: CriterionData & { article: st
                       )}
                       {(issue.needsReviewOccurrences ?? 0) > 0 && (
                         <span className="text-xs px-2 py-0.5 rounded bg-orange-100 text-orange-700">Review: {issue.needsReviewOccurrences}</span>
+                      )}
+                      {(issue.notApplicableOccurrences ?? 0) > 0 && (
+                        <span className="text-xs px-2 py-0.5 rounded bg-slate-100 text-slate-600">N/A: {issue.notApplicableOccurrences}</span>
                       )}
                     </div>
                     {issue.elements && issue.elements.length > 0 && (
@@ -195,19 +219,18 @@ function CriterionCard({ criterion }: { criterion: CriterionData & { article: st
                         {issue.evidence.map((ev, evIdx) => {
                           const occurrenceKey = `${idx}-${evIdx}`;
                           const isOpen = !!openEvidenceByOccurrence[occurrenceKey];
-                          const statusClass =
-                            ev.occurrenceStatus === "compliant"
-                              ? "bg-emerald-100 text-emerald-700"
-                              : ev.occurrenceStatus === "non_compliant"
-                                ? "bg-red-100 text-red-700"
-                                : "bg-orange-100 text-orange-700";
-                          const statusLabel =
-                            ev.occurrenceStatus === "compliant" ? "Compliant" : ev.occurrenceStatus === "non_compliant" ? "Non-compliant" : "Needs review";
+                          const occurrenceStatus = getOccurrenceStatus(ev);
+                          const occurrenceStatusInfo = getStatusInfo(occurrenceStatus);
                           return (
-                            <div key={`${ev.screenshotUrl ?? "occ"}-${evIdx}`} className="rounded border border-slate-200 p-3 bg-slate-50">
+                            <div key={`${ev.elementHash ?? ev.screenshotUrl ?? "occ"}-${evIdx}`} className="rounded border border-slate-200 p-3 bg-slate-50">
                               <div className="flex flex-wrap items-center gap-2 mb-2">
                                 <span className="text-xs font-semibold text-slate-700">Occurrence #{ev.occurrenceIndex ?? evIdx + 1}</span>
-                                <span className={`text-xs px-2 py-0.5 rounded ${statusClass}`}>{statusLabel}</span>
+                                <span className={`text-xs px-2 py-0.5 rounded ${occurrenceStatusInfo.color}`}>{t(occurrenceStatusInfo.labelKey)}</span>
+                                {ev.occurrenceAiConfidence != null && (
+                                  <span className="text-xs px-2 py-0.5 rounded bg-blue-50 text-blue-700">
+                                    {ev.occurrenceAiConfidence}% confidence
+                                  </span>
+                                )}
                                 {ev.aiSuggestion && (
                                   <span className="text-xs px-2 py-0.5 rounded bg-indigo-100 text-indigo-700 font-medium">
                                     ✦ {t("rgaa.aiSuggestionLabel")}
@@ -256,7 +279,12 @@ function CriterionCard({ criterion }: { criterion: CriterionData & { article: st
                                   <p className="text-slate-700 md:col-span-2 break-all">
                                     <span className="font-semibold">DOM path:</span> {ev.domPath || "n/a"}
                                   </p>
-                                  {ev.occurrenceReason && (
+                                  {ev.occurrenceAiReasoning && (
+                                    <p className="text-slate-700 md:col-span-2 break-words">
+                                      <span className="font-semibold">AI assessment:</span> {ev.occurrenceAiReasoning}
+                                    </p>
+                                  )}
+                                  {ev.occurrenceReason && !ev.occurrenceAiReasoning && (
                                     <p className="text-slate-700 md:col-span-2 break-words">
                                       <span className="font-semibold">Why:</span> {ev.occurrenceReason}
                                     </p>
@@ -288,7 +316,7 @@ function CriterionCard({ criterion }: { criterion: CriterionData & { article: st
                                 );
                               })()}
 
-                              {isOpen && ev.elementHtml && (
+                              {(isOpen || !ev.screenshotUrl) && ev.elementHtml && (
                                 <div className="mt-2">
                                   <p className="text-xs text-slate-500 mb-1">Element code</p>
                                   <code className="block text-xs bg-white p-2 rounded border border-slate-200 overflow-x-auto whitespace-pre-wrap break-all">

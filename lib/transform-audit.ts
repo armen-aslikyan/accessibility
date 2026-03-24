@@ -36,9 +36,12 @@ export interface RuleEvidence {
   elementHtml: string;
   elementSource?: string | null;
   failureSummary?: string | null;
-  occurrenceStatus?: "compliant" | "non_compliant" | "needs_review";
+  occurrenceStatus?: "compliant" | "non_compliant" | "needs_review" | "not_applicable";
   occurrenceReason?: string | null;
   occurrenceIndex?: number;
+  occurrenceAiStatus?: "compliant" | "non_compliant" | "needs_review" | "not_applicable" | null;
+  occurrenceAiConfidence?: number | null;
+  occurrenceAiReasoning?: string | null;
   aiSuggestion?: string;
   elementHash?: string | null;
 }
@@ -54,6 +57,7 @@ export interface RuleIssue {
   passedOccurrences?: number;
   failedOccurrences?: number;
   needsReviewOccurrences?: number;
+  notApplicableOccurrences?: number;
 }
 
 export interface CriterionData extends RGAAEntry {
