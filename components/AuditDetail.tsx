@@ -15,17 +15,39 @@ interface Props {
   auditUrl: string;
   status: string;
   auditData: AuditData | null;
+  errorMessage?: string | null;
 }
 
-export default function AuditDetail({ auditId, auditUrl, status, auditData }: Props) {
+export default function AuditDetail({ auditId, auditUrl, status, auditData, errorMessage }: Props) {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<'dashboard' | 'rgaa' | 'statement'>('dashboard');
   const [cancelling, setCancelling] = useState(false);
+  const [progress, setProgress] = useState<{
+    completed: number;
+    total: number;
+    currentCriterion: string | null;
+    phase: string | null;
+    label: string | null;
+  } | null>(null);
   const router = useRouter();
 
   const isRunning = status === 'pending' || status === 'running';
 
-  useAuditStream(auditId, auditUrl, isRunning);
+  useAuditStream(auditId, auditUrl, isRunning, (data) => {
+    const raw = (data && typeof data === 'object' && 'progress' in data ? (data as any).progress : null) as
+      | { completed?: unknown; total?: unknown; currentCriterion?: unknown; phase?: unknown; label?: unknown }
+      | null;
+    if (!raw) return;
+    const completed = typeof raw.completed === 'number' ? raw.completed : null;
+    const total = typeof raw.total === 'number' ? raw.total : null;
+    const currentCriterion =
+      typeof raw.currentCriterion === 'string' ? raw.currentCriterion : null;
+    const phase = typeof raw.phase === 'string' ? raw.phase : null;
+    const label = typeof raw.label === 'string' ? raw.label : null;
+    if (completed !== null && total !== null && total > 0) {
+      setProgress({ completed, total, currentCriterion, phase, label });
+    }
+  });
 
   const handleCancel = async () => {
     setCancelling(true);
@@ -38,6 +60,11 @@ export default function AuditDetail({ auditId, auditUrl, status, auditData }: Pr
   };
 
   if (isRunning) {
+    const pct =
+      progress && progress.total > 0
+        ? Math.round((progress.completed / progress.total) * 100)
+        : null;
+
     return (
       <div className="flex flex-col items-center justify-center py-24 text-center">
         <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-indigo-600 mb-6"></div>
@@ -51,6 +78,18 @@ export default function AuditDetail({ auditId, auditUrl, status, auditData }: Pr
             We will notify you when results are ready.
           </strong>
         </p>
+        {pct !== null && (
+          <div className="mb-4 text-sm text-slate-600">
+            <span className="font-semibold">{pct}%</span>{' '}
+            {progress && (
+              <span>
+                ({progress.completed} / {progress.total}
+                {progress.currentCriterion ? ` · RGAA ${progress.currentCriterion}` : ''})
+              </span>
+            )}
+            {progress?.label ? <div className="mt-1 text-slate-500">{progress.label}</div> : null}
+          </div>
+        )}
         <AuditStatusBadge status={status} />
         <button
           onClick={handleCancel}
@@ -69,6 +108,11 @@ export default function AuditDetail({ auditId, auditUrl, status, auditData }: Pr
         <div className="text-red-500 text-6xl mb-4">❌</div>
         <h2 className="text-2xl font-bold text-slate-900 mb-2">Audit Failed</h2>
         <p className="text-slate-500">An error occurred during the audit. Please try again.</p>
+        {errorMessage && (
+          <pre className="mt-4 max-w-2xl text-left text-xs text-red-700 bg-red-50 border border-red-200 rounded-lg p-4 overflow-x-auto whitespace-pre-wrap break-all">
+            {errorMessage}
+          </pre>
+        )}
       </div>
     );
   }

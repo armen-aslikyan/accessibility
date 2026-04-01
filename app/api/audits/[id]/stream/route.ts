@@ -143,10 +143,48 @@ export async function GET(
               }
             }
           } else {
-            if (audit.status !== lastStatus) {
+            const stats = audit.statistics && typeof audit.statistics === 'object' ? (audit.statistics as Record<string, unknown>) : null;
+            const quick = stats && 'quickProgress' in stats ? (stats.quickProgress as Record<string, unknown>) : null;
+            const quickCompleted =
+              quick && typeof quick.completed === 'number'
+                ? (quick.completed as number)
+                : null;
+            const quickTotal =
+              quick && typeof quick.total === 'number'
+                ? (quick.total as number)
+                : null;
+            const quickCurrentCriterion =
+              quick && typeof quick.currentCriterion === 'string'
+                ? (quick.currentCriterion as string)
+                : null;
+            const quickPhase =
+              quick && typeof quick.phase === 'string'
+                ? (quick.phase as string)
+                : null;
+            const quickLabel =
+              quick && typeof quick.label === 'string'
+                ? (quick.label as string)
+                : null;
+
+            const pagePhaseKey = `${audit.status}|${quickCompleted ?? ''}|${quickTotal ?? ''}|${quickCurrentCriterion ?? ''}|${quickPhase ?? ''}|${quickLabel ?? ''}`;
+            if (pagePhaseKey !== lastPhaseKey) {
+              lastPhaseKey = pagePhaseKey;
               lastStatus = audit.status;
               staleCount = 0;
-              send(controller, { status: audit.status, errorMessage: audit.errorMessage ?? null });
+              send(controller, {
+                status: audit.status,
+                errorMessage: audit.errorMessage ?? null,
+                progress:
+                  quickCompleted !== null && quickTotal !== null
+                    ? {
+                        completed: quickCompleted,
+                        total: quickTotal,
+                        currentCriterion: quickCurrentCriterion,
+                        phase: quickPhase,
+                        label: quickLabel,
+                      }
+                    : null,
+              });
             } else if (!terminal) {
               if (audit.status === 'running') {
                 // Single-page audits can run longer than the stale window while criteria are processed.

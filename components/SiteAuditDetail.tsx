@@ -196,12 +196,35 @@ export default function SiteAuditDetail({ auditId, initialData }: Props) {
       (phaseEvent?.totalTemplatesToAudit && phaseEvent.totalTemplatesToAudit > 0)
       ? phaseEvent.totalTemplatesToAudit
       : (phaseEvent?.total ?? 0);
+    const viewportStep = phaseEvent?.viewportStep ?? null;
+    const totalViewportSteps = phaseEvent?.totalViewportSteps ?? null;
+    const overallPct =
+      totalViewportSteps && totalViewportSteps > 0 && viewportStep && viewportStep > 0
+        ? Math.round((viewportStep / totalViewportSteps) * 100)
+        : templatesTotal > 0 && templatesDone >= 0
+          ? Math.round((templatesDone / templatesTotal) * 100)
+          : null;
 
     return (
       <div className="max-w-lg mx-auto py-16 text-center">
         <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-indigo-600 mx-auto mb-8" />
         <h2 className="text-2xl font-bold text-slate-900 mb-2">{t('siteAudit.inProgressTitle')}</h2>
         <p className="text-slate-500 mb-8 font-mono text-sm">{data.url}</p>
+
+        {overallPct !== null && (
+          <div className="mb-6">
+            <p className="text-sm text-slate-600 mb-1">{t('siteAudit.overallProgressLabel')}</p>
+            <div className="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
+              <div
+                className="h-2 bg-indigo-600 transition-all"
+                style={{ width: `${Math.min(100, Math.max(0, overallPct))}%` }}
+              />
+            </div>
+            <p className="mt-2 text-sm text-slate-700 font-semibold">
+              {overallPct}%{/* keep simple numeric display */}
+            </p>
+          </div>
+        )}
 
         <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 text-left space-y-4">
           {phases.map((phase, idx) => (

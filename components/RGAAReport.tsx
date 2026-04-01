@@ -34,11 +34,7 @@ function StatBadge({ label, value, color, icon }: { label: string; value: number
 function CriterionCard({ criterion }: { criterion: CriterionData & { article: string; preliminaryStatus?: string } }) {
   const { t, i18n } = useTranslation();
   const [expanded, setExpanded] = useState(false);
-  const evidenceItems = (criterion.issues ?? []).flatMap((issue) => issue.evidence ?? []);
-  const uniqueEvidence = evidenceItems.filter((item, index, arr) => {
-    const key = `${item.screenshotUrl}::${item.highlightIndex}::${item.selector}`;
-    return arr.findIndex((x) => `${x.screenshotUrl}::${x.highlightIndex}::${x.selector}` === key) === index;
-  });
+  const [openEvidenceByOccurrence, setOpenEvidenceByOccurrence] = useState<Record<string, boolean>>({});
   const testedByLabel = (() => {
     const map: Record<string, string> = {
       axe_core: t("rgaa.testedBy.axeCore"),
@@ -77,6 +73,64 @@ function CriterionCard({ criterion }: { criterion: CriterionData & { article: st
   };
 
   const statusInfo = statusConfig[criterion.status as ComplianceStatus] ?? statusConfig[COMPLIANCE_STATUS.NEEDS_REVIEW];
+  const getStatusInfo = (status?: string | null) =>
+    statusConfig[(status as ComplianceStatus) ?? COMPLIANCE_STATUS.NEEDS_REVIEW] ?? statusConfig[COMPLIANCE_STATUS.NEEDS_REVIEW];
+  const getOccurrenceStatus = (evidence: { occurrenceAiStatus?: string | null; occurrenceStatus?: string | null }) =>
+    (evidence.occurrenceAiStatus as ComplianceStatus | null) ||
+    (evidence.occurrenceStatus as ComplianceStatus | null) ||
+    COMPLIANCE_STATUS.NEEDS_REVIEW;
+
+  const issuesArray = Array.isArray(criterion.issues) ? criterion.issues : [];
+  const hasOccurrenceData = (issue: {
+    totalOccurrences?: number;
+    passedOccurrences?: number;
+    failedOccurrences?: number;
+    needsReviewOccurrences?: number;
+    notApplicableOccurrences?: number;
+    evidence?: unknown[];
+  }) =>
+    (issue.totalOccurrences ?? 0) > 0 ||
+    (issue.passedOccurrences ?? 0) > 0 ||
+    (issue.failedOccurrences ?? 0) > 0 ||
+    (issue.needsReviewOccurrences ?? 0) > 0 ||
+    (issue.notApplicableOccurrences ?? 0) > 0 ||
+    (issue.evidence?.length ?? 0) > 0;
+  const visibleIssues = issuesArray.filter(hasOccurrenceData);
+  const hasVisibleIssues = visibleIssues.length > 0;
+  const totalIssueOccurrences = visibleIssues.reduce((sum, issue) => {
+    const count =
+      issue.totalOccurrences ??
+      issue.failedOccurrences ??
+      issue.needsReviewOccurrences ??
+      issue.passedOccurrences ??
+      issue.notApplicableOccurrences ??
+      issue.evidence?.length ??
+      0;
+    return sum + (typeof count === "number" && Number.isFinite(count) ? count : 0);
+  }, 0);
+
+  const extractKeyAttributes = (elementHtml: string | undefined | null) => {
+    const html = elementHtml ?? "";
+    if (!html) return [] as { label: string; value: string }[];
+
+    const attrs: { label: string; value: string }[] = [];
+    const read = (attr: string, label: string) => {
+      const match = html.match(new RegExp(`${attr}="([^"]+)"`, "i"));
+      if (match && match[1]) {
+        attrs.push({ label, value: match[1] });
+      }
+    };
+
+    read("title", "title");
+    read("alt", "alt");
+    read("aria-label", "aria-label");
+    read("aria-labelledby", "aria-labelledby");
+    read("role", "role");
+    read("href", "href");
+    read("src", "src");
+
+    return attrs;
+  };
 
   const description = i18n.language === "en" ? criterion.descEn || criterion.desc || "" : criterion.desc || criterion.descEn || "";
 
@@ -92,10 +146,16 @@ function CriterionCard({ criterion }: { criterion: CriterionData & { article: st
               </span>
               {criterion.level && <span className="px-2 py-1 bg-indigo-50 text-indigo-700 rounded text-xs font-bold">{criterion.level}</span>}
               {testedByLabel && <span className="px-2 py-1 bg-slate-100 text-slate-600 rounded text-xs">{testedByLabel}</span>}
-              {criterion.confidence !== undefined && criterion.confidence > 0 && (
-                <span className="px-2 py-1 bg-blue-50 text-blue-700 rounded text-xs">
-                  {criterion.confidence}% {t("rgaa.confidence")}
-                </span>
+              {criterion.confidence !== undefined && (
+                criterion.confidence > 0 ? (
+                  <span className="px-2 py-1 bg-blue-50 text-blue-700 rounded text-xs">
+                    {criterion.confidence}% {t("rgaa.confidence")}
+                  </span>
+                ) : criterion.status === COMPLIANCE_STATUS.NEEDS_REVIEW ? (
+                  <span className="px-2 py-1 bg-slate-100 text-slate-500 rounded text-xs italic">
+                    Unable to assess
+                  </span>
+                ) : null
               )}
               {criterion.status === COMPLIANCE_STATUS.NEEDS_REVIEW && criterion.preliminaryStatus && (
                 <span
@@ -128,72 +188,149 @@ function CriterionCard({ criterion }: { criterion: CriterionData & { article: st
             </div>
           )}
 
-          {criterion.issues && criterion.issues.length > 0 && (
+          {hasVisibleIssues && (
             <div>
               <h4 className="font-bold text-slate-900 mb-2">
-                {t("rgaa.issuesDetected")} ({criterion.issues.length})
+                {t("rgaa.issuesDetected")} ({totalIssueOccurrences || visibleIssues.length})
               </h4>
-              <div className="space-y-2">
-                {criterion.issues.map((issue, idx) => (
-                  <div key={idx} className="bg-white p-3 rounded border border-red-200">
-                    <p className="text-sm font-medium text-slate-900">{issue.message}</p>
-                    {issue.elements && issue.elements.length > 0 && (
-                      <div className="mt-2">
-                        <p className="text-xs text-slate-500 mb-1">{t("rgaa.affectedElements")}:</p>
-                        {issue.elements.slice(0, 3).map((el, i) => (
-                          <code key={i} className="block text-xs bg-slate-100 p-2 rounded mt-1 overflow-x-auto">
-                            {el}
-                          </code>
-                        ))}
-                        {issue.elements.length > 3 && <p className="text-xs text-slate-500 mt-1">+{issue.elements.length - 3} more...</p>}
+              <div className="space-y-3">
+                {visibleIssues.map((issue, idx) => (
+                  <div key={`${issue.ruleId ?? issue.message ?? "issue"}-${idx}`} className="bg-white p-3 rounded border border-slate-200">
+                    <div className="flex flex-wrap items-center gap-2 mb-2">
+                      {typeof issue.totalOccurrences === "number" || Array.isArray(issue.evidence) ? (
+                        <span className="text-xs px-2 py-0.5 rounded bg-slate-100 text-slate-700">
+                          Occurrences: {issue.totalOccurrences ?? issue.evidence?.length ?? 0}
+                        </span>
+                      ) : null}
+                      {(issue.passedOccurrences ?? 0) > 0 && (
+                        <span className="text-xs px-2 py-0.5 rounded bg-emerald-100 text-emerald-700">Passed: {issue.passedOccurrences}</span>
+                      )}
+                      {(issue.failedOccurrences ?? 0) > 0 && (
+                        <span className="text-xs px-2 py-0.5 rounded bg-red-100 text-red-700">Failed: {issue.failedOccurrences}</span>
+                      )}
+                      {(issue.needsReviewOccurrences ?? 0) > 0 && (
+                        <span className="text-xs px-2 py-0.5 rounded bg-orange-100 text-orange-700">Review: {issue.needsReviewOccurrences}</span>
+                      )}
+                      {(issue.notApplicableOccurrences ?? 0) > 0 && (
+                        <span className="text-xs px-2 py-0.5 rounded bg-slate-100 text-slate-600">N/A: {issue.notApplicableOccurrences}</span>
+                      )}
+                    </div>
+                    {issue.evidence && issue.evidence.length > 0 && (
+                      <div className="space-y-3">
+                        {issue.evidence.map((ev, evIdx) => {
+                          const occurrenceKey = `${idx}-${evIdx}`;
+                          const isOpen = !!openEvidenceByOccurrence[occurrenceKey];
+                          const occurrenceStatus = getOccurrenceStatus(ev);
+                          const occurrenceStatusInfo = getStatusInfo(occurrenceStatus);
+                          return (
+                            <div key={`${ev.elementHash ?? ev.screenshotUrl ?? "occ"}-${evIdx}`} className="rounded border border-slate-200 p-3 bg-slate-50">
+                              <div className="flex flex-wrap items-center gap-2 mb-2">
+                                <span className="text-xs font-semibold text-slate-700">Occurrence #{ev.occurrenceIndex ?? evIdx + 1}</span>
+                                <span className={`text-xs px-2 py-0.5 rounded ${occurrenceStatusInfo.color}`}>{t(occurrenceStatusInfo.labelKey)}</span>
+                                {ev.occurrenceAiConfidence != null && (
+                                  <span className="text-xs px-2 py-0.5 rounded bg-blue-50 text-blue-700">
+                                    {ev.occurrenceAiConfidence}% confidence
+                                  </span>
+                                )}
+                                {ev.aiSuggestion && (
+                                  <span className="text-xs px-2 py-0.5 rounded bg-indigo-100 text-indigo-700 font-medium">
+                                    ✦ {t("rgaa.aiSuggestionLabel")}
+                                  </span>
+                                )}
+                                <button
+                                  type="button"
+                                  onClick={() =>
+                                    setOpenEvidenceByOccurrence((prev) => ({
+                                      ...prev,
+                                      [occurrenceKey]: !prev[occurrenceKey],
+                                    }))
+                                  }
+                                  className="ml-auto text-xs px-2.5 py-1 rounded border border-slate-300 text-slate-700 hover:bg-slate-100"
+                                >
+                                  {isOpen ? "Hide evidence" : "Show evidence"}
+                                </button>
+                              </div>
+
+                              {ev.aiSuggestion && (
+                                <div className="mb-2 bg-indigo-50 px-3 py-2 rounded border border-indigo-200">
+                                  <p className="text-xs font-semibold text-indigo-800 mb-0.5">{t("rgaa.aiSuggestionLabel")}</p>
+                                  <p className="text-sm text-indigo-900 break-words">{ev.aiSuggestion}</p>
+                                </div>
+                              )}
+
+                              {isOpen && ev.screenshotUrl && (
+                                <a href={ev.screenshotUrl} target="_blank" rel="noreferrer" className="block mb-2">
+                                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                                  <img
+                                    src={ev.screenshotUrl}
+                                    alt={`Occurrence ${ev.occurrenceIndex ?? evIdx + 1}`}
+                                    className="w-full max-h-80 object-contain rounded border border-slate-200 bg-white"
+                                  />
+                                </a>
+                              )}
+
+                              {isOpen && (
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-1.5 text-xs">
+                                  <p className="text-slate-700">
+                                    <span className="font-semibold">Viewport:</span> {ev.viewport}
+                                  </p>
+                                  <p className="text-slate-700">
+                                    <span className="font-semibold">Selector:</span> {ev.selector || "n/a"}
+                                  </p>
+                                  <p className="text-slate-700 md:col-span-2 break-all">
+                                    <span className="font-semibold">DOM path:</span> {ev.domPath || "n/a"}
+                                  </p>
+                                  {ev.occurrenceAiReasoning && (
+                                    <p className="text-slate-700 md:col-span-2 break-words">
+                                      <span className="font-semibold">AI assessment:</span> {ev.occurrenceAiReasoning}
+                                    </p>
+                                  )}
+                                  {ev.occurrenceReason && !ev.occurrenceAiReasoning && (
+                                    <p className="text-slate-700 md:col-span-2 break-words">
+                                      <span className="font-semibold">Why:</span> {ev.occurrenceReason}
+                                    </p>
+                                  )}
+                                  {ev.screenshotPath && (
+                                    <p className="text-slate-700 md:col-span-2 break-all">
+                                      <span className="font-semibold">Screenshot path:</span> {ev.screenshotPath}
+                                    </p>
+                                  )}
+                                </div>
+                              )}
+
+                              {isOpen &&
+                                (() => {
+                                const attrs = extractKeyAttributes(ev.elementHtml);
+                                if (!attrs.length) return null;
+                                return (
+                                  <div className="mt-2 bg-slate-50 border border-slate-200 rounded p-2 text-xs text-slate-700">
+                                    <p className="font-semibold mb-1">Key attributes</p>
+                                    <dl className="space-y-0.5">
+                                      {attrs.map((a) => (
+                                        <div key={`${a.label}-${a.value}`}>
+                                          <dt className="text-slate-500 mr-1">{a.label}:</dt>
+                                          <dd className="font-mono break-all">{a.value}</dd>
+                                        </div>
+                                      ))}
+                                    </dl>
+                                  </div>
+                                );
+                              })()}
+
+                              {(isOpen || !ev.screenshotUrl) && ev.elementHtml && (
+                                <div className="mt-2">
+                                  <p className="text-xs text-slate-500 mb-1">Element code</p>
+                                  <code className="block text-xs bg-white p-2 rounded border border-slate-200 overflow-x-auto whitespace-pre-wrap break-all">
+                                    {ev.elementHtml}
+                                  </code>
+                                </div>
+                              )}
+
+                            </div>
+                          );
+                        })}
                       </div>
                     )}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {uniqueEvidence.length > 0 && (
-            <div>
-              <h4 className="font-bold text-slate-900 mb-2">Visual evidence ({uniqueEvidence.length})</h4>
-              <div className="space-y-4">
-                {uniqueEvidence.map((ev, idx) => (
-                  <div key={`${ev.screenshotUrl}-${ev.highlightIndex}-${idx}`} className="bg-white p-4 rounded border border-slate-200 space-y-3">
-                    <a href={ev.screenshotUrl} target="_blank" rel="noreferrer" className="block">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={ev.screenshotUrl}
-                        alt={`Violation evidence ${idx + 1}`}
-                        className="w-full max-h-80 object-contain rounded border border-slate-200 bg-slate-50"
-                      />
-                    </a>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
-                      <p className="text-slate-700">
-                        <span className="font-semibold">Highlight:</span> #{ev.highlightIndex}
-                      </p>
-                      <p className="text-slate-700">
-                        <span className="font-semibold">Viewport:</span> {ev.viewport}
-                      </p>
-                      <p className="text-slate-700 md:col-span-2 break-all">
-                        <span className="font-semibold">Selector:</span> {ev.selector}
-                      </p>
-                      <p className="text-slate-700 md:col-span-2 break-all">
-                        <span className="font-semibold">DOM path:</span> {ev.domPath}
-                      </p>
-                      {ev.elementSource && (
-                        <p className="text-slate-700 md:col-span-2 break-all">
-                          <span className="font-semibold">Element source:</span> {ev.elementSource}
-                        </p>
-                      )}
-                      <p className="text-slate-700 md:col-span-2 break-all">
-                        <span className="font-semibold">Screenshot path:</span> {ev.screenshotPath}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-xs text-slate-500 mb-1">Element code</p>
-                      <code className="block text-xs bg-slate-100 p-2 rounded overflow-x-auto whitespace-pre-wrap break-all">{ev.elementHtml}</code>
-                    </div>
                   </div>
                 ))}
               </div>
@@ -219,31 +356,6 @@ function CriterionCard({ criterion }: { criterion: CriterionData & { article: st
               <div className="bg-emerald-50 p-4 rounded border border-emerald-200">
                 <p className="text-sm text-emerald-800">{criterion.fix}</p>
               </div>
-            </div>
-          )}
-
-          {criterion.risk && (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="bg-white p-3 rounded border border-slate-200">
-                <p className="text-xs text-slate-500 mb-1">{t("rgaa.riskLevel")}</p>
-                <p
-                  className={`font-bold ${criterion.risk === "Critical" ? "text-red-600" : criterion.risk === "High" ? "text-orange-600" : "text-yellow-600"}`}
-                >
-                  {criterion.risk}
-                </p>
-              </div>
-              {criterion.financial && (
-                <div className="bg-white p-3 rounded border border-slate-200">
-                  <p className="text-xs text-slate-500 mb-1">{t("rgaa.financialImpact")}</p>
-                  <p className="text-sm text-slate-700">{criterion.financial}</p>
-                </div>
-              )}
-              {criterion.brand && (
-                <div className="bg-white p-3 rounded border border-slate-200">
-                  <p className="text-xs text-slate-500 mb-1">{t("rgaa.brandImpact")}</p>
-                  <p className="text-sm text-slate-700">{criterion.brand}</p>
-                </div>
-              )}
             </div>
           )}
         </div>
