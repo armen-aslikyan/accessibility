@@ -227,6 +227,7 @@ function parseStatusResponse(response, criterion) {
     reasoning: "",
     issues: [],
     recommendations: [],
+    parseError: null,
   };
 
   try {
@@ -282,8 +283,13 @@ function parseStatusResponse(response, criterion) {
       }
     }
 
+    const responsePreview = response.substring(0, 500);
+    const looksLikePromptEcho =
+      /ASSESSMENT:\s*COMPLIANT\|NON_COMPLIANT\|NOT_APPLICABLE/i.test(response) ||
+      /---\s*CRITERION\s+\d+\.\d+\s*---[\s\S]*?Criterion:/i.test(responsePreview);
+
     if (!result.reasoning) {
-      result.reasoning = response.substring(0, 500);
+      result.reasoning = looksLikePromptEcho ? "AI response could not be parsed into a usable assessment." : responsePreview;
     }
 
     // N/A pattern detection: if the LLM said COMPLIANT but reasoning clearly signals
@@ -311,10 +317,14 @@ function parseStatusResponse(response, criterion) {
       // applyConfidencePolicy sets floors so the number is always meaningful.
       result.confidence = applyConfidencePolicy(result.preliminaryStatus, parsedConfidence, hadExplicitConfidence, result.issues.length);
       result.status = result.preliminaryStatus;
+    } else if (looksLikePromptEcho) {
+      result.parseError = "prompt_echo";
+      result.reasoning = "AI response could not be parsed into a usable assessment.";
     }
     // If no assessment was found: status stays needs_review, confidence stays 0 (signals "could not parse").
   } catch (error) {
     result.reasoning = response.substring(0, 500);
+    result.parseError = error?.message || "parse_error";
   }
 
   return result;
@@ -405,6 +415,12 @@ function parseBatchResponse(response, criteria) {
   return results;
 }
 
+function needsIndividualRetry(parsed) {
+  if (!parsed) return true;
+  if (parsed.reasoning === "Criterion block not found in batch response.") return true;
+  return !parsed.preliminaryStatus && parsed.parseError === "prompt_echo";
+}
+
 /**
  * Evaluate a group of criteria (same theme, all needing LLM) in a single LLM call.
  * Falls back to individual calls if the batch call fails.
@@ -463,14 +479,21 @@ async function analyzeThemeBatch(criteria, pageContext, sharedHtml) {
 
     // For any criterion whose block was not found in the batch response, retry individually.
     // This covers truncated responses and format-drift cases.
-    const retryNeeded = batch.filter(
-      (c) => parsedMap.get(c.article)?.reasoning === "Criterion block not found in batch response.",
-    );
+    const retryNeeded = batch.filter((c) => needsIndividualRetry(parsedMap.get(c.article)));
     for (const criterion of retryNeeded) {
       const singlePrompt = buildStatusPrompt(criterion, url, sharedHtml, -1);
       try {
         const singleResp = await query(singlePrompt, { model });
-        parsedMap.set(criterion.article, parseStatusResponse(singleResp, criterion));
+        const reparsed = parseStatusResponse(singleResp, criterion);
+        parsedMap.set(
+          criterion.article,
+          !reparsed.preliminaryStatus && reparsed.parseError === "prompt_echo"
+            ? {
+                ...reparsed,
+                reasoning: "AI response could not be parsed into a usable assessment.",
+              }
+            : reparsed,
+        );
       } catch {
         // Keep the "block not found" fallback; no worse than before
       }

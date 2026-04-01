@@ -157,8 +157,18 @@ export async function GET(
               quick && typeof quick.currentCriterion === 'string'
                 ? (quick.currentCriterion as string)
                 : null;
+            const quickPhase =
+              quick && typeof quick.phase === 'string'
+                ? (quick.phase as string)
+                : null;
+            const quickLabel =
+              quick && typeof quick.label === 'string'
+                ? (quick.label as string)
+                : null;
 
-            if (audit.status !== lastStatus || quickCompleted !== null || quickTotal !== null || quickCurrentCriterion !== null) {
+            const pagePhaseKey = `${audit.status}|${quickCompleted ?? ''}|${quickTotal ?? ''}|${quickCurrentCriterion ?? ''}|${quickPhase ?? ''}|${quickLabel ?? ''}`;
+            if (pagePhaseKey !== lastPhaseKey) {
+              lastPhaseKey = pagePhaseKey;
               lastStatus = audit.status;
               staleCount = 0;
               send(controller, {
@@ -170,6 +180,8 @@ export async function GET(
                         completed: quickCompleted,
                         total: quickTotal,
                         currentCriterion: quickCurrentCriterion,
+                        phase: quickPhase,
+                        label: quickLabel,
                       }
                     : null,
               });

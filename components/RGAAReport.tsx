@@ -81,8 +81,23 @@ function CriterionCard({ criterion }: { criterion: CriterionData & { article: st
     COMPLIANCE_STATUS.NEEDS_REVIEW;
 
   const issuesArray = Array.isArray(criterion.issues) ? criterion.issues : [];
-  const hasVisibleIssues = issuesArray.length > 0;
-  const totalIssueOccurrences = issuesArray.reduce((sum, issue) => {
+  const hasOccurrenceData = (issue: {
+    totalOccurrences?: number;
+    passedOccurrences?: number;
+    failedOccurrences?: number;
+    needsReviewOccurrences?: number;
+    notApplicableOccurrences?: number;
+    evidence?: unknown[];
+  }) =>
+    (issue.totalOccurrences ?? 0) > 0 ||
+    (issue.passedOccurrences ?? 0) > 0 ||
+    (issue.failedOccurrences ?? 0) > 0 ||
+    (issue.needsReviewOccurrences ?? 0) > 0 ||
+    (issue.notApplicableOccurrences ?? 0) > 0 ||
+    (issue.evidence?.length ?? 0) > 0;
+  const visibleIssues = issuesArray.filter(hasOccurrenceData);
+  const hasVisibleIssues = visibleIssues.length > 0;
+  const totalIssueOccurrences = visibleIssues.reduce((sum, issue) => {
     const count =
       issue.totalOccurrences ??
       issue.failedOccurrences ??
@@ -176,15 +191,12 @@ function CriterionCard({ criterion }: { criterion: CriterionData & { article: st
           {hasVisibleIssues && (
             <div>
               <h4 className="font-bold text-slate-900 mb-2">
-                {t("rgaa.issuesDetected")} ({totalIssueOccurrences || issuesArray.length})
+                {t("rgaa.issuesDetected")} ({totalIssueOccurrences || visibleIssues.length})
               </h4>
               <div className="space-y-3">
-                {issuesArray.map((issue, idx) => (
+                {visibleIssues.map((issue, idx) => (
                   <div key={`${issue.ruleId ?? issue.message ?? "issue"}-${idx}`} className="bg-white p-3 rounded border border-slate-200">
                     <div className="flex flex-wrap items-center gap-2 mb-2">
-                      {issue.ruleId && !issue.ruleId.startsWith("element-detection-") && !issue.ruleId.startsWith("ai-") && (
-                        <p className="text-sm font-semibold text-slate-900">Rule: {issue.message}</p>
-                      )}
                       {typeof issue.totalOccurrences === "number" || Array.isArray(issue.evidence) ? (
                         <span className="text-xs px-2 py-0.5 rounded bg-slate-100 text-slate-700">
                           Occurrences: {issue.totalOccurrences ?? issue.evidence?.length ?? 0}
@@ -203,17 +215,6 @@ function CriterionCard({ criterion }: { criterion: CriterionData & { article: st
                         <span className="text-xs px-2 py-0.5 rounded bg-slate-100 text-slate-600">N/A: {issue.notApplicableOccurrences}</span>
                       )}
                     </div>
-                    {issue.elements && issue.elements.length > 0 && (
-                      <div className="mt-2">
-                        <p className="text-xs text-slate-500 mb-1">{t("rgaa.affectedElements")}:</p>
-                        {issue.elements.slice(0, 3).map((el, i) => (
-                          <code key={i} className="block text-xs bg-slate-100 p-2 rounded mt-1 overflow-x-auto">
-                            {el}
-                          </code>
-                        ))}
-                        {issue.elements.length > 3 && <p className="text-xs text-slate-500 mt-1">+{issue.elements.length - 3} more...</p>}
-                      </div>
-                    )}
                     {issue.evidence && issue.evidence.length > 0 && (
                       <div className="space-y-3">
                         {issue.evidence.map((ev, evIdx) => {

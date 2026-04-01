@@ -93,9 +93,22 @@ async function runAudit() {
     console.log(`[run-audit] Starting ${viewportArg || "desktop"} audit for: ${url}`);
 
     browser = await chromium.launch({ headless: true, timeout: 60000 });
+    let quickProgressState = {
+      completed: 0,
+      total: 106,
+      currentCriterion: null,
+      phase: null,
+      label: null,
+    };
 
     const onProgress = async (completed, total, criterion, result, icon) => {
       console.log(`[run-audit] [${completed}/${total}] ${icon} RGAA ${criterion.article}`);
+      quickProgressState = {
+        ...quickProgressState,
+        completed,
+        total,
+        currentCriterion: criterion.article,
+      };
 
       // Persist lightweight progress so the UI can show live status for Quick Checks.
       try {
@@ -103,11 +116,7 @@ async function runAudit() {
           where: { id: auditId },
           data: {
             statistics: {
-              quickProgress: {
-                completed,
-                total,
-                currentCriterion: criterion.article,
-              },
+              quickProgress: quickProgressState,
             },
           },
         });
@@ -123,13 +132,21 @@ async function runAudit() {
       capturing_axe_evidence: "Capturing axe evidence",
       capturing_element_detection_evidence: "Capturing element detection evidence",
       capturing_ai_evidence: "Capturing AI evidence",
+      enriching_results: "Preparing occurrences and suggestions",
+      saving_results: "Saving results",
+      finalizing_audit: "Finalizing audit",
     };
     const onPhaseProgress = async (phase) => {
       console.log(`[run-audit] Phase: ${phaseLabels[phase] || phase}`);
+      quickProgressState = {
+        ...quickProgressState,
+        phase,
+        label: phaseLabels[phase] || phase,
+      };
       try {
         await prisma.audit.update({
           where: { id: auditId },
-          data: { statistics: { quickProgress: { phase, label: phaseLabels[phase] || phase } } },
+          data: { statistics: { quickProgress: quickProgressState } },
         });
       } catch {
         // Non-fatal — progress update failure should not stop the audit.
@@ -153,6 +170,7 @@ async function runAudit() {
       },
     );
 
+    await onPhaseProgress("enriching_results");
     const enrichedResults = await attachElementFixSuggestions(
       auditId,
       viewportArg || "desktop",
@@ -161,6 +179,7 @@ async function runAudit() {
       llmModel,
     );
 
+    await onPhaseProgress("saving_results");
     for (let i = 0; i < analysisResults.length; i += BATCH_SIZE) {
       const batch = enrichedResults.slice(i, i + BATCH_SIZE);
       await prisma.criterionResult.createMany({
@@ -178,6 +197,7 @@ async function runAudit() {
       });
     }
 
+    await onPhaseProgress("finalizing_audit");
     await prisma.audit.update({
       where: { id: auditId },
       data: {

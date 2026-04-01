@@ -22,22 +22,30 @@ export default function AuditDetail({ auditId, auditUrl, status, auditData, erro
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<'dashboard' | 'rgaa' | 'statement'>('dashboard');
   const [cancelling, setCancelling] = useState(false);
-  const [progress, setProgress] = useState<{ completed: number; total: number; currentCriterion: string | null } | null>(null);
+  const [progress, setProgress] = useState<{
+    completed: number;
+    total: number;
+    currentCriterion: string | null;
+    phase: string | null;
+    label: string | null;
+  } | null>(null);
   const router = useRouter();
 
   const isRunning = status === 'pending' || status === 'running';
 
   useAuditStream(auditId, auditUrl, isRunning, (data) => {
     const raw = (data && typeof data === 'object' && 'progress' in data ? (data as any).progress : null) as
-      | { completed?: unknown; total?: unknown; currentCriterion?: unknown }
+      | { completed?: unknown; total?: unknown; currentCriterion?: unknown; phase?: unknown; label?: unknown }
       | null;
     if (!raw) return;
     const completed = typeof raw.completed === 'number' ? raw.completed : null;
     const total = typeof raw.total === 'number' ? raw.total : null;
     const currentCriterion =
       typeof raw.currentCriterion === 'string' ? raw.currentCriterion : null;
+    const phase = typeof raw.phase === 'string' ? raw.phase : null;
+    const label = typeof raw.label === 'string' ? raw.label : null;
     if (completed !== null && total !== null && total > 0) {
-      setProgress({ completed, total, currentCriterion });
+      setProgress({ completed, total, currentCriterion, phase, label });
     }
   });
 
@@ -79,6 +87,7 @@ export default function AuditDetail({ auditId, auditUrl, status, auditData, erro
                 {progress.currentCriterion ? ` · RGAA ${progress.currentCriterion}` : ''})
               </span>
             )}
+            {progress?.label ? <div className="mt-1 text-slate-500">{progress.label}</div> : null}
           </div>
         )}
         <AuditStatusBadge status={status} />
